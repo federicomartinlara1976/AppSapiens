@@ -5,32 +5,29 @@
  */
 package com.sapiens.app.ui;
 
+import com.sapiens.app.ui.menu.MainMenuBar;
+import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
-
-import com.sapiens.app.ui.menu.MainMenuBar;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author federico
  */
-@Slf4j
 public class FramePrincipal extends JFrame {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 8999719833250801451L;
+	private static final long serialVersionUID = -6813614532398369392L;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenuBar menuBar;
+    private JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -38,6 +35,7 @@ public class FramePrincipal extends JFrame {
      */
     public FramePrincipal() {
         initComponents();
+        this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
     }
 
     /**
@@ -48,21 +46,12 @@ public class FramePrincipal extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelPrincipal = new PanelPrincipal();
         menuBar = new MainMenuBar();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(panelPrincipal, BorderLayout.CENTER);
         setJMenuBar(menuBar);
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 558, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,10 +72,15 @@ public class FramePrincipal extends JFrame {
                     break;
                 }
             }
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException ex) {
-            log.error("ERROR:", ex);
-        } 
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
 
         /* Create and display the form */
