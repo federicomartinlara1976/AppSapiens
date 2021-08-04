@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -25,6 +27,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -543,7 +547,120 @@ public class PanelPrincipal extends JPanel {
      * 
      */
     private void initEvents() {
-		// TODO Auto-generated method stub
-		
+        btnLimpiarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventBtnLimpiarTodo(evt);
+            }
+        });
+
+        btnLimpiarValidacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventBtnLimpiarValidacion(evt);
+            }
+        });
+
+        btnLoadScript.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventBtnLoadScript(evt);
+            }
+        });
+
+        btnValidar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventBtnValidar(evt);
+            }
+        });
+
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventBtnSearch(evt);
+            }
+        });
+
+        jComboBox1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                JComboBox comboBox = (JComboBox) event.getSource();
+
+                Object selected = comboBox.getSelectedItem();
+                if(selected.toString().equals("Item 1"))
+                    System.out.println("Click en el primer elemento");
+                else if(selected.toString().equals("Item 2"))
+                    System.out.println("Click en el segundo elemento");
+            }
+        });
+
+        jTabbedPane1.addChangeListener(new ChangeListener() {
+
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Click en la tab numero: "+jTabbedPane1.getSelectedIndex());
+                switch(jTabbedPane1.getSelectedIndex()){
+                    case 0 :
+                        eventTabElementosValidar();
+                        break;
+                    case 1 :
+                        eventTabElementosCorrectos();
+                        break;
+                    case 2 :
+                        eventTabElementosNoGlosario();
+                        break;
+                    case 3 :
+                        eventTabElementosErrores();
+                        break;
+                    case 4 :
+                        eventTabExcepciones();
+                        break;
+                }
+            }
+        });
 	}
+
+    private void eventBtnLimpiarTodo(java.awt.event.MouseEvent evt) {
+        System.out.println("Click boton limpiar todo");
+        jTextArea1.setText(null);
+        jTextField1.setText(null);
+        jTextField2.setText(null);
+        jTextField3.setText(null);
+        jTextField4.setText(null);
+        jTextField5.setText(null);
+        jTextField6.setText(null);
+        jTextField7.setText(null);
+        jTextField8.setText(null);
+        jComboBox1.setModel(new DefaultComboBoxModel<>());
+    }
+
+    private void eventBtnLimpiarValidacion(java.awt.event.MouseEvent evt) {
+        System.out.println("Click boton limpiar validacion");
+    }
+
+    private void eventBtnLoadScript(java.awt.event.MouseEvent evt) {
+        System.out.println("Click boton cargar script");
+    }
+
+    private void eventBtnValidar(java.awt.event.MouseEvent evt) {
+        System.out.println("Click boton validar");
+    }
+
+    private void eventBtnSearch(java.awt.event.MouseEvent evt) {
+        System.out.println("Click boton buscar");
+    }
+
+    private void eventTabElementosValidar(){
+        System.out.println("Click en la tab elementos a validar ");
+    }
+
+    private void eventTabElementosCorrectos(){
+        System.out.println("Click en la tab elementos correctos ");
+    }
+
+    private void eventTabElementosNoGlosario(){
+        System.out.println("Click en la tab elementos que no estan en el glosario ");
+    }
+
+    private void eventTabElementosErrores(){
+        System.out.println("Click en la tab elementos con errores ");
+    }
+
+    private void eventTabExcepciones(){
+        System.out.println("Click en la tab excepciones ");
+    }
 }
