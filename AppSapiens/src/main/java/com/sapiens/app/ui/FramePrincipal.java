@@ -16,6 +16,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.menu.MainMenuBar;
+import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class FramePrincipal extends JFrame {
 	 */
 	public FramePrincipal() {
 		initComponents();
-		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		UIHelper.showMaximized(this);
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class FramePrincipal extends JFrame {
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		panelPrincipal = new PanelPrincipal();
+		panelPrincipal = new PanelPrincipal(this);
 		menuBar = new MainMenuBar();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
