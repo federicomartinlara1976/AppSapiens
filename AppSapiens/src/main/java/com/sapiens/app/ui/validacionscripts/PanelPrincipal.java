@@ -26,10 +26,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  * @author federico
  */
+@Slf4j
 public class PanelPrincipal extends JPanel {
 
     /**
@@ -42,7 +45,7 @@ public class PanelPrincipal extends JPanel {
     private JButton btnLimpiarValidacion;
     private JButton btnLoadScript;
     private JButton btnValidar;
-    private JButton jButton4;
+    private JButton btnSearch;
     private JComboBox<String> jComboBox1;
     private JLabel jLabel1;
     private JLabel jLabel10;
@@ -127,7 +130,7 @@ public class PanelPrincipal extends JPanel {
         jPanel14 = new JPanel();
         jTextField2 = new JTextField();
         jPanel15 = new JPanel();
-        jButton4 = new JButton();
+        btnSearch = new JButton();
         jPanel16 = new JPanel();
         jLabel6 = new JLabel();
         jPanel17 = new JPanel();
@@ -229,8 +232,8 @@ public class PanelPrincipal extends JPanel {
         gridBagConstraints.weightx = 80.0;
         jPanel9.add(jPanel14, gridBagConstraints);
 
-        jButton4.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
-        jPanel15.add(jButton4);
+        btnSearch.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
+        jPanel15.add(btnSearch);
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
