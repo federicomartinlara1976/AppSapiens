@@ -6,31 +6,26 @@
 package com.sapiens.app.ui.validacionscripts;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
-import lombok.extern.slf4j.Slf4j;
+import com.sapiens.app.ui.listener.DlgExcepcionesListener;
+import com.sapiens.app.utils.Constants;
 
 /**
  *
  * @author federico
  */
-@Slf4j
 public class DlgExcepciones extends JDialog {
 
 	/**
@@ -49,9 +44,10 @@ public class DlgExcepciones extends JDialog {
 	/**
 	 * Creates new form DlgExcepciones
 	 */
-	public DlgExcepciones(Frame parent, boolean modal) {
-		super(parent, modal);
+	public DlgExcepciones(Frame frame, boolean modal) {
+		super(frame, modal);
 		initComponents();
+		initEvents();
 	}
 
 	/**
@@ -86,54 +82,23 @@ public class DlgExcepciones extends JDialog {
 
 		btnAceptar.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
 		btnAceptar.setText("Aceptar");
+		btnAceptar.setName(Constants.DLG_EXCEPCIONES_BTN_ACEPTAR);
 		panelBotones.add(btnAceptar);
 
 		btnCancelar.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
 		btnCancelar.setText("Cancelar");
+		btnCancelar.setName(Constants.DLG_EXCEPCIONES_BTN_CANCELAR);
 		panelBotones.add(btnCancelar);
 
 		getContentPane().add(panelBotones, BorderLayout.PAGE_END);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
-
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException ex) {
-			log.error("FATAL:", ex);
-		}
-		// </editor-fold>
-
-		/* Create and display the dialog */
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				DlgExcepciones dialog = new DlgExcepciones(new JFrame(), true);
-				dialog.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent e) {
-						System.exit(0);
-					}
-				});
-				dialog.setVisible(true);
-			}
-		});
+	
+	private void initEvents() {
+		ActionListener actionListener = new DlgExcepcionesListener(this);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 }

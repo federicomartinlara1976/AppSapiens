@@ -12,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.sapiens.app.ui.listener.MenuListener;
+import com.sapiens.app.utils.Constants;
 
 /**
  *
@@ -66,11 +67,11 @@ public class MainMenuBar extends JMenuBar {
         mnuGlosarios.setText("Glosarios");
 
         mnuDefinicionGlosarios.setText("Definición de Glosarios");
-        mnuDefinicionGlosarios.setName("MNU_DEF_GLOSARIOS"); // NOI18N
+        mnuDefinicionGlosarios.setName(Constants.MNU_DEF_GLOSARIOS); // NOI18N
         mnuGlosarios.add(mnuDefinicionGlosarios);
 
         mnuDatosGlosarioCampos.setText("Datos de Glosario Campos");
-        mnuDatosGlosarioCampos.setName("MNU_DATOS_GLOSARIO_CAMPOS"); // NOI18N
+        mnuDatosGlosarioCampos.setName(Constants.MNU_DATOS_GLOSARIO_CAMPOS); // NOI18N
         mnuGlosarios.add(mnuDatosGlosarioCampos);
 
         mnuConfiguracion.add(mnuGlosarios);
@@ -78,27 +79,27 @@ public class MainMenuBar extends JMenuBar {
         mnuNormasNomenclatura.setText("Normas de nomenclatura");
 
         mnuDefinicionNormas.setText("Definición de normas");
-        mnuDefinicionNormas.setName("MNU_DEF_NORMAS"); // NOI18N
+        mnuDefinicionNormas.setName(Constants.MNU_DEF_NORMAS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionNormas);
 
         mnuDefinicionElementos.setText("Definición de elementos");
-        mnuDefinicionElementos.setName("MNU_DEF_ELEMENTOS"); // NOI18N
+        mnuDefinicionElementos.setName(Constants.MNU_DEF_ELEMENTOS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionElementos);
 
         mnuDefinicionElementosNorma.setText("Definición de elementos por Norma");
-        mnuDefinicionElementosNorma.setName("MNU_DEF_ELEMENTOS_NORMA"); // NOI18N
+        mnuDefinicionElementosNorma.setName(Constants.MNU_DEF_ELEMENTOS_NORMA); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionElementosNorma);
 
         mnuDefinicionTiposParticulas.setText("Definición de Tipos de Partículas");
-        mnuDefinicionTiposParticulas.setName("MNU_DEF_TIPOS_PARTICULAS"); // NOI18N
+        mnuDefinicionTiposParticulas.setName(Constants.MNU_DEF_TIPOS_PARTICULAS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionTiposParticulas);
 
         mnuDefinicionParticulasNormaElemento.setText("Definición de Partículas por Norma/Elemento");
-        mnuDefinicionParticulasNormaElemento.setName("MNU_DEF_PARTICULAS_NORMA_ELEMENTO"); // NOI18N
+        mnuDefinicionParticulasNormaElemento.setName(Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionParticulasNormaElemento);
 
         mnuValoresParticulas.setText("Valores de las Partículas");
-        mnuValoresParticulas.setName("MNU_VALORES_PARTICULAS"); // NOI18N
+        mnuValoresParticulas.setName(Constants.MNU_VALORES_PARTICULAS); // NOI18N
         mnuNormasNomenclatura.add(mnuValoresParticulas);
 
         mnuConfiguracion.add(mnuNormasNomenclatura);
@@ -106,13 +107,13 @@ public class MainMenuBar extends JMenuBar {
         mnuConsultas.setText("Consultas");
 
         mnuComprobarNombreElemento.setText("Comprobar un Nombre de Elemento");
-        mnuComprobarNombreElemento.setName("MNU_COMPROBAR_NOMBRE_ELEMENTO"); // NOI18N
+        mnuComprobarNombreElemento.setName(Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO); // NOI18N
         mnuConsultas.add(mnuComprobarNombreElemento);
 
         mnuConfiguracion.add(mnuConsultas);
 
         mnuModelos.setText("Modelos");
-        mnuModelos.setName("MNU_MODELOS"); // NOI18N
+        mnuModelos.setName(Constants.MNU_MODELOS); // NOI18N
         mnuConfiguracion.add(mnuModelos);
 
         add(mnuConfiguracion);
