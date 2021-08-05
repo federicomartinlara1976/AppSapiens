@@ -36,14 +36,15 @@ import javax.swing.event.ChangeListener;
 import org.apache.commons.lang3.StringUtils;
 
 import com.sapiens.app.ui.utils.UIHelper;
+import com.sapiens.app.utils.LogWrapper;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
-@Slf4j
+@Log4j
 public class PanelPrincipal extends JPanel {
 
 	/**
@@ -567,14 +568,14 @@ public class PanelPrincipal extends JPanel {
 		jComboBox1.addItemListener(new ItemListener() {
 		    public void itemStateChanged(ItemEvent event) {
 		    	String item = (String) event.getItem();
-		    	log.debug(item);
+		    	LogWrapper.debug(log, "%s", item);
 		    }
 		});
 
 		jTabbedPane1.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
-				log.debug("Click en la tab numero: {}", jTabbedPane1.getSelectedIndex());
+				LogWrapper.debug(log, "Click en la tab numero: %d", jTabbedPane1.getSelectedIndex());
 				switch (jTabbedPane1.getSelectedIndex()) {
 				case 0:
 					eventTabElementosValidar();

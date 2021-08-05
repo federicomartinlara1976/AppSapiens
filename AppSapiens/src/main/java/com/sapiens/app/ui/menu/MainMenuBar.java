@@ -5,9 +5,13 @@
  */
 package com.sapiens.app.ui.menu;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import com.sapiens.app.ui.listener.MenuListener;
 
 /**
  *
@@ -38,9 +42,10 @@ public class MainMenuBar extends JMenuBar {
     public MainMenuBar() {
         super();
         initialize();
+        initEvents();
     }
 
-    private void initialize() {
+	private void initialize() {
         mnuConfiguracion = new JMenu();
         mnuGlosarios = new JMenu();
         mnuDefinicionGlosarios = new JMenuItem();
@@ -112,4 +117,20 @@ public class MainMenuBar extends JMenuBar {
 
         add(mnuConfiguracion);
     }
+	
+	private void initEvents() {
+		ActionListener actionListener = new MenuListener();
+		
+		mnuDefinicionGlosarios.addActionListener(actionListener);
+		mnuDatosGlosarioCampos.addActionListener(actionListener);
+		mnuDefinicionNormas.addActionListener(actionListener);
+		mnuDefinicionElementos.addActionListener(actionListener);
+		mnuDefinicionElementosNorma.addActionListener(actionListener);
+        mnuDefinicionTiposParticulas.addActionListener(actionListener);
+        mnuDefinicionParticulasNormaElemento.addActionListener(actionListener);
+        mnuValoresParticulas.addActionListener(actionListener);
+        mnuConsultas.addActionListener(actionListener);
+        mnuComprobarNombreElemento.addActionListener(actionListener);
+        mnuModelos.addActionListener(actionListener);
+	}
 }
