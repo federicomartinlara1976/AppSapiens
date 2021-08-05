@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -32,13 +33,16 @@ import javax.swing.event.ChangeListener;
 import com.sapiens.app.ui.listener.PanelPrincipalActionListener;
 import com.sapiens.app.ui.listener.PanelPrincipalChangeListener;
 import com.sapiens.app.utils.Constants;
+import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
+@Log4j
 public class PanelPrincipal extends JPanel {
 
 	/**
@@ -52,11 +56,10 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnLoadScript;
 	private JButton btnValidar;
 	private JButton btnSearch;
-	
+
 	@Getter
 	private JComboBox<String> cmbSubModelo;
-	
-	
+
 	private JLabel jLabel1;
 	private JLabel jLabel10;
 	private JLabel jLabel2;
@@ -95,37 +98,37 @@ public class PanelPrincipal extends JPanel {
 	private JPanel jPanel8;
 	private JPanel jPanel9;
 	private JScrollPane jScrollPane1;
-	
+
 	@Getter
 	private JTabbedPane jTabbedPane1;
-	
+
 	@Getter
 	private JTextArea txtScript;
-	
+
 	@Getter
 	private JTextField txtArchivoScript;
-	
+
 	@Getter
 	private JTextField txtModuloProyecto;
-	
+
 	@Getter
 	private JTextField txtIdGlosario;
-	
+
 	@Getter
 	private JTextField txtGlosario;
-	
+
 	@Getter
 	private JTextField txtIdNorma;
-	
+
 	@Getter
 	private JTextField txtNorma;
-	
+
 	@Getter
 	private JTextField txtIM;
-	
+
 	@Getter
 	private JTextField txtSD;
-	
+
 	private JPanel panelBotones;
 	private JPanel panelCabecera;
 	private JPanel panelContenido;
@@ -133,7 +136,7 @@ public class PanelPrincipal extends JPanel {
 	private JPanel panelOpciones;
 	private JPanel panelResultado;
 	// End of variables declaration//GEN-END:variables
-	
+
 	@Getter
 	private JFrame frameParent;
 
@@ -142,8 +145,14 @@ public class PanelPrincipal extends JPanel {
 	 */
 	public PanelPrincipal(JFrame frameParent) {
 		this.frameParent = frameParent;
-		initComponents();
-		initEvents();
+		
+		try {
+			initComponents();
+			initLiterals();
+			initEvents();
+		} catch (IOException e) {
+			log.warn("ERROR:", e);
+		}
 	}
 
 	/**
@@ -153,7 +162,8 @@ public class PanelPrincipal extends JPanel {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	private void initComponents() throws IOException {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 		GridBagConstraints gridBagConstraints;
 
 		panelCabecera = new JPanel();
@@ -233,7 +243,6 @@ public class PanelPrincipal extends JPanel {
 		panelCabecera.add(panelLogotipo);
 
 		jLabel1.setFont(new Font("Dialog", 1, 24)); // NOI18N
-		jLabel1.setText("Validador de scripts");
 		panelCabecera.add(jLabel1);
 
 		add(panelCabecera, BorderLayout.PAGE_START);
@@ -244,7 +253,6 @@ public class PanelPrincipal extends JPanel {
 
 		jPanel9.setLayout(new GridBagLayout());
 
-		jLabel5.setText("Módulo o Proyecto");
 		jPanel13.add(jLabel5);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -279,7 +287,6 @@ public class PanelPrincipal extends JPanel {
 		jPanel16.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
-		jLabel6.setText("Glosario");
 		jPanel16.add(jLabel6);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -322,7 +329,6 @@ public class PanelPrincipal extends JPanel {
 
 		jPanel2.setLayout(new GridBagLayout());
 
-		jLabel7.setText("Submodelo");
 		jPanel19.add(jLabel7);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -347,7 +353,6 @@ public class PanelPrincipal extends JPanel {
 		gridBagConstraints.weightx = 60.0;
 		jPanel2.add(jPanel20, gridBagConstraints);
 
-		jLabel8.setText("Norma");
 		jPanel21.add(jLabel8);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -384,14 +389,12 @@ public class PanelPrincipal extends JPanel {
 		gridBagConstraints.weightx = 50.0;
 		panelOpciones.add(jPanel2, gridBagConstraints);
 
-		jLabel9.setText("IM");
 		jLabel9.setHorizontalTextPosition(SwingConstants.RIGHT);
 		jPanel3.add(jLabel9);
 
 		txtIM.setPreferredSize(new Dimension(100, 21));
 		jPanel3.add(txtIM);
 
-		jLabel10.setText("SD");
 		jLabel10.setHorizontalTextPosition(SwingConstants.RIGHT);
 		jPanel3.add(jLabel10);
 
@@ -409,7 +412,6 @@ public class PanelPrincipal extends JPanel {
 
 		jPanel4.setLayout(new BorderLayout());
 
-		jLabel4.setText("Archivo con el script");
 		jPanel12.add(jLabel4);
 
 		jPanel4.add(jPanel12, BorderLayout.WEST);
@@ -436,7 +438,6 @@ public class PanelPrincipal extends JPanel {
 
 		jPanel5.setLayout(new GridBagLayout());
 
-		jLabel3.setText("Script");
 		jPanel6.add(jLabel3);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -463,7 +464,6 @@ public class PanelPrincipal extends JPanel {
 		jPanel5.add(jPanel7, gridBagConstraints);
 
 		btnValidar.setName(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
-		btnValidar.setText("Validar");
 		btnValidar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnValidar.setPreferredSize(new Dimension(77, 20));
 		jPanel8.add(btnValidar);
@@ -495,7 +495,7 @@ public class PanelPrincipal extends JPanel {
 		jPanel1Layout.setVerticalGroup(
 				jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 
-		jTabbedPane1.addTab("Elementos a Validar", jPanel1);
+		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosValidar"), jPanel1);
 
 		GroupLayout jPanel24Layout = new GroupLayout(jPanel24);
 		jPanel24.setLayout(jPanel24Layout);
@@ -504,7 +504,7 @@ public class PanelPrincipal extends JPanel {
 		jPanel24Layout.setVerticalGroup(
 				jPanel24Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 
-		jTabbedPane1.addTab("Elementos Correctos", jPanel24);
+		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosCorrectos"), jPanel24);
 
 		GroupLayout jPanel25Layout = new GroupLayout(jPanel25);
 		jPanel25.setLayout(jPanel25Layout);
@@ -513,7 +513,7 @@ public class PanelPrincipal extends JPanel {
 		jPanel25Layout.setVerticalGroup(
 				jPanel25Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 
-		jTabbedPane1.addTab("Elementos que No Están en Glosario", jPanel25);
+		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosNoEstanGlosario"), jPanel25);
 
 		GroupLayout jPanel26Layout = new GroupLayout(jPanel26);
 		jPanel26.setLayout(jPanel26Layout);
@@ -522,7 +522,7 @@ public class PanelPrincipal extends JPanel {
 		jPanel26Layout.setVerticalGroup(
 				jPanel26Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 
-		jTabbedPane1.addTab("Elementos con Errores", jPanel26);
+		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosErrores"), jPanel26);
 
 		GroupLayout jPanel27Layout = new GroupLayout(jPanel27);
 		jPanel27.setLayout(jPanel27Layout);
@@ -531,11 +531,10 @@ public class PanelPrincipal extends JPanel {
 		jPanel27Layout.setVerticalGroup(
 				jPanel27Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 
-		jTabbedPane1.addTab("Excepciones", jPanel27);
+		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.excepciones"), jPanel27);
 
 		panelResultado.add(jTabbedPane1, BorderLayout.CENTER);
 
-		jLabel2.setText("Resultado validación");
 		panelResultado.add(jLabel2, BorderLayout.PAGE_START);
 
 		panelContenido.add(panelResultado);
@@ -545,11 +544,9 @@ public class PanelPrincipal extends JPanel {
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
 		btnLimpiarValidacion.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
-		btnLimpiarValidacion.setText("Limpiar validación");
 		panelBotones.add(btnLimpiarValidacion);
 
 		btnLimpiarTodo.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
-		btnLimpiarTodo.setText("Limpiar todo");
 		btnLimpiarTodo.setPreferredSize(new Dimension(146, 27));
 		panelBotones.add(btnLimpiarTodo);
 
@@ -562,20 +559,32 @@ public class PanelPrincipal extends JPanel {
 	private void initEvents() {
 		ActionListener actionListener = new PanelPrincipalActionListener(this);
 		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
-		
+
 		btnSearch.addActionListener(actionListener);
 		btnLoadScript.addActionListener(actionListener);
 		btnSearch.addActionListener(actionListener);
 		btnLimpiarTodo.addActionListener(actionListener);
 		btnLimpiarValidacion.addActionListener(actionListener);
-		
-//		jComboBox1.addItemListener(new ItemListener() {
-//		    public void itemStateChanged(ItemEvent event) {
-//		    	String item = (String) event.getItem();
-//		    	LogWrapper.debug(log, "%s", item);
-//		    }
-//		});
 
 		jTabbedPane1.addChangeListener(changeListener);
+	}
+
+	private void initLiterals() throws IOException {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+
+		jLabel1.setText(literales.getLiteral("panelPrincipal.titulo"));
+		jLabel5.setText(literales.getLiteral("panelPrincipal.modeloProyecto"));
+		jLabel6.setText(literales.getLiteral("panelPrincipal.glosario"));
+		jLabel7.setText(literales.getLiteral("panelPrincipal.submodelo"));
+		jLabel8.setText(literales.getLiteral("panelPrincipal.norma"));
+		jLabel9.setText(literales.getLiteral("panelPrincipal.im"));
+		jLabel10.setText(literales.getLiteral("panelPrincipal.sd"));
+		jLabel4.setText(literales.getLiteral("panelPrincipal.archivoScript"));
+		jLabel3.setText(literales.getLiteral("panelPrincipal.script"));
+		jLabel2.setText(literales.getLiteral("panelPrincipal.resultadoValidacion"));
+
+		btnValidar.setText(literales.getLiteral("panelPrincipal.validar"));
+		btnLimpiarValidacion.setText(literales.getLiteral("panelPrincipal.limpiarValidacion"));
+		btnLimpiarTodo.setText(literales.getLiteral("panelPrincipal.limpiarTodo"));
 	}
 }
