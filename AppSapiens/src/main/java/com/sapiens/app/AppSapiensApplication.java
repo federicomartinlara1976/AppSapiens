@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.sapiens.app.ui.DlgIdentificador;
 import com.sapiens.app.ui.FramePrincipal;
+import com.sapiens.app.ui.utils.UIHelper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -43,7 +45,11 @@ public class AppSapiensApplication implements CommandLineRunner {
 
 		/* Create and display the form */
 		EventQueue.invokeLater(() -> {
-			new FramePrincipal().setVisible(true);
+			FramePrincipal framePrincipal = new FramePrincipal();
+			
+			DlgIdentificador  dlgIdentificador = new DlgIdentificador(framePrincipal, Boolean.TRUE);
+			UIHelper.centerOnScreen(dlgIdentificador);
+			dlgIdentificador.setVisible(Boolean.TRUE);
 		});
 	}
 }

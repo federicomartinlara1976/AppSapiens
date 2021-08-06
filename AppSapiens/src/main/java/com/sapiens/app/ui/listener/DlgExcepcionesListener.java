@@ -8,9 +8,6 @@ import javax.swing.JButton;
 import com.sapiens.app.ui.validacionscripts.DlgExcepciones;
 import com.sapiens.app.utils.Constants;
 
-import lombok.extern.log4j.Log4j;
-
-@Log4j
 public class DlgExcepcionesListener implements ActionListener {
 
 	private DlgExcepciones dlgExcepciones;

@@ -7,6 +7,11 @@ package com.sapiens.app.utils;
 public class Constants {
 	
 	/**
+	 * App globals
+	 */
+	public static final String COD_USR = "CodUsr";
+	
+	/**
 	 * Constantes de UI
 	 */
 	
@@ -32,6 +37,11 @@ public class Constants {
 	public static final String PANEL_PRINCIPAL_BTN_VALIDAR = "PANEL_PRINCIPAL_BTN_VALIDAR";
 	public static final String PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION = "PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION";
 	public static final String PANEL_PRINCIPAL_BTN_LIMPIAR_TODO = "PANEL_PRINCIPAL_BTN_LIMPIAR_TODO";
+	
+	/**
+	 * DlgIdentificador
+	 */
+	public static final String DLG_IDENTIFICADOR_BTN_ACEPTAR = "DLG_IDENTIFICADOR_BTN_ACEPTAR";
 	
 	/**
 	 * DlgExcepciones
