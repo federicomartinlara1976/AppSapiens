@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.menu.MainMenuBar;
-import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
 import com.sapiens.app.utils.LiteralesSingleton;
 
