@@ -6,9 +6,11 @@
 package com.sapiens.app.ui.validacionscripts;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +23,16 @@ import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.listener.DlgExcepcionesListener;
 import com.sapiens.app.utils.Constants;
+import com.sapiens.app.utils.LiteralesSingleton;
+
+import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
+@Log4j
 public class DlgExcepciones extends JDialog {
 
 	/**
@@ -38,6 +45,8 @@ public class DlgExcepciones extends JDialog {
 	private JLabel jLabel1;
 	private JScrollPane jScrollPane1;
 	private JPanel panelBotones;
+	
+	@Getter
 	private JTextArea txtComentario;
 	// End of variables declaration//GEN-END:variables
 
@@ -46,8 +55,14 @@ public class DlgExcepciones extends JDialog {
 	 */
 	public DlgExcepciones(Frame frame, boolean modal) {
 		super(frame, modal);
-		initComponents();
-		initEvents();
+		
+		try {
+			initComponents();
+			initLiterals();
+			initEvents();
+		} catch (IOException e) {
+			log.warn("ERROR:", e);
+		}
 	}
 
 	/**
@@ -59,7 +74,6 @@ public class DlgExcepciones extends JDialog {
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		jLabel1 = new JLabel();
 		jScrollPane1 = new JScrollPane();
 		txtComentario = new JTextArea();
@@ -69,7 +83,6 @@ public class DlgExcepciones extends JDialog {
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		jLabel1.setText("Comentario:");
 		getContentPane().add(jLabel1, BorderLayout.PAGE_START);
 
 		txtComentario.setColumns(20);
@@ -81,17 +94,17 @@ public class DlgExcepciones extends JDialog {
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		btnAceptar.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-		btnAceptar.setText("Aceptar");
 		btnAceptar.setName(Constants.DLG_EXCEPCIONES_BTN_ACEPTAR);
 		panelBotones.add(btnAceptar);
 
 		btnCancelar.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-		btnCancelar.setText("Cancelar");
 		btnCancelar.setName(Constants.DLG_EXCEPCIONES_BTN_CANCELAR);
 		panelBotones.add(btnCancelar);
 
 		getContentPane().add(panelBotones, BorderLayout.PAGE_END);
 
+		setResizable(Boolean.FALSE);
+		setPreferredSize(new Dimension(337, 237));
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 	
@@ -100,5 +113,14 @@ public class DlgExcepciones extends JDialog {
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+	}
+	
+	private void initLiterals() throws IOException {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+		
+		setTitle(literales.getLiteral("dlgExcepciones.titulo"));
+		jLabel1.setText(literales.getLiteral("dlgExcepciones.comentario"));
+		btnAceptar.setText(literales.getLiteral("dlgExcepciones.aceptar"));
+		btnCancelar.setText(literales.getLiteral("dlgExcepciones.cancelar"));
 	}
 }

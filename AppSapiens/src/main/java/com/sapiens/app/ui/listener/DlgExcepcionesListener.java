@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
+import com.sapiens.app.ui.validacionscripts.DlgExcepciones;
 import com.sapiens.app.utils.Constants;
 
 import lombok.extern.log4j.Log4j;
@@ -13,11 +13,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class DlgExcepcionesListener implements ActionListener {
 
-	private JDialog jDialog;
+	private DlgExcepciones dlgExcepciones;
 
-	public DlgExcepcionesListener(JDialog jDialog) {
+	public DlgExcepcionesListener(DlgExcepciones dlgExcepciones) {
 		super();
-		this.jDialog = jDialog;
+		this.dlgExcepciones = dlgExcepciones;
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class DlgExcepcionesListener implements ActionListener {
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.DLG_EXCEPCIONES_BTN_CANCELAR.equals(jButton.getName())) {
-			jDialog.dispose();
+			dlgExcepciones.dispose();
 		}
 	}
 
