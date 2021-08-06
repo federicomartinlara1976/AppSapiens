@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 
+import com.sapiens.app.ui.PanelLogotipo;
 import com.sapiens.app.ui.listener.PanelPrincipalActionListener;
 import com.sapiens.app.ui.listener.PanelPrincipalChangeListener;
 import com.sapiens.app.utils.Constants;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sapiens.app.ui.validacionscripts;
+package com.sapiens.app.ui;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
