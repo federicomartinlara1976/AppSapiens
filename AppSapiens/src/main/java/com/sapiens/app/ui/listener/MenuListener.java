@@ -17,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MenuListener implements ActionListener {
 	
+	@SuppressWarnings("unused")
 	private JFrame frameParent;
 
 	public MenuListener(JFrame frameParent) {

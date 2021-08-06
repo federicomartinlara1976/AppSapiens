@@ -8,7 +8,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import com.sapiens.app.ui.DlgIdentificador;
 import com.sapiens.app.ui.FramePrincipal;
@@ -22,10 +21,8 @@ public class AppSapiensApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(AppSapiensApplication.class);
-
 		builder.headless(false);
-
-		ConfigurableApplicationContext context = builder.run(args);
+		builder.run(args);
 	}
 
 	@Override
