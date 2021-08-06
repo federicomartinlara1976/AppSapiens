@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.sapiens.app.ui.DlgIdentificador;
+import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;
 
@@ -28,6 +29,7 @@ public class DlgIdentificadorListener implements ActionListener {
 			eventBtnAceptar();
 			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			
+			UIHelper.showMaximized(dlgIdentificador.getFrameParent());
 			dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
 			dlgIdentificador.dispose();
 		}

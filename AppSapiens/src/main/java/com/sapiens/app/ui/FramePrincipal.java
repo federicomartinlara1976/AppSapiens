@@ -43,7 +43,6 @@ public class FramePrincipal extends JFrame {
 		try {
 			initComponents();
 			initLiterals();
-			UIHelper.showMaximized(this);
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
