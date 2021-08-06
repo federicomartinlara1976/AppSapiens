@@ -26,6 +26,7 @@ public class DlgIdentificadorListener implements ActionListener {
 
 		if (Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getName())) {
 			eventBtnAceptar();
+			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			
 			dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
 			dlgIdentificador.dispose();

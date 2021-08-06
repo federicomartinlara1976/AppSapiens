@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -21,10 +22,12 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.listener.DlgIdentificadorListener;
+import com.sapiens.app.ui.listener.DlgIdentificadorWindowListener;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -52,6 +55,10 @@ public class DlgIdentificador extends JDialog {
     
     @Getter
     private JFrame frameParent;
+    
+    @Getter
+    @Setter
+    private Boolean isTerminate;
 
     /**
      * Creates new form dlgIdentificador
@@ -61,6 +68,7 @@ public class DlgIdentificador extends JDialog {
     public DlgIdentificador(JFrame parent, boolean modal) {
     	super(parent, modal);
         this.frameParent = parent;
+        this.setIsTerminate(Boolean.TRUE);
         
         try {
 			initComponents();
@@ -124,7 +132,10 @@ public class DlgIdentificador extends JDialog {
 	
 	private void initEvents() {
 		ActionListener actionListener = new DlgIdentificadorListener(this);
+		WindowListener windowListener = new DlgIdentificadorWindowListener(this);
 		
 		btnAceptar.addActionListener(actionListener);
+		
+		addWindowListener(windowListener);
 	}
 }
