@@ -68,7 +68,7 @@ public class DlgIdentificador extends JDialog {
     public DlgIdentificador(JFrame parent, boolean modal) {
     	super(parent, modal);
         this.frameParent = parent;
-        this.setIsTerminate(Boolean.TRUE);
+        this.isTerminate = Boolean.TRUE;
         
         try {
 			initComponents();
