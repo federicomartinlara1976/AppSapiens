@@ -7,6 +7,7 @@ package com.sapiens.app.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -18,6 +19,7 @@ import javax.swing.WindowConstants;
 import com.sapiens.app.ui.menu.MainMenuBar;
 import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
+import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,8 +43,12 @@ public class FramePrincipal extends JFrame {
 	 * Creates new form FramePrincipal
 	 */
 	public FramePrincipal() {
-		initComponents();
-		UIHelper.showMaximized(this);
+		try {
+			initComponents();
+			UIHelper.showMaximized(this);
+		} catch (IOException e) {
+			log.warn("ERROR:", e);
+		}
 	}
 
 	/**
@@ -52,11 +58,13 @@ public class FramePrincipal extends JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	private void initComponents() throws IOException {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 
 		panelPrincipal = new PanelPrincipal(this);
-		menuBar = new MainMenuBar();
+		menuBar = new MainMenuBar(this);
 
+		setTitle(literales.getLiteral("panelPrincipal.titulo"));
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		setJMenuBar(menuBar);
