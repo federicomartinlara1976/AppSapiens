@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.BoxLayout;
@@ -22,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.PanelLogotipo;
+import com.sapiens.app.ui.listener.DlgAltaModificacionGlosariosListener;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
@@ -233,8 +235,10 @@ public class DlgAltaModificacionGlosarios extends JDialog {
 	 * 
 	 */
 	private void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener actionListener = new DlgAltaModificacionGlosariosListener(this);
 		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 
 	/**

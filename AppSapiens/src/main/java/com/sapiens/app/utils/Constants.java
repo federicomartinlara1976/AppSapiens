@@ -30,6 +30,12 @@ public class Constants {
 	public static final String MNU_MODELOS = "MNU_MODELOS";
 	
 	/**
+	 * Comandos que activan dialogos
+	 */
+	public static final String CMD_ALTA_GLOSARIOS = "CMD_ALTA_GLOSARIOS";
+	public static final String CMD_MODIFICACION_GLOSARIOS = "CMD_MODIFICACION_GLOSARIOS";
+	
+	/**
 	 * Panel principal
 	 */
 	public static final String PANEL_PRINCIPAL_BTN_SEARCH = "PANEL_PRINCIPAL_BTN_SEARCH";

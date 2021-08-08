@@ -3,6 +3,7 @@ package com.sapiens.app.ui.utils.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
 import com.sapiens.app.utils.Constants;
 
@@ -37,6 +38,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.MNU_DEF_GLOSARIOS.equals(menuOption)) {
 			dialog = new DlgDefinicionGlosarios(frameParent, modal);
+		}
+		
+		if (Constants.CMD_ALTA_GLOSARIOS.equals(menuOption)) {
+			dialog = new DlgAltaModificacionGlosarios(frameParent, modal);
+		}
+		
+		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(menuOption)) {
+			dialog = new DlgAltaModificacionGlosarios(frameParent, modal);
 		}
 		
 		return dialog;

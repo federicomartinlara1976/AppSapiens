@@ -2,10 +2,15 @@ package com.sapiens.app.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
+import com.sapiens.app.ui.utils.UIHelper;
+import com.sapiens.app.ui.utils.dialog.Creator;
+import com.sapiens.app.ui.utils.dialog.DialogCreator;
 import com.sapiens.app.utils.Constants;
 
 public class DlgDefinicionGlosariosListener implements ActionListener {
@@ -35,17 +40,39 @@ public class DlgDefinicionGlosariosListener implements ActionListener {
 	}
 	
 	private void eventBtnAlta() {
-		// TODO Auto-generated method stub
+		JDialog dialog = createDialog(Constants.CMD_ALTA_GLOSARIOS);
+		
+		showDialog(dialog);
 		
 	}
 	
 	private void evntBtnModificacion() {
-		// TODO Auto-generated method stub
+		JDialog dialog = createDialog(Constants.CMD_MODIFICACION_GLOSARIOS);
 		
+		showDialog(dialog);
 	}
 
 	private void eventBtnSeleccionar() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	private JDialog createDialog(String item) {
+		Creator dialogCreator = new DialogCreator(dlgDefinicionGlosarios.getFrameParent(), item);
+		return dialogCreator.factoryMethod();
+	}
+	
+	/**
+	 * @param dialog
+	 */
+	private void showDialog(JDialog dialog) {
+		if (!Objects.isNull(dialog)) {
+			UIHelper.centerOnScreen(dialog);
+			dialog.setVisible(true);
+		}
 	}
 }
