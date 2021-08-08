@@ -2,15 +2,12 @@ package com.sapiens.app.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
 import com.sapiens.app.ui.utils.UIHelper;
-import com.sapiens.app.ui.utils.dialog.Creator;
-import com.sapiens.app.ui.utils.dialog.DialogCreator;
 
 /**
  * El listener del menú principal usa la factoría de creación de diálogos
@@ -35,21 +32,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JDialog dialog = createDialog(item);
-		
-		if (!Objects.isNull(dialog)) {
-			UIHelper.centerOnScreen(dialog);
-			dialog.setVisible(true);
-		}
+		JDialog dialog = UIHelper.createDialog(frameParent, item.getName());
+		UIHelper.showDialog(dialog);
 	}
-
-	/**
-	 * @param item
-	 * @return
-	 */
-	private JDialog createDialog(JMenuItem item) {
-		Creator dialogCreator = new DialogCreator(frameParent, item.getName());
-		return dialogCreator.factoryMethod();
-	}
-
 }
