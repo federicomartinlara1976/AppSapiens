@@ -6,8 +6,15 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+/**
+ * @author federico
+ *
+ */
 public class UIHelper {
 	
+	/**
+	 * @param dialog
+	 */
 	public static void centerOnScreen(JDialog dialog) {
 		final Toolkit toolkit = Toolkit.getDefaultToolkit();
 		final Dimension screenSize = toolkit.getScreenSize();
@@ -16,6 +23,9 @@ public class UIHelper {
 		dialog.setLocation(x, y);
 	}
 	
+	/**
+	 * @param frame
+	 */
 	public static void showMaximized(JFrame frame) {
 		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}

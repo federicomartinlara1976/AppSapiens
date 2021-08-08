@@ -151,6 +151,8 @@ public class PanelPrincipal extends JPanel {
 			initComponents();
 			initLiterals();
 			initEvents();
+			
+			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
@@ -555,21 +557,8 @@ public class PanelPrincipal extends JPanel {
 	}// </editor-fold>//GEN-END:initComponents
 
 	/**
-	 * 
+	 * @throws IOException
 	 */
-	private void initEvents() {
-		ActionListener actionListener = new PanelPrincipalActionListener(this);
-		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
-
-		btnSearch.addActionListener(actionListener);
-		btnLoadScript.addActionListener(actionListener);
-		btnSearch.addActionListener(actionListener);
-		btnLimpiarTodo.addActionListener(actionListener);
-		btnLimpiarValidacion.addActionListener(actionListener);
-
-		jTabbedPane1.addChangeListener(changeListener);
-	}
-
 	private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 
@@ -587,5 +576,29 @@ public class PanelPrincipal extends JPanel {
 		btnValidar.setText(literales.getLiteral("panelPrincipal.validar"));
 		btnLimpiarValidacion.setText(literales.getLiteral("panelPrincipal.limpiarValidacion"));
 		btnLimpiarTodo.setText(literales.getLiteral("panelPrincipal.limpiarTodo"));
+	}
+	
+	/**
+	 * 
+	 */
+	private void initEvents() {
+		ActionListener actionListener = new PanelPrincipalActionListener(this);
+		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
+
+		btnSearch.addActionListener(actionListener);
+		btnLoadScript.addActionListener(actionListener);
+		btnSearch.addActionListener(actionListener);
+		btnLimpiarTodo.addActionListener(actionListener);
+		btnLimpiarValidacion.addActionListener(actionListener);
+
+		jTabbedPane1.addChangeListener(changeListener);
+	}
+	
+	/**
+	 * 
+	 */
+	private void initialState() {
+		// TODO Auto-generated method stub
+		
 	}
 }
