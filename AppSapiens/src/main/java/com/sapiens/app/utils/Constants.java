@@ -13,8 +13,11 @@ public class Constants {
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
 	
 	/**
-	 * Constantes de UI
+	 * Bean names
 	 */
+	
+	
+	 // CONSTANTES DE UI
 	
 	/**
 	 * Menu de la aplicación

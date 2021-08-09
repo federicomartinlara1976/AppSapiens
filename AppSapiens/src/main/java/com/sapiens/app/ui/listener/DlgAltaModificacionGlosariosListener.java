@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.sapiens.app.utils.Constants;
 
-public class DlgAltaModificacionGlosariosListener implements ActionListener {
+public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
 
@@ -29,11 +29,10 @@ public class DlgAltaModificacionGlosariosListener implements ActionListener {
 			dlgAltaModificacionGlosarios.dispose();
 		}
 	}
-	
+
 	private void eventBtnAlta() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

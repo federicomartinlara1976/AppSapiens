@@ -12,7 +12,7 @@ import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;
 
-public class DlgIdentificadorListener implements ActionListener {
+public class DlgIdentificadorListener extends ListenerSupport implements ActionListener {
 
 	private DlgIdentificador dlgIdentificador;
 

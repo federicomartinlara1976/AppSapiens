@@ -12,7 +12,7 @@ import com.sapiens.app.utils.Constants;
  * @author federico
  *
  */
-public class DlgExcepcionesListener implements ActionListener {
+public class DlgExcepcionesListener extends ListenerSupport implements ActionListener {
 
 	private DlgExcepciones dlgExcepciones;
 

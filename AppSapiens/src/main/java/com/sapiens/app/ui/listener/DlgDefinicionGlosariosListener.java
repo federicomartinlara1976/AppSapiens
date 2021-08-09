@@ -10,7 +10,7 @@ import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
 import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.Constants;
 
-public class DlgDefinicionGlosariosListener implements ActionListener {
+public class DlgDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgDefinicionGlosarios dlgDefinicionGlosarios;
 
