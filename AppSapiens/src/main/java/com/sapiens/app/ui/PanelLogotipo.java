@@ -13,10 +13,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.sapiens.app.utils.LogWrapper;
+
+import lombok.extern.log4j.Log4j;
+
 /**
  *
  * @author federico
  */
+@Log4j
 public class PanelLogotipo extends JPanel {
 
     /**
@@ -29,7 +34,7 @@ public class PanelLogotipo extends JPanel {
        try {                
           image = ImageIO.read(new File("./" + logotipo));
        } catch (IOException ex) {
-            // handle exception...
+            LogWrapper.warn(log, "ERROR:", ex);
        }
     }
 
