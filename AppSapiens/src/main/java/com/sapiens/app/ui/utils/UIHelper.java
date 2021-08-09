@@ -2,6 +2,7 @@ package com.sapiens.app.ui.utils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JDialog;
@@ -40,7 +41,18 @@ public class UIHelper {
 	 */
 	public static JDialog createDialog(JFrame frameParent, String item) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return dialogCreator.factoryMethod();
+		return dialogCreator.factoryMethod(null);
+	}
+	
+	/**
+	 * @param frameParent
+	 * @param item
+	 * @param params
+	 * @return
+	 */
+	public static JDialog createDialog(JFrame frameParent, String item, Map<String, Object> params) {
+		Creator dialogCreator = new DialogCreator(frameParent, item);
+		return dialogCreator.factoryMethod(params);
 	}
 	
 	/**

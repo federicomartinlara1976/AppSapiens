@@ -1,5 +1,7 @@
 package com.sapiens.app.ui.utils.dialog;
 
+import java.util.Map;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
@@ -33,7 +35,7 @@ public class DialogCreator extends Creator {
 	 *
 	 */
 	@Override
-	public JDialog factoryMethod() {
+	public JDialog factoryMethod(Map<String, Object> params) {
 		JDialog dialog = null;
 		
 		if (Constants.MNU_DEF_GLOSARIOS.equals(menuOption)) {
@@ -45,7 +47,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(menuOption)) {
-			dialog = new DlgAltaModificacionGlosarios(frameParent, modal);
+			dialog = new DlgAltaModificacionGlosarios(frameParent, modal, params);
 		}
 		
 		return dialog;

@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -80,15 +81,34 @@ public class DlgAltaModificacionGlosarios extends JDialog {
     
     @Getter
     private JFrame frameParent;
+    
+    private Map<String, Object> params;
 
+    
     /**
-     * Creates new form DlgAltaModificacionGlosarios
+     * @param parent
+     * @param modal
      */
     public DlgAltaModificacionGlosarios(JFrame parent, boolean modal) {
         super(parent, modal);
         this.frameParent = parent;
         
-        try {
+        initialize();
+    }
+    
+    public DlgAltaModificacionGlosarios(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal);
+        this.frameParent = parent;
+        this.params = params;
+        
+        initialize();
+    }
+    
+    /**
+     * 
+     */
+    private void initialize() {
+		try {
 			initComponents();
 			initLiterals();
 			initEvents();
@@ -97,7 +117,7 @@ public class DlgAltaModificacionGlosarios extends JDialog {
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
-    }
+	}
 
 	/**
      * This method is called from within the constructor to initialize the form.
@@ -260,6 +280,7 @@ public class DlgAltaModificacionGlosarios extends JDialog {
 		
 		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 		txtUsuario.setText(cod_usr);
+		
 		txtUsuario.setEnabled(Boolean.FALSE);
 	}
 }
