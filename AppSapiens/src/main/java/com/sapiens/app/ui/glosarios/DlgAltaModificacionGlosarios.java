@@ -280,6 +280,7 @@ public class DlgAltaModificacionGlosarios extends JDialog {
 		
 		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 		txtUsuario.setText(cod_usr);
+		
 		txtUsuario.setEnabled(Boolean.FALSE);
 	}
 }
