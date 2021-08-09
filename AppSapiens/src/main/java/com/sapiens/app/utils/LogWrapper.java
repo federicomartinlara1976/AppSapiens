@@ -53,4 +53,30 @@ public class LogWrapper {
 	public void error(Logger log, String msg) {
 		log.error(msg);
 	}
+	
+	/**
+	 * @param log
+	 * @param msg
+	 * @param cause
+	 */
+	public void warn(Logger log, String msg, Throwable cause) {
+		log.warn(msg, cause);
+	}
+	
+	/**
+	 * @param log
+	 * @param msg
+	 * @param cause
+	 */
+	public void warn(Logger log, String msg, Object... args) {
+		log.warn(String.format(msg, args));
+	}
+	
+	/**
+	 * @param log
+	 * @param msg
+	 */
+	public void warn(Logger log, String msg) {
+		log.warn(msg);
+	}
 }

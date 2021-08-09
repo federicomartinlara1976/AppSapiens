@@ -28,13 +28,13 @@ import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
-@Slf4j
+@Log4j
 public class DlgIdentificador extends JDialog {
 
     /**
@@ -119,7 +119,8 @@ public class DlgIdentificador extends JDialog {
         getContentPane().add(panelPrincipal);
 
         setResizable(Boolean.FALSE);
-		setPreferredSize(new Dimension(337, 137));
+        setPreferredSize(new Dimension(337, 137));
+        
 		pack();
     }// </editor-fold>//GEN-END:initComponents
 

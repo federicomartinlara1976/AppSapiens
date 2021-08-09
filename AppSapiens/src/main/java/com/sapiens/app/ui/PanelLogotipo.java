@@ -7,14 +7,21 @@ package com.sapiens.app.ui;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import com.sapiens.app.utils.LogWrapper;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
+@Log4j
 public class PanelLogotipo extends JPanel {
 
     /**
@@ -25,9 +32,9 @@ public class PanelLogotipo extends JPanel {
 
     public PanelLogotipo(String logotipo) {
        try {                
-          image = ImageIO.read(PanelLogotipo.class.getResource("/" + logotipo));
+          image = ImageIO.read(new File("./" + logotipo));
        } catch (IOException ex) {
-            // handle exception...
+            LogWrapper.warn(log, "ERROR:", ex);
        }
     }
 

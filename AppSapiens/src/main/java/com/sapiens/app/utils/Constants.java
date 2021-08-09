@@ -10,10 +10,14 @@ public class Constants {
 	 * App globals
 	 */
 	public static final String COD_USR = "CodUsr";
+	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
 	
 	/**
-	 * Constantes de UI
+	 * Bean names
 	 */
+	
+	
+	 // CONSTANTES DE UI
 	
 	/**
 	 * Menu de la aplicación
@@ -28,6 +32,12 @@ public class Constants {
 	public static final String MNU_VALORES_PARTICULAS = "MNU_VALORES_PARTICULAS";
 	public static final String MNU_COMPROBAR_NOMBRE_ELEMENTO = "MNU_COMPROBAR_NOMBRE_ELEMENTO";
 	public static final String MNU_MODELOS = "MNU_MODELOS";
+	
+	/**
+	 * Comandos que activan dialogos
+	 */
+	public static final String CMD_ALTA_GLOSARIOS = "CMD_ALTA_GLOSARIOS";
+	public static final String CMD_MODIFICACION_GLOSARIOS = "CMD_MODIFICACION_GLOSARIOS";
 	
 	/**
 	 * Panel principal
@@ -48,4 +58,17 @@ public class Constants {
 	 */
 	public static final String DLG_EXCEPCIONES_BTN_ACEPTAR = "DLG_EXCEPCIONES_BTN_ACEPTAR";
 	public static final String DLG_EXCEPCIONES_BTN_CANCELAR = "DLG_EXCEPCIONES_BTN_CANCELAR";
+	
+	/**
+	 * DlgDefinicionGlosarios
+	 */
+	public static final String DLG_DEFINICION_GLOSARIOS_BTN_ALTA = "DLG_DEFINICION_GLOSARIOS_BTN_ALTA";
+	public static final String DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION = "DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION";
+	public static final String DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR = "DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR";
+	
+	/**
+	 * DlgAltaModificacionGlosarios
+	 */
+	public static final String DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR = "DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR";
+	public static final String DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR = "DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR";
 }

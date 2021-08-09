@@ -60,6 +60,8 @@ public class DlgExcepciones extends JDialog {
 			initComponents();
 			initLiterals();
 			initEvents();
+			
+			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
@@ -108,13 +110,9 @@ public class DlgExcepciones extends JDialog {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 	
-	private void initEvents() {
-		ActionListener actionListener = new DlgExcepcionesListener(this);
-		
-		btnAceptar.addActionListener(actionListener);
-		btnCancelar.addActionListener(actionListener);
-	}
-	
+	/**
+	 * @throws IOException
+	 */
 	private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 		
@@ -122,5 +120,23 @@ public class DlgExcepciones extends JDialog {
 		jLabel1.setText(literales.getLiteral("dlgExcepciones.comentario"));
 		btnAceptar.setText(literales.getLiteral("dlgExcepciones.aceptar"));
 		btnCancelar.setText(literales.getLiteral("dlgExcepciones.cancelar"));
+	}
+	
+	/**
+	 * 
+	 */
+	private void initEvents() {
+		ActionListener actionListener = new DlgExcepcionesListener(this);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
+	}
+	
+	/**
+	 * 
+	 */
+	private void initialState() {
+		// TODO Auto-generated method stub
+		
 	}
 }
