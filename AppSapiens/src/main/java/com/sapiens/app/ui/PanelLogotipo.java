@@ -7,7 +7,9 @@ package com.sapiens.app.ui;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -25,7 +27,7 @@ public class PanelLogotipo extends JPanel {
 
     public PanelLogotipo(String logotipo) {
        try {                
-          image = ImageIO.read(PanelLogotipo.class.getResource("/" + logotipo));
+          image = ImageIO.read(new File("./" + logotipo));
        } catch (IOException ex) {
             // handle exception...
        }
