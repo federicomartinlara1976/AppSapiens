@@ -10,6 +10,7 @@ public class Constants {
 	 * App globals
 	 */
 	public static final String COD_USR = "CodUsr";
+	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
 	
 	/**
 	 * Constantes de UI

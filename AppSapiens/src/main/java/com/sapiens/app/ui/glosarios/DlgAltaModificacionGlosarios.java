@@ -24,6 +24,7 @@ import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.PanelLogotipo;
 import com.sapiens.app.ui.listener.DlgAltaModificacionGlosariosListener;
+import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
@@ -60,10 +61,20 @@ public class DlgAltaModificacionGlosarios extends JDialog {
     private JPanel jPanel7;
     private JPanel jPanel8;
     private PanelLogotipo panelLogo;
+    
+    @Getter
     private JTextField txtAlta;
+    
+    @Getter
     private JTextField txtCodigo;
+    
+    @Getter
     private JTextField txtDescripcion;
+    
+    @Getter
     private JTextField txtModificacion;
+    
+    @Getter
     private JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
     
@@ -245,7 +256,10 @@ public class DlgAltaModificacionGlosarios extends JDialog {
 	 * 
 	 */
 	private void initialState() {
-		// TODO Auto-generated method stub
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+		txtUsuario.setText(cod_usr);
+		txtUsuario.setEnabled(Boolean.FALSE);
 	}
 }
