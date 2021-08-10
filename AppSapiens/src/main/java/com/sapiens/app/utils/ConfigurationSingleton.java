@@ -20,10 +20,9 @@ public class ConfigurationSingleton {
 		properties = new Properties();
 		
 		//the base folder is ./, the root of the main.properties file  
-		String userDir = System.getProperty("user.dir");
-		String literalesPropertiesPath = userDir + "/AppSapiens/configuration.properties";
+		String propertiesPath = "./configuration.properties";
 		
-		FileInputStream fistream = new FileInputStream(literalesPropertiesPath);
+		FileInputStream fistream = new FileInputStream(propertiesPath);
 		properties.load(fistream);
 	}
 	

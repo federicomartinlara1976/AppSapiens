@@ -20,10 +20,9 @@ public class LiteralesSingleton {
 		properties = new Properties();
 		
 		//the base folder is ./, the root of the main.properties file  
-		String userDir = System.getProperty("user.dir");
-		String literalesPropertiesPath = userDir + "/AppSapiens/literales.properties";
+		String literalesPath = "./literales.properties";
 		
-		FileInputStream fistream = new FileInputStream(literalesPropertiesPath);
+		FileInputStream fistream = new FileInputStream(literalesPath);
 		properties.load(fistream);
 	}
 	
