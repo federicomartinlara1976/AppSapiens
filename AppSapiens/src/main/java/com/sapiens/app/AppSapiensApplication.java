@@ -1,24 +1,21 @@
 package com.sapiens.app;
 
-import java.awt.EventQueue;
-
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
-
 import com.sapiens.app.ui.DlgIdentificador;
 import com.sapiens.app.ui.FramePrincipal;
 import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LogWrapper;
-
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
+
+import javax.sql.DataSource;
+import javax.swing.*;
+import java.awt.*;
 
 @SpringBootApplication
 @Log4j
@@ -26,6 +23,9 @@ public class AppSapiensApplication implements CommandLineRunner {
 	
 	@Autowired
     private ApplicationContext applicationContext;
+
+	@Autowired
+	private DataSource dataSource;
 
 	public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(AppSapiensApplication.class);
@@ -38,6 +38,7 @@ public class AppSapiensApplication implements CommandLineRunner {
 		setupSpringContext();
 		setupUIEnvironment();
 		displayApp();
+		log.info("Connection Polling datasource : "+ dataSource);
 	}
 
 	/**
