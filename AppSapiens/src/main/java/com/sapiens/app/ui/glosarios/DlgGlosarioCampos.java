@@ -391,19 +391,20 @@ public class DlgGlosarioCampos extends JDialog {
     private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 		
-		jLabel6.setText("Glosario de Campos");
-		jLabel1.setText("Glosario:");
-        jLabel2.setText("Nombre de Columna:");
-        jLabel3.setText("Tipo de Dato:");
-        jLabel4.setText("Mostrar excepciones:");
-        jLabel5.setText("Norma:");
-        btnBuscar.setText("BUSCAR");
-        jLabel7.setText("Campos:");
-        jLabel8.setText("Modelos:");
-        btnAlta.setText("ALTA");
-        btnBaja.setText("BAJA");
-        btnModificacion.setText("MODIFICACIÓN");
-        btnImprimir.setText("IMPRIMIR");
+		setTitle(literales.getLiteral("dlgGlosarioCampos.titulo"));
+		jLabel6.setText(literales.getLiteral("dlgGlosarioCampos.titulo"));
+		jLabel1.setText(literales.getLiteral("dlgGlosarioCampos.glosario"));
+        jLabel2.setText(literales.getLiteral("dlgGlosarioCampos.nombreColumna"));
+        jLabel3.setText(literales.getLiteral("dlgGlosarioCampos.tipoDato"));
+        jLabel4.setText(literales.getLiteral("dlgGlosarioCampos.mostrarExcepciones"));
+        jLabel5.setText(literales.getLiteral("dlgGlosarioCampos.norma"));
+        btnBuscar.setText(literales.getLiteral("dlgGlosarioCampos.buscar"));
+        jLabel7.setText(literales.getLiteral("dlgGlosarioCampos.campos"));
+        jLabel8.setText(literales.getLiteral("dlgGlosarioCampos.modelos"));
+        btnAlta.setText(literales.getLiteral("dlgGlosarioCampos.alta"));
+        btnBaja.setText(literales.getLiteral("dlgGlosarioCampos.baja"));
+        btnModificacion.setText(literales.getLiteral("dlgGlosarioCampos.modificacion"));
+        btnImprimir.setText(literales.getLiteral("dlgGlosarioCampos.imprimir"));
 	}
 	
 	/**
