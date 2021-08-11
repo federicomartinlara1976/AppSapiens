@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
+import com.sapiens.app.ui.glosarios.DlgGlosarioCampos;
 import com.sapiens.app.utils.Constants;
 
 /**
@@ -40,6 +41,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.MNU_DEF_GLOSARIOS.equals(menuOption)) {
 			dialog = new DlgDefinicionGlosarios(frameParent, modal);
+		}
+		
+		if (Constants.MNU_DATOS_GLOSARIO_CAMPOS.equals(menuOption)) {
+			dialog = new DlgGlosarioCampos(frameParent, modal);
 		}
 		
 		if (Constants.CMD_ALTA_GLOSARIOS.equals(menuOption)) {
