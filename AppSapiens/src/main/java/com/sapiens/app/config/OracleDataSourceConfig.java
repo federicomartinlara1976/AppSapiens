@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import lombok.extern.log4j.Log4j;
 import oracle.ucp.jdbc.PoolDataSource;
 import oracle.ucp.jdbc.PoolDataSourceFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -22,7 +21,7 @@ public class OracleDataSourceConfig {
      *
      * @return the pool data source connection
      */
-    @Bean
+    //@Bean
     public DataSource dataSource() {
 
         PoolDataSource poolDataSource = null;
