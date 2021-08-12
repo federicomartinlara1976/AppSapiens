@@ -54,8 +54,13 @@ public class DlgGlosarioCampos extends JDialog {
     private JButton btnBuscarGlosario;
     private JButton btnImprimir;
     private JButton btnModificacion;
+    
+    @Getter
     private JComboBox<String> cmbMostrarExcepciones;
+    
+    @Getter
     private JComboBox<String> cmbTipoDato;
+    
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -74,10 +79,20 @@ public class DlgGlosarioCampos extends JDialog {
     private JPanel panelTitulo;
     private JTable tblCampos;
     private JTable tblModelos;
+    
+    @Getter
     private JTextField txtCodigoGlosario;
+    
+    @Getter
     private JTextField txtCodigoNorma;
+    
+    @Getter
     private JTextField txtGlosario;
+    
+    @Getter
     private JTextField txtNombreColumna;
+    
+    @Getter
     private JTextField txtNorma;
     // End of variables declaration//GEN-END:variables
     
