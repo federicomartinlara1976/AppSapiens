@@ -8,6 +8,10 @@ import javax.swing.JButton;
 import com.sapiens.app.ui.glosarios.DlgGlosarioCampos;
 import com.sapiens.app.utils.Constants;
 
+/**
+ * @author federico
+ *
+ */
 public class DlgGlosarioCamposListener extends ListenerSupport implements ActionListener {
 
 	private DlgGlosarioCampos dlgGlosarioCampos;
@@ -17,6 +21,9 @@ public class DlgGlosarioCamposListener extends ListenerSupport implements Action
 		this.dlgGlosarioCampos = dlgGlosarioCampos;
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
@@ -46,31 +53,49 @@ public class DlgGlosarioCamposListener extends ListenerSupport implements Action
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void eventBtnBuscarGlosario() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * 
+	 */
 	private void eventBtnBuscar() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * 
+	 */
 	private void eventBtnAlta() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * 
+	 */
 	private void eventBtnBaja() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * 
+	 */
 	private void eventBtnModificacion() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * 
+	 */
 	private void eventBtnImprimir() {
 		// TODO Auto-generated method stub
 		
