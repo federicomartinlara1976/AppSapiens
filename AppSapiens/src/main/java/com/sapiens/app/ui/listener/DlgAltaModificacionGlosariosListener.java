@@ -1,12 +1,12 @@
 package com.sapiens.app.ui.listener;
 
+import com.sapiens.app.bussiness.service.impl.GlosarioServiceImpl;
+import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
+import com.sapiens.app.utils.AppHelper;
+import com.sapiens.app.utils.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
-import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
-import com.sapiens.app.utils.Constants;
+import javax.swing.*;
 
 public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
@@ -31,7 +31,11 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	}
 
 	private void eventBtnAlta() {
-		// TODO Auto-generated method stub
+		GlosarioServiceImpl glosarioService = (GlosarioServiceImpl) AppHelper.getBean("glosarioService");
+		String inParam = "test inputParam";
+		String outResponse = glosarioService.procedurePostgres(inParam);
+		//String outResponse = glosarioService.procedureOracle();
+		System.out.println(outResponse);
 
 	}
 
