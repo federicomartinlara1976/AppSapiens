@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.PanelLogotipo;
 import com.sapiens.app.ui.listener.DlgAltaModificacionCamposListener;
+import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
@@ -169,7 +170,9 @@ public class DlgAltaModificacionCampos extends JDialog {
         txtModificacion = new JTextField();
         jPanel3 = new JPanel();
         btnAceptar = new JButton();
+        btnAceptar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
         btnCancelar = new JButton();
+        btnCancelar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -185,8 +188,6 @@ public class DlgAltaModificacionCampos extends JDialog {
             jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 63, Short.MAX_VALUE)
         );
-
-        jLabel1.setText("Alta / Modificación de Campos");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,24 +214,16 @@ public class DlgAltaModificacionCampos extends JDialog {
         getContentPane().add(jPanel1, BorderLayout.PAGE_START);
 
         jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel2.setText("Nombre");
 
         jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel3.setText("Tipo de Dato:");
 
         jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel4.setText("Tamaño");
 
         jLabel5.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel5.setText("Decimales");
-
-        jLabel6.setText("Es excepción");
 
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel7.setText("Descripción Excepción");
 
         jLabel8.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel8.setText("Observaciones");
 
         txtNombre.setPreferredSize(new Dimension(64, 27));
 
@@ -251,9 +244,6 @@ public class DlgAltaModificacionCampos extends JDialog {
         jScrollPane2.setViewportView(txtObservaciones);
 
         jLabel9.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel9.setText("Usuario:");
-
-        jLabel10.setText("Modificación");
 
         txtUsuario.setPreferredSize(new Dimension(64, 27));
 
@@ -346,10 +336,7 @@ public class DlgAltaModificacionCampos extends JDialog {
 
         getContentPane().add(jPanel2, BorderLayout.CENTER);
 
-        btnAceptar.setText("ACEPTAR");
         btnAceptar.setPreferredSize(new Dimension(98, 27));
-
-        btnCancelar.setText("CANCELAR");
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -383,7 +370,19 @@ public class DlgAltaModificacionCampos extends JDialog {
     private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 		
-		
+		setTitle("Alta / Modificación de Campos");
+		jLabel1.setText("Alta / Modificación de Campos");
+		jLabel2.setText("Nombre");
+		jLabel3.setText("Tipo de Dato:");
+		jLabel4.setText("Tamaño");
+		jLabel5.setText("Decimales");
+        jLabel6.setText("Es excepción");
+        jLabel7.setText("Descripción Excepción");
+        jLabel8.setText("Observaciones");
+        jLabel9.setText("Usuario:");
+        jLabel10.setText("Modificación");
+        btnAceptar.setText("ACEPTAR");
+        btnCancelar.setText("CANCELAR");
 	}
 	
 	/**
@@ -391,6 +390,9 @@ public class DlgAltaModificacionCampos extends JDialog {
 	 */
 	private void initEvents() {
 		ActionListener actionListener = new DlgAltaModificacionCamposListener(this);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 	
 	/**

@@ -23,6 +23,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.listener.DlgBajaGlosarioListener;
+import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
@@ -112,7 +113,9 @@ public class DlgBajaGlosario extends JDialog {
         jScrollPane1 = new JScrollPane();
         txtComentario = new JTextArea();
         btnAceptar = new JButton();
+        btnAceptar.setName(Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR);
         btnCancelar = new JButton();
+        btnCancelar.setName(Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -199,6 +202,9 @@ public class DlgBajaGlosario extends JDialog {
 	 */
 	private void initEvents() {
 		ActionListener actionListener = new DlgBajaGlosarioListener(this);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 	
 	/**
