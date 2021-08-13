@@ -188,11 +188,11 @@ public class DlgBajaGlosario extends JDialog {
     private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
 		
-		jLabel1.setText("RF");
-		jLabel2.setText("SD");
-		jLabel3.setText("Comentario:");
-		btnAceptar.setText("Aceptar");
-		btnCancelar.setText("Cancelar");
+		jLabel1.setText(literales.getLiteral("dlgBajaGlosario.rf"));
+		jLabel2.setText(literales.getLiteral("dlgBajaGlosario.sd"));
+		jLabel3.setText(literales.getLiteral("dlgBajaGlosario.comentario"));
+		btnAceptar.setText(literales.getLiteral("dlgBajaGlosario.aceptar"));
+		btnCancelar.setText(literales.getLiteral("dlgBajaGlosario.cancelar"));
 	}
 	
 	/**
