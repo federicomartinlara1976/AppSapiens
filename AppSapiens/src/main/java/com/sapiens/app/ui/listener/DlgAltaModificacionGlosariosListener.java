@@ -9,6 +9,9 @@ import com.sapiens.app.bussiness.service.GlosarioService;
 import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.sapiens.app.utils.Constants;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
@@ -36,8 +39,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		String inParam = "test inputParam";
 		String outResponse = glosarioService.procedurePostgres(inParam);
 		//String outResponse = glosarioService.procedureOracle();
-		System.out.println(outResponse);
-
+		log.debug(outResponse);
 	}
 
 }
