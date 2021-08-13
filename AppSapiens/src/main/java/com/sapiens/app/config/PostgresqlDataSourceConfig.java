@@ -21,7 +21,7 @@ public class PostgresqlDataSourceConfig {
      * @return the data source connection
      */
     @SuppressWarnings("rawtypes")
-	@Bean
+	//@Bean
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = null;
         try {

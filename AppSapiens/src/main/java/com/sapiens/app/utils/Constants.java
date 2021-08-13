@@ -38,6 +38,9 @@ public class Constants {
 	 */
 	public static final String CMD_ALTA_GLOSARIOS = "CMD_ALTA_GLOSARIOS";
 	public static final String CMD_MODIFICACION_GLOSARIOS = "CMD_MODIFICACION_GLOSARIOS";
+	public static final String CMD_BAJA_GLOSARIO_CAMPOS = "CMD_BAJA_GLOSARIO_CAMPOS";
+	public static final String CMD_ALTA_GLOSARIO_CAMPOS = "CMD_ALTA_GLOSARIO_CAMPOS";
+	public static final String CMD_MODIFICACION_GLOSARIO_CAMPOS = "CMD_MODIFICACION_GLOSARIO_CAMPOS";
 	
 	/**
 	 * Panel principal
@@ -81,4 +84,6 @@ public class Constants {
 	public static final String DLG_GLOSARIO_CAMPOS_BTN_BAJA = "DLG_GLOSARIO_CAMPOS_BTN_BAJA";
 	public static final String DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION = "DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION";
 	public static final String DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR = "DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR";
+	
+	
 }

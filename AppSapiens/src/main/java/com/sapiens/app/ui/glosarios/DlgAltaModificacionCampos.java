@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -25,6 +26,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.sapiens.app.ui.PanelLogotipo;
 import com.sapiens.app.ui.listener.DlgAltaModificacionCamposListener;
 import com.sapiens.app.utils.LiteralesSingleton;
 
@@ -66,7 +68,7 @@ public class DlgAltaModificacionCampos extends JDialog {
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
-    private JPanel jPanel4;
+    private PanelLogotipo panelLogo;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     
@@ -94,6 +96,8 @@ public class DlgAltaModificacionCampos extends JDialog {
     
     @Getter
     private JFrame frameParent;
+    
+    private Map<String, Object> params;
 	
 	/**
      * Creates new form DlgAltaModificacionCampos
@@ -102,7 +106,25 @@ public class DlgAltaModificacionCampos extends JDialog {
         super(parent, modal);
         this.frameParent = parent;
         
-        try {
+        initialize();
+    }
+    
+    /**
+     * Creates new form DlgAltaModificacionCampos
+     */
+    public DlgAltaModificacionCampos(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal);
+        this.frameParent = parent;
+        this.params = params;
+        
+        initialize();
+    }
+    
+    /**
+     * 
+     */
+    private void initialize() {
+		try {
 			initComponents();
 			initLiterals();
 			initEvents();
@@ -111,7 +133,7 @@ public class DlgAltaModificacionCampos extends JDialog {
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
-    }
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,7 +144,7 @@ public class DlgAltaModificacionCampos extends JDialog {
     private void initComponents() {
 
         jPanel1 = new JPanel();
-        jPanel4 = new JPanel();
+        panelLogo = new PanelLogotipo("logotipo.png");
         jLabel1 = new JLabel();
         jPanel2 = new JPanel();
         jLabel2 = new JLabel();
@@ -151,10 +173,10 @@ public class DlgAltaModificacionCampos extends JDialog {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel4.setPreferredSize(new Dimension(286, 63));
+        panelLogo.setPreferredSize(new Dimension(286, 63));
 
-        GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
+        GroupLayout jPanel4Layout = new GroupLayout(panelLogo);
+        panelLogo.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 286, Short.MAX_VALUE)
@@ -172,7 +194,7 @@ public class DlgAltaModificacionCampos extends JDialog {
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addContainerGap(222, Short.MAX_VALUE))
@@ -181,7 +203,7 @@ public class DlgAltaModificacionCampos extends JDialog {
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)

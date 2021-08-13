@@ -8,6 +8,7 @@ package com.sapiens.app.ui.glosarios;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -60,6 +61,8 @@ public class DlgBajaGlosario extends JDialog {
     @Getter
     private JFrame frameParent;
     
+    private Map<String, Object> params;
+    
 	/**
      * Creates new form DlgBajaGlosario
      */
@@ -67,7 +70,22 @@ public class DlgBajaGlosario extends JDialog {
         super(parent, modal);
         this.frameParent = parent;
         
-        try {
+        initialize();
+    }
+    
+    public DlgBajaGlosario(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal);
+        this.frameParent = parent;
+        this.params = params;
+        
+        initialize();
+    }
+    
+    /**
+     * 
+     */
+    private void initialize() {
+		try {
 			initComponents();
 			initLiterals();
 			initEvents();
@@ -76,7 +94,7 @@ public class DlgBajaGlosario extends JDialog {
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
-    }
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.

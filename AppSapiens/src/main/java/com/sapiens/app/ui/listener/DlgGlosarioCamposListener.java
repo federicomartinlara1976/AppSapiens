@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 import com.sapiens.app.ui.glosarios.DlgGlosarioCampos;
+import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.Constants;
 
 /**
@@ -73,24 +75,27 @@ public class DlgGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnAlta() {
-		// TODO Auto-generated method stub
-		
+		JDialog dialog = UIHelper.createDialog(dlgGlosarioCampos.getFrameParent(),
+				Constants.CMD_ALTA_GLOSARIO_CAMPOS);
+		UIHelper.showDialog(dialog);
 	}
 	
 	/**
 	 * 
 	 */
 	private void eventBtnBaja() {
-		// TODO Auto-generated method stub
-		
+		JDialog dialog = UIHelper.createDialog(dlgGlosarioCampos.getFrameParent(),
+				Constants.CMD_BAJA_GLOSARIO_CAMPOS);
+		UIHelper.showDialog(dialog);
 	}
 	
 	/**
 	 * 
 	 */
 	private void eventBtnModificacion() {
-		// TODO Auto-generated method stub
-		
+		JDialog dialog = UIHelper.createDialog(dlgGlosarioCampos.getFrameParent(),
+				Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS);
+		UIHelper.showDialog(dialog);
 	}
 	
 	/**

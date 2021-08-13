@@ -5,7 +5,9 @@ import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.sapiens.app.ui.glosarios.DlgAltaModificacionCampos;
 import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
+import com.sapiens.app.ui.glosarios.DlgBajaGlosario;
 import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
 import com.sapiens.app.ui.glosarios.DlgGlosarioCampos;
 import com.sapiens.app.utils.Constants;
@@ -53,6 +55,18 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(menuOption)) {
 			dialog = new DlgAltaModificacionGlosarios(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_BAJA_GLOSARIO_CAMPOS.equals(menuOption)) {
+			dialog = new DlgBajaGlosario(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_ALTA_GLOSARIO_CAMPOS.equals(menuOption)) {
+			dialog = new DlgAltaModificacionCampos(frameParent, modal);
+		}
+		
+		if (Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS.equals(menuOption)) {
+			dialog = new DlgAltaModificacionCampos(frameParent, modal, params);
 		}
 		
 		return dialog;
