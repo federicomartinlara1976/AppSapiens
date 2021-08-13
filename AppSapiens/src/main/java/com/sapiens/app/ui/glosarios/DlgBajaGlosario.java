@@ -119,25 +119,17 @@ public class DlgBajaGlosario extends JDialog {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("RF");
-
         txtRF.setPreferredSize(new Dimension(64, 27));
 
-        jLabel2.setText("SD");
-
         txtSD.setPreferredSize(new Dimension(64, 27));
-
-        jLabel3.setText("Comentario:");
 
         txtComentario.setColumns(20);
         txtComentario.setRows(5);
         jScrollPane1.setViewportView(txtComentario);
 
         btnAceptar.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        btnAceptar.setText("Aceptar");
 
         btnCancelar.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,6 +187,12 @@ public class DlgBajaGlosario extends JDialog {
      */
     private void initLiterals() throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+		
+		jLabel1.setText("RF");
+		jLabel2.setText("SD");
+		jLabel3.setText("Comentario:");
+		btnAceptar.setText("Aceptar");
+		btnCancelar.setText("Cancelar");
 	}
 	
 	/**
