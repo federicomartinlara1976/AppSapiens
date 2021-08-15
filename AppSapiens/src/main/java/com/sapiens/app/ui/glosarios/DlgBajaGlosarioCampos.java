@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j;
  * @author federico
  */
 @Log4j
-public class DlgBajaGlosario extends JDialog {
+public class DlgBajaGlosarioCampos extends JDialog {
 
     /**
 	 * 
@@ -67,14 +67,14 @@ public class DlgBajaGlosario extends JDialog {
 	/**
      * Creates new form DlgBajaGlosario
      */
-    public DlgBajaGlosario(JFrame parent, boolean modal) {
+    public DlgBajaGlosarioCampos(JFrame parent, boolean modal) {
         super(parent, modal);
         this.frameParent = parent;
         
         initialize();
     }
     
-    public DlgBajaGlosario(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgBajaGlosarioCampos(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal);
         this.frameParent = parent;
         this.params = params;

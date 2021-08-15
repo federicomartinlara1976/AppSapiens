@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.sapiens.app.ui.glosarios.DlgBajaGlosario;
+import com.sapiens.app.ui.glosarios.DlgBajaGlosarioCampos;
 import com.sapiens.app.utils.Constants;
 
 public class DlgBajaGlosarioListener extends ListenerSupport implements ActionListener {
 
-	private DlgBajaGlosario dlgBajaGlosario;
+	private DlgBajaGlosarioCampos dlgBajaGlosario;
 
-	public DlgBajaGlosarioListener(DlgBajaGlosario dlgBajaGlosario) {
+	public DlgBajaGlosarioListener(DlgBajaGlosarioCampos dlgBajaGlosario) {
 		super();
 		this.dlgBajaGlosario = dlgBajaGlosario;
 	}
