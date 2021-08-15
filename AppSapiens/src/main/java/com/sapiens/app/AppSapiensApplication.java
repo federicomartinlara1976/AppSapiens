@@ -1,21 +1,25 @@
 package com.sapiens.app;
 
-import com.sapiens.app.ui.DlgIdentificador;
-import com.sapiens.app.ui.FramePrincipal;
-import com.sapiens.app.ui.utils.UIHelper;
-import com.sapiens.app.utils.AppGlobalSingleton;
-import com.sapiens.app.utils.Constants;
-import com.sapiens.app.utils.LogWrapper;
-import lombok.extern.log4j.Log4j;
+import java.awt.EventQueue;
+
+import javax.sql.DataSource;
+import javax.swing.JDialog;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import javax.sql.DataSource;
-import javax.swing.*;
-import java.awt.*;
+import com.sapiens.app.ui.FramePrincipal;
+import com.sapiens.app.ui.utils.UIHelper;
+import com.sapiens.app.utils.AppGlobalSingleton;
+import com.sapiens.app.utils.Constants;
+import com.sapiens.app.utils.LogWrapper;
+
+import lombok.extern.log4j.Log4j;
 
 @SpringBootApplication
 @Log4j
@@ -38,7 +42,7 @@ public class AppSapiensApplication implements CommandLineRunner {
 		setupSpringContext();
 		setupUIEnvironment();
 		displayApp();
-		log.info("Connection Polling datasource : "+ dataSource);
+		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
 
 	/**
@@ -77,9 +81,9 @@ public class AppSapiensApplication implements CommandLineRunner {
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
 			
-			DlgIdentificador  dlgIdentificador = new DlgIdentificador(framePrincipal, Boolean.TRUE);
-			UIHelper.centerOnScreen(dlgIdentificador);
-			dlgIdentificador.setVisible(Boolean.TRUE);
+			JDialog dialog = UIHelper.createDialog(framePrincipal,
+					Constants.CMD_INICIAR_APP);
+			UIHelper.showDialog(dialog);
 		});
 	}
 }

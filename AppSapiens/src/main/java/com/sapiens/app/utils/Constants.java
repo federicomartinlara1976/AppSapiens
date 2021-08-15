@@ -36,6 +36,8 @@ public class Constants {
 	/**
 	 * Comandos que activan dialogos
 	 */
+	public static final String CMD_INICIAR_APP = "CMD_INICIAR_APP";
+	public static final String CMD_PANEL_PRINCIPAL_TAB_EXCEPCIONES = "CMD_PANEL_PRINCIPAL_TAB_EXCEPCIONES";
 	public static final String CMD_ALTA_GLOSARIOS = "CMD_ALTA_GLOSARIOS";
 	public static final String CMD_MODIFICACION_GLOSARIOS = "CMD_MODIFICACION_GLOSARIOS";
 	public static final String CMD_BAJA_GLOSARIO_CAMPOS = "CMD_BAJA_GLOSARIO_CAMPOS";

@@ -4,10 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
 import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
-import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.Constants;
 
 public class DlgDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
@@ -37,16 +35,11 @@ public class DlgDefinicionGlosariosListener extends ListenerSupport implements A
 	}
 
 	private void eventBtnAlta() {
-		JDialog dialog = UIHelper.createDialog(dlgDefinicionGlosarios.getFrameParent(),
-				Constants.CMD_ALTA_GLOSARIOS);
-		UIHelper.showDialog(dialog);
-
+		showPopup(dlgDefinicionGlosarios.getFrameParent(), Constants.CMD_ALTA_GLOSARIOS);
 	}
 
 	private void evntBtnModificacion() {
-		JDialog dialog = UIHelper.createDialog(dlgDefinicionGlosarios.getFrameParent(),
-				Constants.CMD_MODIFICACION_GLOSARIOS);
-		UIHelper.showDialog(dialog);
+		showPopup(dlgDefinicionGlosarios.getFrameParent(), Constants.CMD_MODIFICACION_GLOSARIOS);
 	}
 
 	private void eventBtnSeleccionar() {

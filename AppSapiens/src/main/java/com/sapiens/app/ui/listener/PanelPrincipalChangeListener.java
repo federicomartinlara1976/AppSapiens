@@ -3,9 +3,8 @@ package com.sapiens.app.ui.listener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.sapiens.app.ui.utils.UIHelper;
-import com.sapiens.app.ui.validacionscripts.DlgExcepciones;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
+import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LogWrapper;
 
 import lombok.extern.log4j.Log4j;
@@ -53,10 +52,7 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 	}
 
 	private void eventTabElementosErrores() {
-		LogWrapper.debug(log, "Click en la tab elementos con errores ");
-		DlgExcepciones dialog = new DlgExcepciones(panelPrincipal.getFrameParent(), true);
-		UIHelper.centerOnScreen(dialog);
-		dialog.setVisible(true);
+		showPopup(panelPrincipal.getFrameParent(), Constants.CMD_PANEL_PRINCIPAL_TAB_EXCEPCIONES);
 	}
 
 	private void eventTabExcepciones() {
