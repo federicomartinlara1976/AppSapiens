@@ -27,12 +27,6 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 
 		if (Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getName())) {
 			eventBtnAceptar();
-			
-			dlgIdentificador.setIsTerminate(Boolean.FALSE);
-			dlgIdentificador.dispose();
-			
-			UIHelper.showMaximized(dlgIdentificador.getFrameParent());
-			dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
 		}
 	}
 	
@@ -42,6 +36,12 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 		if (StringUtils.isNotBlank(txtCodUsr)) {
 			AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, txtCodUsr);
 		}
+		
+		dlgIdentificador.setIsTerminate(Boolean.FALSE);
+		dlgIdentificador.dispose();
+		
+		UIHelper.showMaximized(dlgIdentificador.getFrameParent());
+		dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
 	}
 
 }
