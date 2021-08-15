@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
-import com.sapiens.app.ui.listener.DlgBajaGlosarioListener;
+import com.sapiens.app.ui.listener.DlgBajaGlosarioCamposListener;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
@@ -199,7 +199,7 @@ public class DlgBajaGlosarioCampos extends JDialog {
 	 * 
 	 */
 	private void initEvents() {
-		ActionListener actionListener = new DlgBajaGlosarioListener(this);
+		ActionListener actionListener = new DlgBajaGlosarioCamposListener(this);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

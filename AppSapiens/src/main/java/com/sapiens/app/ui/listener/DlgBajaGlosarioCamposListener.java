@@ -8,11 +8,11 @@ import javax.swing.JButton;
 import com.sapiens.app.ui.glosarios.DlgBajaGlosarioCampos;
 import com.sapiens.app.utils.Constants;
 
-public class DlgBajaGlosarioListener extends ListenerSupport implements ActionListener {
+public class DlgBajaGlosarioCamposListener extends ListenerSupport implements ActionListener {
 
 	private DlgBajaGlosarioCampos dlgBajaGlosario;
 
-	public DlgBajaGlosarioListener(DlgBajaGlosarioCampos dlgBajaGlosario) {
+	public DlgBajaGlosarioCamposListener(DlgBajaGlosarioCampos dlgBajaGlosario) {
 		super();
 		this.dlgBajaGlosario = dlgBajaGlosario;
 	}
