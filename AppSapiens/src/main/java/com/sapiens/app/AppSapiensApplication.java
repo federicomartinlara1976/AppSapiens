@@ -39,10 +39,12 @@ public class AppSapiensApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		String version = System.getProperty("java.version");
+		LogWrapper.debug(log, "Java version: %s", version);
+		
 		setupSpringContext();
 		setupUIEnvironment();
 		displayApp();
-		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
 
 	/**
@@ -54,6 +56,8 @@ public class AppSapiensApplication implements CommandLineRunner {
 		
 		LogWrapper.debug(log, "%s", applicationContext.getDisplayName());
 		appGlobalSingleton.setProperty(Constants.SPRING_CONTEXT, applicationContext);
+		
+		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
 	
 	/**
