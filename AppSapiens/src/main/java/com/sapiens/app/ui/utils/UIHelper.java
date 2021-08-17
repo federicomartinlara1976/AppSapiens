@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import com.sapiens.app.ui.utils.dialog.Creator;
 import com.sapiens.app.ui.utils.dialog.DialogCreator;
+import com.sapiens.app.ui.utils.dialog.FrameCreator;
 
 /**
  * @author federico
@@ -41,7 +42,7 @@ public class UIHelper {
 	 */
 	public static JDialog createDialog(JFrame frameParent, String item) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return dialogCreator.factoryMethod(null);
+		return (JDialog) dialogCreator.factoryMethod(null);
 	}
 	
 	/**
@@ -52,16 +53,44 @@ public class UIHelper {
 	 */
 	public static JDialog createDialog(JFrame frameParent, String item, Map<String, Object> params) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return dialogCreator.factoryMethod(params);
+		return (JDialog) dialogCreator.factoryMethod(params);
+	}
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	public static JFrame createFrame(String item) {
+		Creator frameCreator = new FrameCreator(item);
+		return (JFrame) frameCreator.factoryMethod(null);
+	}
+	
+	/**
+	 * @param item
+	 * @param params
+	 * @return
+	 */
+	public static JFrame createFrame(String item, Map<String, Object> params) {
+		Creator frameCreator = new FrameCreator(item);
+		return (JFrame) frameCreator.factoryMethod(params);
 	}
 	
 	/**
 	 * @param dialog
 	 */
-	public static void showDialog(JDialog dialog) {
+	public static void show(JDialog dialog) {
 		if (!Objects.isNull(dialog)) {
 			UIHelper.centerOnScreen(dialog);
 			dialog.setVisible(Boolean.TRUE);
+		}
+	}
+
+	/**
+	 * @param frame
+	 */
+	public static void show(JFrame frame) {
+		if (!Objects.isNull(frame)) {
+			frame.setVisible(Boolean.TRUE);
 		}
 	}
 }

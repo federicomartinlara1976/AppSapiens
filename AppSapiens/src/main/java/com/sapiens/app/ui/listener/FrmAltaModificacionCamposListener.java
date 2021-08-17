@@ -5,16 +5,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.sapiens.app.ui.glosarios.DlgAltaModificacionCampos;
+import com.sapiens.app.ui.glosarios.FrmAltaModificacionCampos;
 import com.sapiens.app.utils.Constants;
 
-public class DlgAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
+public class FrmAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
 
-	private DlgAltaModificacionCampos dlgAltaModificacionCampos;
+	private FrmAltaModificacionCampos frmAltaModificacionCampos;
 
-	public DlgAltaModificacionCamposListener(DlgAltaModificacionCampos dlgAltaModificacionCampos) {
+	public FrmAltaModificacionCamposListener(FrmAltaModificacionCampos frmAltaModificacionCampos) {
 		super();
-		this.dlgAltaModificacionCampos = dlgAltaModificacionCampos;
+		this.frmAltaModificacionCampos = frmAltaModificacionCampos;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 		}
 
 		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR.equals(jButton.getName())) {
-			dlgAltaModificacionCampos.dispose();
+			frmAltaModificacionCampos.dispose();
 		}
 	}
 

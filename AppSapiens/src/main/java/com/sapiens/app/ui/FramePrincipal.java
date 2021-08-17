@@ -8,12 +8,12 @@ package com.sapiens.app.ui;
 import java.awt.BorderLayout;
 import java.io.IOException;
 
-import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.menu.MainMenuBar;
+import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
 import com.sapiens.app.utils.LiteralesSingleton;
 
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author federico
  */
 @Slf4j
-public class FramePrincipal extends JFrame {
+public class FramePrincipal extends FrameSupport {
 
 	/**
 	 * 
@@ -39,6 +39,8 @@ public class FramePrincipal extends JFrame {
 	 * Creates new form FramePrincipal
 	 */
 	public FramePrincipal() {
+		super();
+		
 		try {
 			initComponents();
 			initLiterals();

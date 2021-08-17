@@ -5,18 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.sapiens.app.ui.glosarios.DlgGlosarioCampos;
+import com.sapiens.app.ui.glosarios.FrmGlosarioCampos;
 import com.sapiens.app.utils.Constants;
 
 /**
  * @author federico
  *
  */
-public class DlgGlosarioCamposListener extends ListenerSupport implements ActionListener {
+public class FrmGlosarioCamposListener extends ListenerSupport implements ActionListener {
 
-	private DlgGlosarioCampos dlgGlosarioCampos;
+	private FrmGlosarioCampos dlgGlosarioCampos;
 
-	public DlgGlosarioCamposListener(DlgGlosarioCampos dlgGlosarioCampos) {
+	public FrmGlosarioCamposListener(FrmGlosarioCampos dlgGlosarioCampos) {
 		super();
 		this.dlgGlosarioCampos = dlgGlosarioCampos;
 	}

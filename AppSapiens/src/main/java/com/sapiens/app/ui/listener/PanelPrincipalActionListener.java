@@ -48,20 +48,6 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	
 	private void eventBtnLimpiarTodo() {
 		LogWrapper.debug(log, "Click boton limpiar todo");
-		
-		panelPrincipal.getTxtModuloProyecto().setText(StringUtils.EMPTY);
-		panelPrincipal.getTxtIdGlosario().setText(StringUtils.EMPTY);
-		panelPrincipal.getTxtGlosario().setText(StringUtils.EMPTY);
-		
-		panelPrincipal.getCmbSubModelo().setModel(new DefaultComboBoxModel<>());
-		panelPrincipal.getTxtIdNorma().setText(StringUtils.EMPTY);
-		panelPrincipal.getTxtNorma().setText(StringUtils.EMPTY);
-		
-		panelPrincipal.getTxtIM().setText(StringUtils.EMPTY);
-		panelPrincipal.getTxtSD().setText(StringUtils.EMPTY);
-		
-		panelPrincipal.getTxtArchivoScript().setText(StringUtils.EMPTY);
-		panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
 	}
 
 	private void eventBtnLimpiarValidacion() {

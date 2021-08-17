@@ -18,25 +18,25 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		Integer selectedIndex = panelPrincipal.getJTabbedPane1().getSelectedIndex();
-
-		switch (selectedIndex) {
-		case 0:
-			eventTabElementosValidar();
-			break;
-		case 1:
-			eventTabElementosCorrectos();
-			break;
-		case 2:
-			eventTabElementosNoGlosario();
-			break;
-		case 3:
-			eventTabElementosErrores();
-			break;
-		case 4:
-			eventTabExcepciones();
-			break;
-		}
+//		Integer selectedIndex = panelPrincipal.getJTabbedPane1().getSelectedIndex();
+//
+//		switch (selectedIndex) {
+//		case 0:
+//			eventTabElementosValidar();
+//			break;
+//		case 1:
+//			eventTabElementosCorrectos();
+//			break;
+//		case 2:
+//			eventTabElementosNoGlosario();
+//			break;
+//		case 3:
+//			eventTabElementosErrores();
+//			break;
+//		case 4:
+//			eventTabExcepciones();
+//			break;
+//		}
 	}
 
 	private void eventTabElementosValidar() {

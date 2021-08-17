@@ -5,16 +5,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.sapiens.app.ui.glosarios.DlgDefinicionGlosarios;
+import com.sapiens.app.ui.glosarios.FrmDefinicionGlosarios;
 import com.sapiens.app.utils.Constants;
 
-public class DlgDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
+public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
 
-	private DlgDefinicionGlosarios dlgDefinicionGlosarios;
+	private FrmDefinicionGlosarios frmDefinicionGlosarios;
 
-	public DlgDefinicionGlosariosListener(DlgDefinicionGlosarios dlgDefinicionGlosarios) {
+	public FrmDefinicionGlosariosListener(FrmDefinicionGlosarios frmDefinicionGlosarios) {
 		super();
-		this.dlgDefinicionGlosarios = dlgDefinicionGlosarios;
+		this.frmDefinicionGlosarios = frmDefinicionGlosarios;
 	}
 
 	@Override
@@ -35,11 +35,11 @@ public class DlgDefinicionGlosariosListener extends ListenerSupport implements A
 	}
 
 	private void eventBtnAlta() {
-		showPopup(dlgDefinicionGlosarios.getFrameParent(), Constants.CMD_ALTA_GLOSARIOS);
+		showFrame(Constants.CMD_ALTA_GLOSARIOS);
 	}
 
 	private void evntBtnModificacion() {
-		showPopup(dlgDefinicionGlosarios.getFrameParent(), Constants.CMD_MODIFICACION_GLOSARIOS);
+		showFrame(Constants.CMD_MODIFICACION_GLOSARIOS);
 	}
 
 	private void eventBtnSeleccionar() {

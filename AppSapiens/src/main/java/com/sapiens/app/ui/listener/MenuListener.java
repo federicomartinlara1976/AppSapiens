@@ -3,7 +3,6 @@ package com.sapiens.app.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
@@ -19,11 +18,8 @@ import com.sapiens.app.ui.utils.UIHelper;
  */
 public class MenuListener implements ActionListener {
 	
-	private JFrame frameParent;
-
 	public MenuListener(JFrame frameParent) {
 		super();
-		this.frameParent = frameParent;
 	}
 
 	/**
@@ -32,7 +28,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JDialog dialog = UIHelper.createDialog(frameParent, item.getName());
-		UIHelper.showDialog(dialog);
+		JFrame frame = UIHelper.createFrame(item.getName());
+		UIHelper.show(frame);
 	}
 }

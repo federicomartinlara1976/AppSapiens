@@ -87,7 +87,7 @@ public class AppSapiensApplication implements CommandLineRunner {
 			
 			JDialog dialog = UIHelper.createDialog(framePrincipal,
 					Constants.CMD_INICIAR_APP);
-			UIHelper.showDialog(dialog);
+			UIHelper.show(dialog);
 		});
 	}
 }

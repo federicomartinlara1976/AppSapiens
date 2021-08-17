@@ -24,7 +24,15 @@ public abstract class ListenerSupport {
 	 */
 	protected void showPopup(JFrame frame, String cmd) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd);
-		UIHelper.showDialog(dialog);
+		UIHelper.show(dialog);
+	}
+	
+	/**
+	 * @param cmd
+	 */
+	protected void showFrame(String cmd) {
+		JFrame frame = UIHelper.createFrame(cmd);
+		UIHelper.show(frame);
 	}
 	
 	/**
@@ -34,6 +42,6 @@ public abstract class ListenerSupport {
 	 */
 	protected void showPopup(JFrame frame, String cmd, Map<String, Object> params) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd, params);
-		UIHelper.showDialog(dialog);
+		UIHelper.show(dialog);
 	}
 }

@@ -6,19 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import com.sapiens.app.bussiness.service.GlosarioService;
-import com.sapiens.app.ui.glosarios.DlgAltaModificacionGlosarios;
+import com.sapiens.app.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.sapiens.app.utils.Constants;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
+public class FrmAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
-	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
+	private FrmAltaModificacionGlosarios frmAltaModificacionGlosarios;
 
-	public DlgAltaModificacionGlosariosListener(DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios) {
+	public FrmAltaModificacionGlosariosListener(FrmAltaModificacionGlosarios frmAltaModificacionGlosarios) {
 		super();
-		this.dlgAltaModificacionGlosarios = dlgAltaModificacionGlosarios;
+		this.frmAltaModificacionGlosarios = frmAltaModificacionGlosarios;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		}
 
 		if (Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR.equals(jButton.getName())) {
-			dlgAltaModificacionGlosarios.dispose();
+			frmAltaModificacionGlosarios.dispose();
 		}
 	}
 

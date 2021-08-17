@@ -5,36 +5,15 @@
  */
 package com.sapiens.app.ui.validacionscripts;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 
-import com.sapiens.app.ui.PanelLogotipo;
 import com.sapiens.app.ui.listener.PanelPrincipalActionListener;
 import com.sapiens.app.ui.listener.PanelPrincipalChangeListener;
-import com.sapiens.app.utils.Constants;
-import com.sapiens.app.utils.LiteralesSingleton;
+import com.sapiens.app.ui.utils.FrameSupport;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
@@ -52,99 +31,53 @@ public class PanelPrincipal extends JPanel {
 	private static final long serialVersionUID = 3533639441146450519L;
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private JButton btnLimpiarTodo;
-	private JButton btnLimpiarValidacion;
-	private JButton btnLoadScript;
-	private JButton btnValidar;
-	private JButton btnSearch;
+    private javax.swing.JButton btnAddAllGlosario;
+    private javax.swing.JButton btnAddGlosario;
+    private javax.swing.JButton btnBuscarGlosario;
+    private javax.swing.JButton btnGenerarLog;
+    private javax.swing.JButton btnLimpiarTodo;
+    private javax.swing.JButton btnLimpiarValidacion;
+    private javax.swing.JButton btnLoadScript;
+    private javax.swing.JButton btnMarcarExcepcion;
+    private javax.swing.JButton btnValidar;
+    private javax.swing.JComboBox<String> cmbSubModelo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel panelCabecera;
+    private javax.swing.JPanel panelContenido;
+    private javax.swing.JPanel panelTabla;
+    private javax.swing.JTextField txtArchivoScript;
+    private javax.swing.JTextField txtCodGlosario;
+    private javax.swing.JTextField txtIM;
+    private javax.swing.JTextField txtModeloProyecto;
+    private javax.swing.JTextField txtSD;
+    private javax.swing.JTextArea txtScript;
+    // End of variables declaration//GEN-END:variables
 
 	@Getter
-	private JComboBox<String> cmbSubModelo;
-
-	private JLabel jLabel1;
-	private JLabel jLabel10;
-	private JLabel jLabel2;
-	private JLabel jLabel3;
-	private JLabel jLabel4;
-	private JLabel jLabel5;
-	private JLabel jLabel6;
-	private JLabel jLabel7;
-	private JLabel jLabel8;
-	private JLabel jLabel9;
-	private JPanel jPanel1;
-	private JPanel jPanel10;
-	private JPanel jPanel11;
-	private JPanel jPanel12;
-	private JPanel jPanel13;
-	private JPanel jPanel14;
-	private JPanel jPanel15;
-	private JPanel jPanel16;
-	private JPanel jPanel17;
-	private JPanel jPanel18;
-	private JPanel jPanel19;
-	private JPanel jPanel2;
-	private JPanel jPanel20;
-	private JPanel jPanel21;
-	private JPanel jPanel22;
-	private JPanel jPanel23;
-	private JPanel jPanel24;
-	private JPanel jPanel25;
-	private JPanel jPanel26;
-	private JPanel jPanel27;
-	private JPanel jPanel3;
-	private JPanel jPanel4;
-	private JPanel jPanel5;
-	private JPanel jPanel6;
-	private JPanel jPanel7;
-	private JPanel jPanel8;
-	private JPanel jPanel9;
-	private JScrollPane jScrollPane1;
-
-	@Getter
-	private JTabbedPane jTabbedPane1;
-
-	@Getter
-	private JTextArea txtScript;
-
-	@Getter
-	private JTextField txtArchivoScript;
-
-	@Getter
-	private JTextField txtModuloProyecto;
-
-	@Getter
-	private JTextField txtIdGlosario;
-
-	@Getter
-	private JTextField txtGlosario;
-
-	@Getter
-	private JTextField txtIdNorma;
-
-	@Getter
-	private JTextField txtNorma;
-
-	@Getter
-	private JTextField txtIM;
-
-	@Getter
-	private JTextField txtSD;
-
-	private JPanel panelBotones;
-	private JPanel panelCabecera;
-	private JPanel panelContenido;
-	private JPanel panelLogotipo;
-	private JPanel panelOpciones;
-	private JPanel panelResultado;
-	// End of variables declaration//GEN-END:variables
-
-	@Getter
-	private JFrame frameParent;
+	private FrameSupport frameParent;
 
 	/**
 	 * Creates new form PanelPrincipal
 	 */
-	public PanelPrincipal(JFrame frameParent) {
+	public PanelPrincipal(FrameSupport frameParent) {
 		this.frameParent = frameParent;
 		
 		try {
@@ -163,421 +96,347 @@ public class PanelPrincipal extends JPanel {
 	 * WARNING: Do NOT modify this code. The content of this method is always
 	 * regenerated by the Form Editor.
 	 */
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() throws IOException {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-		GridBagConstraints gridBagConstraints;
-
-		panelCabecera = new JPanel();
-		panelLogotipo = new PanelLogotipo("logotipo.png");
-		jLabel1 = new JLabel();
-		panelContenido = new JPanel();
-		panelOpciones = new JPanel();
-		jPanel9 = new JPanel();
-		jPanel13 = new JPanel();
-		jLabel5 = new JLabel();
-		jPanel14 = new JPanel();
-		txtModuloProyecto = new JTextField();
-		jPanel15 = new JPanel();
-		btnSearch = new JButton();
-		jPanel16 = new JPanel();
-		jLabel6 = new JLabel();
-		jPanel17 = new JPanel();
-		txtIdGlosario = new JTextField();
-		jPanel18 = new JPanel();
-		txtGlosario = new JTextField();
-		jPanel2 = new JPanel();
-		jPanel19 = new JPanel();
-		jLabel7 = new JLabel();
-		jPanel20 = new JPanel();
-		cmbSubModelo = new JComboBox<>();
-		jPanel21 = new JPanel();
-		jLabel8 = new JLabel();
-		jPanel22 = new JPanel();
-		txtIdNorma = new JTextField();
-		jPanel23 = new JPanel();
-		txtNorma = new JTextField();
-		jPanel3 = new JPanel();
-		jLabel9 = new JLabel();
-		txtIM = new JTextField();
-		jLabel10 = new JLabel();
-		txtSD = new JTextField();
-		jPanel4 = new JPanel();
-		jPanel12 = new JPanel();
-		jLabel4 = new JLabel();
-		jPanel10 = new JPanel();
-		txtArchivoScript = new JTextField();
-		jPanel11 = new JPanel();
-		btnLoadScript = new JButton();
-		jPanel5 = new JPanel();
-		jPanel6 = new JPanel();
-		jLabel3 = new JLabel();
-		jPanel7 = new JPanel();
-		jScrollPane1 = new JScrollPane();
-		txtScript = new JTextArea();
-		jPanel8 = new JPanel();
-		btnValidar = new JButton();
-		panelResultado = new JPanel();
-		jTabbedPane1 = new JTabbedPane();
-		jPanel1 = new JPanel();
-		jPanel24 = new JPanel();
-		jPanel25 = new JPanel();
-		jPanel26 = new JPanel();
-		jPanel27 = new JPanel();
-		jLabel2 = new JLabel();
-		panelBotones = new JPanel();
-		btnLimpiarValidacion = new JButton();
-		btnLimpiarTodo = new JButton();
-
-		setLayout(new BorderLayout());
-
-		panelCabecera.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 15));
-
-		panelLogotipo.setPreferredSize(new Dimension(286, 63));
-
-		GroupLayout panelLogotipoLayout = new GroupLayout(panelLogotipo);
-		panelLogotipo.setLayout(panelLogotipoLayout);
-		panelLogotipoLayout.setHorizontalGroup(
-				panelLogotipoLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 286, Short.MAX_VALUE));
-		panelLogotipoLayout.setVerticalGroup(
-				panelLogotipoLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 63, Short.MAX_VALUE));
-
-		panelCabecera.add(panelLogotipo);
-
-		jLabel1.setFont(new Font("Dialog", 1, 24)); // NOI18N
-		panelCabecera.add(jLabel1);
-
-		add(panelCabecera, BorderLayout.PAGE_START);
-
-		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.PAGE_AXIS));
-
-		panelOpciones.setLayout(new GridBagLayout());
-
-		jPanel9.setLayout(new GridBagLayout());
-
-		jPanel13.add(jLabel5);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jPanel9.add(jPanel13, gridBagConstraints);
-
-		jPanel14.setLayout(new BorderLayout());
-		jPanel14.add(txtModuloProyecto, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 80.0;
-		jPanel9.add(jPanel14, gridBagConstraints);
-
-		btnSearch.setName(Constants.PANEL_PRINCIPAL_BTN_SEARCH);
-		btnSearch.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
-		jPanel15.add(btnSearch);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 3;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 2;
-		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
-		jPanel9.add(jPanel15, gridBagConstraints);
-
-		jPanel16.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-		jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
-		jPanel16.add(jLabel6);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		jPanel9.add(jPanel16, gridBagConstraints);
-
-		jPanel17.setLayout(new BorderLayout());
-
-		txtIdGlosario.setPreferredSize(new Dimension(45, 21));
-		jPanel17.add(txtIdGlosario, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		jPanel9.add(jPanel17, gridBagConstraints);
-
-		jPanel18.setLayout(new BorderLayout());
-		jPanel18.add(txtGlosario, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 60.0;
-		jPanel9.add(jPanel18, gridBagConstraints);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 80.0;
-		panelOpciones.add(jPanel9, gridBagConstraints);
-
-		jPanel2.setLayout(new GridBagLayout());
-
-		jPanel19.add(jLabel7);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jPanel2.add(jPanel19, gridBagConstraints);
-
-		jPanel20.setPreferredSize(new Dimension(150, 26));
-		jPanel20.setLayout(new BorderLayout());
-
-		cmbSubModelo.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		cmbSubModelo.setMinimumSize(new Dimension(150, 26));
-		cmbSubModelo.setPreferredSize(new Dimension(150, 26));
-		jPanel20.add(cmbSubModelo, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 60.0;
-		jPanel2.add(jPanel20, gridBagConstraints);
-
-		jPanel21.add(jLabel8);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jPanel2.add(jPanel21, gridBagConstraints);
-
-		jPanel22.setLayout(new BorderLayout());
-
-		txtIdNorma.setPreferredSize(new Dimension(45, 21));
-		jPanel22.add(txtIdNorma, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jPanel2.add(jPanel22, gridBagConstraints);
-
-		jPanel23.setLayout(new BorderLayout());
-		jPanel23.add(txtNorma, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jPanel2.add(jPanel23, gridBagConstraints);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 50.0;
-		panelOpciones.add(jPanel2, gridBagConstraints);
-
-		jLabel9.setHorizontalTextPosition(SwingConstants.RIGHT);
-		jPanel3.add(jLabel9);
-
-		txtIM.setPreferredSize(new Dimension(100, 21));
-		jPanel3.add(txtIM);
-
-		jLabel10.setHorizontalTextPosition(SwingConstants.RIGHT);
-		jPanel3.add(jLabel10);
-
-		txtSD.setPreferredSize(new Dimension(100, 21));
-		jPanel3.add(txtSD);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
-		gridBagConstraints.ipadx = 50;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 33.0;
-		panelOpciones.add(jPanel3, gridBagConstraints);
-
-		jPanel4.setLayout(new BorderLayout());
-
-		jPanel12.add(jLabel4);
-
-		jPanel4.add(jPanel12, BorderLayout.WEST);
-
-		jPanel10.setLayout(new BorderLayout());
-		jPanel10.add(txtArchivoScript, BorderLayout.PAGE_START);
-
-		jPanel4.add(jPanel10, BorderLayout.CENTER);
-
-		btnLoadScript.setName(Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
-		btnLoadScript.setIcon(new ImageIcon(getClass().getResource("/folder.png"))); // NOI18N
-		btnLoadScript.setPreferredSize(new Dimension(32, 32));
-		jPanel11.add(btnLoadScript);
-
-		jPanel4.add(jPanel11, BorderLayout.EAST);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		panelOpciones.add(jPanel4, gridBagConstraints);
-
-		jPanel5.setLayout(new GridBagLayout());
-
-		jPanel6.add(jLabel3);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 3.0;
-		jPanel5.add(jPanel6, gridBagConstraints);
-
-		jPanel7.setLayout(new BorderLayout());
-
-		txtScript.setColumns(20);
-		txtScript.setRows(5);
-		jScrollPane1.setViewportView(txtScript);
-
-		jPanel7.add(jScrollPane1, BorderLayout.CENTER);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 3;
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 60.0;
-		jPanel5.add(jPanel7, gridBagConstraints);
-
-		btnValidar.setName(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
-		btnValidar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnValidar.setPreferredSize(new Dimension(77, 20));
-		jPanel8.add(btnValidar);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.PAGE_END;
-		gridBagConstraints.weightx = 1.0;
-		jPanel5.add(jPanel8, gridBagConstraints);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 99.0;
-		panelOpciones.add(jPanel5, gridBagConstraints);
-
-		panelContenido.add(panelOpciones);
-
-		panelResultado.setLayout(new BorderLayout());
-
-		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(
-				jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1015, Short.MAX_VALUE));
-		jPanel1Layout.setVerticalGroup(
-				jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
-
-		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosValidar"), jPanel1);
-
-		GroupLayout jPanel24Layout = new GroupLayout(jPanel24);
-		jPanel24.setLayout(jPanel24Layout);
-		jPanel24Layout.setHorizontalGroup(
-				jPanel24Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1015, Short.MAX_VALUE));
-		jPanel24Layout.setVerticalGroup(
-				jPanel24Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
-
-		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosCorrectos"), jPanel24);
-
-		GroupLayout jPanel25Layout = new GroupLayout(jPanel25);
-		jPanel25.setLayout(jPanel25Layout);
-		jPanel25Layout.setHorizontalGroup(
-				jPanel25Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1015, Short.MAX_VALUE));
-		jPanel25Layout.setVerticalGroup(
-				jPanel25Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
-
-		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosNoEstanGlosario"), jPanel25);
-
-		GroupLayout jPanel26Layout = new GroupLayout(jPanel26);
-		jPanel26.setLayout(jPanel26Layout);
-		jPanel26Layout.setHorizontalGroup(
-				jPanel26Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1015, Short.MAX_VALUE));
-		jPanel26Layout.setVerticalGroup(
-				jPanel26Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
-
-		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.elementosErrores"), jPanel26);
-
-		GroupLayout jPanel27Layout = new GroupLayout(jPanel27);
-		jPanel27.setLayout(jPanel27Layout);
-		jPanel27Layout.setHorizontalGroup(
-				jPanel27Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1015, Short.MAX_VALUE));
-		jPanel27Layout.setVerticalGroup(
-				jPanel27Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
-
-		jTabbedPane1.addTab(literales.getLiteral("panelPrincipal.excepciones"), jPanel27);
-
-		panelResultado.add(jTabbedPane1, BorderLayout.CENTER);
-
-		panelResultado.add(jLabel2, BorderLayout.PAGE_START);
-
-		panelContenido.add(panelResultado);
-
-		add(panelContenido, BorderLayout.CENTER);
-
-		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-
-		btnLimpiarValidacion.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
-		panelBotones.add(btnLimpiarValidacion);
-
-		btnLimpiarTodo.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
-		btnLimpiarTodo.setPreferredSize(new Dimension(146, 27));
-		panelBotones.add(btnLimpiarTodo);
-
-		add(panelBotones, BorderLayout.PAGE_END);
-	}// </editor-fold>//GEN-END:initComponents
-
-	/**
-	 * @throws IOException
-	 */
-	private void initLiterals() throws IOException {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-
-		jLabel1.setText(literales.getLiteral("panelPrincipal.titulo"));
-		jLabel5.setText(literales.getLiteral("panelPrincipal.modeloProyecto"));
-		jLabel6.setText(literales.getLiteral("panelPrincipal.glosario"));
-		jLabel7.setText(literales.getLiteral("panelPrincipal.submodelo"));
-		jLabel8.setText(literales.getLiteral("panelPrincipal.norma"));
-		jLabel9.setText(literales.getLiteral("panelPrincipal.im"));
-		jLabel10.setText(literales.getLiteral("panelPrincipal.sd"));
-		jLabel4.setText(literales.getLiteral("panelPrincipal.archivoScript"));
-		jLabel3.setText(literales.getLiteral("panelPrincipal.script"));
-		jLabel2.setText(literales.getLiteral("panelPrincipal.resultadoValidacion"));
-
-		btnValidar.setText(literales.getLiteral("panelPrincipal.validar"));
-		btnLimpiarValidacion.setText(literales.getLiteral("panelPrincipal.limpiarValidacion"));
-		btnLimpiarTodo.setText(literales.getLiteral("panelPrincipal.limpiarTodo"));
-	}
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panelCabecera = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        panelContenido = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        txtModeloProyecto = new javax.swing.JTextField();
+        btnBuscarGlosario = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtCodGlosario = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbSubModelo = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtIM = new javax.swing.JTextField();
+        txtSD = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtArchivoScript = new javax.swing.JTextField();
+        btnLoadScript = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtScript = new javax.swing.JTextArea();
+        btnValidar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelTabla = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnMarcarExcepcion = new javax.swing.JButton();
+        btnAddGlosario = new javax.swing.JButton();
+        btnAddAllGlosario = new javax.swing.JButton();
+        btnGenerarLog = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        panelBotones = new javax.swing.JPanel();
+        btnLimpiarValidacion = new javax.swing.JButton();
+        btnLimpiarTodo = new javax.swing.JButton();
+
+        setLayout(new java.awt.BorderLayout());
+
+        frameParent.getPanelLogo().setPreferredSize(new java.awt.Dimension(286, 63));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Validador de scripts");
+
+        javax.swing.GroupLayout panelCabeceraLayout = new javax.swing.GroupLayout(panelCabecera);
+        panelCabecera.setLayout(panelCabeceraLayout);
+        panelCabeceraLayout.setHorizontalGroup(
+            panelCabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCabeceraLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(frameParent.getPanelLogo(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        panelCabeceraLayout.setVerticalGroup(
+            panelCabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCabeceraLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelCabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(frameParent.getPanelLogo(), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        add(panelCabecera, java.awt.BorderLayout.PAGE_START);
+
+        jLabel11.setText("Modelo o Proyecto");
+
+        txtModeloProyecto.setMinimumSize(new java.awt.Dimension(4, 27));
+        txtModeloProyecto.setPreferredSize(new java.awt.Dimension(64, 27));
+
+        btnBuscarGlosario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
+
+        jLabel12.setText("Glosario");
+
+        txtCodGlosario.setEditable(false);
+        txtCodGlosario.setEnabled(false);
+        txtCodGlosario.setPreferredSize(new java.awt.Dimension(71, 27));
+
+        jTextField1.setEditable(false);
+        jTextField1.setEnabled(false);
+        jTextField1.setPreferredSize(new java.awt.Dimension(64, 27));
+
+        jLabel2.setText("Submodelo");
+
+        cmbSubModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("IM");
+
+        jLabel4.setText("SD");
+
+        txtIM.setPreferredSize(new java.awt.Dimension(64, 27));
+
+        txtSD.setPreferredSize(new java.awt.Dimension(64, 27));
+
+        jLabel5.setText("Archivo con el Script");
+
+        txtArchivoScript.setEditable(false);
+        txtArchivoScript.setEnabled(false);
+        txtArchivoScript.setPreferredSize(new java.awt.Dimension(64, 27));
+
+        btnLoadScript.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder.png"))); // NOI18N
+
+        jLabel6.setText("Script");
+
+        txtScript.setEditable(false);
+        txtScript.setColumns(20);
+        txtScript.setRows(5);
+        txtScript.setEnabled(false);
+        jScrollPane1.setViewportView(txtScript);
+
+        btnValidar.setText("Validar");
+
+        jLabel7.setText("Resultado Validación");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        btnMarcarExcepcion.setText("Marcar como Excepción");
+        btnMarcarExcepcion.setEnabled(false);
+
+        btnAddGlosario.setText("Añadir a Glosario");
+        btnAddGlosario.setEnabled(false);
+
+        btnAddAllGlosario.setText("Añadir Todos a Glosario");
+        btnAddAllGlosario.setEnabled(false);
+
+        btnGenerarLog.setText("Generar Log para Incidencia");
+        btnGenerarLog.setEnabled(false);
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMarcarExcepcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddGlosario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddAllGlosario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGenerarLog, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTablaLayout.createSequentialGroup()
+                        .addComponent(btnMarcarExcepcion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddGlosario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddAllGlosario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerarLog))
+                    .addComponent(jScrollPane2))
+                .addGap(15, 15, 15))
+        );
+
+        jTabbedPane1.addTab("Elementos a Validar", panelTabla);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1254, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 451, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Elementos Correctos", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1254, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 451, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Elementos que No Están en Glosario", jPanel3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1254, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 451, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Elementos conErrores", jPanel4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1254, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 451, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Excepciones", jPanel5);
+
+        javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
+        panelContenido.setLayout(panelContenidoLayout);
+        panelContenidoLayout.setHorizontalGroup(
+            panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenidoLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelContenidoLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel11)))
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelContenidoLayout.createSequentialGroup()
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelContenidoLayout.createSequentialGroup()
+                                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(panelContenidoLayout.createSequentialGroup()
+                                        .addComponent(txtCodGlosario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtModeloProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarGlosario)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbSubModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIM, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSD, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtArchivoScript, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLoadScript)
+                            .addComponent(btnValidar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
+        );
+        panelContenidoLayout.setVerticalGroup(
+            panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnValidar)
+                    .addGroup(panelContenidoLayout.createSequentialGroup()
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel11)
+                                .addComponent(txtModeloProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addComponent(cmbSubModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(txtIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarGlosario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtCodGlosario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtArchivoScript, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLoadScript))
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+
+        add(panelContenido, java.awt.BorderLayout.CENTER);
+
+        panelBotones.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 10));
+
+        btnLimpiarValidacion.setText("Limpiar validación");
+        panelBotones.add(btnLimpiarValidacion);
+
+        btnLimpiarTodo.setText("Limpiar todo");
+        btnLimpiarTodo.setPreferredSize(new java.awt.Dimension(146, 27));
+        panelBotones.add(btnLimpiarTodo);
+
+        add(panelBotones, java.awt.BorderLayout.PAGE_END);
+    }// </editor-fold>//GEN-END:initComponents
 	
+    private void initLiterals() throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+    
 	/**
 	 * 
 	 */
@@ -585,9 +444,7 @@ public class PanelPrincipal extends JPanel {
 		ActionListener actionListener = new PanelPrincipalActionListener(this);
 		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
 
-		btnSearch.addActionListener(actionListener);
 		btnLoadScript.addActionListener(actionListener);
-		btnSearch.addActionListener(actionListener);
 		btnLimpiarTodo.addActionListener(actionListener);
 		btnLimpiarValidacion.addActionListener(actionListener);
 
