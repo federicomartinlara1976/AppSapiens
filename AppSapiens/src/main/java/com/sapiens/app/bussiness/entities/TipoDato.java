@@ -1,6 +1,5 @@
 package com.sapiens.app.bussiness.entities;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,21 +17,21 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @Entity
-public class Glosario {
+public class TipoDato {
 
     @Id
     @Column
-    private Integer codigo;
+    private String tipoDato;
 
     @Column
-    private String descripcion;
+    private String longitud;
 
     @Column
-    private String usuario;
+    private String decimales;
 
     @Column
-    private Date fechaAlta;
+    private String maximo;
 
     @Column
-    private Date fechaModificacion;
+    private String minimo;
 }

@@ -1,6 +1,5 @@
 package com.sapiens.app.bussiness.entities;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,21 +17,28 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @Entity
-public class Glosario {
+public class ValidaScript {
 
     @Id
     @Column
-    private Integer codigo;
+    private String nombreScript;
 
     @Column
-    private String descripcion;
+    private String script;
+
+    @Column
+    private String codigoDemanda;
+
+    @Column
+    private String codigoSd;
+
+    @Column
+    private String codigoModelo;
+
+    @Column
+    private String codigoSubModelo;
 
     @Column
     private String usuario;
 
-    @Column
-    private Date fechaAlta;
-
-    @Column
-    private Date fechaModificacion;
 }

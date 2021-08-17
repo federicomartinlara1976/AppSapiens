@@ -2,8 +2,9 @@ package com.sapiens.app.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -23,7 +24,7 @@ public class LiteralesSingleton {
 		String literalesPath = "./literales.properties";
 		
 		FileInputStream fistream = new FileInputStream(literalesPath);
-		properties.load(fistream);
+		properties.load(new InputStreamReader(fistream, StandardCharsets.UTF_8));
 	}
 	
 	public static LiteralesSingleton getInstance() throws IOException {
