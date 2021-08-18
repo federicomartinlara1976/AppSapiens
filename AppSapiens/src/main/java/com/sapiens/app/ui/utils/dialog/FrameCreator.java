@@ -2,10 +2,12 @@ package com.sapiens.app.ui.utils.dialog;
 
 import java.util.Map;
 
+import com.sapiens.app.ui.consultas.FrmComprobacionNombreElemento;
 import com.sapiens.app.ui.glosarios.FrmAltaModificacionCampos;
 import com.sapiens.app.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.sapiens.app.ui.glosarios.FrmDefinicionGlosarios;
 import com.sapiens.app.ui.glosarios.FrmGlosarioCampos;
+import com.sapiens.app.ui.modelos.FrmDefinicionModelos;
 import com.sapiens.app.ui.normasnomenclatura.FrmAltaModificacionElementos;
 import com.sapiens.app.ui.normasnomenclatura.FrmAltaModificacionTiposParticula;
 import com.sapiens.app.ui.normasnomenclatura.FrmDefinicionElementos;
@@ -73,6 +75,14 @@ public class FrameCreator extends Creator {
 		
 		if (Constants.MNU_VALORES_PARTICULAS.equals(menuOption)) {
 			frame = new FrmValoresParticulas();
+		}
+		
+		if (Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO.equals(menuOption)) {
+			frame = new FrmComprobacionNombreElemento();
+		}
+		
+		if (Constants.MNU_MODELOS.equals(menuOption)) {
+			frame = new FrmDefinicionModelos();
 		}
 		
 		if (Constants.CMD_ALTA_GLOSARIOS.equals(menuOption)) {

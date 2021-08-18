@@ -13,7 +13,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -49,7 +48,6 @@ public class FrmDefinicionModelos extends FrameSupport {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
-    private JPanel panelLogo;
     private JTable tblGlosarios;
     private JTextField txtBaseDatos;
     private JTextField txtCodModelo;
@@ -73,7 +71,6 @@ public class FrmDefinicionModelos extends FrameSupport {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     protected void initComponents() {
 
-        panelLogo = new JPanel();
         txtCodModelo = new JTextField();
         jLabel1 = new JLabel();
         btnBuscar = new JButton();
