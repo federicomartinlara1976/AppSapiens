@@ -1,5 +1,6 @@
 package com.sapiens.app.ui.listener;
 
+import com.sapiens.app.ui.utils.ListenerSupport;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
 
 public abstract class PanelPrincipalListener extends ListenerSupport {

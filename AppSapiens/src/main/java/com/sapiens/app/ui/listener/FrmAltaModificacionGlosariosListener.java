@@ -7,6 +7,7 @@ import javax.swing.JButton;
 
 import com.sapiens.app.bussiness.service.GlosarioService;
 import com.sapiens.app.ui.glosarios.FrmAltaModificacionGlosarios;
+import com.sapiens.app.ui.utils.ListenerSupport;
 import com.sapiens.app.utils.Constants;
 
 import lombok.extern.log4j.Log4j;

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import com.sapiens.app.ui.glosarios.FrmAltaModificacionCampos;
+import com.sapiens.app.ui.utils.ListenerSupport;
 import com.sapiens.app.utils.Constants;
 
 public class FrmAltaModificacionCamposListener extends ListenerSupport implements ActionListener {

@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.sapiens.app.ui.DlgIdentificador;
+import com.sapiens.app.ui.utils.ListenerSupport;
 import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;

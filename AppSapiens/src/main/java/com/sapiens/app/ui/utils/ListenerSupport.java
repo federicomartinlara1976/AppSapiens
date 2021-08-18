@@ -1,11 +1,10 @@
-package com.sapiens.app.ui.listener;
+package com.sapiens.app.ui.utils;
 
 import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import com.sapiens.app.ui.utils.UIHelper;
 import com.sapiens.app.utils.AppHelper;
 
 public abstract class ListenerSupport {
