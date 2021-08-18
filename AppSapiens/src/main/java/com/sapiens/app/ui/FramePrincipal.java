@@ -6,7 +6,6 @@
 package com.sapiens.app.ui;
 
 import java.awt.BorderLayout;
-import java.io.IOException;
 
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -15,15 +14,11 @@ import javax.swing.WindowConstants;
 import com.sapiens.app.ui.menu.MainMenuBar;
 import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.ui.validacionscripts.PanelPrincipal;
-import com.sapiens.app.utils.LiteralesSingleton;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author federico
  */
-@Slf4j
 public class FramePrincipal extends FrameSupport {
 
 	/**
@@ -40,13 +35,6 @@ public class FramePrincipal extends FrameSupport {
 	 */
 	public FramePrincipal() {
 		super();
-		
-		try {
-			initComponents();
-			initLiterals();
-		} catch (IOException e) {
-			log.warn("ERROR:", e);
-		}
 	}
 
 	/**
@@ -56,7 +44,7 @@ public class FramePrincipal extends FrameSupport {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 		panelPrincipal = new PanelPrincipal(this);
 		menuBar = new MainMenuBar(this);
 
@@ -67,8 +55,13 @@ public class FramePrincipal extends FrameSupport {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 	
-	private void initLiterals() throws IOException {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+	protected void setupLiterals() {
 		setTitle(literales.getLiteral("panelPrincipal.titulo"));
 	}
+
+	@Override
+	protected void initEvents() {}
+
+	@Override
+	protected void initialState() {}
 }

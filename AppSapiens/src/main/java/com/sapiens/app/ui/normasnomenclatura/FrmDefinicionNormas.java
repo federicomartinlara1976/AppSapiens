@@ -47,7 +47,6 @@ public class FrmDefinicionNormas extends FrameSupport {
 	 */
 	public FrmDefinicionNormas() {
 		super();
-		initComponents();
 	}
 
 	/**
@@ -58,7 +57,7 @@ public class FrmDefinicionNormas extends FrameSupport {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 
 		jLabel1 = new JLabel();
 		txtNorma = new JTextField();
@@ -160,4 +159,22 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	@Override
+	protected void initEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setupLiterals() {
+		// TODO Auto-generated method stub
+		
+	}
 }

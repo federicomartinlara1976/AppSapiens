@@ -63,7 +63,6 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	 */
 	public FrmMantenimientoParticulas() {
 		super();
-		initComponents();
 	}
 
 	/**
@@ -73,7 +72,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -273,4 +272,22 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	@Override
+	protected void initEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setupLiterals() {
+		// TODO Auto-generated method stub
+		
+	}
 }

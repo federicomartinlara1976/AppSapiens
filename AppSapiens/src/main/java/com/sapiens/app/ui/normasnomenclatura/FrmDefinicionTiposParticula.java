@@ -47,7 +47,6 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	 */
 	public FrmDefinicionTiposParticula() {
 		super();
-		initComponents();
 	}
 
 	/**
@@ -58,7 +57,7 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 
 		jLabel1 = new JLabel();
 		txtTipoParticula = new JTextField();
@@ -166,4 +165,22 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	@Override
+	protected void initEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setupLiterals() {
+		// TODO Auto-generated method stub
+		
+	}
 }

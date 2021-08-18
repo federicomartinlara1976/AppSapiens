@@ -48,7 +48,6 @@ public class FrmAltaModificacionElementos extends FrameSupport {
 	 */
 	public FrmAltaModificacionElementos() {
 		super();
-		initComponents();
 	}
 
 	/**
@@ -58,7 +57,7 @@ public class FrmAltaModificacionElementos extends FrameSupport {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -205,4 +204,22 @@ public class FrmAltaModificacionElementos extends FrameSupport {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	@Override
+	protected void initEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setupLiterals() {
+		// TODO Auto-generated method stub
+		
+	}
 }
