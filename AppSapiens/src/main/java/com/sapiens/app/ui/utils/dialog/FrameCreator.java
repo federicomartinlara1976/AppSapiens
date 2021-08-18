@@ -14,6 +14,7 @@ import com.sapiens.app.ui.normasnomenclatura.FrmDefinicionElementosNormaElemento
 import com.sapiens.app.ui.normasnomenclatura.FrmDefinicionNormas;
 import com.sapiens.app.ui.normasnomenclatura.FrmDefinicionTiposParticula;
 import com.sapiens.app.ui.normasnomenclatura.FrmMantenimientoParticulas;
+import com.sapiens.app.ui.normasnomenclatura.FrmMantenimientoValoresParticulas;
 import com.sapiens.app.ui.normasnomenclatura.FrmModificacionNormas;
 import com.sapiens.app.ui.normasnomenclatura.FrmValoresParticulas;
 import com.sapiens.app.ui.utils.FrameSupport;
@@ -21,7 +22,7 @@ import com.sapiens.app.utils.Constants;
 
 /**
  * Factory method para gestionar la creación centralizada de cuadros emergentes
- * de la aplicación. Se le pasa al constructor la ventana padre y la cadena de la
+ * de la aplicación. Se le pasa al constructor la cadena de la
  * opción del menú principal que activa al emergente solicitado.
  * 
  * @author federico
@@ -124,6 +125,14 @@ public class FrameCreator extends Creator {
 		
 		if (Constants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(menuOption)) {
 			frame = new FrmMantenimientoParticulas(params);
+		}
+		
+		if (Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS.equals(menuOption)) {
+			frame = new FrmMantenimientoValoresParticulas(params);
+		}
+		
+		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(menuOption)) {
+			frame = new FrmMantenimientoValoresParticulas(params);
 		}
 		
 		return frame;
