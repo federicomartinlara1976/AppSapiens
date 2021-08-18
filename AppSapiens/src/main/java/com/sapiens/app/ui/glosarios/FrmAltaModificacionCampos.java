@@ -85,7 +85,7 @@ public class FrmAltaModificacionCampos extends FrameSupport {
     }
     
     /**
-     * Creates new form DlgAltaModificacionCampos
+     * @param params
      */
     public FrmAltaModificacionCampos(Map<String, Object> params) {
         super();

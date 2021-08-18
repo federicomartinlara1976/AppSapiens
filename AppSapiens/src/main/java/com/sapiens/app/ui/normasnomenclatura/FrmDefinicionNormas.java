@@ -7,6 +7,7 @@ package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -18,7 +19,9 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.sapiens.app.ui.listener.FrmDefinicionNormasListener;
 import com.sapiens.app.ui.utils.FrameSupport;
+import com.sapiens.app.utils.Constants;
 
 /**
  *
@@ -162,8 +165,13 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener listener = new FrmDefinicionNormasListener(this);
 		
+		btnAlta.setName(Constants.DLG_DEFINICION_NORMAS_BTN_ALTA);
+		btnModificacion.setName(Constants.DLG_DEFINICION_NORMAS_BTN_MODIFICACION);
+		
+		btnAlta.addActionListener(listener);
+		btnModificacion.addActionListener(listener);
 	}
 
 	@Override

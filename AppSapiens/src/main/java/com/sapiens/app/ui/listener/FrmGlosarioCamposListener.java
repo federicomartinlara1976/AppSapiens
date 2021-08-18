@@ -74,7 +74,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(dlgGlosarioCampos.getFrameParent(), Constants.CMD_ALTA_GLOSARIO_CAMPOS);
+		showFrame(Constants.CMD_ALTA_GLOSARIO_CAMPOS);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnModificacion() {
-		showPopup(dlgGlosarioCampos.getFrameParent(), Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS);
+		showFrame(Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS);
 	}
 	
 	/**

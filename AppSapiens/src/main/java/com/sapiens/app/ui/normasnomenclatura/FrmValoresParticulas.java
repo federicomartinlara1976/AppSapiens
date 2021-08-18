@@ -7,6 +7,7 @@ package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -20,7 +21,10 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.sapiens.app.ui.listener.FrmDefinicionNormasListener;
+import com.sapiens.app.ui.listener.FrmValoresParticulasListener;
 import com.sapiens.app.ui.utils.FrameSupport;
+import com.sapiens.app.utils.Constants;
 
 /**
  *
@@ -296,8 +300,15 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener listener = new FrmValoresParticulasListener(this);
 		
+		btnAltaElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_ALTA);
+		btnBajaElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_BAJA);
+		btnModificacionElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_MODIFICACION);
+		
+		btnAltaElemento.addActionListener(listener);
+		btnBajaElemento.addActionListener(listener);
+		btnModificacionElemento.addActionListener(listener);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ package com.sapiens.app.ui.normasnomenclatura;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -57,6 +58,8 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	private JTextField txtCodigo;
 	private JTextField txtDescripcion;
 	// End of variables declaration//GEN-END:variables
+	
+	private Map<String, Object> params;
 
 	/**
 	 * Creates new form DlgModificacionNormas
@@ -64,6 +67,14 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	public FrmMantenimientoParticulas() {
 		super();
 	}
+	
+	/**
+	 * @param params
+	 */
+	public FrmMantenimientoParticulas(Map<String, Object> params) {
+        super();
+        this.params = params;
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.

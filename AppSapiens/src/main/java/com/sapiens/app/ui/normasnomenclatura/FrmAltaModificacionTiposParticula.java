@@ -7,6 +7,7 @@ package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -45,6 +46,8 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 	private JTextField txtFecha;
 	private JTextField txtUsuario;
 	// End of variables declaration//GEN-END:variables
+	
+	private Map<String, Object> params;
 
 	/**
 	 * Creates new form DlgAltaModificacionGlosarios
@@ -52,6 +55,14 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 	public FrmAltaModificacionTiposParticula() {
 		super();
 	}
+	
+	/**
+	 * @param params
+	 */
+	public FrmAltaModificacionTiposParticula(Map<String, Object> params) {
+        super();
+        this.params = params;
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
