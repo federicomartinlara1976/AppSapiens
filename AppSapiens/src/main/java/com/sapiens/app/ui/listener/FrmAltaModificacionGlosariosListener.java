@@ -1,15 +1,13 @@
 package com.sapiens.app.ui.listener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import com.sapiens.app.bussiness.service.GlosarioService;
 import com.sapiens.app.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.sapiens.app.ui.utils.ListenerSupport;
 import com.sapiens.app.utils.Constants;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -22,6 +20,7 @@ public class FrmAltaModificacionGlosariosListener extends ListenerSupport implem
 		this.frmAltaModificacionGlosarios = frmAltaModificacionGlosarios;
 	}
 
+	@SneakyThrows
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
@@ -35,12 +34,14 @@ public class FrmAltaModificacionGlosariosListener extends ListenerSupport implem
 		}
 	}
 
+	@SneakyThrows
 	private void eventBtnAlta() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		String inParam = "test inputParam";
-		String outResponse = glosarioService.procedurePostgres(inParam);
+		String descripcion = "test inputParam";
+		//String descripcion = frmAltaModificacionGlosarios.getTxtDescripcion().getText();
+		String resultado = glosarioService.altaGlosario(descripcion);
 		//String outResponse = glosarioService.procedureOracle();
-		log.debug(outResponse);
+		log.debug(resultado);
 	}
 
 }

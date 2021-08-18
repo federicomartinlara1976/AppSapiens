@@ -5,26 +5,17 @@
  */
 package com.sapiens.app.ui.glosarios;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Map;
-
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
+import com.sapiens.app.bussiness.entities.Glosario;
 import com.sapiens.app.ui.listener.FrmAltaModificacionGlosariosListener;
 import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.utils.AppGlobalSingleton;
 import com.sapiens.app.utils.Constants;
-
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+import javax.swing.*;
 import lombok.Getter;
 
 /**
@@ -60,10 +51,6 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
     private Map<String, Object> params;
 
     
-    /**
-     * @param parent
-     * @param modal
-     */
     public FrmAltaModificacionGlosarios() {
         super();
     }
@@ -266,5 +253,13 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
 		txtUsuario.setText(cod_usr);
 		
 		txtUsuario.setEnabled(Boolean.FALSE);
+
+        txtCodigo.setEnabled(Boolean.FALSE);
+        txtAlta.setEnabled(Boolean.FALSE);
+        txtModificacion.setEnabled(Boolean.FALSE);
+        Glosario glosario = Glosario.builder().codigo(1).descripcion("descripcion").fechaAlta(new Date()).fechaModificacion(new Date()).usuario("123").build();
+        txtCodigo.setText(glosario.getCodigo().toString());
+        txtAlta.setText(glosario.getFechaAlta().toString());
+        txtModificacion.setText(glosario.getFechaModificacion().toString());
 	}
 }

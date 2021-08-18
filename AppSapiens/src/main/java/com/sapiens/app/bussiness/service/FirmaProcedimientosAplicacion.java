@@ -2,7 +2,6 @@ package com.sapiens.app.bussiness.service;
 
 import com.sapiens.app.bussiness.entities.CampoGlosario;
 import com.sapiens.app.bussiness.entities.ElementoNorma;
-import com.sapiens.app.bussiness.entities.Glosario;
 import com.sapiens.app.bussiness.entities.Modelo;
 import com.sapiens.app.bussiness.entities.Norma;
 import com.sapiens.app.bussiness.entities.Particula;
@@ -21,11 +20,10 @@ public interface FirmaProcedimientosAplicacion {
     List<String> consultaElementosNoGlosarioValidacion(Integer numeroValidacion);
     List<String> consultaElementosConErroresValidacion(Integer numeroValidacion);
     List<String> consultaElementosExcepcionesValidacion(Integer numeroValidacion);
+
     String insertarGlosario(Integer numeroValidacion, Integer numeroElemento);
     String insertarExcepcion(Integer numeroValidacion, Integer numeroElemento, String textoExcepcion);
 
-    List<Glosario> buscarGlosario(String descripcionGlosario);
-    Glosario consultarGlosario(String codigoGlosario);
     List<CampoGlosario> consultarCamposGlosario(Integer codigoGlosario, String tipoDato, String nombreColumna, Boolean mostrarExcepciones);
 
     List<Modelo> consultarModelosGlosario(Integer codigoGlosario);//TODO verificar que retorna y cambiar entidad, Modelo o ModeloGlosario

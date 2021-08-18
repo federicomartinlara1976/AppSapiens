@@ -26,6 +26,12 @@ public interface GlosarioRepository extends JpaRepository<Glosario, Integer> {
      * to send param is like in the postgresql example, adding :param
      * @return procedure result
      */
-    @Query(value = "BEGIN test_pkg.greetings(); END;", nativeQuery = true)
+    @Query(value = "DECLARE\n" +
+            "   p_lista_glosarios  SM2_K_VALIDATOR.t_t_glosario;\n" +
+            "   p_resultado        INTEGER;\n" +
+            "   p_lista_errores    SM2_K_VALIDATOR.t_t_error;\n" +
+            "BEGIN\n" +
+            "SM2_K_VALIDATOR.P_BUSCAR_GLOSARIOS('desccripcion uno', p_lista_glosarios, p_resultado, p_lista_errores);"+
+            "END;", nativeQuery = true)
     String procedureOracle();
 }
