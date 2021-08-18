@@ -31,14 +31,10 @@ public class PanelPrincipal extends JPanel {
 	private static final long serialVersionUID = 3533639441146450519L;
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddAllGlosario;
-    private javax.swing.JButton btnAddGlosario;
     private javax.swing.JButton btnBuscarGlosario;
-    private javax.swing.JButton btnGenerarLog;
     private javax.swing.JButton btnLimpiarTodo;
     private javax.swing.JButton btnLimpiarValidacion;
     private javax.swing.JButton btnLoadScript;
-    private javax.swing.JButton btnMarcarExcepcion;
     private javax.swing.JButton btnValidar;
     private javax.swing.JComboBox<String> cmbSubModelo;
     private javax.swing.JLabel jLabel1;
@@ -50,19 +46,12 @@ public class PanelPrincipal extends JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelCabecera;
     private javax.swing.JPanel panelContenido;
-    private javax.swing.JPanel panelTabla;
     private javax.swing.JTextField txtArchivoScript;
     private javax.swing.JTextField txtCodGlosario;
     private javax.swing.JTextField txtIM;
@@ -123,17 +112,6 @@ public class PanelPrincipal extends JPanel {
         btnValidar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        panelTabla = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnMarcarExcepcion = new javax.swing.JButton();
-        btnAddGlosario = new javax.swing.JButton();
-        btnAddAllGlosario = new javax.swing.JButton();
-        btnGenerarLog = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         panelBotones = new javax.swing.JPanel();
         btnLimpiarValidacion = new javax.swing.JButton();
         btnLimpiarTodo = new javax.swing.JButton();
@@ -215,117 +193,6 @@ public class PanelPrincipal extends JPanel {
         btnValidar.setText("Validar");
 
         jLabel7.setText("Resultado Validación");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        btnMarcarExcepcion.setText("Marcar como Excepción");
-        btnMarcarExcepcion.setEnabled(false);
-
-        btnAddGlosario.setText("Añadir a Glosario");
-        btnAddGlosario.setEnabled(false);
-
-        btnAddAllGlosario.setText("Añadir Todos a Glosario");
-        btnAddAllGlosario.setEnabled(false);
-
-        btnGenerarLog.setText("Generar Log para Incidencia");
-        btnGenerarLog.setEnabled(false);
-
-        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
-        panelTabla.setLayout(panelTablaLayout);
-        panelTablaLayout.setHorizontalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMarcarExcepcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddGlosario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddAllGlosario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGenerarLog, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelTablaLayout.setVerticalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTablaLayout.createSequentialGroup()
-                        .addComponent(btnMarcarExcepcion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddGlosario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddAllGlosario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGenerarLog))
-                    .addComponent(jScrollPane2))
-                .addGap(15, 15, 15))
-        );
-
-        jTabbedPane1.addTab("Elementos a Validar", panelTabla);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1254, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Elementos Correctos", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1254, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Elementos que No Están en Glosario", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1254, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Elementos conErrores", jPanel4);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1254, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Excepciones", jPanel5);
 
         javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
         panelContenido.setLayout(panelContenidoLayout);
@@ -455,7 +322,20 @@ public class PanelPrincipal extends JPanel {
 	 * 
 	 */
 	private void initialState() {
-		// TODO Auto-generated method stub
-		
+		loadResultados();
+	}
+	
+	private void loadResultados() {
+		PanelResultados panelElementosValidar = new PanelResultados();
+        PanelResultados panelElementosCorrectos = new PanelResultados();
+        PanelResultados panelNoEstanEnGlosario = new PanelResultados();
+        PanelResultados panelConErrores = new PanelResultados();
+        PanelResultados panelExcepciones = new PanelResultados();
+
+        jTabbedPane1.addTab("Elementos a Validar", panelElementosValidar);
+        jTabbedPane1.addTab("Elementos Correctos", panelElementosCorrectos);
+        jTabbedPane1.addTab("Elementos que No Están en Glosario", panelNoEstanEnGlosario);
+        jTabbedPane1.addTab("Elementos con Errores", panelConErrores);
+        jTabbedPane1.addTab("Excepciones", panelExcepciones);
 	}
 }
