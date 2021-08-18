@@ -24,16 +24,13 @@ import javax.swing.table.DefaultTableModel;
 import com.sapiens.app.ui.listener.FrmDefinicionGlosariosListener;
 import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.utils.Constants;
-import com.sapiens.app.utils.LiteralesSingleton;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
-@Log4j
 public class FrmDefinicionGlosarios extends FrameSupport {
 
 	/**
@@ -61,16 +58,6 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	public FrmDefinicionGlosarios() {
 		super();
-
-		try {
-			initComponents();
-			initLiterals();
-			initEvents();
-
-			initialState();
-		} catch (IOException e) {
-			log.warn("ERROR:", e);
-		}
 	}
 
 	/**
@@ -80,7 +67,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	protected void initComponents() {
 
 		txtGlosario = new JTextField();
 		jLabel1 = new JLabel();
@@ -185,16 +172,14 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	/**
 	 * @throws IOException
 	 */
-	private void initLiterals() throws IOException {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-
+	protected void setupLiterals() {
 		setTitle(literales.getLiteral("dlgDefinicionGlosarios.titulo"));
 	}
 
 	/**
 	 * 
 	 */
-	private void initEvents() {
+	protected void initEvents() {
 		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
 
 		btnAlta.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
@@ -209,7 +194,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	/**
 	 * 
 	 */
-	private void initialState() {
+	protected void initialState() {
 		// TODO Auto-generated method stub
 
 	}
