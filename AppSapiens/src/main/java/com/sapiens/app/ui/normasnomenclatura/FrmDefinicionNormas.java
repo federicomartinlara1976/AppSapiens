@@ -55,7 +55,7 @@ public class FrmDefinicionNormas extends FrameSupport {
 	/**
 	 *
 	 */
-	protected void initComponents() {
+	protected void setupComponents() {
 
 		jLabel1 = new JLabel();
 		txtNorma = new JTextField();
@@ -147,8 +147,6 @@ public class FrmDefinicionNormas extends FrameSupport {
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup().addGap(81, 81, 81).addComponent(btnBuscar)
 								.addContainerGap(428, Short.MAX_VALUE))));
-
-		pack();
 	}
 	
 	@Override

@@ -55,7 +55,7 @@ public class FrmDefinicionElementosNormaElemento extends FrameSupport {
 	/**
 	 *
 	 */
-	protected void initComponents() {
+	protected void setupComponents() {
 
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -147,8 +147,6 @@ public class FrmDefinicionElementosNormaElemento extends FrameSupport {
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(btnBuscar)
 						.addGap(18, 18, 18).addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
 						.addContainerGap()));
-
-		pack();
 	}
 	
 	@Override

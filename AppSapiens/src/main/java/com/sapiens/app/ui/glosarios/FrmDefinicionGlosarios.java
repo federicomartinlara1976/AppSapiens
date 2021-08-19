@@ -60,7 +60,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		super();
 	}
 
-	protected void initComponents() {
+	protected void setupComponents() {
 
 		txtGlosario = new JTextField();
 		jLabel1 = new JLabel();
@@ -148,8 +148,6 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 								.addComponent(btnModificacion).addComponent(btnAlta, GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap()));
-
-		pack();
 	}
 
 	/**

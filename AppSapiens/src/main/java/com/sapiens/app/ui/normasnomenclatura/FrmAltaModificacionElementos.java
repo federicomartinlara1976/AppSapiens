@@ -69,7 +69,7 @@ public class FrmAltaModificacionElementos extends FrameSupport {
 	/**
 	 *
 	 */
-	protected void initComponents() {
+	protected void setupComponents() {
 
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -205,8 +205,6 @@ public class FrmAltaModificacionElementos extends FrameSupport {
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnCancelar))
 						.addContainerGap()));
-
-		pack();
 	}
 	
 	@Override

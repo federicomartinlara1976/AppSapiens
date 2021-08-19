@@ -74,7 +74,7 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 	/**
 	 *
 	 */
-	protected void initComponents() {
+	protected void setupComponents() {
 
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -220,8 +220,6 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnCancelar))
 				.addContainerGap()));
-
-		pack();
 	}
 
 	@Override

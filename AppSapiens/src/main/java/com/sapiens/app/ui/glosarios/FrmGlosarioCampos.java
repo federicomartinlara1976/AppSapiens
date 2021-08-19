@@ -90,7 +90,7 @@ public class FrmGlosarioCampos extends FrameSupport {
         super();
     }
 
-    protected void initComponents() {
+    protected void setupComponents() {
 
         jLabel6 = new JLabel();
         jLabel1 = new JLabel();
@@ -296,8 +296,6 @@ public class FrmGlosarioCampos extends FrameSupport {
                     .addComponent(btnImprimir, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
-
-        pack();
     }
     
     /**

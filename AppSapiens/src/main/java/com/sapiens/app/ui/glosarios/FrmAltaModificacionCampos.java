@@ -102,7 +102,7 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 		this.params = params;
 	}
 
-	protected void initComponents() {
+	protected void setupComponents() {
 
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -282,8 +282,6 @@ public class FrmAltaModificacionCampos extends FrameSupport {
                     .addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        pack();
     }
 
 	/**

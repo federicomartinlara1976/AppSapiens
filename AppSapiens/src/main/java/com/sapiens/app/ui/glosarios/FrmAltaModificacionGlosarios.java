@@ -67,7 +67,7 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
         this.params = params;
     }
 
-	protected void initComponents() {
+	protected void setupComponents() {
 
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -212,8 +212,6 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
                     .addComponent(btnCancelar))
                 .addContainerGap())
         );
-
-        pack();
     }
     
     /**

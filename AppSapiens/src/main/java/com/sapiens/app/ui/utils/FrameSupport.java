@@ -53,7 +53,13 @@ public abstract class FrameSupport extends JFrame {
 		}
 	}
 	
-	protected abstract void initComponents();
+	private void initComponents() {
+		setupComponents();
+		
+		pack();
+	}
+	
+	protected abstract void setupComponents();
 	
 	protected abstract void initEvents();
 	
