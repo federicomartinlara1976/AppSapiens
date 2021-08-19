@@ -2,8 +2,7 @@ package com.sapiens.mdval.ui.utils;
 
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
 import com.sapiens.mdval.utils.LiteralesSingleton;
 
@@ -14,30 +13,20 @@ import lombok.extern.log4j.Log4j;
  *
  */
 @Log4j
-public abstract class DialogSupport extends JDialog {
+public abstract class MenuSupport extends JMenuBar {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -637526827846474731L;
-
+	
 	protected LiteralesSingleton literales;
-	
+
 	/**
 	 * 
 	 */
-	public DialogSupport() {
+	public MenuSupport() {
 		super();
-		
-		initialize();
-	}
-	
-	/**
-	 * 
-	 */
-	public DialogSupport(JFrame parent, boolean modal) {
-		super(parent, modal);
-		
 		initialize();
 	}
 	
@@ -54,13 +43,7 @@ public abstract class DialogSupport extends JDialog {
 		}
 	}
 	
-    private void initComponents() {
-		setupComponents();
-		
-		pack();
-	}
-    
-    protected abstract void setupComponents();
+	protected abstract void initComponents();
 	
 	protected abstract void initEvents();
 	

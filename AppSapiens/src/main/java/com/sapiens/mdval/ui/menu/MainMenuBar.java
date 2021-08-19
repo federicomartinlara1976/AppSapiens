@@ -6,24 +6,19 @@
 package com.sapiens.mdval.ui.menu;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.sapiens.mdval.ui.listener.MenuListener;
+import com.sapiens.mdval.ui.utils.MenuSupport;
 import com.sapiens.mdval.utils.Constants;
-import com.sapiens.mdval.utils.LiteralesSingleton;
-
-import lombok.extern.log4j.Log4j;
 
 /**
  *
  * @author federico
  */
-@Log4j
-public class MainMenuBar extends JMenuBar {
+public class MainMenuBar extends MenuSupport {
     
     /**
 	 * 
@@ -47,17 +42,12 @@ public class MainMenuBar extends JMenuBar {
     
     public MainMenuBar() {
         super();
-        
-        try {
-			initComponents();
-			initLiterals();
-			initEvents();
-		} catch (IOException e) {
-			log.warn("ERROR:", e);
-		}
     }
 
-	private void initComponents() {
+	/**
+	 *
+	 */
+	protected void initComponents() {
         mnuConfiguracion = new JMenu();
         mnuGlosarios = new JMenu();
         mnuDefinicionGlosarios = new JMenuItem();
@@ -112,9 +102,10 @@ public class MainMenuBar extends JMenuBar {
         add(mnuConfiguracion);
     }
 	
-	private void initLiterals() throws IOException {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-		
+	/**
+	 *
+	 */
+	protected void setupLiterals() {
 		mnuConfiguracion.setText(literales.getLiteral("menu.configuracion"));
         mnuGlosarios.setText(literales.getLiteral("menu.glosarios"));
         mnuDefinicionGlosarios.setText(literales.getLiteral("menu.glosarios.definicion"));
@@ -131,7 +122,10 @@ public class MainMenuBar extends JMenuBar {
         mnuModelos.setText(literales.getLiteral("menu.modelos"));
 	}
 	
-	private void initEvents() {
+	/**
+	 *
+	 */
+	protected void initEvents() {
 		ActionListener actionListener = new MenuListener();
 		
 		mnuDefinicionGlosarios.addActionListener(actionListener);

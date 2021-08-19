@@ -2,11 +2,11 @@ package com.sapiens.mdval.ui.utils.dialog;
 
 import java.util.Map;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.sapiens.mdval.ui.DlgIdentificador;
 import com.sapiens.mdval.ui.glosarios.DlgBajaGlosarioCampos;
+import com.sapiens.mdval.ui.utils.DialogSupport;
 import com.sapiens.mdval.utils.Constants;
 
 /**
@@ -36,7 +36,7 @@ public class DialogCreator extends Creator {
 	 */
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
-		JDialog dialog = null;
+		DialogSupport dialog = null;
 		
 		if (Constants.CMD_INICIAR_APP.equals(menuOption)) {
 			dialog = new DlgIdentificador(frameParent, modal);
