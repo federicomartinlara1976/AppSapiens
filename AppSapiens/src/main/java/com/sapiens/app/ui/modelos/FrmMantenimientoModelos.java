@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sapiens.app.ui.modelos;
 
 import java.awt.Color;
@@ -28,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sapiens.app.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -39,17 +36,21 @@ public class FrmMantenimientoModelos extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 7038199523519052411L;
 	
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnAceptar;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+	private JButton btnBuscarGlosario;
     private JButton btnAddSubmodelo;
-    private JButton btnBuscarGlosario;
-    private JButton btnCancelar;
     private JButton btnRemoveSubmodelo;
-    private JComboBox<String> cmbGeneraVariables;
-    private JComboBox<String> cmbGrantAll;
-    private JComboBox<String> cmbGrantPublic;
-    private JComboBox<String> cmbNorma;
+    
     private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel5;
+    private JLabel jLabel6;
+    private JLabel jLabel7;
+    private JLabel jLabel8;
+    private JLabel jLabel9;
     private JLabel jLabel10;
     private JLabel jLabel11;
     private JLabel jLabel12;
@@ -60,33 +61,66 @@ public class FrmMantenimientoModelos extends FrameSupport {
     private JLabel jLabel17;
     private JLabel jLabel18;
     private JLabel jLabel19;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JLabel jLabel8;
-    private JLabel jLabel9;
+    
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTextArea jTextArea1;
+    
     private JPanel panelTabla;
     private JTable tblValoresPosibles;
+    
+    @Getter
+    private JComboBox<String> cmbGeneraVariables;
+    
+    @Getter
+    private JComboBox<String> cmbGrantAll;
+    
+    @Getter
+    private JComboBox<String> cmbGrantPublic;
+    
+    @Getter
+    private JComboBox<String> cmbNorma;
+    
+    @Getter
     private JTextField txtCarpeta;
+    
+    @Getter
     private JTextField txtCodGlosario;
+    
+    @Getter
     private JTextField txtCodModelo;
+    
+    @Getter
     private JTextField txtCodigoSubmodelo;
+    
+    @Getter
     private JTextField txtDescGlosario;
+    
+    @Getter
     private JTextField txtDescripcionSubmodelo;
+    
+    @Getter
     private JTextField txtEsquema;
-    private JTextField txtEsquema1;
-    private JTextField txtEsquema2;
+    
+    @Getter
+    private JTextField txtBD;
+    
+    @Getter
+    private JTextField txtUsuario;
+    
+    @Getter
     private JTextField txtFecha;
+    
+    @Getter
     private JTextField txtGrupo;
+    
+    @Getter
     private JTextField txtHerramienta;
+    
+    @Getter
     private JTextField txtNombreModelo;
-    // End of variables declaration//GEN-END:variables
+    
+    @Getter
+    private JTextArea txtObservaciones;
 	
 	/**
      * Creates new form DlgModificacionNormas
@@ -125,7 +159,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         btnBuscarGlosario = new JButton();
         jLabel5 = new JLabel();
         txtEsquema = new JTextField();
-        txtEsquema1 = new JTextField();
+        txtBD = new JTextField();
         jLabel8 = new JLabel();
         txtCarpeta = new JTextField();
         jLabel9 = new JLabel();
@@ -133,7 +167,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jLabel10 = new JLabel();
         jLabel11 = new JLabel();
         txtHerramienta = new JTextField();
-        txtEsquema2 = new JTextField();
+        txtUsuario = new JTextField();
         jLabel12 = new JLabel();
         txtFecha = new JTextField();
         jLabel13 = new JLabel();
@@ -144,7 +178,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jLabel16 = new JLabel();
         jLabel17 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        jTextArea1 = new JTextArea();
+        txtObservaciones = new JTextArea();
         jLabel19 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -163,22 +197,18 @@ public class FrmMantenimientoModelos extends FrameSupport {
         );
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Definición de Modelos");
 
         jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel2.setText("Cod. Modelo");
         jLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel3.setText("Nombre Modelo");
-
+        
         txtCodModelo.setPreferredSize(new Dimension(4, 27));
         
         txtNombreModelo.setMinimumSize(new Dimension(4, 27));
         txtNombreModelo.setPreferredSize(new Dimension(64, 27));
         
         jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel6.setText("Norma");
         jLabel6.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
@@ -210,18 +240,13 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jScrollPane1.setViewportView(tblValoresPosibles);
 
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel7.setText("Código");
 
         txtCodigoSubmodelo.setPreferredSize(new Dimension(64, 27));
 
         jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel18.setText("Descripción");
 
         txtDescripcionSubmodelo.setPreferredSize(new Dimension(64, 27));
 
-        btnAddSubmodelo.setText("+");
-
-        btnRemoveSubmodelo.setText("-");
         btnRemoveSubmodelo.setPreferredSize(new Dimension(41, 27));
 
         GroupLayout panelTablaLayout = new GroupLayout(panelTabla);
@@ -263,14 +288,10 @@ public class FrmMantenimientoModelos extends FrameSupport {
                 .addContainerGap())
         );
 
-        btnAceptar.setText("ACEPTAR");
         btnAceptar.setPreferredSize(new Dimension(130, 27));
-        
-        btnCancelar.setText("CANCELAR");
         btnCancelar.setPreferredSize(new Dimension(130, 27));
 
         jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel4.setText("Glosario");
         jLabel4.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtCodGlosario.setMinimumSize(new Dimension(4, 27));
@@ -282,41 +303,35 @@ public class FrmMantenimientoModelos extends FrameSupport {
         btnBuscarGlosario.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 
         jLabel5.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel5.setText("Esquema");
         jLabel5.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtEsquema.setPreferredSize(new Dimension(4, 27));
         
-        txtEsquema1.setPreferredSize(new Dimension(4, 27));
+        txtBD.setPreferredSize(new Dimension(4, 27));
         
         jLabel8.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel8.setText("Base de Datos");
         jLabel8.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtCarpeta.setPreferredSize(new Dimension(4, 27));
         
         jLabel9.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel9.setText("Carpeta");
         jLabel9.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtGrupo.setPreferredSize(new Dimension(4, 27));
         
         jLabel10.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel10.setText("Grupo");
         jLabel10.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel11.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel11.setText("Herramienta");
         jLabel11.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtHerramienta.setPreferredSize(new Dimension(4, 27));
         
-        txtEsquema2.setEditable(false);
-        txtEsquema2.setEnabled(false);
-        txtEsquema2.setPreferredSize(new Dimension(4, 27));
+        txtUsuario.setEditable(false);
+        txtUsuario.setEnabled(false);
+        txtUsuario.setPreferredSize(new Dimension(4, 27));
         
         jLabel12.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel12.setText("Usuario");
         jLabel12.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         txtFecha.setEditable(false);
@@ -324,7 +339,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
         txtFecha.setPreferredSize(new Dimension(4, 27));
         
         jLabel13.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel13.setText("Fecha");
         jLabel13.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         cmbGrantPublic.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
@@ -334,27 +348,22 @@ public class FrmMantenimientoModelos extends FrameSupport {
         cmbGeneraVariables.setSelectedIndex(1);
 
         jLabel14.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel14.setText("Grant ALL");
         jLabel14.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel15.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel15.setText("Grant Public");
         jLabel15.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel16.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel16.setText("Genera Variables");
         jLabel16.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel17.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel17.setText("Observaciones");
         jLabel17.setHorizontalTextPosition(SwingConstants.RIGHT);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtObservaciones.setColumns(20);
+        txtObservaciones.setRows(5);
+        jScrollPane2.setViewportView(txtObservaciones);
 
         jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel19.setText("Submodelos");
         jLabel19.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -405,11 +414,11 @@ public class FrmMantenimientoModelos extends FrameSupport {
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtEsquema1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel9))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtEsquema2, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel13)))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -481,7 +490,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtEsquema1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtCarpeta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
@@ -491,7 +500,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEsquema2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(txtHerramienta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -523,8 +532,32 @@ public class FrmMantenimientoModelos extends FrameSupport {
     
     @Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
-		
+    	setTitle("Definición de Modelos");
+    	
+    	jLabel1.setText("Definición de Modelos");
+    	jLabel2.setText("Cod. Modelo");
+    	jLabel3.setText("Nombre Modelo");
+    	jLabel4.setText("Glosario");
+        jLabel5.setText("Esquema");
+    	jLabel6.setText("Norma");
+    	jLabel7.setText("Código");
+    	jLabel8.setText("Base de Datos");
+        jLabel9.setText("Carpeta");
+        jLabel10.setText("Grupo");
+        jLabel11.setText("Herramienta");
+        jLabel12.setText("Usuario");
+        jLabel13.setText("Fecha");
+        jLabel14.setText("Grant ALL");
+        jLabel15.setText("Grant Public");
+        jLabel16.setText("Genera Variables");
+        jLabel17.setText("Observaciones");
+    	jLabel18.setText("Descripción");
+    	jLabel19.setText("Submodelos");
+    	
+    	btnAddSubmodelo.setText("+");
+        btnRemoveSubmodelo.setText("-");
+        btnAceptar.setText("ACEPTAR");
+        btnCancelar.setText("CANCELAR");
 	}
 
 	@Override

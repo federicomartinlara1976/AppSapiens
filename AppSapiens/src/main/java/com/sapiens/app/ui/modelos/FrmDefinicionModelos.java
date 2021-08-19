@@ -26,6 +26,8 @@ import com.sapiens.app.ui.listener.FrmDefinicionModelosListener;
 import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.utils.Constants;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -37,13 +39,12 @@ public class FrmDefinicionModelos extends FrameSupport {
 	 */
 	private static final long serialVersionUID = -8935938403733592308L;
 	
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnAlta;
+	private JButton btnBuscar;
+	private JButton btnAlta;
     private JButton btnBaja;
-    private JButton btnBuscar;
     private JButton btnModificacion;
     private JButton btnSeleccionar;
-    private JComboBox<String> cmbNorma;
+    
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -51,17 +52,30 @@ public class FrmDefinicionModelos extends FrameSupport {
     private JLabel jLabel5;
     private JLabel jLabel6;
     private JLabel jLabel7;
+    
     private JScrollPane jScrollPane1;
+    
     private JTable tblGlosarios;
+    
+    private JComboBox<String> cmbNorma;
+    
+    @Getter
     private JTextField txtBaseDatos;
+    
+    @Getter
     private JTextField txtCodModelo;
+    
+    @Getter
     private JTextField txtEsquema;
+    
+    @Getter
     private JTextField txtGlosario;
+    
+    @Getter
     private JTextField txtNombreModelo;
-    // End of variables declaration//GEN-END:variables
 
     /**
-     * Creates new form DlgDefinicionGlosarios
+     * 
      */
     public FrmDefinicionModelos() {
         super();
@@ -112,19 +126,10 @@ public class FrmDefinicionModelos extends FrameSupport {
         txtCodModelo.setPreferredSize(new Dimension(300, 27));
         
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Definición de Modelos");
-
-        btnBuscar.setText("BUSCAR");
-
-        btnBaja.setText("BAJA");
+        
         btnBaja.setPreferredSize(new Dimension(130, 27));
-
-        btnModificacion.setText("MODIFICACION");
-
-        btnSeleccionar.setText("SELECCIONAR");
+   
         btnSeleccionar.setPreferredSize(new Dimension(130, 27));
-
-        jLabel2.setText("Cod. Modelo:");
 
         tblGlosarios.setModel(new DefaultTableModel(
             new Object [][] {
@@ -147,29 +152,19 @@ public class FrmDefinicionModelos extends FrameSupport {
         });
         jScrollPane1.setViewportView(tblGlosarios);
 
-        btnAlta.setText("ALTA");
         btnAlta.setPreferredSize(new Dimension(130, 27));
-
-        jLabel3.setText("Glosario:");
 
         txtGlosario.setMinimumSize(new Dimension(4, 27));
         txtGlosario.setPreferredSize(new Dimension(300, 27));
-        
-        jLabel4.setText("Nombre Modelo:");
 
         txtNombreModelo.setMinimumSize(new Dimension(4, 27));
         txtNombreModelo.setPreferredSize(new Dimension(300, 27));
-        
-        jLabel5.setText("Esquema:");
 
         txtEsquema.setMinimumSize(new Dimension(4, 27));
         txtEsquema.setPreferredSize(new Dimension(300, 27));
         
         jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel6.setText("Base de Datos:");
-
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel7.setText("Norma:");
 
         txtBaseDatos.setMinimumSize(new Dimension(4, 27));
         txtBaseDatos.setPreferredSize(new Dimension(300, 27));
@@ -266,8 +261,21 @@ public class FrmDefinicionModelos extends FrameSupport {
     
     @Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
-		
+    	setTitle("Definición de Modelos");
+    	
+    	jLabel1.setText("Definición de Modelos");
+        jLabel2.setText("Cod. Modelo:");
+        jLabel3.setText("Glosario:");
+        jLabel4.setText("Nombre Modelo:");
+        jLabel5.setText("Esquema:");
+        jLabel6.setText("Base de Datos:");
+        jLabel7.setText("Norma:");
+        
+        btnBuscar.setText("BUSCAR");
+        btnAlta.setText("ALTA");
+        btnBaja.setText("BAJA");
+        btnModificacion.setText("MODIFICACION");
+        btnSeleccionar.setText("SELECCIONAR");
 	}
 
 	@Override
