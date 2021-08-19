@@ -7,6 +7,7 @@ package com.sapiens.app.ui.modelos;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -21,7 +22,9 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.sapiens.app.ui.listener.FrmDefinicionModelosListener;
 import com.sapiens.app.ui.utils.FrameSupport;
+import com.sapiens.app.utils.Constants;
 
 /**
  *
@@ -268,7 +271,13 @@ public class FrmDefinicionModelos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener listener = new FrmDefinicionModelosListener(this);
+		
+		btnAlta.setName(Constants.DLG_DEFINICION_MODELOS_BTN_ALTA);
+		btnModificacion.setName(Constants.DLG_DEFINICION_MODELOS_BTN_MODIFICACION);
+		
+		btnAlta.addActionListener(listener);
+		btnModificacion.addActionListener(listener);
 		
 	}
 

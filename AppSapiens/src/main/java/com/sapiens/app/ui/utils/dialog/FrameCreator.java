@@ -8,6 +8,7 @@ import com.sapiens.app.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.sapiens.app.ui.glosarios.FrmDefinicionGlosarios;
 import com.sapiens.app.ui.glosarios.FrmGlosarioCampos;
 import com.sapiens.app.ui.modelos.FrmDefinicionModelos;
+import com.sapiens.app.ui.modelos.FrmMantenimientoModelos;
 import com.sapiens.app.ui.normasnomenclatura.FrmAltaModificacionElementos;
 import com.sapiens.app.ui.normasnomenclatura.FrmAltaModificacionTiposParticula;
 import com.sapiens.app.ui.normasnomenclatura.FrmDefinicionElementos;
@@ -143,6 +144,14 @@ public class FrameCreator extends Creator {
 		
 		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(menuOption)) {
 			frame = new FrmMantenimientoValoresParticulas(params);
+		}
+		
+		if (Constants.CMD_ALTA_MODELOS.equals(menuOption)) {
+			frame = new FrmMantenimientoModelos();
+		}
+		
+		if (Constants.CMD_MODIFICACION_MODELOS.equals(menuOption)) {
+			frame = new FrmMantenimientoModelos();
 		}
 		
 		return frame;
