@@ -24,6 +24,7 @@ import com.sapiens.mdval.ui.listener.PanelPrincipalActionListener;
 import com.sapiens.mdval.ui.listener.PanelPrincipalChangeListener;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 import com.sapiens.mdval.ui.utils.PanelSupport;
+import com.sapiens.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -56,6 +57,7 @@ public class PanelPrincipal extends PanelSupport {
     
     private JScrollPane jScrollPane1;
     
+    @Getter
     private JTabbedPane jTabbedPane1;
     
     private JPanel panelBotones;
@@ -313,7 +315,15 @@ public class PanelPrincipal extends PanelSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new PanelPrincipalActionListener(this);
 		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
+		
+		btnValidar.setName(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
+		btnBuscarGlosario.setName(Constants.PANEL_PRINCIPAL_BTN_SEARCH);
+		btnLoadScript.setName(Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
+		btnLimpiarTodo.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
+		btnLimpiarValidacion.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
 
+		btnValidar.addActionListener(actionListener);
+		btnBuscarGlosario.addActionListener(actionListener);
 		btnLoadScript.addActionListener(actionListener);
 		btnLimpiarTodo.addActionListener(actionListener);
 		btnLimpiarValidacion.addActionListener(actionListener);

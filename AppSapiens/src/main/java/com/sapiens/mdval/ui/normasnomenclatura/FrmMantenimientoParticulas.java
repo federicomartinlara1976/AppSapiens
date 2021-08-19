@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +20,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.sapiens.mdval.ui.listener.FrmMantenimientoParticulasListener;
+import com.sapiens.mdval.ui.model.SiNoComboBoxModel;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 import com.sapiens.mdval.utils.Constants;
 
@@ -132,12 +132,6 @@ public class FrmMantenimientoParticulas extends FrameSupport {
         
         txtDescripcion.setMinimumSize(new Dimension(4, 27));
         txtDescripcion.setPreferredSize(new Dimension(64, 27));
-
-        cmbProyecto.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        cmbProyecto.setSelectedIndex(1);
-
-        cmbSubproyecto.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        cmbSubproyecto.setSelectedIndex(1);
 
         panelTabla.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
@@ -292,7 +286,10 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		cmbProyecto.setModel(new SiNoComboBoxModel());
+		cmbProyecto.setSelectedIndex(1);
+
+        cmbSubproyecto.setModel(new SiNoComboBoxModel());
+        cmbSubproyecto.setSelectedIndex(1);	
 	}
 }

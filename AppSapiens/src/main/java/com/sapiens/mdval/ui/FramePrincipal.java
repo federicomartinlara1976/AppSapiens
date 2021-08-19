@@ -2,6 +2,7 @@ package com.sapiens.mdval.ui;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -36,6 +37,8 @@ public class FramePrincipal extends FrameSupport {
 		menuBar = new MainMenuBar();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
+		
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		setJMenuBar(menuBar);
 	}

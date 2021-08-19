@@ -33,10 +33,10 @@ import com.sapiens.mdval.utils.Constants;
  */
 public class FrameCreator extends Creator {
 	
-	private String menuOption;
+	private String option;
 	
-	public FrameCreator(String menuOption) {
-		this.menuOption = menuOption;
+	public FrameCreator(String option) {
+		this.option = option;
 	}
 
 	/**
@@ -46,111 +46,111 @@ public class FrameCreator extends Creator {
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
 		
-		if (Constants.MNU_DEF_GLOSARIOS.equals(menuOption)) {
+		if (Constants.MNU_DEF_GLOSARIOS.equals(option)) {
 			frame = new FrmDefinicionGlosarios();
 		}
 		
-		if (Constants.MNU_DATOS_GLOSARIO_CAMPOS.equals(menuOption)) {
+		if (Constants.MNU_DATOS_GLOSARIO_CAMPOS.equals(option)) {
 			frame = new FrmGlosarioCampos();
 		}
 		
-		if (Constants.MNU_DEF_NORMAS.equals(menuOption)) {
+		if (Constants.MNU_DEF_NORMAS.equals(option)) {
 			frame = new FrmDefinicionNormas();
 		}
 		
-		if (Constants.MNU_DEF_ELEMENTOS.equals(menuOption)) {
+		if (Constants.MNU_DEF_ELEMENTOS.equals(option)) {
 			frame = new FrmDefinicionElementos();
 		}
 		
-		if (Constants.MNU_DEF_ELEMENTOS_NORMA.equals(menuOption)) {
+		if (Constants.MNU_DEF_ELEMENTOS_NORMA.equals(option)) {
 			frame = new FrmDefinicionElementosNorma();
 		}
 		
-		if (Constants.MNU_DEF_TIPOS_PARTICULAS.equals(menuOption)) {
+		if (Constants.MNU_DEF_TIPOS_PARTICULAS.equals(option)) {
 			frame = new FrmDefinicionTiposParticula();
 		}
 		
-		if (Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO.equals(menuOption)) {
+		if (Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO.equals(option)) {
 			frame = new FrmDefinicionElementosNormaElemento();
 		}
 		
-		if (Constants.MNU_VALORES_PARTICULAS.equals(menuOption)) {
+		if (Constants.MNU_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmValoresParticulas();
 		}
 		
-		if (Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO.equals(menuOption)) {
+		if (Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO.equals(option)) {
 			frame = new FrmComprobacionNombreElemento();
 		}
 		
-		if (Constants.MNU_MODELOS.equals(menuOption)) {
+		if (Constants.MNU_MODELOS.equals(option)) {
 			frame = new FrmDefinicionModelos();
 		}
 		
-		if (Constants.CMD_ALTA_GLOSARIOS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_GLOSARIOS.equals(option)) {
 			frame = new FrmAltaModificacionGlosarios();
 		}
 		
-		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(option)) {
 			frame = new FrmAltaModificacionGlosarios(params);
 		}
 		
-		if (Constants.CMD_ALTA_GLOSARIO_CAMPOS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_GLOSARIO_CAMPOS.equals(option)) {
 			frame = new FrmAltaModificacionCampos();
 		}
 		
-		if (Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS.equals(option)) {
 			frame = new FrmAltaModificacionCampos(params);
 		}
 		
-		if (Constants.CMD_ALTA_NORMAS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_NORMAS.equals(option)) {
 			frame = new FrmModificacionNormas();
 		}
 		
-		if (Constants.CMD_MODIFICACION_NORMAS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_NORMAS.equals(option)) {
 			frame = new FrmModificacionNormas(params);
 		}
 		
-		if (Constants.CMD_ALTA_ELEMENTOS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_ELEMENTOS.equals(option)) {
 			frame = new FrmAltaModificacionElementos();
 		}
 		
-		if (Constants.CMD_MODIFICACION_ELEMENTOS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_ELEMENTOS.equals(option)) {
 			frame = new FrmAltaModificacionElementos(params);
 		}
 		
-		if (Constants.CMD_ALTA_TIPOS_PARTICULA.equals(menuOption)) {
+		if (Constants.CMD_ALTA_TIPOS_PARTICULA.equals(option)) {
 			frame = new FrmAltaModificacionTiposParticula();
 		}
 		
-		if (Constants.CMD_MODIFICACION_TIPOS_PARTICULA.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_TIPOS_PARTICULA.equals(option)) {
 			frame = new FrmAltaModificacionTiposParticula(params);
 		}
 		
-		if (Constants.CMD_ALTA_VALORES_PARTICULAS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas(params);
 		}
 		
-		if (Constants.CMD_BAJA_VALORES_PARTICULAS.equals(menuOption)) {
+		if (Constants.CMD_BAJA_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas(params);
 		}
 		
-		if (Constants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas(params);
 		}
 		
-		if (Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoValoresParticulas(params);
 		}
 		
-		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoValoresParticulas(params);
 		}
 		
-		if (Constants.CMD_ALTA_MODELOS.equals(menuOption)) {
+		if (Constants.CMD_ALTA_MODELOS.equals(option)) {
 			frame = new FrmMantenimientoModelos();
 		}
 		
-		if (Constants.CMD_MODIFICACION_MODELOS.equals(menuOption)) {
+		if (Constants.CMD_MODIFICACION_MODELOS.equals(option)) {
 			frame = new FrmMantenimientoModelos();
 		}
 		

@@ -17,6 +17,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.sapiens.mdval.ui.listener.FrmValoresParticulasListener;
+import com.sapiens.mdval.ui.model.SiNoComboBoxModel;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 import com.sapiens.mdval.utils.Constants;
 
@@ -176,10 +177,6 @@ public class FrmValoresParticulas extends FrameSupport {
         });
         jScrollPane2.setViewportView(tblValoresPosibles);
 
-        cmbProyecto.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbSubproyecto.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        
         btnBuscar.setPreferredSize(new Dimension(130, 27));
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -307,7 +304,10 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		cmbProyecto.setModel(new SiNoComboBoxModel());
+		cmbProyecto.setSelectedIndex(1);
+
+        cmbSubproyecto.setModel(new SiNoComboBoxModel());
+        cmbSubproyecto.setSelectedIndex(1);	
 	}
 }

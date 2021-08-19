@@ -32,6 +32,17 @@ public class UIHelper {
 	/**
 	 * @param frame
 	 */
+	public static void centerOnScreen(JFrame frame) {
+		final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		final Dimension screenSize = toolkit.getScreenSize();
+		final int x = (screenSize.width - frame.getWidth()) / 2;
+		final int y = (screenSize.height - frame.getHeight()) / 2;
+		frame.setLocation(x, y);
+	}
+	
+	/**
+	 * @param frame
+	 */
 	public static void showMaximized(JFrame frame) {
 		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}
@@ -90,6 +101,7 @@ public class UIHelper {
 	 */
 	public static void show(JFrame frame) {
 		if (!Objects.isNull(frame)) {
+			UIHelper.centerOnScreen(frame);
 			frame.setVisible(Boolean.TRUE);
 		}
 	}

@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.sapiens.mdval.ui.model.SiNoComboBoxModel;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -213,9 +214,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
         cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
 
-        cmbGrantAll.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        cmbGrantAll.setSelectedIndex(1);
-
         panelTabla.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
         tblValoresPosibles.setModel(new DefaultTableModel(
@@ -340,12 +338,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
         
         jLabel13.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel13.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-        cmbGrantPublic.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        cmbGrantPublic.setSelectedIndex(1);
-
-        cmbGeneraVariables.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        cmbGeneraVariables.setSelectedIndex(1);
 
         jLabel14.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel14.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -568,7 +560,13 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		cmbGrantAll.setModel(new SiNoComboBoxModel());
+        cmbGrantAll.setSelectedIndex(1);
+        
+        cmbGrantPublic.setModel(new SiNoComboBoxModel());
+        cmbGrantPublic.setSelectedIndex(1);
+
+        cmbGeneraVariables.setModel(new SiNoComboBoxModel());
+        cmbGeneraVariables.setSelectedIndex(1);
 	}
 }

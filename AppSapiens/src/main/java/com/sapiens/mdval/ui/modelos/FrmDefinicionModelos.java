@@ -52,6 +52,7 @@ public class FrmDefinicionModelos extends FrameSupport {
     
     private JTable tblGlosarios;
     
+    @Getter
     private JComboBox<String> cmbNorma;
     
     @Getter

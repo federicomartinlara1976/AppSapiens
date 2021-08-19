@@ -19,15 +19,15 @@ import com.sapiens.mdval.utils.Constants;
  */
 public class DialogCreator extends Creator {
 	
-	private String menuOption;
+	private String option;
 	
 	private JFrame frameParent;
 	
 	private Boolean modal;
 	
-	public DialogCreator(JFrame frameParent, String menuOption) {
+	public DialogCreator(JFrame frameParent, String option) {
 		this.modal = Boolean.TRUE;
-		this.menuOption = menuOption;
+		this.option = option;
 		this.frameParent = frameParent;
 	}
 
@@ -38,11 +38,11 @@ public class DialogCreator extends Creator {
 	public Object factoryMethod(Map<String, Object> params) {
 		DialogSupport dialog = null;
 		
-		if (Constants.CMD_INICIAR_APP.equals(menuOption)) {
+		if (Constants.CMD_INICIAR_APP.equals(option)) {
 			dialog = new DlgIdentificador(frameParent, modal);
 		}
 		
-		if (Constants.CMD_BAJA_GLOSARIO_CAMPOS.equals(menuOption)) {
+		if (Constants.CMD_BAJA_GLOSARIO_CAMPOS.equals(option)) {
 			dialog = new DlgBajaGlosarioCampos(frameParent, modal, params);
 		}
 		

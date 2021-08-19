@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.sapiens.mdval.ui.listener.FrmAltaModificacionCamposListener;
+import com.sapiens.mdval.ui.model.SiNoComboBoxModel;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 import com.sapiens.mdval.utils.Constants;
 
@@ -155,8 +156,6 @@ public class FrmAltaModificacionCampos extends FrameSupport {
         txtTamanio.setPreferredSize(new Dimension(64, 27));
 
         txtDecimales.setPreferredSize(new Dimension(64, 27));
-
-        cmbExcepcion.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         
         txtDescripcionExcepcion.setColumns(20);
         txtDescripcionExcepcion.setRows(5);
@@ -316,7 +315,7 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 	 * 
 	 */
 	protected void initialState() {
-		// TODO Auto-generated method stub
-
+		cmbExcepcion.setModel(new SiNoComboBoxModel());
+		cmbExcepcion.setSelectedIndex(1);
 	}
 }
