@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 @SpringBootTest
 @ContextConfiguration(classes = {OracleDataSourceConfig.class})
-class AppSapiensApplicationTests {
+class MDValApplicationTests {
 
 	@MockBean
 	private DataSource dataSource;

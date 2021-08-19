@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 
 @SpringBootApplication
 @Log4j
-public class AppSapiensApplication implements CommandLineRunner {
+public class MDValApplication implements CommandLineRunner {
 	
 	@Autowired
     private ApplicationContext applicationContext;
@@ -32,7 +32,7 @@ public class AppSapiensApplication implements CommandLineRunner {
 	private DataSource dataSource;
 
 	public static void main(String[] args) {
-		SpringApplicationBuilder builder = new SpringApplicationBuilder(AppSapiensApplication.class);
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(MDValApplication.class);
 		builder.headless(false);
 		builder.run(args);
 	}
