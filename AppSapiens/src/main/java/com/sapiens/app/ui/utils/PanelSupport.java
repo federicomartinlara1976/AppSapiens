@@ -45,7 +45,7 @@ public abstract class PanelSupport extends JPanel {
 		}
 	}
     
-protected abstract void initComponents();
+    protected abstract void initComponents();
 	
 	protected abstract void initEvents();
 	
