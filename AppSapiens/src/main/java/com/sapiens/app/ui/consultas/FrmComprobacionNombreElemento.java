@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sapiens.app.ui.consultas;
 
 import java.awt.Dimension;
@@ -25,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sapiens.app.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -36,13 +33,10 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 2718727106396297482L;
 	
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnBuscar;
+	private JButton btnBuscar;
     private JButton btnComprobar;
-    private JComboBox<String> cmbElemento;
-    private JComboBox<String> cmbSubmodelo;
+    
     private JLabel jLabel1;
-    private JLabel jLabel10;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
@@ -51,18 +45,42 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JLabel jLabel9;
+    private JLabel jLabel10;
+    
     private JPanel jPanel1;
+    
     private JScrollPane jScrollPane1;
     private JTable tblValoresPosibles;
+    
+    @Getter
+    private JComboBox<String> cmbElemento;
+    
+    @Getter
+    private JComboBox<String> cmbSubmodelo;
+    
+    @Getter
     private JTextField txtCodGlosario;
+    
+    @Getter
     private JTextField txtCodNorma;
+    
+    @Getter
     private JTextField txtDescGlosario;
+    
+    @Getter
     private JTextField txtDescNorma;
+    
+    @Getter
     private JTextField txtExpresionRegular;
+    
+    @Getter
     private JTextField txtModeloProyecto;
+    
+    @Getter
     private JTextField txtNombreComprobar;
+    
+    @Getter
     private JTextField txtTamMaximo;
-    // End of variables declaration//GEN-END:variables
 	
 	/**
      * Creates new form DlgModificacionNormas
@@ -117,31 +135,18 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
             .addGap(0, 67, Short.MAX_VALUE)
         );
 
-        jLabel2.setText("Modelo o Proyecto:");
-
-        jLabel3.setText("Nombre a Comprobar:");
-
         txtModeloProyecto.setPreferredSize(new Dimension(4, 27));
         
         txtNombreComprobar.setMinimumSize(new Dimension(4, 27));
         txtNombreComprobar.setPreferredSize(new Dimension(64, 27));
         
-        jLabel5.setText("Resultado de la Comprobación:");
-
-        jLabel6.setText("Submodelo");
-
         cmbSubmodelo.setModel(new DefaultComboBoxModel<>(new String[] { "Submodelo 1", "Submodelo 2", "Submodelo 3", "Submodelo 4" }));
-
-        jLabel7.setText("Elemento:");
 
         cmbElemento.setModel(new DefaultComboBoxModel<>(new String[] { "Elemento 1", "Elemento 2", "Elemento 3", "Elemento 4" }));
 
         btnBuscar.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Comprobación del Nombre de un Elemento");
-
-        jLabel4.setText("Norma:");
 
         txtCodNorma.setEditable(false);
         txtCodNorma.setEnabled(false);
@@ -151,8 +156,6 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
         txtDescNorma.setEnabled(false);
         txtDescNorma.setMinimumSize(new Dimension(4, 27));
         txtDescNorma.setPreferredSize(new Dimension(64, 27));
-        
-        jLabel8.setText("Glosario:");
 
         txtCodGlosario.setEditable(false);
         txtCodGlosario.setEnabled(false);
@@ -191,14 +194,9 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
         txtExpresionRegular.setEnabled(false);
         txtExpresionRegular.setMinimumSize(new Dimension(4, 27));
         txtExpresionRegular.setPreferredSize(new Dimension(64, 27));
-        
-        jLabel9.setText("Tamaño Máximo:");
-
-        jLabel10.setText("Expresión Regular:");
 
         jPanel1.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
-        btnComprobar.setText("COMPROBAR");
         jPanel1.add(btnComprobar);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -314,8 +312,20 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
     
     @Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
-		
+    	setTitle("Comprobación del Nombre de un Elemento");
+    	
+    	jLabel1.setText("Comprobación del Nombre de un Elemento");
+    	jLabel2.setText("Modelo o Proyecto:");
+        jLabel3.setText("Nombre a Comprobar:");
+        jLabel4.setText("Norma:");
+        jLabel5.setText("Resultado de la Comprobación:");
+        jLabel6.setText("Submodelo");
+        jLabel7.setText("Elemento:");
+        jLabel8.setText("Glosario:");
+        jLabel9.setText("Tamaño Máximo:");
+        jLabel10.setText("Expresión Regular:");
+        
+        btnComprobar.setText("COMPROBAR");
 	}
 
 	@Override

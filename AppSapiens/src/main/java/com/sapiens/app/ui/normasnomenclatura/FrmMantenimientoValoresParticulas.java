@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
@@ -19,6 +14,8 @@ import javax.swing.WindowConstants;
 
 import com.sapiens.app.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -30,9 +27,9 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 	 */
 	private static final long serialVersionUID = -4629194932255693532L;
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
@@ -41,14 +38,28 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 	private JLabel jLabel6;
 	private JLabel jLabel7;
 	private JLabel jLabel8;
+	
+	@Getter
 	private JTextField txtCodigo;
+	
+	@Getter
 	private JTextField txtDescripcion;
+	
+	@Getter
 	private JTextField txtDescripcionValor;
+	
+	@Getter
 	private JTextField txtPartPadre;
+	
+	@Getter
 	private JTextField txtProyecto;
+	
+	@Getter
 	private JTextField txtSubproyecto;
+	
+	@Getter
 	private JTextField txtValor;
-	// End of variables declaration//GEN-END:variables
+	
 	
 	private Map<String, Object> params;
 
@@ -102,10 +113,8 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 				panelLogoLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 63, Short.MAX_VALUE));
 
 		jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
 
 		jLabel2.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel2.setText("Código:");
 		jLabel2.setHorizontalTextPosition(SwingConstants.LEFT);
 		jLabel2.setPreferredSize(new Dimension(150, 17));
 
@@ -115,7 +124,6 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 		txtCodigo.setPreferredSize(new Dimension(80, 27));
 
 		jLabel3.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel3.setText("Descripción");
 		jLabel3.setHorizontalTextPosition(SwingConstants.LEFT);
 		jLabel3.setPreferredSize(new Dimension(150, 17));
 
@@ -123,26 +131,20 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 		txtDescripcion.setEnabled(false);
 		txtDescripcion.setPreferredSize(new Dimension(400, 27));
 
-		btnAceptar.setText("ACEPTAR");
 		btnAceptar.setPreferredSize(new Dimension(98, 27));
 
-		btnCancelar.setText("CANCELAR");
-
 		jLabel6.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel6.setText("Valor");
 		jLabel6.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		txtValor.setPreferredSize(new Dimension(4, 27));
 
 		jLabel4.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel4.setText("Descripción");
 		jLabel4.setHorizontalTextPosition(SwingConstants.LEFT);
 		jLabel4.setPreferredSize(new Dimension(150, 17));
 
 		txtDescripcionValor.setPreferredSize(new Dimension(64, 27));
 
 		jLabel5.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel5.setText("Proyecto");
 		jLabel5.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		txtProyecto.setPreferredSize(new Dimension(4, 27));
@@ -150,14 +152,12 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 		txtSubproyecto.setPreferredSize(new Dimension(64, 27));
 
 		jLabel7.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel7.setText("Subproyecto");
 		jLabel7.setHorizontalTextPosition(SwingConstants.LEFT);
 		jLabel7.setPreferredSize(new Dimension(150, 17));
 
 		txtPartPadre.setPreferredSize(new Dimension(4, 27));
 
 		jLabel8.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabel8.setText("Part.  Padre");
 		jLabel8.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		GroupLayout layout = new GroupLayout(getContentPane());
@@ -292,8 +292,19 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
+		setTitle("Asignación de Valores a los Tipos de Partícula");
 		
+		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
+		jLabel2.setText("Código:");
+		jLabel3.setText("Descripción");
+		jLabel4.setText("Descripción");
+		jLabel5.setText("Proyecto");
+		jLabel6.setText("Valor");
+		jLabel7.setText("Subproyecto");
+		jLabel8.setText("Part.  Padre");
+		
+		btnAceptar.setText("ACEPTAR");
+		btnCancelar.setText("CANCELAR");
 	}
 
 	@Override

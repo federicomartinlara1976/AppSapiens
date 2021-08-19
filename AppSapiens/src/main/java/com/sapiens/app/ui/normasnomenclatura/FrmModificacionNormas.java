@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
@@ -21,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sapiens.app.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -32,12 +29,12 @@ public class FrmModificacionNormas extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 7468072915163364659L;
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private JButton btnAceptar;
 	private JButton btnAltaElemento;
 	private JButton btnBajaElemento;
-	private JButton btnCancelar;
 	private JButton btnModificacionElemento;
+	private JButton btnAceptar;
+	private JButton btnCancelar;	
+	
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
@@ -45,15 +42,25 @@ public class FrmModificacionNormas extends FrameSupport {
 	private JLabel jLabel5;
 	private JLabel jLabel6;
 	private JLabel jLabel7;
+	
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	
 	private JTable tblElementos;
 	private JTable tblParticulas;
+	
+	@Getter
 	private JTextField txtCodigo;
+	
+	@Getter
 	private JTextField txtDescripcion;
+	
+	@Getter
 	private JTextField txtFecha;
+	
+	@Getter
 	private JTextField txtUsuario;
-	// End of variables declaration//GEN-END:variables
+	
 
 	private Map<String, Object> params;
 	
@@ -114,11 +121,6 @@ public class FrmModificacionNormas extends FrameSupport {
         );
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Alta/Modificación de Norma Completa");
-
-        jLabel2.setText("Código");
-
-        jLabel3.setText("Descripción");
 
         txtCodigo.setEditable(false);
         txtCodigo.setEnabled(false);
@@ -127,15 +129,9 @@ public class FrmModificacionNormas extends FrameSupport {
         txtDescripcion.setMinimumSize(new Dimension(4, 27));
         txtDescripcion.setPreferredSize(new Dimension(64, 27));
         
-        jLabel4.setText("Elementos:");
-
-        btnAltaElemento.setText("ALTA");
         btnAltaElemento.setPreferredSize(new Dimension(130, 27));
 
-        btnBajaElemento.setText("BAJA");
         btnBajaElemento.setPreferredSize(new Dimension(130, 27));
-
-        btnModificacionElemento.setText("MODIFICACION");
 
         tblElementos.setModel(new DefaultTableModel(
             new Object [][] {
@@ -158,8 +154,6 @@ public class FrmModificacionNormas extends FrameSupport {
         });
         jScrollPane1.setViewportView(tblElementos);
 
-        jLabel5.setText("Partículas:");
-
         tblParticulas.setModel(new DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -173,18 +167,11 @@ public class FrmModificacionNormas extends FrameSupport {
         ));
         jScrollPane2.setViewportView(tblParticulas);
 
-        jLabel6.setText("Usuario:");
-
         txtUsuario.setPreferredSize(new Dimension(64, 27));
-
-        jLabel7.setText("Fecha:");
 
         txtFecha.setPreferredSize(new Dimension(64, 27));
         
-        btnAceptar.setText("ACEPTAR");
         btnAceptar.setPreferredSize(new Dimension(98, 27));
-
-        btnCancelar.setText("CANCELAR");
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -286,8 +273,21 @@ public class FrmModificacionNormas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
+		setTitle("Alta/Modificación de Norma Completa");
 		
+		jLabel1.setText("Alta/Modificación de Norma Completa");
+        jLabel2.setText("Código");
+        jLabel3.setText("Descripción");
+        jLabel4.setText("Elementos:");
+        jLabel5.setText("Partículas:");
+        jLabel6.setText("Usuario:");
+        jLabel7.setText("Fecha:");
+
+        btnAltaElemento.setText("ALTA");
+        btnBajaElemento.setText("BAJA");
+        btnModificacionElemento.setText("MODIFICACION");
+        btnAceptar.setText("ACEPTAR");
+        btnCancelar.setText("CANCELAR");
 	}
 
 	@Override

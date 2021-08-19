@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sapiens.app.ui.normasnomenclatura;
 
 import java.awt.Dimension;
@@ -25,6 +20,8 @@ import com.sapiens.app.ui.listener.FrmValoresParticulasListener;
 import com.sapiens.app.ui.utils.FrameSupport;
 import com.sapiens.app.utils.Constants;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -36,13 +33,11 @@ public class FrmValoresParticulas extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 8100226088814590344L;
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private JButton btnBuscar;
 	private JButton btnAltaElemento;
 	private JButton btnBajaElemento;
-	private JButton btnBuscar;
 	private JButton btnModificacionElemento;
-	private JComboBox<String> cmbProyecto;
-	private JComboBox<String> cmbSubproyecto;
+	
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
@@ -50,13 +45,25 @@ public class FrmValoresParticulas extends FrameSupport {
 	private JLabel jLabel5;
 	private JLabel jLabel6;
 	private JLabel jLabel7;
+	
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	
 	private JTable tblTiposParticular;
 	private JTable tblValoresPosibles;
+	
+	@Getter
+	private JComboBox<String> cmbProyecto;
+	
+	@Getter
+	private JComboBox<String> cmbSubproyecto;
+	
+	@Getter
 	private JTextField txtCodigo;
+	
+	@Getter
 	private JTextField txtDescripcion;
-	// End of variables declaration//GEN-END:variables
+	
 
 	/**
 	 * Creates new form DlgModificacionNormas
@@ -103,26 +110,15 @@ public class FrmValoresParticulas extends FrameSupport {
         );
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
-
-        jLabel2.setText("Código");
-
-        jLabel3.setText("Descripción");
 
         txtCodigo.setPreferredSize(new Dimension(4, 27));
         
         txtDescripcion.setMinimumSize(new Dimension(4, 27));
         txtDescripcion.setPreferredSize(new Dimension(64, 27));
         
-        jLabel4.setText("Tipos de partículas");
-
-        btnAltaElemento.setText("ALTA");
+        
         btnAltaElemento.setPreferredSize(new Dimension(130, 27));
-
-        btnBajaElemento.setText("BAJA");
         btnBajaElemento.setPreferredSize(new Dimension(130, 27));
-
-        btnModificacionElemento.setText("MODIFICACION");
 
         tblTiposParticular.setModel(new DefaultTableModel(
             new Object [][] {
@@ -152,8 +148,6 @@ public class FrmValoresParticulas extends FrameSupport {
         });
         jScrollPane1.setViewportView(tblTiposParticular);
 
-        jLabel5.setText("Valores posibles de las partículas");
-
         tblValoresPosibles.setModel(new DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -182,15 +176,10 @@ public class FrmValoresParticulas extends FrameSupport {
         });
         jScrollPane2.setViewportView(tblValoresPosibles);
 
-        jLabel6.setText("Proyecto");
-
         cmbProyecto.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel7.setText("Subproyecto");
-
         cmbSubproyecto.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnBuscar.setText("BUSCAR");
+        
         btnBuscar.setPreferredSize(new Dimension(130, 27));
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -287,8 +276,20 @@ public class FrmValoresParticulas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
+		setTitle("Asignación de Valores a los Tipos de Partícula");
 		
+		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
+        jLabel2.setText("Código");
+        jLabel3.setText("Descripción");
+        jLabel4.setText("Tipos de partículas");
+        jLabel5.setText("Valores posibles de las partículas");
+        jLabel6.setText("Proyecto");
+        jLabel7.setText("Subproyecto");
+        
+        btnBuscar.setText("BUSCAR");
+        btnAltaElemento.setText("ALTA");
+        btnBajaElemento.setText("BAJA");
+        btnModificacionElemento.setText("MODIFICACION");
 	}
 
 	@Override
