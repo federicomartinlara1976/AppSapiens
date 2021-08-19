@@ -9,11 +9,11 @@
 		<version>2.5.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sapiens.app</groupId>
-	<artifactId>appsapiens</artifactId>
+	<groupId>com.sapiens.mdval</groupId>
+	<artifactId>mdval</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>AppSapiens</name>
-	<description>App Sapiens</description>
+	<name>MDVal</name>
+	<description>MDVal Application</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
