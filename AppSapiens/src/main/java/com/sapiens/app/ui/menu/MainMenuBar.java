@@ -8,7 +8,6 @@ package com.sapiens.app.ui.menu;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -17,7 +16,6 @@ import com.sapiens.app.ui.listener.MenuListener;
 import com.sapiens.app.utils.Constants;
 import com.sapiens.app.utils.LiteralesSingleton;
 
-import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -47,12 +45,8 @@ public class MainMenuBar extends JMenuBar {
     private JMenu mnuNormasNomenclatura;
     private JMenuItem mnuValoresParticulas;
     
-    @Getter
-	private JFrame frameParent;
-    
-    public MainMenuBar(JFrame frameParent) {
+    public MainMenuBar() {
         super();
-        this.frameParent = frameParent;
         
         try {
 			initComponents();
@@ -138,7 +132,7 @@ public class MainMenuBar extends JMenuBar {
 	}
 	
 	private void initEvents() {
-		ActionListener actionListener = new MenuListener(frameParent);
+		ActionListener actionListener = new MenuListener();
 		
 		mnuDefinicionGlosarios.addActionListener(actionListener);
 		mnuDatosGlosarioCampos.addActionListener(actionListener);

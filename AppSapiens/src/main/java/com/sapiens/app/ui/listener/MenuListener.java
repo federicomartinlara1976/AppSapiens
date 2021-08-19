@@ -18,7 +18,7 @@ import com.sapiens.app.ui.utils.UIHelper;
  */
 public class MenuListener implements ActionListener {
 	
-	public MenuListener(JFrame frameParent) {
+	public MenuListener() {
 		super();
 	}
 

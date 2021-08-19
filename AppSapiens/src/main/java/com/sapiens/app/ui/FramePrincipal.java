@@ -25,10 +25,9 @@ public class FramePrincipal extends FrameSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = -6813614532398369392L;
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	
 	private JMenuBar menuBar;
 	private JPanel panelPrincipal;
-	// End of variables declaration//GEN-END:variables
 
 	/**
 	 * Creates new form FramePrincipal
@@ -39,7 +38,7 @@ public class FramePrincipal extends FrameSupport {
 
 	protected void setupComponents() {
 		panelPrincipal = new PanelPrincipal(this);
-		menuBar = new MainMenuBar(this);
+		menuBar = new MainMenuBar();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
