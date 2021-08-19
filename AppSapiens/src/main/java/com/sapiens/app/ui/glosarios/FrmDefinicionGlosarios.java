@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,10 +51,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	
 	@Getter
 	private JTextField txtGlosario;
-	
-	@Getter
-	private JFrame frameParent;
 
+	
 	/**
 	 * Creates new form DlgDefinicionGlosarios
 	 */

@@ -15,7 +15,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -83,8 +82,6 @@ public class FrmGlosarioCampos extends FrameSupport {
     @Getter
     private JTextField txtNorma;
     
-    @Getter
-    private JFrame frameParent;
     
 	/**
      * Creates new form DlgGlosarioCampos

@@ -15,11 +15,11 @@ import com.sapiens.app.utils.Constants;
  */
 public class FrmGlosarioCamposListener extends ListenerSupport implements ActionListener {
 
-	private FrmGlosarioCampos dlgGlosarioCampos;
+	private FrmGlosarioCampos frmGlosarioCampos;
 
-	public FrmGlosarioCamposListener(FrmGlosarioCampos dlgGlosarioCampos) {
+	public FrmGlosarioCamposListener(FrmGlosarioCampos frmGlosarioCampos) {
 		super();
-		this.dlgGlosarioCampos = dlgGlosarioCampos;
+		this.frmGlosarioCampos = frmGlosarioCampos;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnBaja() {
-		showPopup(dlgGlosarioCampos.getFrameParent(), Constants.CMD_BAJA_GLOSARIO_CAMPOS);
+		showPopup(frmGlosarioCampos, Constants.CMD_BAJA_GLOSARIO_CAMPOS);
 	}
 	
 	/**

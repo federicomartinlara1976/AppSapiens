@@ -53,9 +53,7 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
     
     @Getter
     private JTextField txtUsuario;
-    
-    @Getter
-    private JFrame frameParent;
+   
     
     private Map<String, Object> params;
 
