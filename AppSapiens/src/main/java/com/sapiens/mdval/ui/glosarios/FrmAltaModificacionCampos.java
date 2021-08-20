@@ -318,4 +318,10 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 		cmbExcepcion.setModel(new SiNoComboBoxModel());
 		cmbExcepcion.setSelectedIndex(1);
 	}
+
+	@Override
+	protected void initModels() {
+		// TODO Auto-generated method stub
+		
+	}
 }

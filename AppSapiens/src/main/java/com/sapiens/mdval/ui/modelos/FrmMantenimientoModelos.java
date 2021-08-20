@@ -560,13 +560,15 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		cmbGrantAll.setModel(new SiNoComboBoxModel());
-        cmbGrantAll.setSelectedIndex(1);
-        
-        cmbGrantPublic.setModel(new SiNoComboBoxModel());
+		cmbGrantAll.setSelectedIndex(1);
         cmbGrantPublic.setSelectedIndex(1);
-
-        cmbGeneraVariables.setModel(new SiNoComboBoxModel());
         cmbGeneraVariables.setSelectedIndex(1);
+	}
+
+	@Override
+	protected void initModels() {
+		cmbGrantAll.setModel(new SiNoComboBoxModel());
+        cmbGrantPublic.setModel(new SiNoComboBoxModel());
+        cmbGeneraVariables.setModel(new SiNoComboBoxModel());
 	}
 }

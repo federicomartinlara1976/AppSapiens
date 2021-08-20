@@ -271,4 +271,10 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
         txtAlta.setText(glosario.getFechaAlta().toString());
         txtModificacion.setText(glosario.getFechaModificacion().toString());
 	}
+
+	@Override
+	protected void initModels() {
+		// TODO Auto-generated method stub
+		
+	}
 }

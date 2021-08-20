@@ -52,4 +52,7 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initialState() {}
+
+	@Override
+	protected void initModels() {}
 }

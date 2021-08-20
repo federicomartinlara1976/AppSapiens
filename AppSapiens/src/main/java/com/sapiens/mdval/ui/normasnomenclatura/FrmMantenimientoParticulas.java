@@ -286,10 +286,13 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbProyecto.setSelectedIndex(1);
+		cmbSubproyecto.setSelectedIndex(1);	
+	}
 
-        cmbSubproyecto.setModel(new SiNoComboBoxModel());
-        cmbSubproyecto.setSelectedIndex(1);	
+	@Override
+	protected void initModels() {
+		cmbProyecto.setModel(new SiNoComboBoxModel());
+		cmbSubproyecto.setModel(new SiNoComboBoxModel());	
 	}
 }

@@ -47,6 +47,7 @@ public abstract class FrameSupport extends JFrame {
 			initLiterals();
 			initEvents();
 			
+			initModels();
 			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
@@ -62,6 +63,8 @@ public abstract class FrameSupport extends JFrame {
 	protected abstract void setupComponents();
 	
 	protected abstract void initEvents();
+	
+	protected abstract void initModels();
 	
 	protected abstract void initialState();
 	

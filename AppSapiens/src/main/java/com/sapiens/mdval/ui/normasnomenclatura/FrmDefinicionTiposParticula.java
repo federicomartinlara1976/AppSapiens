@@ -182,4 +182,10 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	protected void initModels() {
+		// TODO Auto-generated method stub
+		
+	}
 }

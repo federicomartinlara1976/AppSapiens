@@ -7,12 +7,15 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
-import com.sapiens.mdval.utils.AppGlobalSingleton;
 import com.sapiens.mdval.utils.LiteralesSingleton;
 import com.sapiens.mdval.utils.LogWrapper;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * @author federico
+ *
+ */
 @Log4j
 public class SiNoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
@@ -25,6 +28,9 @@ public class SiNoComboBoxModel extends AbstractListModel<String> implements Comb
 	
 	private String selection = null;
 	
+	/**
+	 * 
+	 */
 	public SiNoComboBoxModel() {
 		super();
 		
