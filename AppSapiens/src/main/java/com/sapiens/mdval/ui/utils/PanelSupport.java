@@ -53,6 +53,7 @@ public abstract class PanelSupport extends JPanel {
 			initLiterals();
 			initEvents();
 			
+			initModels();
 			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
@@ -68,6 +69,11 @@ public abstract class PanelSupport extends JPanel {
 	 * Instala los eventos a los componentes que los necesiten
 	 */
 	protected abstract void initEvents();
+	
+	/**
+	 * Inicia los modelos de combos, tablas, etc
+	 */
+	protected abstract void initModels();
 	
 	/**
 	 * Estado inicial: los valores iniciales de los componentes que lo requieran

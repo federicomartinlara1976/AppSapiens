@@ -1,6 +1,7 @@
 package com.sapiens.mdval.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -39,6 +40,9 @@ public class FramePrincipal extends FrameSupport {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
 		
+		setMinimumSize(new Dimension(1366, 768));
+        setPreferredSize(new Dimension(1366, 768));
+        
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		setJMenuBar(menuBar);
 	}
