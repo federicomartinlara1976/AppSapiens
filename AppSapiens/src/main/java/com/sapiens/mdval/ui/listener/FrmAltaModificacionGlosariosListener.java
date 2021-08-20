@@ -1,15 +1,13 @@
 package com.sapiens.mdval.ui.listener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import com.sapiens.mdval.bussiness.service.GlosarioService;
 import com.sapiens.mdval.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.sapiens.mdval.ui.utils.ListenerSupport;
 import com.sapiens.mdval.utils.Constants;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 
@@ -17,6 +15,8 @@ import lombok.extern.log4j.Log4j;
 public class FrmAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private FrmAltaModificacionGlosarios frmAltaModificacionGlosarios;
+	@Setter
+	private Boolean isEditing = Boolean.FALSE;
 
 	public FrmAltaModificacionGlosariosListener(FrmAltaModificacionGlosarios frmAltaModificacionGlosarios) {
 		super();
@@ -40,10 +40,12 @@ public class FrmAltaModificacionGlosariosListener extends ListenerSupport implem
 	@SneakyThrows
 	private void eventBtnAlta() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		String descripcion = "test inputParam";
-		//String descripcion = frmAltaModificacionGlosarios.getTxtDescripcion().getText();
-		String resultado = glosarioService.altaGlosario(descripcion);
-		//String outResponse = glosarioService.procedureOracle();
+		String descripcion = frmAltaModificacionGlosarios.getTxtDescripcion().getText();
+		String resultado = "";
+		if(isEditing){
+			resultado = glosarioService.modificaGlosario(descripcion);
+		}
+		resultado = glosarioService.altaGlosario(descripcion);
 		log.debug(resultado);
 	}
 

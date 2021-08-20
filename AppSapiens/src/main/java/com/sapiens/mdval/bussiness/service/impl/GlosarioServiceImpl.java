@@ -1,5 +1,8 @@
 package com.sapiens.mdval.bussiness.service.impl;
 
+import com.sapiens.mdval.bussiness.entities.Glosario;
+import com.sapiens.mdval.bussiness.service.GlosarioService;
+import com.sapiens.mdval.utils.ConfigurationSingleton;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -12,20 +15,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 import javax.sql.DataSource;
-
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sapiens.mdval.bussiness.entities.Glosario;
-import com.sapiens.mdval.bussiness.service.GlosarioService;
-import com.sapiens.mdval.utils.ConfigurationSingleton;
-
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
-
+/**
+ * @author hcarreno
+ */
 @Service("glosarioService")
 @Log4j
 public class GlosarioServiceImpl implements GlosarioService {
@@ -48,7 +46,7 @@ public class GlosarioServiceImpl implements GlosarioService {
 
             callableStatement.execute();
 
-            DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+            DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 
             Array arr = callableStatement.getArray(2);
             if (arr != null) {
@@ -116,7 +114,7 @@ public class GlosarioServiceImpl implements GlosarioService {
     public String altaGlosario(String descripcionGlosario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String procedure = configuration.getConfig("p_alta_glosario");
-        String runSP = "{ call "+procedure+"(?,?,?,?,?,?)}";
+        String runSP = "{ call "+procedure+"(?,?)}";
         String result = "";
 
         try (Connection conn = dataSource.getConnection();
@@ -132,7 +130,7 @@ public class GlosarioServiceImpl implements GlosarioService {
             result = callableStatement.getString(2);
 
         } catch (SQLException e) {
-            log.error("Error en GlosarioService.consultarGlosario "+ e.getMessage());
+            log.error("Error en GlosarioService.altaGlosario "+ e.getMessage());
         }
         return result;
     }
@@ -142,7 +140,7 @@ public class GlosarioServiceImpl implements GlosarioService {
     public String modificaGlosario(String descripcionGlosario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String procedure = configuration.getConfig("p_modifica_glosario");
-        String runSP = "{ call "+procedure+"(?,?,?,?,?,?)}";
+        String runSP = "{ call "+procedure+"(?,?)}";
         String result = "";
 
         try (Connection conn = dataSource.getConnection();
@@ -158,7 +156,7 @@ public class GlosarioServiceImpl implements GlosarioService {
             result = callableStatement.getString(2);
 
         } catch (SQLException e) {
-            log.error("Error en GlosarioService.consultarGlosario "+ e.getMessage());
+            log.error("Error en GlosarioService.modificaGlosario "+ e.getMessage());
         }
         return result;
     }

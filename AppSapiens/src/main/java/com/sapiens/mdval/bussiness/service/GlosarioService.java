@@ -1,9 +1,11 @@
 package com.sapiens.mdval.bussiness.service;
 
+import com.sapiens.mdval.bussiness.entities.Glosario;
 import java.util.List;
 
-import com.sapiens.mdval.bussiness.entities.Glosario;
-
+/**
+ * @author hcarreno
+ */
 public interface GlosarioService {
 
     List<Glosario> buscarGlosarios(String descripcionGlosario);

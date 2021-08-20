@@ -11,6 +11,7 @@ public class Constants {
 	 */
 	public static final String COD_USR = "CodUsr";
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
+	public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
 	
 	/**
 	 * Bean names

@@ -1,26 +1,14 @@
 package com.sapiens.mdval.ui.glosarios;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
-
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
-import com.sapiens.mdval.bussiness.entities.Glosario;
 import com.sapiens.mdval.ui.listener.FrmAltaModificacionGlosariosListener;
 import com.sapiens.mdval.ui.utils.FrameSupport;
 import com.sapiens.mdval.utils.AppGlobalSingleton;
 import com.sapiens.mdval.utils.Constants;
-
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Map;
+import javax.swing.*;
 import lombok.Getter;
 
 /**
@@ -266,9 +254,5 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
         txtCodigo.setEnabled(Boolean.FALSE);
         txtAlta.setEnabled(Boolean.FALSE);
         txtModificacion.setEnabled(Boolean.FALSE);
-        Glosario glosario = Glosario.builder().codigo(1).descripcion("descripcion").fechaAlta(new Date()).fechaModificacion(new Date()).usuario("123").build();
-        txtCodigo.setText(glosario.getCodigo().toString());
-        txtAlta.setText(glosario.getFechaAlta().toString());
-        txtModificacion.setText(glosario.getFechaModificacion().toString());
 	}
 }

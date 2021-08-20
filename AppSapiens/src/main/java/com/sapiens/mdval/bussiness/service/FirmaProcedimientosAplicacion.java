@@ -1,8 +1,5 @@
 package com.sapiens.mdval.bussiness.service;
 
-import java.util.List;
-
-import com.sapiens.mdval.bussiness.entities.CampoGlosario;
 import com.sapiens.mdval.bussiness.entities.ElementoNorma;
 import com.sapiens.mdval.bussiness.entities.Modelo;
 import com.sapiens.mdval.bussiness.entities.Norma;
@@ -12,6 +9,7 @@ import com.sapiens.mdval.bussiness.entities.TipoParticula;
 import com.sapiens.mdval.bussiness.entities.ValidaScript;
 import com.sapiens.mdval.bussiness.entities.ValidaScriptResponse;
 import com.sapiens.mdval.bussiness.entities.ValorParticula;
+import java.util.List;
 
 //TODO separar por funcionalidad? Glosario, Norma, Validacion, Modelo, Particula ?
 public interface FirmaProcedimientosAplicacion {
@@ -25,13 +23,9 @@ public interface FirmaProcedimientosAplicacion {
     String insertarGlosario(Integer numeroValidacion, Integer numeroElemento);
     String insertarExcepcion(Integer numeroValidacion, Integer numeroElemento, String textoExcepcion);
 
-    List<CampoGlosario> consultarCamposGlosario(Integer codigoGlosario, String tipoDato, String nombreColumna, Boolean mostrarExcepciones);
 
     List<Modelo> consultarModelosGlosario(Integer codigoGlosario);//TODO verificar que retorna y cambiar entidad, Modelo o ModeloGlosario
 
-    String bajaCampoGlosario(Integer codigoGlosario, Integer codigoCampo);
-    String altaCampoGlosario(CampoGlosario campoGlosario);
-    String modificarCampoGlosario(CampoGlosario campoGlosario);
 
     List<Norma> consultaNormas(String descripcionNorma);
     Norma consultaNorma(Integer codigoNorma);
