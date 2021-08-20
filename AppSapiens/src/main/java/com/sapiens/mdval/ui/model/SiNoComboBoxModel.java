@@ -1,8 +1,19 @@
 package com.sapiens.mdval.ui.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
+import com.sapiens.mdval.utils.AppGlobalSingleton;
+import com.sapiens.mdval.utils.LiteralesSingleton;
+import com.sapiens.mdval.utils.LogWrapper;
+
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 public class SiNoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
 	/**
@@ -10,18 +21,32 @@ public class SiNoComboBoxModel extends AbstractListModel<String> implements Comb
 	 */
 	private static final long serialVersionUID = -8083638254718894808L;
 	
-	private String[] responses = { "SI", "NO" };
+	private List<String> responses;
 	
 	private String selection = null;
+	
+	public SiNoComboBoxModel() {
+		super();
+		
+		try {
+			LiteralesSingleton literales = LiteralesSingleton.getInstance();
+			
+			responses = new ArrayList<>();
+			responses.add(literales.getLiteral("si"));
+			responses.add(literales.getLiteral("no"));
+		} catch (IOException e) {
+			LogWrapper.error(log, "ERROR:", e);
+		}
+	}
 
 	@Override
 	public int getSize() {
-		return responses.length;
+		return responses.size();
 	}
 
 	@Override
 	public String getElementAt(int index) {
-		return responses[index];
+		return responses.get(index);
 	}
 
 	@Override
