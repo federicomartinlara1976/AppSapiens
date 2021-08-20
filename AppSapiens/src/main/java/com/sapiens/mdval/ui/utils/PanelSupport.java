@@ -45,7 +45,7 @@ public abstract class PanelSupport extends JPanel {
 	}
 	
 	/**
-     * 
+     * Proceso de inicialización
      */
     private void initialize() {
 		try {
@@ -59,14 +59,30 @@ public abstract class PanelSupport extends JPanel {
 		}
 	}
     
+    /**
+	 * Encapsula la creación de componentes
+	 */
     protected abstract void initComponents();
 	
+    /**
+	 * Instala los eventos a los componentes que los necesiten
+	 */
 	protected abstract void initEvents();
 	
+	/**
+	 * Estado inicial: los valores iniciales de los componentes que lo requieran
+	 */
 	protected abstract void initialState();
 	
+	/**
+	 * Literales de los componentes
+	 */
 	protected abstract void setupLiterals();
 	
+	/**
+	 * Encapsula la creación de los literales
+	 * @throws IOException
+	 */
 	private void initLiterals() throws IOException {
 		literales = LiteralesSingleton.getInstance();
 		

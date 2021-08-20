@@ -42,7 +42,7 @@ public abstract class DialogSupport extends JDialog {
 	}
 	
 	/**
-     * 
+     * Proceso de inicialización
      */
     private void initialize() {
 		try {
@@ -54,18 +54,34 @@ public abstract class DialogSupport extends JDialog {
 		}
 	}
 	
+    /**
+	 * Encapsula la creación de componentes
+	 */
     private void initComponents() {
 		setupComponents();
 		
 		pack();
 	}
     
+    /**
+	 * Instala los componentes internos de este dialog
+	 */
     protected abstract void setupComponents();
 	
+    /**
+	 * Instala los eventos a los componentes que los necesiten
+	 */
 	protected abstract void initEvents();
 	
+	/**
+	 * Literales de los componentes
+	 */
 	protected abstract void setupLiterals();
 	
+	/**
+	 * Encapsula la creación de los literales
+	 * @throws IOException
+	 */
 	private void initLiterals() throws IOException {
 		literales = LiteralesSingleton.getInstance();
 		

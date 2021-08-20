@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 
 import com.sapiens.mdval.utils.AppHelper;
 
+/**
+ * @author federico
+ *
+ */
 public abstract class ListenerSupport {
 	
 	/**

@@ -31,7 +31,7 @@ public abstract class MenuSupport extends JMenuBar {
 	}
 	
 	/**
-     * 
+     * Proceso de inicialización
      */
     private void initialize() {
 		try {
@@ -43,12 +43,25 @@ public abstract class MenuSupport extends JMenuBar {
 		}
 	}
 	
+    /**
+	 * Encapsula la creación de componentes
+	 */
 	protected abstract void initComponents();
 	
+	/**
+	 * Instala los eventos a los componentes que los necesiten
+	 */
 	protected abstract void initEvents();
 	
+	/**
+	 * Literales de los componentes
+	 */
 	protected abstract void setupLiterals();
 	
+	/**
+	 * Encapsula la creación de los literales
+	 * @throws IOException
+	 */
 	private void initLiterals() throws IOException {
 		literales = LiteralesSingleton.getInstance();
 		

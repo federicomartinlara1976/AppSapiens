@@ -39,7 +39,7 @@ public abstract class FrameSupport extends JFrame {
 	}
 	
 	/**
-     * 
+     * Proceso de inicialización
      */
     private void initialize() {
 		try {
@@ -54,22 +54,44 @@ public abstract class FrameSupport extends JFrame {
 		}
 	}
 	
+	/**
+	 * Encapsula la creación de componentes
+	 */
 	private void initComponents() {
 		setupComponents();
 		
 		pack();
 	}
 	
+	/**
+	 * Instala los componentes internos de este frame
+	 */
 	protected abstract void setupComponents();
 	
+	/**
+	 * Instala los eventos a los componentes que los necesiten
+	 */
 	protected abstract void initEvents();
 	
+	/**
+	 * Inicia los modelos de combos, tablas, etc
+	 */
 	protected abstract void initModels();
 	
+	/**
+	 * Estado inicial: los valores iniciales de los componentes que lo requieran
+	 */
 	protected abstract void initialState();
 	
+	/**
+	 * Literales de los componentes
+	 */
 	protected abstract void setupLiterals();
 	
+	/**
+	 * Encapsula la creación de los literales
+	 * @throws IOException
+	 */
 	private void initLiterals() throws IOException {
 		literales = LiteralesSingleton.getInstance();
 		
