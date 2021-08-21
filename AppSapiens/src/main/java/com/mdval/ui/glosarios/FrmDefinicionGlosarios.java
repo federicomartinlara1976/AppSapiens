@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -12,14 +15,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
@@ -193,9 +199,30 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
-		TableModel tableModel = new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers());
+		tblGlosarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblGlosarios.setDefaultRenderer(Date.class, new DateRenderer());
+		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
+		tblGlosarios.setModel(populateModel());
+	}
 
-		tblGlosarios.setModel(tableModel);
+	/**
+	 * TODO - Borrar este método de prueba y usar una conexión a BBDD
+	 * 
+	 * @return
+	 */
+	private TableModel populateModel() {
+		// Test - add Glosario to model
+		List<Glosario> glosarios = new ArrayList<>();
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
+
+		// Populate with 100 glosarios
+		for (int i = 0; i < 100; i++) {
+			Glosario glosario = new Glosario(i, "Glosario " + i, "usuario", new Date(), new Date());
+			glosarios.add(glosario);
+		}
+
+		return new DefinicionGlosariosTableModel(glosarios, cabecera.getColumnIdentifiers(),
+				cabecera.getColumnClasses());
 	}
 }

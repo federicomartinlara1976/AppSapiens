@@ -145,25 +145,22 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return Boolean.TRUE;
+		return Boolean.FALSE;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Operación no implementada");
 	}
 
 	@Override
