@@ -22,20 +22,29 @@ public abstract class ListenerSupport {
 	}
 	
 	/**
+	 * @param cmd
+	 */
+	protected void showFrame(String cmd) {
+		JFrame frame = UIHelper.createFrame(cmd);
+		UIHelper.show(frame);
+	}
+	
+	/**
+	 * @param cmd
+	 * @param params
+	 */
+	protected void showFrame(String cmd, Map<String, Object> params) {
+		JFrame frame = UIHelper.createFrame(cmd, params);
+		UIHelper.show(frame);
+	}
+	
+	/**
 	 * @param frame
 	 * @param cmd
 	 */
 	protected void showPopup(JFrame frame, String cmd) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
-	}
-	
-	/**
-	 * @param cmd
-	 */
-	protected void showFrame(String cmd) {
-		JFrame frame = UIHelper.createFrame(cmd);
-		UIHelper.show(frame);
 	}
 	
 	/**

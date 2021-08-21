@@ -8,6 +8,9 @@ import com.mdval.utils.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
@@ -16,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 public class FrmAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private FrmAltaModificacionGlosarios frmAltaModificacionGlosarios;
+	
 	@Setter
 	private Boolean isEditing = Boolean.FALSE;
 
@@ -42,10 +46,12 @@ public class FrmAltaModificacionGlosariosListener extends ListenerSupport implem
 	private void eventBtnAlta() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
 		String descripcion = frmAltaModificacionGlosarios.getTxtDescripcion().getText();
-		String resultado = "";
-		if(isEditing){
+		String resultado = StringUtils.EMPTY;
+		
+		if (isEditing) {
 			resultado = glosarioService.modificaGlosario(descripcion);
 		}
+		
 		resultado = glosarioService.altaGlosario(descripcion);
 		log.debug(resultado);
 	}

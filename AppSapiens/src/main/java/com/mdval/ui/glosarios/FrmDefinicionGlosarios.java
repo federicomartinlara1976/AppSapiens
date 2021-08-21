@@ -15,11 +15,13 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -36,18 +38,21 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	private JButton btnBuscar;
 	private JButton btnModificacion;
 	private JButton btnSeleccionar;
-	
+
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JScrollPane jScrollPane1;
-	
+
 	@Getter
 	private JTable tblGlosarios;
-	
+
 	@Getter
 	private JTextField txtGlosario;
 
-	
+	@Getter
+	@Setter
+	private Glosario seleccionado;
+
 	/**
 	 * Creates new form DlgDefinicionGlosarios
 	 */
@@ -82,15 +87,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		txtGlosario.setPreferredSize(new Dimension(300, 27));
 
 		jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-		
+
 		btnAlta.setPreferredSize(new Dimension(130, 27));
 		btnSeleccionar.setPreferredSize(new Dimension(130, 27));
 
-		tblGlosarios
-				.setModel(new DefaultTableModel(
-						new Object[][] { { null, null, null, null }, { null, null, null, null },
-								{ null, null, null, null }, { null, null, null, null } },
-						new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
 		jScrollPane1.setViewportView(tblGlosarios);
 
 		GroupLayout layout = new GroupLayout(getContentPane());
@@ -150,10 +150,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	protected void setupLiterals() {
 		setTitle(literales.getLiteral("dlgDefinicionGlosarios.titulo"));
-		
+
 		jLabel1.setText("Definición de Glosarios");
 		jLabel2.setText("Glosario:");
-		
+
 		btnBuscar.setText("BUSCAR");
 		btnAlta.setText("ALTA");
 		btnModificacion.setText("MODIFICACION");
@@ -168,8 +168,9 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 
 		btnAlta.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
 		btnModificacion.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
+		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
 		btnSeleccionar.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
-		
+
 		btnAlta.addActionListener(actionListener);
 		btnModificacion.addActionListener(actionListener);
 		btnSeleccionar.addActionListener(actionListener);
@@ -185,7 +186,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
-		
+		tblGlosarios
+				.setModel(new DefaultTableModel(
+						new Object[][] { { null, null, null, null }, { null, null, null, null },
+								{ null, null, null, null }, { null, null, null, null } },
+						new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
 	}
 }
