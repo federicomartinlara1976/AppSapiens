@@ -165,4 +165,16 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 	}
+
+	@Override
+	protected void initModels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}
 }

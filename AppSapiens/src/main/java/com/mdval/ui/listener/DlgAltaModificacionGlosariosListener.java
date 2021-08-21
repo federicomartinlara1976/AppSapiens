@@ -1,31 +1,32 @@
 package com.mdval.ui.listener;
 
-import com.mdval.bussiness.service.GlosarioService;
-import com.mdval.ui.glosarios.FrmAltaModificacionGlosarios;
-import com.mdval.ui.utils.ListenerSupport;
-import com.mdval.utils.Constants;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.JButton;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.mdval.bussiness.service.GlosarioService;
+import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
+import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.utils.Constants;
 
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class FrmAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
+public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
-	private FrmAltaModificacionGlosarios frmAltaModificacionGlosarios;
+	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
 	
 	@Setter
 	private Boolean isEditing = Boolean.FALSE;
 
-	public FrmAltaModificacionGlosariosListener(FrmAltaModificacionGlosarios frmAltaModificacionGlosarios) {
+	public DlgAltaModificacionGlosariosListener(DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios) {
 		super();
-		this.frmAltaModificacionGlosarios = frmAltaModificacionGlosarios;
+		this.dlgAltaModificacionGlosarios = dlgAltaModificacionGlosarios;
 	}
 
 	@SneakyThrows
@@ -38,14 +39,14 @@ public class FrmAltaModificacionGlosariosListener extends ListenerSupport implem
 		}
 
 		if (Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR.equals(jButton.getName())) {
-			frmAltaModificacionGlosarios.dispose();
+			dlgAltaModificacionGlosarios.dispose();
 		}
 	}
 
 	@SneakyThrows
 	private void eventBtnAlta() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		String descripcion = frmAltaModificacionGlosarios.getTxtDescripcion().getText();
+		String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
 		String resultado = StringUtils.EMPTY;
 		
 		if (isEditing) {

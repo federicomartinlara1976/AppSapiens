@@ -11,7 +11,6 @@ public class Constants {
 	 */
 	public static final String COD_USR = "CodUsr";
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
-	public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
 	
 	/**
 	 * Bean names
@@ -81,6 +80,7 @@ public class Constants {
 	/**
 	 * DlgDefinicionGlosarios constantes
 	 */
+	public static final String DLG_DEFINICION_GLOSARIOS_SELECCIONADO = "DLG_DEFINICION_GLOSARIOS_SELECCIONADO";
 	public static final String DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA = "DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA";
 	public static final String DLG_DEFINICION_GLOSARIOS_BTN_ALTA = "DLG_DEFINICION_GLOSARIOS_BTN_ALTA";
 	public static final String DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION = "DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION";

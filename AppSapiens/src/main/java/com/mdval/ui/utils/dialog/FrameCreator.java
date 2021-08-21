@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.mdval.ui.consultas.FrmComprobacionNombreElemento;
 import com.mdval.ui.glosarios.FrmAltaModificacionCampos;
-import com.mdval.ui.glosarios.FrmAltaModificacionGlosarios;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.glosarios.FrmGlosarioCampos;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
@@ -92,14 +91,6 @@ public class FrameCreator extends Creator {
 		
 		if (Constants.MNU_MODELOS.equals(option)) {
 			frame = new FrmDefinicionModelos();
-		}
-		
-		if (Constants.CMD_ALTA_GLOSARIOS.equals(option)) {
-			frame = new FrmAltaModificacionGlosarios();
-		}
-		
-		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(option)) {
-			frame = new FrmAltaModificacionGlosarios(params);
 		}
 		
 		if (Constants.CMD_ALTA_GLOSARIO_CAMPOS.equals(option)) {

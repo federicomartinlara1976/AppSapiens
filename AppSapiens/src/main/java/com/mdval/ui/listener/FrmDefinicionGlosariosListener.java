@@ -1,17 +1,15 @@
 package com.mdval.ui.listener;
 
-import com.mdval.bussiness.entities.Glosario;
-import com.mdval.bussiness.service.GlosarioService;
-import com.mdval.ui.glosarios.FrmAltaModificacionGlosarios;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JButton;
+
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
-import com.mdval.utils.DateFormatter;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import javax.swing.*;
 
 public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
 
@@ -40,21 +38,14 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	}
 
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_GLOSARIOS);
+		showPopup(frmDefinicionGlosarios, Constants.CMD_ALTA_GLOSARIOS);
 	}
 
 	private void evntBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_GLOSARIOS);
-		FrmAltaModificacionGlosarios form = new FrmAltaModificacionGlosarios();
-		FrmAltaModificacionGlosariosListener form2 = new FrmAltaModificacionGlosariosListener(form);
-		form2.setIsEditing(Boolean.TRUE);
-		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		Glosario glosarioConsultado = glosarioService.consultarGlosario("");//TODO get codigoglosario cambiar glosario por glosarioConsultado
-		Glosario glosario = Glosario.builder().codigo(1).descripcion("descripcion").fechaAlta(new Date()).fechaModificacion(new Date()).usuario("123").build();
-		form.getTxtCodigo().setText(glosario.getCodigo().toString());
-		form.getTxtAlta().setText(DateFormatter.dateToString(glosario.getFechaAlta()));
-		form.getTxtModificacion().setText(DateFormatter.dateToString(glosario.getFechaModificacion()));
-
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.DLG_DEFINICION_GLOSARIOS_SELECCIONADO, frmDefinicionGlosarios.getSeleccionado());
+		
+		showPopup(frmDefinicionGlosarios, Constants.CMD_MODIFICACION_GLOSARIOS, params);
 	}
 
 	private void eventBtnSeleccionar() {

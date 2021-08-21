@@ -1,40 +1,48 @@
 package com.mdval.utils;
 
-import java.text.DateFormat;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.extern.log4j.Log4j;
+
 /**
  * @author hcarreno
  */
+@Log4j
 public class DateFormatter {
 
-    /**
-     * Utility to parse Date to String
-     *
-     * @param date date to format
-     * @return formated date in string
-     */
-    public static String dateToString(Date date){
-        DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
-        return format.format(date);
-    }
+	private SimpleDateFormat dateFormat;
 
-    /**
-     * Utility to parse String to Date
-     *
-     * @param date date to format
-     * @return formatted date to Date
-     */
-    public static Date stringToDate(String date){
-        DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
-        Date parsedDate = null;
-        try {
-            parsedDate = format.parse(date);
-        } catch (ParseException e) {
+	public DateFormatter() {
+		try {
+			ConfigurationSingleton instance = ConfigurationSingleton.getInstance();
+			String format = instance.getConfig("dateFormat");
+			dateFormat = new SimpleDateFormat(format);
+		} catch (IOException e) {
+			LogWrapper.error(log, "ERROR:", e);
+		}
+	}
 
-        }
-        return parsedDate;
-    }
+	/**
+	 * Utility to parse Date to String
+	 *
+	 * @param date date to format
+	 * @return formated date in string
+	 */
+	public String dateToString(Date date) {
+		return dateFormat.format(date);
+	}
+
+	/**
+	 * Utility to parse String to Date
+	 *
+	 * @param date date to format
+	 * @return formatted date to Date
+	 * @throws ParseException 
+	 */
+	public Date stringToDate(String date) throws ParseException {
+		return dateFormat.parse(date);
+	}
 }

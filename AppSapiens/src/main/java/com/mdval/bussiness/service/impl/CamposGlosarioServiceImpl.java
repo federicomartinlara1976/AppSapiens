@@ -25,11 +25,18 @@ import org.springframework.stereotype.Service;
 @Service("camposGlosarioService")
 @Log4j
 public class CamposGlosarioServiceImpl implements CamposGlosarioService {
+	
+	private DateFormatter dateFormatter;
 
     @Autowired
     private DataSource dataSource;
 
-    @Override
+    public CamposGlosarioServiceImpl() {
+		super();
+		dateFormatter = new DateFormatter();
+	}
+
+	@Override
     @SneakyThrows
     public List<CampoGlosario> consultarCamposGlosario(Integer codigoGlosario, String tipoDato, String nombreColumna, Boolean mostrarExcepciones) {
         List<CampoGlosario> campoGlosarios = new ArrayList<>();
@@ -60,7 +67,7 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
                             rs.getString("des_glosario"),
                             rs.getString("des_glosario"),
                             rs.getString("des_glosario"),
-                            DateFormatter.stringToDate(rs.getString("fec_actu"))));
+                            dateFormatter.stringToDate(rs.getString("fec_actu"))));
                 }
                 //String[] data = (String[]) arr.getArray();
             }

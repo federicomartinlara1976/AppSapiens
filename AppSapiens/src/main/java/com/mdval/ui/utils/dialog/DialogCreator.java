@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 import com.mdval.ui.DlgIdentificador;
+import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.glosarios.DlgBajaGlosarioCampos;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.Constants;
@@ -52,6 +53,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_BAJA_GLOSARIO_CAMPOS.equals(option)) {
 			dialog = new DlgBajaGlosarioCampos(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_ALTA_GLOSARIOS.equals(option)) {
+			dialog = new DlgAltaModificacionGlosarios(frameParent, modal);
+		}
+		
+		if (Constants.CMD_MODIFICACION_GLOSARIOS.equals(option)) {
+			dialog = new DlgAltaModificacionGlosarios(frameParent, modal, params);
 		}
 		
 		return dialog;

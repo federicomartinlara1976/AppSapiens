@@ -1,22 +1,34 @@
 package com.mdval.ui.glosarios;
 
-import com.mdval.ui.listener.FrmAltaModificacionGlosariosListener;
-import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
-
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Map;
-import javax.swing.*;
+import java.util.Objects;
+
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
+import com.mdval.bussiness.entities.Glosario;
+import com.mdval.ui.listener.DlgAltaModificacionGlosariosListener;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.Constants;
+
 import lombok.Getter;
 
 /**
  *
  * @author federico
  */
-public class FrmAltaModificacionGlosarios extends FrameSupport {
+public class DlgAltaModificacionGlosarios extends DialogSupport {
 	
 	/**
 	 * 
@@ -48,17 +60,18 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
     @Getter
     private JTextField txtUsuario;
    
-    
-    private Map<String, Object> params;
+    @Getter
+    private JFrame frameParent;
 
     
-    public FrmAltaModificacionGlosarios() {
-        super();
+    public DlgAltaModificacionGlosarios(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
     }
     
-    public FrmAltaModificacionGlosarios(Map<String, Object> params) {
-        super();
-        this.params = params;
+    public DlgAltaModificacionGlosarios(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
     }
 
 	/**
@@ -232,7 +245,7 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new FrmAltaModificacionGlosariosListener(this);
+		ActionListener actionListener = new DlgAltaModificacionGlosariosListener(this);
 		
 		btnAceptar.setName(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
 		btnCancelar.setName(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR);
@@ -247,11 +260,21 @@ public class FrmAltaModificacionGlosarios extends FrameSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
-		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
-		txtUsuario.setText(cod_usr);
+		if (!Objects.isNull(params)) {
+			Glosario glosario = (Glosario) params.get(Constants.DLG_DEFINICION_GLOSARIOS_SELECCIONADO);
+			
+			txtCodigo.setText(glosario.getCodigo().toString());
+			txtDescripcion.setText(glosario.getDescripcion());
+			txtUsuario.setText(glosario.getUsuario());
+			txtAlta.setText(dateFormatter.dateToString(glosario.getFechaAlta()));
+			txtModificacion.setText(dateFormatter.dateToString(glosario.getFechaModificacion()));
+		}
+		else {
+			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
+		}
 		
 		txtUsuario.setEnabled(Boolean.FALSE);
-
         txtCodigo.setEnabled(Boolean.FALSE);
         txtAlta.setEnabled(Boolean.FALSE);
         txtModificacion.setEnabled(Boolean.FALSE);
