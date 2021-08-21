@@ -1,43 +1,27 @@
 package com.mdval.ui.model;
 
-import java.util.Vector;
+import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
+import com.mdval.bussiness.entities.Glosario;
+import com.mdval.ui.utils.GenericDomainTableModel;
 
-public class DefinicionGlosariosTableModel extends DefaultTableModel {
+/**
+ * @author federico
+ *
+ */
+public class DefinicionGlosariosTableModel extends GenericDomainTableModel<Glosario> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5498022937971227851L;
-
 	public DefinicionGlosariosTableModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public DefinicionGlosariosTableModel(int rowCount, int columnCount) {
-		super(rowCount, columnCount);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DefinicionGlosariosTableModel(Object[] columnNames, int rowCount) {
-		super(columnNames, rowCount);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DefinicionGlosariosTableModel(Object[][] data, Object[] columnNames) {
-		super(data, columnNames);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DefinicionGlosariosTableModel(Vector columnNames, int rowCount) {
-		super(columnNames, rowCount);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DefinicionGlosariosTableModel(Vector data, Vector columnNames) {
-		super(data, columnNames);
-		// TODO Auto-generated constructor stub
+	/**
+	 * @param columnIdentifiers
+	 */
+	public DefinicionGlosariosTableModel(List<String> columnIdentifiers) {
+		super(columnIdentifiers);
 	}
 }

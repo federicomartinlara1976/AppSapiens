@@ -7,6 +7,12 @@ import java.util.Map;
  *
  */
 public abstract class Creator {
+	
+	/**
+	 * @return
+	 */
+	public abstract Object factoryMethod();
+	
 	/**
 	 * @return
 	 */

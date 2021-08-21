@@ -8,6 +8,8 @@ import java.util.Objects;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.utils.dialog.CabeceraTablaCreator;
 import com.mdval.ui.utils.dialog.Creator;
 import com.mdval.ui.utils.dialog.DialogCreator;
 import com.mdval.ui.utils.dialog.FrameCreator;
@@ -104,5 +106,14 @@ public class UIHelper {
 			UIHelper.centerOnScreen(frame);
 			frame.setVisible(Boolean.TRUE);
 		}
+	}
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	public static Cabecera createCabeceraTabla(String item) {
+		Creator cabeceraTablaCreator = new CabeceraTablaCreator(item);
+		return (Cabecera) cabeceraTablaCreator.factoryMethod();
 	}
 }

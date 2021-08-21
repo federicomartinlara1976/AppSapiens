@@ -14,10 +14,14 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
+import com.mdval.ui.model.DefinicionGlosariosTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -184,12 +188,14 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	protected void initModels() {
-		tblGlosarios
-				.setModel(new DefaultTableModel(
-						new Object[][] { { null, null, null, null }, { null, null, null, null },
-								{ null, null, null, null }, { null, null, null, null } },
-						new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
+		TableModel tableModel = new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers());
+
+		tblGlosarios.setModel(tableModel);
 	}
 }

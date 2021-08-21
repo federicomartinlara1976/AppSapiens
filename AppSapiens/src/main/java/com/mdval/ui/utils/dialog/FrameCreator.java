@@ -43,6 +43,14 @@ public class FrameCreator extends Creator {
 	 *
 	 */
 	@Override
+	public Object factoryMethod() {
+		return null;
+	}
+	
+	/**
+	 *
+	 */
+	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
 		
@@ -156,5 +164,4 @@ public class FrameCreator extends Creator {
 		
 		return frame;
 	}
-
 }

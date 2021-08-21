@@ -30,6 +30,14 @@ public class DialogCreator extends Creator {
 		this.option = option;
 		this.frameParent = frameParent;
 	}
+	
+	/**
+	 *
+	 */
+	@Override
+	public Object factoryMethod() {
+		return null;
+	}
 
 	/**
 	 *
@@ -37,7 +45,7 @@ public class DialogCreator extends Creator {
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		DialogSupport dialog = null;
-		
+	
 		if (Constants.CMD_INICIAR_APP.equals(option)) {
 			dialog = new DlgIdentificador(frameParent, modal);
 		}
@@ -48,5 +56,4 @@ public class DialogCreator extends Creator {
 		
 		return dialog;
 	}
-
 }
