@@ -6,14 +6,14 @@ import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.DialogSupport;
 
 import lombok.Getter;
 
@@ -21,12 +21,12 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmAltaModificacionTiposParticula extends FrameSupport {
+public class DlgAltaModificacionElementos extends DialogSupport {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 69380158124292971L;
+	private static final long serialVersionUID = -4589492981398548516L;
 
 	private JButton btnAceptar;
 	private JButton btnCancelar;
@@ -36,10 +36,6 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JLabel jLabel5;
-	private JLabel jLabel6;
-	
-	@Getter
-	private JCheckBox chkDistingueProyecto;
 	
 	@Getter
 	private JTextField txtCodigo;
@@ -56,19 +52,18 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 	
 	private Map<String, Object> params;
 
-	/**
-	 * Creates new form DlgAltaModificacionGlosarios
-	 */
-	public FrmAltaModificacionTiposParticula() {
-		super();
-	}
-	
-	/**
-	 * @param params
-	 */
-	public FrmAltaModificacionTiposParticula(Map<String, Object> params) {
-        super();
-        this.params = params;
+	@Getter
+    private JFrame frameParent;
+
+    
+    public DlgAltaModificacionElementos(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
+    }
+    
+    public DlgAltaModificacionElementos(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
     }
 
 	/**
@@ -87,8 +82,6 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 		txtFecha = new JTextField();
 		btnAceptar = new JButton();
 		btnCancelar = new JButton();
-		jLabel6 = new JLabel();
-		chkDistingueProyecto = new JCheckBox();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,7 +95,7 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 				panelLogoLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 63, Short.MAX_VALUE));
 
 		jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-		
+
 		jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
 		jLabel2.setPreferredSize(new Dimension(150, 17));
@@ -132,8 +125,6 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 		txtFecha.setPreferredSize(new Dimension(150, 27));
 
 		btnAceptar.setPreferredSize(new Dimension(98, 27));
-		
-		chkDistingueProyecto.setPreferredSize(new Dimension(27, 27));
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -158,16 +149,13 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 														.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE,
 																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 														.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 78,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jLabel6))
+																GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 														.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE,
 																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 														.addComponent(txtDescripcion, GroupLayout.PREFERRED_SIZE, 566,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(chkDistingueProyecto, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+																GroupLayout.PREFERRED_SIZE)))
 										.addGroup(layout.createSequentialGroup()
 												.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -182,61 +170,57 @@ public class FrmAltaModificacionTiposParticula extends FrameSupport {
 														GroupLayout.PREFERRED_SIZE)))
 										.addGap(0, 0, Short.MAX_VALUE)))
 						.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel1))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(txtDescripcion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jLabel6).addComponent(
-						chkDistingueProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(41, 41, 41)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-				.addGroup(layout
-						.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnAceptar,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCancelar))
-				.addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap()
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+								.addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel1))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addComponent(txtDescripcion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(74, 74, 74)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+						.addGroup(
+								layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnCancelar))
+						.addContainerGap()));
 	}
-
+	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Alta/Modificación de Tipos de Partícula");
+		setTitle("Alta/Modificación de Elementos");
 		
-		jLabel1.setText("Alta/Modificación de Tipos de Partícula");
+		jLabel1.setText("Alta/Modificación de Elementos");
 		jLabel2.setText("Código:");
 		jLabel3.setText("Descripción:");
 		jLabel4.setText("Usuario:");
 		jLabel5.setText("Fecha:");
-		jLabel6.setText("Distingue por Proyecto:");
 		
 		btnAceptar.setText("ACEPTAR");
 		btnCancelar.setText("CANCELAR");
 	}
-	
+
 	@Override
 	protected void initEvents() {
 		// TODO Auto-generated method stub

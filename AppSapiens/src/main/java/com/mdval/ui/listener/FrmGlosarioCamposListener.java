@@ -2,6 +2,8 @@ package com.mdval.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 
@@ -74,7 +76,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_GLOSARIO_CAMPOS);
+		showPopup(frmGlosarioCampos, Constants.CMD_ALTA_GLOSARIO_CAMPOS);
 	}
 	
 	/**
@@ -88,7 +90,10 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS);
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.DLG_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
+		
+		showPopup(frmGlosarioCampos, Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
 	}
 	
 	/**

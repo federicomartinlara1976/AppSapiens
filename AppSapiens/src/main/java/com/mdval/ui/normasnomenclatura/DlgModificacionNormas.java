@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,7 +15,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.DialogSupport;
 
 import lombok.Getter;
 
@@ -22,7 +23,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmModificacionNormas extends FrameSupport {
+public class DlgModificacionNormas extends DialogSupport {
 
 	/**
 	 * 
@@ -61,22 +62,18 @@ public class FrmModificacionNormas extends FrameSupport {
 	@Getter
 	private JTextField txtUsuario;
 	
+	@Getter
+    private JFrame frameParent;
 
-	private Map<String, Object> params;
-	
-	/**
-	 * Creates new form DlgModificacionNormas
-	 */
-	public FrmModificacionNormas() {
-		super();
-	}
-	
-	/**
-	 * @param params
-	 */
-	public FrmModificacionNormas(Map<String, Object> params) {
-        super();
-        this.params = params;
+    
+    public DlgModificacionNormas(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
+    }
+    
+    public DlgModificacionNormas(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
     }
 
 	/**
@@ -106,7 +103,8 @@ public class FrmModificacionNormas extends FrameSupport {
         btnCancelar = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+        setMinimumSize(new Dimension(1337, 530));
+        
         panelLogo.setPreferredSize(new Dimension(286, 63));
 
         GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
@@ -298,8 +296,10 @@ public class FrmModificacionNormas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		txtUsuario.setEnabled(Boolean.FALSE);
+		txtUsuario.setEditable(Boolean.FALSE);
+		txtFecha.setEnabled(Boolean.FALSE);
+		txtFecha.setEditable(Boolean.FALSE);
 	}
 
 	@Override

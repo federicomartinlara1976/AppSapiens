@@ -6,13 +6,14 @@ import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.DialogSupport;
 
 import lombok.Getter;
 
@@ -20,7 +21,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmMantenimientoValoresParticulas extends FrameSupport {
+public class DlgMantenimientoValoresParticulas extends DialogSupport {
 
 	/**
 	 * 
@@ -60,20 +61,31 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 	@Getter
 	private JTextField txtValor;
 	
-	
-	private Map<String, Object> params;
+	@Getter
+    private JFrame frameParent;
+
+    
+    public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
+    }
+    
+    public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
+    }
 
 	/**
 	 * Creates new form DlgAltaModificacionGlosarios
 	 */
-	public FrmMantenimientoValoresParticulas() {
+	public DlgMantenimientoValoresParticulas() {
 		super();
 	}
 	
 	/**
 	 * @param params
 	 */
-	public FrmMantenimientoValoresParticulas(Map<String, Object> params) {
+	public DlgMantenimientoValoresParticulas(Map<String, Object> params) {
         super();
         this.params = params;
     }
@@ -102,7 +114,8 @@ public class FrmMantenimientoValoresParticulas extends FrameSupport {
 		jLabel8 = new JLabel();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+		setMinimumSize(new Dimension(900, 321));
+		
 		panelLogo.setPreferredSize(new Dimension(286, 63));
 
 		GroupLayout panelLogoLayout = new GroupLayout(panelLogo);

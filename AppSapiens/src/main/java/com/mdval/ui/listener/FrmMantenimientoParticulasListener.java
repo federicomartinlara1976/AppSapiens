@@ -46,7 +46,7 @@ public class FrmMantenimientoParticulasListener extends ListenerSupport implemen
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS);
+		showPopup(frmMantenimientoParticulas, Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS);
 	}
 	
 	/**
@@ -59,6 +59,6 @@ public class FrmMantenimientoParticulasListener extends ListenerSupport implemen
 	 * 
 	 */
 	private void eventBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS);
+		showPopup(frmMantenimientoParticulas, Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS);
 	}
 }

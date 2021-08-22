@@ -32,10 +32,10 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	}
 
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_TIPOS_PARTICULA);
+		showPopup(frmDefinicionTiposParticula, Constants.CMD_ALTA_TIPOS_PARTICULA);
 	}
 
 	private void evntBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_TIPOS_PARTICULA);
+		showPopup(frmDefinicionTiposParticula, Constants.CMD_MODIFICACION_TIPOS_PARTICULA);
 	}
 }

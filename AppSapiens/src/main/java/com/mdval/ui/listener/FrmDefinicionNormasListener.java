@@ -32,10 +32,10 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	}
 
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_NORMAS);
+		showPopup(frmDefinicionNormas, Constants.CMD_ALTA_NORMAS);
 	}
 
 	private void evntBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_NORMAS);
+		showPopup(frmDefinicionNormas, Constants.CMD_MODIFICACION_NORMAS);
 	}
 }

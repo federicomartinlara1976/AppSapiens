@@ -5,11 +5,13 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -18,9 +20,9 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import com.mdval.ui.listener.FrmAltaModificacionCamposListener;
+import com.mdval.ui.listener.DlgAltaModificacionCamposListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -29,7 +31,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmAltaModificacionCampos extends FrameSupport {
+public class DlgAltaModificacionCampos extends DialogSupport {
 
 	/**
 	 * 
@@ -78,24 +80,20 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 	
 	@Getter
 	private JTextField txtUsuario;
-
 	
-	private Map<String, Object> params;
+	@Getter
+    private JFrame frameParent;
 
-	/**
-	 * Creates new form DlgAltaModificacionCampos
-	 */
-	public FrmAltaModificacionCampos() {
-		super();
-	}
-
-	/**
-	 * @param params
-	 */
-	public FrmAltaModificacionCampos(Map<String, Object> params) {
-		super();
-		this.params = params;
-	}
+    
+    public DlgAltaModificacionCampos(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
+    }
+    
+    public DlgAltaModificacionCampos(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
+    }
 
 	protected void setupComponents() {
 
@@ -302,7 +300,7 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new FrmAltaModificacionCamposListener(this);
+		ActionListener actionListener = new DlgAltaModificacionCamposListener(this);
 
 		btnAceptar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
 		btnCancelar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
@@ -315,13 +313,30 @@ public class FrmAltaModificacionCampos extends FrameSupport {
 	 * 
 	 */
 	protected void initialState() {
-		cmbExcepcion.setModel(new SiNoComboBoxModel());
 		cmbExcepcion.setSelectedIndex(1);
+		txtUsuario.setEnabled(Boolean.FALSE);
+		txtUsuario.setEditable(Boolean.FALSE);
+		txtModificacion.setEnabled(Boolean.FALSE);
+		txtModificacion.setEditable(Boolean.FALSE);
+		
+		/** 
+		 * Para la modificación params no es nulo
+		 * y contiene una entrada con el campo a modificar
+		 */
+		if (!Objects.isNull(params)) {
+//			Object campoSeleccionado = params.get(Constants.DLG_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
+			
+			txtNombre.setEditable(Boolean.FALSE);
+		}
+		else {
+
+			
+			txtNombre.setEditable(Boolean.TRUE);
+		}
 	}
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
-		
+		cmbExcepcion.setModel(new SiNoComboBoxModel());
 	}
 }

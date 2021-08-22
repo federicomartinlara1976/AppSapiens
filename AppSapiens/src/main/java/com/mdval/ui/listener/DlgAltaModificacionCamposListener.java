@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.mdval.ui.glosarios.FrmAltaModificacionCampos;
+import com.mdval.ui.glosarios.DlgAltaModificacionCampos;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
 
-public class FrmAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
+public class DlgAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
 
-	private FrmAltaModificacionCampos frmAltaModificacionCampos;
+	private DlgAltaModificacionCampos dlgAltaModificacionCampos;
 
-	public FrmAltaModificacionCamposListener(FrmAltaModificacionCampos frmAltaModificacionCampos) {
+	public DlgAltaModificacionCamposListener(DlgAltaModificacionCampos dlgAltaModificacionCampos) {
 		super();
-		this.frmAltaModificacionCampos = frmAltaModificacionCampos;
+		this.dlgAltaModificacionCampos = dlgAltaModificacionCampos;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class FrmAltaModificacionCamposListener extends ListenerSupport implement
 		}
 
 		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR.equals(jButton.getName())) {
-			frmAltaModificacionCampos.dispose();
+			dlgAltaModificacionCampos.dispose();
 		}
 	}
 

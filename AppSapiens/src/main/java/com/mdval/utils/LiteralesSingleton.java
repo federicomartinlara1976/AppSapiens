@@ -25,7 +25,7 @@ public class LiteralesSingleton {
 		String literalesPath = "./literales.properties";
 		
 		FileInputStream fistream = new FileInputStream(literalesPath);
-		properties.load(new InputStreamReader(fistream, StandardCharsets.UTF_8));
+		properties.load(new InputStreamReader(fistream, StandardCharsets.ISO_8859_1));
 	}
 	
 	public static LiteralesSingleton getInstance() throws IOException {

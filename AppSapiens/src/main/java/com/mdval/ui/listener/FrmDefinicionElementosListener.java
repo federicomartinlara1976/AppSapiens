@@ -32,10 +32,10 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	}
 
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_ELEMENTOS);
+		showPopup(frmDefinicionElementos, Constants.CMD_ALTA_ELEMENTOS);
 	}
 
 	private void evntBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_ELEMENTOS);
+		showPopup(frmDefinicionElementos, Constants.CMD_MODIFICACION_ELEMENTOS);
 	}
 }
