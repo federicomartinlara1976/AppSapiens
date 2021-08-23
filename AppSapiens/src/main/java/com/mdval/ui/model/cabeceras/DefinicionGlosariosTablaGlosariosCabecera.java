@@ -13,16 +13,15 @@ public class DefinicionGlosariosTablaGlosariosCabecera extends Cabecera {
 	private List<String> columnIdentifiers;
 	private List<Class<?>> columnClasses;
 
-	public DefinicionGlosariosTablaGlosariosCabecera() {
+	public void setupCabecera() {
 		columnIdentifiers = new ArrayList<>();
 		columnClasses = new ArrayList<>();
 		
-		// TODO - A los literales
-		columnIdentifiers.add("COD_GLOSARIO");
-		columnIdentifiers.add("DES_GLOSARIO");
-		columnIdentifiers.add("FEC_ALTA");
-		columnIdentifiers.add("COD_USR");
-		columnIdentifiers.add("FEC_ACTU");
+		columnIdentifiers.add(literales.getLiteral("tblGlosarios.codGlosario"));
+		columnIdentifiers.add(literales.getLiteral("tblGlosarios.desGlosario"));
+		columnIdentifiers.add(literales.getLiteral("tblGlosarios.fecAlta"));
+		columnIdentifiers.add(literales.getLiteral("tblGlosarios.codUsu"));
+		columnIdentifiers.add(literales.getLiteral("tblGlosarios.fecActu"));
 		
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
