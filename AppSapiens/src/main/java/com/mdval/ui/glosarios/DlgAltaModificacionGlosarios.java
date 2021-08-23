@@ -228,17 +228,17 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
      * @throws IOException
      */
     protected void setupLiterals() {
-    	setTitle(literales.getLiteral("dlgAltaGlosarios.titulo"));
+    	setTitle(literales.getLiteral("dlgAltaModificacionGlosarios.titulo"));
     	
-    	jLabel1.setText("Alta/Modificación de Glosario");
-    	jLabel2.setText("Código:");
-    	jLabel3.setText("Descripción:");
-    	jLabel4.setText("Usuario:");
-    	jLabel5.setText("Alta:");
-    	jLabel6.setText("Modificación:");
+    	jLabel1.setText(literales.getLiteral("dlgAltaModificacionGlosarios.titulo"));
+    	jLabel2.setText(literales.getLiteral("dlgAltaModificacionGlosarios.codigo"));
+    	jLabel3.setText(literales.getLiteral("dlgAltaModificacionGlosarios.descripcion"));
+    	jLabel4.setText(literales.getLiteral("dlgAltaModificacionGlosarios.usuario"));
+    	jLabel5.setText(literales.getLiteral("dlgAltaModificacionGlosarios.alta"));
+    	jLabel6.setText(literales.getLiteral("dlgAltaModificacionGlosarios.modificacion"));
     	
-    	btnAceptar.setText("ACEPTAR");
-    	btnCancelar.setText("CANCELAR");
+    	btnAceptar.setText(literales.getLiteral("dlgAltaModificacionGlosarios.aceptar"));
+    	btnCancelar.setText(literales.getLiteral("dlgAltaModificacionGlosarios.cancelar"));
 	}
 
 	/**

@@ -3,14 +3,12 @@ package com.mdval.ui.glosarios;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
@@ -26,6 +24,7 @@ import com.mdval.ui.renderer.DateRenderer;
 import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
@@ -55,7 +54,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	private JScrollPane jScrollPane1;
 
 	@Getter
-	private JTable tblGlosarios;
+	private TableSupport tblGlosarios;
 
 	@Getter
 	private JTextField txtGlosario;
@@ -80,8 +79,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		btnModificacion = new JButton();
 		btnSeleccionar = new JButton();
 		jLabel2 = new JLabel();
-		jScrollPane1 = new JScrollPane();
-		tblGlosarios = new JTable();
+		jScrollPane1 = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tblGlosarios = new TableSupport();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -157,18 +156,18 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	}
 
 	/**
-	 * @throws IOException
+	 * 
 	 */
 	protected void setupLiterals() {
-		setTitle(literales.getLiteral("dlgDefinicionGlosarios.titulo"));
+		setTitle(literales.getLiteral("frmDefinicionGlosarios.titulo"));
 
-		jLabel1.setText("Definición de Glosarios");
-		jLabel2.setText("Glosario:");
+		jLabel1.setText(literales.getLiteral("frmDefinicionGlosarios.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionGlosarios.glosario"));
 
-		btnBuscar.setText("BUSCAR");
-		btnAlta.setText("ALTA");
-		btnModificacion.setText("MODIFICACION");
-		btnSeleccionar.setText("SELECCIONAR");
+		btnBuscar.setText(literales.getLiteral("frmDefinicionGlosarios.buscar"));
+		btnAlta.setText(literales.getLiteral("frmDefinicionGlosarios.alta"));
+		btnModificacion.setText(literales.getLiteral("frmDefinicionGlosarios.modificacion"));
+		btnSeleccionar.setText(literales.getLiteral("frmDefinicionGlosarios.seleccionar"));
 	}
 
 	/**

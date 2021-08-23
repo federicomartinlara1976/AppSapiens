@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.model.cabeceras.DefinicionGlosariosTablaGlosariosCabecera;
+import com.mdval.ui.model.cabeceras.GlosarioCamposTablaCamposCabecera;
 import com.mdval.utils.Constants;
 
 /**
@@ -27,6 +28,10 @@ public class CabeceraTablaCreator extends Creator {
 	
 		if (Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA.equals(option)) {
 			cabecera = new DefinicionGlosariosTablaGlosariosCabecera();
+		}
+		
+		if (Constants.DLG_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA.equals(option)) {
+			cabecera = new GlosarioCamposTablaCamposCabecera();
 		}
 		
 		return cabecera;

@@ -281,19 +281,19 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	protected void setupLiterals() {
 		setTitle(literales.getLiteral("dlgAltaModificacionCampos.titulo"));
 		
-		jLabel1.setText("Alta / Modificación de Campos");
-		jLabel2.setText("Nombre");
-		jLabel3.setText("Tipo de Dato:");
-		jLabel4.setText("Tamaño");
-		jLabel5.setText("Decimales");
-        jLabel6.setText("Es excepción");
-        jLabel7.setText("Descripción Excepción");
-        jLabel8.setText("Observaciones");
-        jLabel9.setText("Usuario:");
-        jLabel10.setText("Modificación");
+		jLabel1.setText(literales.getLiteral("dlgAltaModificacionCampos.titulo"));
+		jLabel2.setText(literales.getLiteral("dlgAltaModificacionCampos.nombre"));
+		jLabel3.setText(literales.getLiteral("dlgAltaModificacionCampos.tipoDato"));
+		jLabel4.setText(literales.getLiteral("dlgAltaModificacionCampos.tam"));
+		jLabel5.setText(literales.getLiteral("dlgAltaModificacionCampos.decimales"));
+        jLabel6.setText(literales.getLiteral("dlgAltaModificacionCampos.esExcepcion"));
+        jLabel7.setText(literales.getLiteral("dlgAltaModificacionCampos.descripcionExcepcion"));
+        jLabel8.setText(literales.getLiteral("dlgAltaModificacionCampos.observaciones"));
+        jLabel9.setText(literales.getLiteral("dlgAltaModificacionCampos.usuario"));
+        jLabel10.setText(literales.getLiteral("dlgAltaModificacionCampos.modificacion"));
         
-        btnCancelar.setText("CANCELAR");
-        btnAceptar.setText("ACEPTAR");
+        btnCancelar.setText(literales.getLiteral("dlgAltaModificacionCampos.cancelar"));
+        btnAceptar.setText(literales.getLiteral("dlgAltaModificacionCampos.aceptar"));
 	}
 
 	/**

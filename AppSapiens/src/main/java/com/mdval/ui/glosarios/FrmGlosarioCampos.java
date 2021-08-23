@@ -20,8 +20,11 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
+import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -149,18 +152,7 @@ public class FrmGlosarioCampos extends FrameSupport {
         jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
         
         txtNorma.setPreferredSize(new Dimension(64, 27));
-
-        tblCampos.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        
         jScrollPane2.setViewportView(tblCampos);
 
         tblModelos.setModel(new DefaultTableModel(
@@ -305,22 +297,22 @@ public class FrmGlosarioCampos extends FrameSupport {
      * @throws IOException
      */
     protected void setupLiterals() {
-		setTitle(literales.getLiteral("dlgGlosarioCampos.titulo"));
+		setTitle(literales.getLiteral("frmGlosarioCampos.titulo"));
         
-		jLabel1.setText("Glosario:");
-        jLabel2.setText("Nombre de Columna:");
-        jLabel3.setText("Tipo de Dato:");
-        jLabel4.setText("Mostrar excepciones:");
-        jLabel5.setText("Norma:");
-        jLabel6.setText("Glosario de Campos");
-        jLabel7.setText("Campos:");
-        jLabel8.setText("Modelos:");
+		jLabel1.setText(literales.getLiteral("frmGlosarioCampos.glosario"));
+        jLabel2.setText(literales.getLiteral("frmGlosarioCampos.nombreColumna"));
+        jLabel3.setText(literales.getLiteral("frmGlosarioCampos.tipoDato"));
+        jLabel4.setText(literales.getLiteral("frmGlosarioCampos.mostrarExcepciones"));
+        jLabel5.setText(literales.getLiteral("frmGlosarioCampos.norma"));
+        jLabel6.setText(literales.getLiteral("frmGlosarioCampos.titulo"));
+        jLabel7.setText(literales.getLiteral("frmGlosarioCampos.campos"));
+        jLabel8.setText(literales.getLiteral("frmGlosarioCampos.modelos"));
         
-        btnBuscar.setText("BUSCAR");
-        btnAlta.setText("ALTA");
-        btnBaja.setText("BAJA");
-        btnModificacion.setText("MODIFICACIÓN");
-        btnImprimir.setText("IMPRIMIR");
+        btnBuscar.setText(literales.getLiteral("frmGlosarioCampos.buscar"));
+        btnAlta.setText(literales.getLiteral("frmGlosarioCampos.alta"));
+        btnBaja.setText(literales.getLiteral("frmGlosarioCampos.baja"));
+        btnModificacion.setText(literales.getLiteral("frmGlosarioCampos.modificacion"));
+        btnImprimir.setText(literales.getLiteral("frmGlosarioCampos.imprimir"));
     }
 	
 	/**
@@ -356,6 +348,9 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initModels() {
 		cmbTipoDato.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
+		tblCampos.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
 		cmbMostrarExcepciones.setSelectedIndex(1);
 	}
