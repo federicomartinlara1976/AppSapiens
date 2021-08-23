@@ -82,7 +82,7 @@ public class FrmDefinicionModelos extends FrameSupport {
      */
     protected void setupComponents() {
 
-        txtCodModelo = new JTextField();
+    	txtCodModelo = new JTextField();
         jLabel1 = new JLabel();
         btnBuscar = new JButton();
         btnBaja = new JButton();
@@ -104,6 +104,7 @@ public class FrmDefinicionModelos extends FrameSupport {
         cmbNorma = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(961, 609));
 
         panelLogo.setPreferredSize(new Dimension(286, 63));
 
@@ -120,11 +121,10 @@ public class FrmDefinicionModelos extends FrameSupport {
 
         txtCodModelo.setMinimumSize(new Dimension(4, 27));
         txtCodModelo.setPreferredSize(new Dimension(300, 27));
-        
+
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        
         btnBaja.setPreferredSize(new Dimension(130, 27));
-   
+
         btnSeleccionar.setPreferredSize(new Dimension(130, 27));
 
         tblGlosarios.setModel(new DefaultTableModel(
@@ -155,13 +155,10 @@ public class FrmDefinicionModelos extends FrameSupport {
 
         txtNombreModelo.setMinimumSize(new Dimension(4, 27));
         txtNombreModelo.setPreferredSize(new Dimension(300, 27));
-
         txtEsquema.setMinimumSize(new Dimension(4, 27));
         txtEsquema.setPreferredSize(new Dimension(300, 27));
-        
         jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
-
         txtBaseDatos.setMinimumSize(new Dimension(4, 27));
         txtBaseDatos.setPreferredSize(new Dimension(300, 27));
         
@@ -183,40 +180,40 @@ public class FrmDefinicionModelos extends FrameSupport {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSeleccionar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtBaseDatos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbNorma, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar)))
+                    .addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel1))
+                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED))
+                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(42, 42, 42)))
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(txtGlosario, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5, GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtEsquema, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cmbNorma, 0, 166, Short.MAX_VALUE)
+                                .addComponent(txtBaseDatos, GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBuscar))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -231,8 +228,8 @@ public class FrmDefinicionModelos extends FrameSupport {
                     .addComponent(jLabel2)
                     .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
+                    .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -244,7 +241,7 @@ public class FrmDefinicionModelos extends FrameSupport {
                     .addComponent(jLabel6)
                     .addComponent(txtBaseDatos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)

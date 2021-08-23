@@ -32,10 +32,10 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	}
 
 	private void eventBtnAlta() {
-		showFrame(Constants.CMD_ALTA_MODELOS);
+		showPopup(frmDefinicionModelos, Constants.CMD_ALTA_MODELOS);
 	}
 
 	private void evntBtnModificacion() {
-		showFrame(Constants.CMD_MODIFICACION_MODELOS);
+		showPopup(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS);
 	}
 }

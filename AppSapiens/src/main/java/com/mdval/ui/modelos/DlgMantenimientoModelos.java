@@ -3,6 +3,7 @@ package com.mdval.ui.modelos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -10,6 +11,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,7 +24,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.model.SiNoComboBoxModel;
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.DialogSupport;
 
 import lombok.Getter;
 
@@ -30,7 +32,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmMantenimientoModelos extends FrameSupport {
+public class DlgMantenimientoModelos extends DialogSupport {
 
     /**
 	 * 
@@ -62,6 +64,8 @@ public class FrmMantenimientoModelos extends FrameSupport {
     private JLabel jLabel17;
     private JLabel jLabel18;
     private JLabel jLabel19;
+    private JLabel jLabel20;
+    private JLabel jLabel21;
     
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
@@ -80,6 +84,9 @@ public class FrmMantenimientoModelos extends FrameSupport {
     
     @Getter
     private JComboBox<String> cmbNorma;
+    
+    @Getter
+    private JComboBox<String> cmbVariablesConCapa;
     
     @Getter
     private JTextField txtCarpeta;
@@ -121,13 +128,23 @@ public class FrmMantenimientoModelos extends FrameSupport {
     private JTextField txtNombreModelo;
     
     @Getter
+    private JTextField txtAplicacion;
+    
+    @Getter
     private JTextArea txtObservaciones;
 	
-	/**
-     * Creates new form DlgModificacionNormas
-     */
-    public FrmMantenimientoModelos() {
-        super();
+    @Getter
+    private JFrame frameParent;
+
+    
+    public DlgMantenimientoModelos(JFrame parent, boolean modal) {
+        super(parent, modal);
+        this.frameParent = parent;
+    }
+    
+    public DlgMantenimientoModelos(JFrame parent, boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
+        this.frameParent = parent;
     }
 
     /**
@@ -135,7 +152,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
      */
     protected void setupComponents() {
 
-        jLabel1 = new JLabel();
+    	jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         txtCodModelo = new JTextField();
@@ -181,8 +198,13 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jScrollPane2 = new JScrollPane();
         txtObservaciones = new JTextArea();
         jLabel19 = new JLabel();
+        jLabel20 = new JLabel();
+        txtAplicacion = new JTextField();
+        jLabel21 = new JLabel();
+        cmbVariablesConCapa = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(1319, 712));
 
         panelLogo.setPreferredSize(new Dimension(286, 63));
 
@@ -198,21 +220,19 @@ public class FrmMantenimientoModelos extends FrameSupport {
         );
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-
+        
         jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
 
         jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
         
         txtCodModelo.setPreferredSize(new Dimension(4, 27));
-        
+
         txtNombreModelo.setMinimumSize(new Dimension(4, 27));
         txtNombreModelo.setPreferredSize(new Dimension(64, 27));
-        
+
         jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel6.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-        cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
 
         panelTabla.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
@@ -238,11 +258,11 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jScrollPane1.setViewportView(tblValoresPosibles);
 
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
-
+        
         txtCodigoSubmodelo.setPreferredSize(new Dimension(64, 27));
 
         jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
-
+        
         txtDescripcionSubmodelo.setPreferredSize(new Dimension(64, 27));
 
         btnRemoveSubmodelo.setPreferredSize(new Dimension(41, 27));
@@ -287,6 +307,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         );
 
         btnAceptar.setPreferredSize(new Dimension(130, 27));
+        
         btnCancelar.setPreferredSize(new Dimension(130, 27));
 
         jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -358,6 +379,17 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel19.setHorizontalTextPosition(SwingConstants.RIGHT);
 
+        jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel20.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+        txtAplicacion.setPreferredSize(new Dimension(4, 27));
+
+        jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel21.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+        cmbVariablesConCapa.setModel(new DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        cmbVariablesConCapa.setSelectedIndex(1);
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -365,75 +397,76 @@ public class FrmMantenimientoModelos extends FrameSupport {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtHerramienta, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(84, 84, 84))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cmbGrantAll, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cmbGrantPublic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16, GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbGeneraVariables, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel21)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbVariablesConCapa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtHerramienta, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(60, 60, 60)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel8, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                            .addComponent(jLabel12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel9))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel13)))
+                                        .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbNorma, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCarpeta, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel10))
+                                    .addComponent(jLabel13, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbNorma, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCarpeta, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCodGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtDescGlosario, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarGlosario))
-                                    .addComponent(txtGrupo, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(cmbGeneraVariables, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtGrupo, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtCodGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtDescGlosario, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnBuscarGlosario))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel20, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtAplicacion, GroupLayout.PREFERRED_SIZE, 319, GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -455,8 +488,8 @@ public class FrmMantenimientoModelos extends FrameSupport {
                                             .addComponent(jLabel17))
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane2)
-                                            .addComponent(panelTabla, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
+                                            .addComponent(panelTabla, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jScrollPane2))))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -467,27 +500,28 @@ public class FrmMantenimientoModelos extends FrameSupport {
                     .addComponent(panelLogo, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(cmbNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCodGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel4)
+                        .addComponent(txtCodGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDescGlosario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnBuscarGlosario))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtCarpeta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(txtGrupo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(txtBD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -495,15 +529,19 @@ public class FrmMantenimientoModelos extends FrameSupport {
                     .addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(txtHerramienta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel20)
+                    .addComponent(txtAplicacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
                     .addComponent(cmbGrantAll, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(cmbGrantPublic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
                     .addComponent(jLabel16)
-                    .addComponent(cmbGeneraVariables, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbGeneraVariables, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(cmbVariablesConCapa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
@@ -545,6 +583,8 @@ public class FrmMantenimientoModelos extends FrameSupport {
         jLabel17.setText("Observaciones");
     	jLabel18.setText("Descripción");
     	jLabel19.setText("Submodelos");
+    	jLabel20.setText("Aplicación");
+    	jLabel21.setText("Variables con capa");
     	
     	btnAddSubmodelo.setText("+");
         btnRemoveSubmodelo.setText("-");
@@ -562,13 +602,22 @@ public class FrmMantenimientoModelos extends FrameSupport {
 	protected void initialState() {
 		cmbGrantAll.setSelectedIndex(1);
         cmbGrantPublic.setSelectedIndex(1);
-        cmbGeneraVariables.setSelectedIndex(1);
+        cmbGeneraVariables.setSelectedIndex(0);
+        cmbVariablesConCapa.setSelectedIndex(0);
+        
+        txtUsuario.setEnabled(Boolean.FALSE);
+        txtUsuario.setEditable(Boolean.FALSE);
+        txtFecha.setEnabled(Boolean.FALSE);
+        txtFecha.setEditable(Boolean.FALSE);
 	}
 
 	@Override
 	protected void initModels() {
+		cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
+		
 		cmbGrantAll.setModel(new SiNoComboBoxModel());
         cmbGrantPublic.setModel(new SiNoComboBoxModel());
         cmbGeneraVariables.setModel(new SiNoComboBoxModel());
+        cmbVariablesConCapa.setModel(new SiNoComboBoxModel());
 	}
 }
