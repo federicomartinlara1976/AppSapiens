@@ -52,9 +52,7 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
     @Getter
     private JFrame frameParent;
     
-    private Map<String, Object> params;
-    
-	/**
+    /**
      * Creates new form DlgBajaGlosarioCampos
      */
     public DlgBajaGlosarioCampos(JFrame parent, boolean modal) {
@@ -63,9 +61,8 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
     }
     
     public DlgBajaGlosarioCampos(JFrame parent, boolean modal, Map<String, Object> params) {
-        super(parent, modal);
+        super(parent, modal, params);
         this.frameParent = parent;
-        this.params = params;
     }
 
     /**

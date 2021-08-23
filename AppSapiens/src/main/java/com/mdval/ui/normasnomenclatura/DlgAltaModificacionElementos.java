@@ -49,9 +49,6 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 	@Getter
 	private JTextField txtUsuario;
 	
-	
-	private Map<String, Object> params;
-
 	@Getter
     private JFrame frameParent;
 
