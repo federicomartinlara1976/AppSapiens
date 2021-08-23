@@ -1,8 +1,11 @@
 package com.mdval.ui.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import org.springframework.util.CollectionUtils;
 
 import com.mdval.bussiness.entities.Glosario;
 
@@ -20,11 +23,24 @@ public class DefinicionGlosariosTableModel extends AbstractTableModel {
 	private final List<Glosario> glosarios;
 	private final List<String> columnNames;
 	private final List<Class<?>> columnClasses ;
+	
+	public DefinicionGlosariosTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+		this.glosarios = new ArrayList<>();
+		this.columnNames = columnNames;
+		this.columnClasses = columnClasses;
+	}
 
 	public DefinicionGlosariosTableModel(List<Glosario> glosarios, List<String> columnNames, List<Class<?>> columnClasses) {
 		this.glosarios = glosarios;
 		this.columnNames = columnNames;
 		this.columnClasses = columnClasses;
+	}
+	
+	public void setGlosarios(List<Glosario> glosarios) {
+		if (!CollectionUtils.isEmpty(this.glosarios)) {
+			this.glosarios.clear();
+		}
+		this.glosarios.addAll(glosarios);
 	}
 
 	@Override
@@ -71,6 +87,6 @@ public class DefinicionGlosariosTableModel extends AbstractTableModel {
 	 * @return
 	 */
 	public Glosario getSelectedRow(int rowIndex) {
-		return glosarios.get(rowIndex);
+		return (rowIndex != -1) ? glosarios.get(rowIndex) : null;
 	}
 }

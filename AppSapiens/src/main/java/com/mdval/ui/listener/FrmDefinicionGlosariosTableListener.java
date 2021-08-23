@@ -1,5 +1,7 @@
 package com.mdval.ui.listener;
 
+import java.util.Objects;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -33,9 +35,11 @@ public class FrmDefinicionGlosariosTableListener extends ListenerSupport impleme
 		DefinicionGlosariosTableModel tableModel = (DefinicionGlosariosTableModel) frmDefinicionGlosarios.getTblGlosarios().getModel();
 		
 		Glosario seleccionado = tableModel.getSelectedRow(index);
-		LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
-		frmDefinicionGlosarios.setSeleccionado(seleccionado);
-		frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.TRUE);
+		if (!Objects.isNull(seleccionado)) {
+			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
+			frmDefinicionGlosarios.setSeleccionado(seleccionado);
+			frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.TRUE);
+		}
 	}
 
 	

@@ -18,7 +18,6 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
@@ -181,11 +180,13 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
 		
+		btnBuscar.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_BUSCAR);
 		btnAlta.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
 		btnModificacion.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
 		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
 		btnSeleccionar.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 
+		btnBuscar.addActionListener(actionListener);
 		btnAlta.addActionListener(actionListener);
 		btnModificacion.addActionListener(actionListener);
 		btnSeleccionar.addActionListener(actionListener);
@@ -210,26 +211,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		tblGlosarios.setDefaultRenderer(Date.class, new DateRenderer());
 		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
-		tblGlosarios.setModel(populateModel());
-	}
-
-	/**
-	 * TODO - Borrar este método de prueba y usar una conexión a BBDD
-	 * 
-	 * @return
-	 */
-	private TableModel populateModel() {
-		// Test - add Glosario to model
-		List<Glosario> glosarios = new ArrayList<>();
+		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
-
-		// Populate with 100 glosarios
-		for (int i = 0; i < 100; i++) {
-			Glosario glosario = new Glosario(i, "Glosario " + i, "usuario", new Date(), new Date());
-			glosarios.add(glosario);
-		}
-
-		return new DefinicionGlosariosTableModel(glosarios, cabecera.getColumnIdentifiers(),
-				cabecera.getColumnClasses());
+		tblGlosarios.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }
