@@ -329,12 +329,12 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new FrmGlosarioCamposListener(this);
 		
-		btnBuscarGlosario.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
-		btnBuscar.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR);
-		btnAlta.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA);
-		btnBaja.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA);
-		btnModificacion.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION);
-		btnImprimir.setName(Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
+		btnBuscarGlosario.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
+		btnBuscar.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA);
+		btnBaja.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA);
+		btnModificacion.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION);
+		btnImprimir.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
 		
 		btnBuscarGlosario.addActionListener(actionListener);
 		btnBuscar.addActionListener(actionListener);

@@ -91,11 +91,11 @@ public class DlgExcepciones extends JDialog {
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		btnAceptar.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-		btnAceptar.setName(Constants.DLG_EXCEPCIONES_BTN_ACEPTAR);
+		btnAceptar.setActionCommand(Constants.DLG_EXCEPCIONES_BTN_ACEPTAR);
 		panelBotones.add(btnAceptar);
 
 		btnCancelar.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-		btnCancelar.setName(Constants.DLG_EXCEPCIONES_BTN_CANCELAR);
+		btnCancelar.setActionCommand(Constants.DLG_EXCEPCIONES_BTN_CANCELAR);
 		panelBotones.add(btnCancelar);
 
 		getContentPane().add(panelBotones, BorderLayout.PAGE_END);

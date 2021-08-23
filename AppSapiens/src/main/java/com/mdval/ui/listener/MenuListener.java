@@ -28,7 +28,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JFrame frame = UIHelper.createFrame(item.getName());
+		JFrame frame = UIHelper.createFrame(item.getActionCommand());
 		UIHelper.show(frame);
 	}
 }

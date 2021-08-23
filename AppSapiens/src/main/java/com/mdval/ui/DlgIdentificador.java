@@ -78,7 +78,7 @@ public class DlgIdentificador extends DialogSupport {
         txtIdentificador = new JTextField();
         panelBotones = new JPanel();
         btnAceptar = new JButton();
-        btnAceptar.setName(Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR);
+        btnAceptar.setActionCommand(Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new FlowLayout());

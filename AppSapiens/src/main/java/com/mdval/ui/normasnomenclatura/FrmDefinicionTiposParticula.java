@@ -170,8 +170,8 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionTiposParticulaListener(this);
 		
-		btnAlta.setName(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
-		btnModificacion.setName(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);

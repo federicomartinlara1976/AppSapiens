@@ -302,8 +302,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new DlgAltaModificacionCamposListener(this);
 
-		btnAceptar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
-		btnCancelar.setName(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
+		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
 
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

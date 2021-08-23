@@ -26,7 +26,7 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getName())) {
+		if (Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 	}

@@ -247,8 +247,8 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new DlgAltaModificacionGlosariosListener(this);
 		
-		btnAceptar.setName(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
-		btnCancelar.setName(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR);
+		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

@@ -31,27 +31,27 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnBuscarGlosario();
 		}
 
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getActionCommand())) {
 			eventBtnBaja();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			eventBtnModificacion();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getName())) {
+		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getActionCommand())) {
 			eventBtnImprimir();
 		}
 	}

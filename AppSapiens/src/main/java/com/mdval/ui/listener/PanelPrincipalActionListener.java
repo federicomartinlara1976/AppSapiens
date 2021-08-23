@@ -22,23 +22,23 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO.equals(jButton.getName())) {
+		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO.equals(jButton.getActionCommand())) {
 			eventBtnLimpiarTodo();
 		}
 		
-		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION.equals(jButton.getName())) {
+		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION.equals(jButton.getActionCommand())) {
 			eventBtnLimpiarValidacion();
 		}
 		
-		if (Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT.equals(jButton.getName())) {
+		if (Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
 			eventBtnLoadScript();
 		}
 		
-		if (Constants.PANEL_PRINCIPAL_BTN_VALIDAR.equals(jButton.getName())) {
+		if (Constants.PANEL_PRINCIPAL_BTN_VALIDAR.equals(jButton.getActionCommand())) {
 			eventBtnValidar();
 		}
 		
-		if (Constants.PANEL_PRINCIPAL_BTN_SEARCH.equals(jButton.getName())) {
+		if (Constants.PANEL_PRINCIPAL_BTN_SEARCH.equals(jButton.getActionCommand())) {
 			eventBtnSearch();
 		}
 	}

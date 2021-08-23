@@ -63,40 +63,40 @@ public class MainMenuBar extends MenuSupport {
         mnuComprobarNombreElemento = new JMenuItem();
         mnuModelos = new JMenuItem(); 
         
-        mnuDefinicionGlosarios.setName(Constants.MNU_DEF_GLOSARIOS); // NOI18N
+        mnuDefinicionGlosarios.setActionCommand(Constants.MNU_DEF_GLOSARIOS); // NOI18N
         mnuGlosarios.add(mnuDefinicionGlosarios);
 
-        mnuDatosGlosarioCampos.setName(Constants.MNU_DATOS_GLOSARIO_CAMPOS); // NOI18N
+        mnuDatosGlosarioCampos.setActionCommand(Constants.MNU_DATOS_GLOSARIO_CAMPOS); // NOI18N
         mnuGlosarios.add(mnuDatosGlosarioCampos);
 
         mnuConfiguracion.add(mnuGlosarios);
 
-        mnuDefinicionNormas.setName(Constants.MNU_DEF_NORMAS); // NOI18N
+        mnuDefinicionNormas.setActionCommand(Constants.MNU_DEF_NORMAS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionNormas);
 
-        mnuDefinicionElementos.setName(Constants.MNU_DEF_ELEMENTOS); // NOI18N
+        mnuDefinicionElementos.setActionCommand(Constants.MNU_DEF_ELEMENTOS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionElementos);
 
-        mnuDefinicionElementosNorma.setName(Constants.MNU_DEF_ELEMENTOS_NORMA); // NOI18N
+        mnuDefinicionElementosNorma.setActionCommand(Constants.MNU_DEF_ELEMENTOS_NORMA); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionElementosNorma);
 
-        mnuDefinicionTiposParticulas.setName(Constants.MNU_DEF_TIPOS_PARTICULAS); // NOI18N
+        mnuDefinicionTiposParticulas.setActionCommand(Constants.MNU_DEF_TIPOS_PARTICULAS); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionTiposParticulas);
 
-        mnuDefinicionParticulasNormaElemento.setName(Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO); // NOI18N
+        mnuDefinicionParticulasNormaElemento.setActionCommand(Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO); // NOI18N
         mnuNormasNomenclatura.add(mnuDefinicionParticulasNormaElemento);
 
-        mnuValoresParticulas.setName(Constants.MNU_VALORES_PARTICULAS); // NOI18N
+        mnuValoresParticulas.setActionCommand(Constants.MNU_VALORES_PARTICULAS); // NOI18N
         mnuNormasNomenclatura.add(mnuValoresParticulas);
 
         mnuConfiguracion.add(mnuNormasNomenclatura);
 
-        mnuComprobarNombreElemento.setName(Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO); // NOI18N
+        mnuComprobarNombreElemento.setActionCommand(Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO); // NOI18N
         mnuConsultas.add(mnuComprobarNombreElemento);
 
         mnuConfiguracion.add(mnuConsultas);
 
-        mnuModelos.setName(Constants.MNU_MODELOS); // NOI18N
+        mnuModelos.setActionCommand(Constants.MNU_MODELOS); // NOI18N
         mnuConfiguracion.add(mnuModelos);
 
         add(mnuConfiguracion);

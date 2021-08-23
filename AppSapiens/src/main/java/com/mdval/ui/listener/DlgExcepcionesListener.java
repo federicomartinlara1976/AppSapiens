@@ -26,11 +26,11 @@ public class DlgExcepcionesListener extends ListenerSupport implements ActionLis
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.DLG_EXCEPCIONES_BTN_ACEPTAR.equals(jButton.getName())) {
+		if (Constants.DLG_EXCEPCIONES_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 
-		if (Constants.DLG_EXCEPCIONES_BTN_CANCELAR.equals(jButton.getName())) {
+		if (Constants.DLG_EXCEPCIONES_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgExcepciones.dispose();
 		}
 	}

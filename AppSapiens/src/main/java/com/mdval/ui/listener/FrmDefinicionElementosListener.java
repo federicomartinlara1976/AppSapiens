@@ -22,11 +22,11 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_DEFINICION_ELEMENTOS_BTN_ALTA.equals(jButton.getName())) {
+		if (Constants.DLG_DEFINICION_ELEMENTOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION.equals(jButton.getName())) {
+		if (Constants.DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}

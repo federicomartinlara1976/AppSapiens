@@ -22,11 +22,11 @@ public class DlgBajaGlosarioCamposListener extends ListenerSupport implements Ac
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR.equals(jButton.getName())) {
+		if (Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 
-		if (Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR.equals(jButton.getName())) {
+		if (Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgBajaGlosario.dispose();
 		}
 	}

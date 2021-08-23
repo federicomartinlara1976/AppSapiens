@@ -293,9 +293,9 @@ public class FrmValoresParticulas extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmValoresParticulasListener(this);
 		
-		btnAltaElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_ALTA);
-		btnBajaElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_BAJA);
-		btnModificacionElemento.setName(Constants.DLG_VALORES_PARTICULAS_BTN_MODIFICACION);
+		btnAltaElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_ALTA);
+		btnBajaElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_BAJA);
+		btnModificacionElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_MODIFICACION);
 		
 		btnAltaElemento.addActionListener(listener);
 		btnBajaElemento.addActionListener(listener);

@@ -278,8 +278,8 @@ public class FrmDefinicionModelos extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionModelosListener(this);
 		
-		btnAlta.setName(Constants.DLG_DEFINICION_MODELOS_BTN_ALTA);
-		btnModificacion.setName(Constants.DLG_DEFINICION_MODELOS_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.DLG_DEFINICION_MODELOS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_MODELOS_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);

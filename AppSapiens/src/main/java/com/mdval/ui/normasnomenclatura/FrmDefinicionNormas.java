@@ -165,8 +165,8 @@ public class FrmDefinicionNormas extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionNormasListener(this);
 		
-		btnAlta.setName(Constants.DLG_DEFINICION_NORMAS_BTN_ALTA);
-		btnModificacion.setName(Constants.DLG_DEFINICION_NORMAS_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.DLG_DEFINICION_NORMAS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);

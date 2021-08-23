@@ -29,15 +29,15 @@ public class FrmMantenimientoParticulasListener extends ListenerSupport implemen
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_ALTA.equals(jButton.getName())) {
+		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 		
-		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_BAJA.equals(jButton.getName())) {
+		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_BAJA.equals(jButton.getActionCommand())) {
 			eventBtnBaja();
 		}
 		
-		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION.equals(jButton.getName())) {
+		if (Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			eventBtnModificacion();
 		}
 	}

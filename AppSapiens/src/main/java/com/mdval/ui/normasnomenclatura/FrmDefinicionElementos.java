@@ -169,8 +169,8 @@ public class FrmDefinicionElementos extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionElementosListener(this);
 		
-		btnAlta.setName(Constants.DLG_DEFINICION_ELEMENTOS_BTN_ALTA);
-		btnModificacion.setName(Constants.DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.DLG_DEFINICION_ELEMENTOS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);

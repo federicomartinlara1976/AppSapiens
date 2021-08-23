@@ -365,11 +365,11 @@ public class PanelPrincipal extends PanelSupport {
 		ActionListener actionListener = new PanelPrincipalActionListener(this);
 		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
 		
-		btnValidar.setName(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
-		btnBuscarGlosario.setName(Constants.PANEL_PRINCIPAL_BTN_SEARCH);
-		btnLoadScript.setName(Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
-		btnLimpiarTodo.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
-		btnLimpiarValidacion.setName(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
+		btnValidar.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
+		btnBuscarGlosario.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_SEARCH);
+		btnLoadScript.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
+		btnLimpiarTodo.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
+		btnLimpiarValidacion.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
 
 		btnValidar.addActionListener(actionListener);
 		btnBuscarGlosario.addActionListener(actionListener);

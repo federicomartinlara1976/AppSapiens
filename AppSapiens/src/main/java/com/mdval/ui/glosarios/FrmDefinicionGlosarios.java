@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -180,11 +178,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
 		
-		btnBuscar.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_BUSCAR);
-		btnAlta.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
-		btnModificacion.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
 		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
-		btnSeleccionar.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
+		btnSeleccionar.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 
 		btnBuscar.addActionListener(actionListener);
 		btnAlta.addActionListener(actionListener);
