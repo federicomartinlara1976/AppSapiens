@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
-import com.mdval.ui.model.ValoresPosiblesTableModel;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -344,8 +343,8 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		cmbElemento.setModel(
 				new DefaultComboBoxModel<>(new String[] { "Elemento 1", "Elemento 2", "Elemento 3", "Elemento 4" }));
 		
-		tblValoresPosibles.setModel(new ValoresPosiblesTableModel(
-				new Object[][] { { "Valor", "Valor", "..." }, { "Valor", "Valor", "..." }, { "...", "...", "..." } },
-				new String[] { "Campo 1", "Campo 2", "..." }));
+//		tblValoresPosibles.setModel(new ValoresPosiblesTableModel(
+//				new Object[][] { { "Valor", "Valor", "..." }, { "Valor", "Valor", "..." }, { "...", "...", "..." } },
+//				new String[] { "Campo 1", "Campo 2", "..." }));
 	}
 }
