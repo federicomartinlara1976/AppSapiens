@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.model.cabeceras.DefinicionGlosariosTablaGlosariosCabecera;
+import com.mdval.ui.model.cabeceras.DefinicionNormasTablaNormasCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaCamposCabecera;
 import com.mdval.utils.Constants;
 
@@ -16,22 +17,26 @@ import com.mdval.utils.Constants;
  */
 public class CabeceraTablaCreator extends Creator {
 	
-	private String option;
+	private String item;
 	
-	public CabeceraTablaCreator(String option) {
-		this.option = option;
+	public CabeceraTablaCreator(String item) {
+		this.item = item;
 	}
 	
 	@Override
 	public Object factoryMethod() {
 		Cabecera cabecera = null;
 	
-		if (Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA.equals(option)) {
+		if (Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionGlosariosTablaGlosariosCabecera();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA.equals(option)) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA.equals(item)) {
 			cabecera = new GlosarioCamposTablaCamposCabecera();
+		}
+		
+		if (Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA.equals(item)) {
+			cabecera = new DefinicionNormasTablaNormasCabecera();
 		}
 		
 		return cabecera;

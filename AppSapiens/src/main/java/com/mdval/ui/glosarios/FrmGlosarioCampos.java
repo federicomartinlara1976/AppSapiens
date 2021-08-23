@@ -324,12 +324,12 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new FrmGlosarioCamposListener(this);
 		
-		btnBuscarGlosario.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
-		btnBuscar.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA);
-		btnBaja.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA);
-		btnModificacion.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION);
-		btnImprimir.setActionCommand(Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
+		btnBuscarGlosario.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
+		btnBuscar.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_ALTA);
+		btnBaja.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BAJA);
+		btnModificacion.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION);
+		btnImprimir.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
 		
 		btnBuscarGlosario.addActionListener(actionListener);
 		btnBuscar.addActionListener(actionListener);
@@ -351,7 +351,7 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initModels() {
 		cmbTipoDato.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
 		tblCampos.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());

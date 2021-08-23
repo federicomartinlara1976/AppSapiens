@@ -31,27 +31,27 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnBuscarGlosario();
 		}
 
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getActionCommand())) {
 			eventBtnBaja();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			eventBtnModificacion();
 		}
 		
-		if (Constants.DLG_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getActionCommand())) {
 			eventBtnImprimir();
 		}
 	}
@@ -91,7 +91,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 */
 	private void eventBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.DLG_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
+		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
 		
 		showPopup(frmGlosarioCampos, Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
 	}

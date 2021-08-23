@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -11,11 +12,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
+import com.mdval.ui.model.DefinicionNormasTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -81,17 +88,6 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 		txtNorma.setPreferredSize(new Dimension(64, 27));
 
-		tblNormas.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null }, { null, null, null, null }, { null, null, null, null },
-						{ null, null, null, null } },
-				new String[] { "COD_NORMA", "DES_NORMA", "COD_USR", "FEC_ACTU" }) {
-			Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class, java.lang.String.class,
-					java.lang.Object.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
 		jScrollPane1.setViewportView(tblNormas);
 
 		btnAlta.setPreferredSize(new Dimension(130, 27));
@@ -151,22 +147,22 @@ public class FrmDefinicionNormas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Definición de Normas");
+		setTitle(literales.getLiteral("frmDefinicionNormas.titulo"));
 		
-		jLabel1.setText("Definición de Normas");
-		jLabel2.setText("Norma:");
+		jLabel1.setText(literales.getLiteral("frmDefinicionNormas.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionNormas.norma"));
 
-		btnBuscar.setText("BUSCAR");
-		btnAlta.setText("ALTA");
-		btnModificacion.setText("MODIFICACION");
+		btnBuscar.setText(literales.getLiteral("frmDefinicionNormas.buscar"));
+		btnAlta.setText(literales.getLiteral("frmDefinicionNormas.alta"));
+		btnModificacion.setText(literales.getLiteral("frmDefinicionNormas.modificacion"));
 	}
 
 	@Override
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionNormasListener(this);
 		
-		btnAlta.setActionCommand(Constants.DLG_DEFINICION_NORMAS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_NORMAS_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);
@@ -174,13 +170,17 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
+		tblNormas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblNormas.setDefaultRenderer(Date.class, new DateRenderer());
+		tblNormas.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
 		
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
+		tblNormas.setModel(new DefinicionNormasTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
-		
+		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 }

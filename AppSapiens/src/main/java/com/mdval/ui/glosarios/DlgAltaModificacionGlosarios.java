@@ -261,7 +261,7 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
 		if (!Objects.isNull(params)) {
-			Glosario glosario = (Glosario) params.get(Constants.DLG_DEFINICION_GLOSARIOS_SELECCIONADO);
+			Glosario glosario = (Glosario) params.get(Constants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO);
 			
 			txtCodigo.setText(glosario.getCodigo().toString());
 			txtDescripcion.setText(glosario.getDescripcion());

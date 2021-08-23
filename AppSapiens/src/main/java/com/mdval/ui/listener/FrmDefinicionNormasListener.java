@@ -22,11 +22,11 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_DEFINICION_NORMAS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_DEFINICION_NORMAS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.DLG_DEFINICION_NORMAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}

@@ -177,10 +177,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
-		btnSeleccionar.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
+		btnSeleccionar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 
 		btnBuscar.addActionListener(actionListener);
 		btnAlta.addActionListener(actionListener);
@@ -208,7 +208,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
 		tblGlosarios.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }
