@@ -14,8 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
+import com.mdval.ui.listener.FrmDefinicionNormasTableListener;
 import com.mdval.ui.model.DefinicionNormasTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.DateRenderer;
@@ -26,6 +29,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -40,6 +44,8 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 	private JButton btnAlta;
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnModificacion;
 	
 	private JLabel jLabel1;
@@ -47,10 +53,15 @@ public class FrmDefinicionNormas extends FrameSupport {
 	
 	private JScrollPane jScrollPane1;
 	
+	@Getter
 	private JTable tblNormas;
 	
 	@Getter
 	private JTextField txtNorma;
+	
+	@Getter
+	@Setter
+	private Norma seleccionada;
 
 	/**
 	 * Creates new form DlgDefinicionNormas
@@ -160,19 +171,22 @@ public class FrmDefinicionNormas extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionNormasListener(this);
+		ListSelectionListener listSelectionListener = new FrmDefinicionNormasTableListener(this);
 		
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_ALTA);
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);
+		
+		ListSelectionModel rowSM = tblNormas.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
 	protected void initialState() {
 		tblNormas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblNormas.setDefaultRenderer(Date.class, new DateRenderer());
-		tblNormas.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
