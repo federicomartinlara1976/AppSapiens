@@ -21,6 +21,10 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
+		
+		if (Constants.FRM_DEFINICION_NORMAS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+			eventBtnBuscar();
+		}
 
 		if (Constants.FRM_DEFINICION_NORMAS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
@@ -31,10 +35,23 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 		}
 	}
 
+	/**
+	 * 
+	 */
+	private void eventBtnBuscar() {
+		
+	}
+
+	/**
+	 * 
+	 */
 	private void eventBtnAlta() {
 		showPopup(frmDefinicionNormas, Constants.CMD_ALTA_NORMAS);
 	}
 
+	/**
+	 * 
+	 */
 	private void evntBtnModificacion() {
 		showPopup(frmDefinicionNormas, Constants.CMD_MODIFICACION_NORMAS);
 	}

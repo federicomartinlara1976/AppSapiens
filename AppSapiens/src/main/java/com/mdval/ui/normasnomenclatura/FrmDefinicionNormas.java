@@ -173,9 +173,11 @@ public class FrmDefinicionNormas extends FrameSupport {
 		ActionListener listener = new FrmDefinicionNormasListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionNormasTableListener(this);
 		
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_BUSCAR);
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_ALTA);
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
+		btnBuscar.addActionListener(listener);
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);
 		
