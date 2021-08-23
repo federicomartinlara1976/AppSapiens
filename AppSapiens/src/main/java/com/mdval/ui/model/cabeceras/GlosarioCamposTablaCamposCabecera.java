@@ -13,26 +13,23 @@ public class GlosarioCamposTablaCamposCabecera extends Cabecera {
 	private List<String> columnIdentifiers;
 	private List<Class<?>> columnClasses;
 
+	/**
+	 *
+	 */
 	public void setupCabecera() {
 		columnIdentifiers = new ArrayList<>();
 		columnClasses = new ArrayList<>();
 		
-		columnIdentifiers.add("Campo");
-		columnIdentifiers.add("Tipo");
-		columnIdentifiers.add("Longitud");
-		columnIdentifiers.add("Decimales");
-		columnIdentifiers.add("Excepción");
-		columnIdentifiers.add("Comentario");
-		columnIdentifiers.add("ComentarioExcepción");
-		columnIdentifiers.add("COD_USR");
-		columnIdentifiers.add("FEC_ACTU");
-		
-//		columnIdentifiers.add(literales.getLiteral("tblGlosarios.codGlosario"));
-//		columnIdentifiers.add(literales.getLiteral("tblGlosarios.desGlosario"));
-//		columnIdentifiers.add(literales.getLiteral("tblGlosarios.fecAlta"));
-//		columnIdentifiers.add(literales.getLiteral("tblGlosarios.codUsu"));
-//		columnIdentifiers.add(literales.getLiteral("tblGlosarios.fecActu"));
-		
+		columnIdentifiers.add(literales.getLiteral("tblCampos.campo"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.tipo"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.longitud"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.decimales"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.excepcion"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.comentario"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.comentarioExcepcion"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.codUsu"));
+		columnIdentifiers.add(literales.getLiteral("tblCampos.fecActu"));
+			
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Integer.class);
@@ -54,6 +51,9 @@ public class GlosarioCamposTablaCamposCabecera extends Cabecera {
 	}
 
 
+	/**
+	 *
+	 */
 	@Override
 	public List<Class<?>> getColumnClasses() {
 		return columnClasses;

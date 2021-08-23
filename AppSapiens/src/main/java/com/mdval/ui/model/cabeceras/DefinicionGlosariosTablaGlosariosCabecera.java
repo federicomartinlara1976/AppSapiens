@@ -13,6 +13,9 @@ public class DefinicionGlosariosTablaGlosariosCabecera extends Cabecera {
 	private List<String> columnIdentifiers;
 	private List<Class<?>> columnClasses;
 
+	/**
+	 *
+	 */
 	public void setupCabecera() {
 		columnIdentifiers = new ArrayList<>();
 		columnClasses = new ArrayList<>();
@@ -40,6 +43,9 @@ public class DefinicionGlosariosTablaGlosariosCabecera extends Cabecera {
 	}
 
 
+	/**
+	 *
+	 */
 	@Override
 	public List<Class<?>> getColumnClasses() {
 		return columnClasses;

@@ -59,7 +59,10 @@ public class FrmGlosarioCampos extends FrameSupport {
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     
+    @Getter
     private JTable tblCampos;
+    
+    @Getter
     private JTable tblModelos;
     
     @Getter
