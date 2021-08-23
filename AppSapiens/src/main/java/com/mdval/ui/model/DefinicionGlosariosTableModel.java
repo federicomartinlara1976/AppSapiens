@@ -65,4 +65,12 @@ public class DefinicionGlosariosTableModel extends AbstractTableModel {
 
 		return null;
 	}
+	
+	/**
+	 * @param rowIndex
+	 * @return
+	 */
+	public Glosario getSelectedRow(int rowIndex) {
+		return glosarios.get(rowIndex);
+	}
 }

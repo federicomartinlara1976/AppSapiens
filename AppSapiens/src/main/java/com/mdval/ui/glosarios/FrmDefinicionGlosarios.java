@@ -17,10 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
+import com.mdval.ui.listener.FrmDefinicionGlosariosTableListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.DateRenderer;
@@ -46,6 +48,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 
 	private JButton btnAlta;
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnModificacion;
 	private JButton btnSeleccionar;
 
@@ -175,7 +179,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	protected void initEvents() {
 		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
-
+		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
+		
 		btnAlta.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_ALTA);
 		btnModificacion.setName(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
 		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
@@ -184,14 +189,16 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		btnAlta.addActionListener(actionListener);
 		btnModificacion.addActionListener(actionListener);
 		btnSeleccionar.addActionListener(actionListener);
+		
+		ListSelectionModel rowSM = tblGlosarios.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	/**
 	 * 
 	 */
 	protected void initialState() {
-		// TODO Auto-generated method stub
-
+		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 
 	/**

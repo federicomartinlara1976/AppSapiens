@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @Entity
+@ToString
 public class Glosario {
 
     @Id
