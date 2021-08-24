@@ -8,8 +8,6 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,23 +89,14 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	}
 
 	/**
-	 * TODO - Metodo de búsqueda a modificar con la llamada al servicio
+	 * Busca glosarios por descripcion glosario
 	 * 
-	 * @param termino
-	 * @return
+	 * @param termino descripcion glosario a buscar
+	 * @return lista de glosarios que cumple con el termino buscado
 	 */
 	private List<Glosario> buscar(String termino) {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		List<Glosario> mockedGlosarios = new ArrayList<>();
-
-		// Sample: Populate with 100 objects of type Glosario
-		for (double i = 0; i < 100; i++) {
-			Glosario glosario = new Glosario(i, "Glosario " + i, "usuario", new Date(), new Date());
-			mockedGlosarios.add(glosario);
-		}
-		//TODO replace mockedGlosarios for glosarios
 		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
-
-		return mockedGlosarios;
+		return glosarios;
 	}
 }

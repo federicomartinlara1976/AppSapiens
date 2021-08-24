@@ -3,13 +3,15 @@ package com.mdval.bussiness.service.impl;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.DateFormatter;
+import com.mdval.utils.Constants;
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
@@ -28,43 +30,62 @@ public class GlosarioServiceImpl implements GlosarioService {
     @Autowired
     private DataSource dataSource;
 
-    protected DateFormatter dateFormatter;
 
     @Override
     @SneakyThrows
     public List<Glosario> buscarGlosarios(String descripcionGlosario) {
         List<Glosario> glosarios = new ArrayList<>();
+
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_buscar_glosarios");
-        String llamada = paquete + "." + procedure;
+        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = "{ call " + llamada + "(?,?,?,?)}";
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
+            String typeGlosario = String.format("%s.%s", paquete, Constants.T_T_GLOSARIO).toUpperCase();
+            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
             callableStatement.setString(1, descripcionGlosario);
-            callableStatement.registerOutParameter(2, Types.ARRAY, "SM2_K_VALIDADOR_JAVA2.T_T_GLOSARIO");
+            callableStatement.registerOutParameter(2, Types.ARRAY, typeGlosario);
             callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, "SM2_K_VALIDADOR_JAVA2.T_T_ERROR");
+            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
 
             callableStatement.execute();
 
             Integer resultadoOperacion = callableStatement.getInt(3);
             log.info("[GlosarioService.buscarGlosarios] ResultadoOperacion: " + resultadoOperacion);
 
-            Array listaGlosarios = callableStatement.getArray(2);
-            if (listaGlosarios != null) {
-                Object[] rows = (Object[]) listaGlosarios.getArray();
+            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
 
-                for(Object row : rows){
-                    Object[] cols = ((oracle.sql.STRUCT)row).getAttributes();
+            if (listaErrores != null) {
+                Object[] rows = (Object[]) listaErrores.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
                     for (Object col : cols) {
                         log.info(col + " ");
                     }
                     log.info(" ");
-
                 }
-                //String[] data = (String[]) arr.getArray();
+            }
+
+            Array listaGlosarios = callableStatement.getArray(2);
+            if (listaGlosarios != null) {
+                Object[] rows = (Object[]) listaGlosarios.getArray();
+                System.out.println(Arrays.toString(rows));
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    Glosario glosario = Glosario.builder()
+                            .codigo((BigDecimal) cols[0])
+                            .descripcion((String) cols[1])
+                            .fechaAlta((Date) cols[2])
+                            .usuario((String) cols[3])
+                            .fechaModificacion((Date) cols[4])
+                            .build();
+                    glosarios.add(glosario);
+                }
             }
 
         } catch (SQLException e) {
@@ -75,25 +96,26 @@ public class GlosarioServiceImpl implements GlosarioService {
 
     @Override
     @SneakyThrows
-    public Glosario consultarGlosario(Double codigoGlosario) {
+    public Glosario consultarGlosario(BigDecimal codigoGlosario) {
         Glosario glosario = new Glosario();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_consulta_glosario");
-        String llamada = paquete + "." + procedure;
+        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?)}";
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            callableStatement.setDouble(1, codigoGlosario);
+            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            callableStatement.setBigDecimal(1, codigoGlosario);
 
             callableStatement.registerOutParameter(2, Types.VARCHAR);
             callableStatement.registerOutParameter(3, Types.DATE);
             callableStatement.registerOutParameter(4, Types.VARCHAR);
             callableStatement.registerOutParameter(5, Types.DATE);
             callableStatement.registerOutParameter(6, Types.INTEGER);
-            callableStatement.registerOutParameter(7, Types.ARRAY);
+            callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
 
             callableStatement.execute();
 
@@ -103,12 +125,19 @@ public class GlosarioServiceImpl implements GlosarioService {
             Date fechaActualizacion = callableStatement.getDate(5);
 
             Integer resultadoOperacion = callableStatement.getInt(6);
-            Array listaErrores = callableStatement.getArray(7);
+            Array listaErrores = callableStatement.getArray(7); //TODO forzar error
 
             if (listaErrores != null) {
-                String[] data = (String[]) listaErrores.getArray();
-                log.error("[GlosarioService.consultarGlosario] ListaErrores retornado por DB : " + data);
+                Object[] rows = (Object[]) listaErrores.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    for (Object col : cols) {
+                        log.info(col + " ");
+                    }
+                    log.info(" ");
+                }
             }
+
             log.info("[GlosarioService.consultarGlosario] ResultadoOperacion: " + resultadoOperacion);
 
             glosario.toBuilder()
@@ -127,32 +156,39 @@ public class GlosarioServiceImpl implements GlosarioService {
 
     @Override
     @SneakyThrows
-    public Integer altaGlosario(Double codigoGlosario, String descripcionGlosario, String codigoUsuario) {
+    public Integer altaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_alta_glosario");
-        String llamada = paquete + "." + procedure;
+        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
         Integer result = 0;
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            callableStatement.setDouble(1, codigoGlosario);
+            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+            callableStatement.setBigDecimal(1, codigoGlosario);
             callableStatement.setString(2, descripcionGlosario);
             callableStatement.setString(3, codigoUsuario);
             callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.VARCHAR);
+            callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
 
-            // run it
             callableStatement.execute();
 
             result = callableStatement.getInt(4);
-            Array listaErrores = callableStatement.getArray(5);
+            Array listaErrores = callableStatement.getArray(5); //TODO forzar error
 
             if (listaErrores != null) {
-                String[] data = (String[]) listaErrores.getArray();
-                log.error("[GlosarioService.altaGlosario] ListaErrores retornado por DB : " + data);
+                Object[] rows = (Object[]) listaErrores.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    for (Object col : cols) {
+                        log.info(col + " ");
+                    }
+                    log.info(" ");
+                }
             }
 
         } catch (SQLException e) {
@@ -163,32 +199,38 @@ public class GlosarioServiceImpl implements GlosarioService {
 
     @Override
     @SneakyThrows
-    public Integer modificaGlosario(Double codigoGlosario, String descripcionGlosario, String codigoUsuario) {
+    public Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_modifica_glosario");
-        String llamada = paquete + "." + procedure;
+        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
         Integer result = 0;
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            callableStatement.setDouble(1, codigoGlosario);
+            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            callableStatement.setBigDecimal(1, codigoGlosario);
             callableStatement.setString(2, descripcionGlosario);
             callableStatement.setString(3, codigoUsuario);
             callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.VARCHAR);
+            callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
 
-            // run it
             callableStatement.execute();
 
             result = callableStatement.getInt(4);
-            Array listaErrores = callableStatement.getArray(5);
+            Array listaErrores = callableStatement.getArray(5); //TODO forzar error
 
             if (listaErrores != null) {
-                String[] data = (String[]) listaErrores.getArray();
-                log.error("[GlosarioService.modificaGlosario] ListaErrores retornado por DB : " + data);
+                Object[] rows = (Object[]) listaErrores.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    for (Object col : cols) {
+                        log.info(col + " ");
+                    }
+                    log.info(" ");
+                }
             }
 
         } catch (SQLException e) {

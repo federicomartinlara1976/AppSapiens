@@ -15,6 +15,9 @@ public class Constants {
 	/**
 	 * Bean names
 	 */
+
+	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
+	public static final String T_T_ERROR = "T_T_ERROR";
 	
 	
 	 // CONSTANTES DE UI
