@@ -7,10 +7,8 @@ import com.mdval.utils.DateFormatter;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,38 +42,32 @@ public class GlosarioServiceImpl implements GlosarioService {
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-
-
             callableStatement.setString(1, descripcionGlosario);
-            callableStatement.registerOutParameter(2, Types.ARRAY, "T_T_GLOSARIO");
+            callableStatement.registerOutParameter(2, Types.ARRAY, "SM2_K_VALIDADOR_JAVA2.T_T_GLOSARIO");
             callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, "T_T_ERROR");
+            callableStatement.registerOutParameter(4, Types.ARRAY, "SM2_K_VALIDADOR_JAVA2.T_T_ERROR");
 
             callableStatement.execute();
 
             Integer resultadoOperacion = callableStatement.getInt(3);
-            Array listaErrores = callableStatement.getArray(4);
-
-            if (listaErrores != null) {
-                String[] data = (String[]) listaErrores.getArray();
-                log.error("[GlosarioService.buscarGlosarios] ListaErrores retornado por DB: " + data);
-            }
             log.info("[GlosarioService.buscarGlosarios] ResultadoOperacion: " + resultadoOperacion);
 
             Array listaGlosarios = callableStatement.getArray(2);
             if (listaGlosarios != null) {
-                ResultSet glosarioRs = listaGlosarios.getResultSet();
-                while (glosarioRs.next()) {
-                    glosarios.add(new Glosario(Double.parseDouble(glosarioRs.getString("cod_glosario")),
-                            glosarioRs.getString("des_glosario"),
-                            glosarioRs.getString("cod_usr"),
-                            dateFormatter.stringToDate(glosarioRs.getString("fec_alta")),
-                            dateFormatter.stringToDate(glosarioRs.getString("fec_actu"))));
+                Object[] rows = (Object[]) listaGlosarios.getArray();
+
+                for(Object row : rows){
+                    Object[] cols = ((oracle.sql.STRUCT)row).getAttributes();
+                    for (Object col : cols) {
+                        log.info(col + " ");
+                    }
+                    log.info(" ");
+
                 }
                 //String[] data = (String[]) arr.getArray();
             }
 
-        } catch (SQLException | ParseException e) {
+        } catch (SQLException e) {
             log.error("[GlosarioService.buscarGlosarios] Error:  " + e.getMessage());
         }
         return glosarios;
