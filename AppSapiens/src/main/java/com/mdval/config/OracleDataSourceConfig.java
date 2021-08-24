@@ -1,17 +1,14 @@
 package com.mdval.config;
 
+import com.mdval.utils.ConfigurationSingleton;
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javax.sql.DataSource;
-
-import org.springframework.context.annotation.Configuration;
-
-import com.mdval.utils.ConfigurationSingleton;
-
 import lombok.extern.log4j.Log4j;
 import oracle.ucp.jdbc.PoolDataSource;
 import oracle.ucp.jdbc.PoolDataSourceFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author hcarreno
@@ -25,7 +22,7 @@ public class OracleDataSourceConfig {
      *
      * @return the pool data source connection
      */
-    //@Bean
+    @Bean
     public DataSource dataSource() {
 
         PoolDataSource poolDataSource = null;

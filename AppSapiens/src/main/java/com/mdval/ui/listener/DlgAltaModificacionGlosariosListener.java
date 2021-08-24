@@ -1,17 +1,12 @@
 package com.mdval.ui.listener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
@@ -20,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
-	
+
 	@Setter
 	private Boolean isEditing = Boolean.FALSE;
 
@@ -47,13 +42,16 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	private void eventBtnAlta() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
 		String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
-		String resultado = StringUtils.EMPTY;
-		
+		String codigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
+		String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
+		Integer resultado = 0;
+
 		if (isEditing) {
-			resultado = glosarioService.modificaGlosario(descripcion);
+			System.out.println("Editando");
+			resultado = glosarioService.modificaGlosario(Double.parseDouble(codigo), descripcion, usuario);
 		}
-		
-		resultado = glosarioService.altaGlosario(descripcion);
+		System.out.println("no editando");
+		resultado = glosarioService.altaGlosario(Double.parseDouble(codigo), descripcion, usuario);
 		log.debug(resultado);
 	}
 

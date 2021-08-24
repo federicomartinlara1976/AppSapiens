@@ -10,8 +10,8 @@ import com.mdval.bussiness.entities.Glosario;
 public interface GlosarioService {
 
     List<Glosario> buscarGlosarios(String descripcionGlosario);
-    Glosario consultarGlosario(String codigoGlosario);
-    String altaGlosario(String descripcionGlosario);
-    String modificaGlosario(String descripcionGlosario);
+    Glosario consultarGlosario(Double codigoGlosario);
+    Integer altaGlosario(Double codigoGlosario, String descripcionGlosario, String usuario);
+    Integer modificaGlosario(Double codigoGlosario, String descripcionGlosario, String usuario);
 
 }

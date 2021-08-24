@@ -1,5 +1,11 @@
 package com.mdval.ui.listener;
 
+import com.mdval.bussiness.entities.Glosario;
+import com.mdval.bussiness.service.GlosarioService;
+import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
+import com.mdval.ui.model.DefinicionGlosariosTableModel;
+import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.utils.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -7,14 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.JButton;
-
-import com.mdval.bussiness.entities.Glosario;
-import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
-import com.mdval.ui.model.DefinicionGlosariosTableModel;
-import com.mdval.ui.utils.ListenerSupport;
-import com.mdval.utils.Constants;
+import javax.swing.*;
 
 public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
 
@@ -98,13 +97,17 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	 * @return
 	 */
 	private List<Glosario> buscar(String termino) {
-		List<Glosario> glosarios = new ArrayList<>();
+		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
+		List<Glosario> mockedGlosarios = new ArrayList<>();
 
 		// Sample: Populate with 100 objects of type Glosario
-		for (int i = 0; i < 100; i++) {
+		for (double i = 0; i < 100; i++) {
 			Glosario glosario = new Glosario(i, "Glosario " + i, "usuario", new Date(), new Date());
-			glosarios.add(glosario);
+			mockedGlosarios.add(glosario);
 		}
-		return glosarios;
+		//TODO replace mockedGlosarios for glosarios
+		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
+
+		return mockedGlosarios;
 	}
 }

@@ -26,7 +26,7 @@ public class Glosario {
 
     @Id
     @Column
-    private Integer codigo;
+    private Double codigo;
 
     @Column
     private String descripcion;

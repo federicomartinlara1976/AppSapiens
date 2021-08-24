@@ -1,33 +1,22 @@
 package com.mdval.ui.glosarios;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.util.Date;
-
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
-import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionListener;
-
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
 import com.mdval.ui.listener.FrmDefinicionGlosariosTableListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.DateRenderer;
-import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.DoubleRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
-
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -205,7 +194,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	protected void initModels() {
 		tblGlosarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblGlosarios.setDefaultRenderer(Date.class, new DateRenderer());
-		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblGlosarios.setDefaultRenderer(Double.class, new DoubleRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
