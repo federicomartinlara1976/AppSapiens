@@ -22,7 +22,6 @@ import com.mdval.ui.listener.FrmDefinicionNormasTableListener;
 import com.mdval.ui.model.DefinicionNormasTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.DateRenderer;
-import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -187,16 +186,16 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
+		btnModificacion.setEnabled(Boolean.FALSE);
+	}
+
+	@Override
+	protected void initModels() {
 		tblNormas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblNormas.setDefaultRenderer(Date.class, new DateRenderer());
 		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
 		tblNormas.setModel(new DefinicionNormasTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-	}
-
-	@Override
-	protected void initModels() {
-		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 }

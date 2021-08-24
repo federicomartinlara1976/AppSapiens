@@ -22,11 +22,11 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}

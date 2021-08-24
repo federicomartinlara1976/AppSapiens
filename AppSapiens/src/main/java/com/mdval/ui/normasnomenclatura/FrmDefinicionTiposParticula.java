@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -11,14 +12,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
+import com.mdval.ui.listener.FrmDefinicionTiposParticulaTableListener;
+import com.mdval.ui.model.DefinicionGlosariosTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BooleanRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -33,6 +45,8 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 
 	private JButton btnAlta;
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnModificacion;
 	
 	private JLabel jLabel1;
@@ -40,10 +54,15 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	
 	private JScrollPane jScrollPane1;
 	
+	@Getter
 	private JTable tblTiposParticula;
 	
 	@Getter
 	private JTextField txtTipoParticula;
+	
+	@Getter
+	@Setter
+	private TipoParticula seleccionado;
 
 	/**
 	 * Creates new form DlgDefinicionNormas
@@ -81,22 +100,6 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 
 		txtTipoParticula.setPreferredSize(new Dimension(64, 27));
 
-		tblTiposParticula.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, { null, null, null, null, null } },
-				new String[] { "COD_PARTICULA", "DES_PARTICULA", "MCA_PROYECTO", "COD_USR", "FEC_ACTU" }) {
-			Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class, java.lang.Object.class };
-			boolean[] canEdit = new boolean[] { false, false, true, false, false };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
 		jScrollPane1.setViewportView(tblTiposParticula);
 
 		btnAlta.setPreferredSize(new Dimension(130, 27));
@@ -156,36 +159,45 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Definición de Tipos de Partícula");
+		setTitle(literales.getLiteral("frmDefinicionTiposParticula.titulo"));
 		
-		jLabel1.setText("Definición de Tipos de Partícula");
-		jLabel2.setText("Tipo de Partícula");
+		jLabel1.setText(literales.getLiteral("frmDefinicionTiposParticula.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionTiposParticula.tipoParticula"));
 
-		btnBuscar.setText("BUSCAR");
-		btnAlta.setText("ALTA");
-		btnModificacion.setText("MODIFICACION");
+		btnBuscar.setText(literales.getLiteral("frmDefinicionTiposParticula.buscar"));
+		btnAlta.setText(literales.getLiteral("frmDefinicionTiposParticula.alta"));
+		btnModificacion.setText(literales.getLiteral("frmDefinicionTiposParticula.modificacion"));
 	}
 
 	@Override
 	protected void initEvents() {
 		ActionListener listener = new FrmDefinicionTiposParticulaListener(this);
+		ListSelectionListener listSelectionListener = new FrmDefinicionTiposParticulaTableListener(this);
 		
-		btnAlta.setActionCommand(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
+		btnAlta.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
 		
 		btnAlta.addActionListener(listener);
 		btnModificacion.addActionListener(listener);
+		
+		ListSelectionModel rowSM = tblTiposParticula.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
+		tblTiposParticula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblTiposParticula.setDefaultRenderer(Date.class, new DateRenderer());
+		tblTiposParticula.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
+		tblTiposParticula.setDefaultRenderer(Boolean.class, new BooleanRenderer());
 		
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
+		tblTiposParticula.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }
