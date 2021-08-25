@@ -15,17 +15,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-public class ElementoNorma {
+public class ParticulaNorma {
 
     private BigDecimal codigoNorma;
     private String descripcionNorma;
     private BigDecimal codigoElemento;
     private String descripcionElemento;
+    private BigDecimal numeroParticula;
+    private String descripcionNumeroParticula;
+    private String mcaObligatoria;
+    private String mcaValidacion;
+    private BigDecimal valorTamanoMinimo;
     private BigDecimal valorTamanoMaximo;
-    private String txtFormato;
+    private String mcaValorPadre;
+    private BigDecimal numParticulaPadre;
     private String codigoUsuario;
     private Date fechaActualizacion;
-    private String txtFormatoDescripcion1;
-    private String txtFormatoDescripcion2;
-    private String txtFormatoDescripcion3;
+    private String tipoValidacion;
+    private BigDecimal codigoParticula;
+    private String descripcionParticula;
+    private String mcaProyecto;
+    private String txtFormatoParticula;
+
 }

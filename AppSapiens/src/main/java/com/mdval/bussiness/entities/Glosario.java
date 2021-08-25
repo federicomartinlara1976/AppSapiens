@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,17 +27,17 @@ public class Glosario {
 
     @Id
     @Column
-    private Double codigo;
+    private BigDecimal codigoGlosario;
 
     @Column
-    private String descripcion;
-
-    @Column
-    private String usuario;
+    private String descripcionGlosario;
 
     @Column
     private Date fechaAlta;
 
     @Column
-    private Date fechaModificacion;
+    private String codigoUsuario;
+
+    @Column
+    private Date fechaActualizacion;
 }

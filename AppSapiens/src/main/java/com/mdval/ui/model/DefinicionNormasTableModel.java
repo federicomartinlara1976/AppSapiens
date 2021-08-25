@@ -36,13 +36,13 @@ public class DefinicionNormasTableModel extends DefaultTableModel<Norma> {
 		Norma row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getCodigo();
+			return row.getCodigoNorma();
 		} else if (1 == columnIndex) {
-			return row.getDescripcion();
+			return row.getDescripcionNorma();
 		} else if (2 == columnIndex) {
-			return row.getUsuario();
+			return row.getCodigoUsuario();
 		} else if (3 == columnIndex) {
-			return row.getFecha();
+			return row.getFechaActualizacion();
 		}
 
 		return null;

@@ -263,11 +263,11 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 		if (!Objects.isNull(params)) {
 			Glosario glosario = (Glosario) params.get(Constants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO);
 			
-			txtCodigo.setText(glosario.getCodigo().toString());
-			txtDescripcion.setText(glosario.getDescripcion());
-			txtUsuario.setText(glosario.getUsuario());
+			txtCodigo.setText(glosario.getCodigoGlosario().toString());
+			txtDescripcion.setText(glosario.getDescripcionGlosario());
+			txtUsuario.setText(glosario.getCodigoUsuario());
 			txtAlta.setText(dateFormatter.dateToString(glosario.getFechaAlta()));
-			txtModificacion.setText(dateFormatter.dateToString(glosario.getFechaModificacion()));
+			txtModificacion.setText(dateFormatter.dateToString(glosario.getFechaActualizacion()));
 		}
 		else {
 			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);

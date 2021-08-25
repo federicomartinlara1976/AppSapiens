@@ -6,6 +6,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import javax.swing.*;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -46,12 +47,14 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
 		Integer resultado = 0;
 
+		BigDecimal codigoBigDecimal = new BigDecimal(codigo);
+
 		if (isEditing) {
 			System.out.println("Editando");
-			resultado = glosarioService.modificaGlosario(Double.parseDouble(codigo), descripcion, usuario);
+			resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
 		}
 		System.out.println("no editando");
-		resultado = glosarioService.altaGlosario(Double.parseDouble(codigo), descripcion, usuario);
+		resultado = glosarioService.altaGlosario(codigoBigDecimal, descripcion, usuario);
 		log.debug(resultado);
 	}
 

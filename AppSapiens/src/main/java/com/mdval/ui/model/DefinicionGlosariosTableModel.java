@@ -36,15 +36,15 @@ public class DefinicionGlosariosTableModel extends DefaultTableModel<Glosario> {
 		Glosario row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getCodigo();
+			return row.getCodigoGlosario();
 		} else if (1 == columnIndex) {
-			return row.getDescripcion();
+			return row.getDescripcionGlosario();
 		} else if (2 == columnIndex) {
 			return row.getFechaAlta();
 		} else if (3 == columnIndex) {
-			return row.getUsuario();
+			return row.getCodigoUsuario();
 		} else if (4 == columnIndex) {
-			return row.getFechaModificacion();
+			return row.getFechaActualizacion();
 		}
 
 		return null;

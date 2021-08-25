@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -17,14 +18,14 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class CampoGlosario {
 
-    private Integer nombreColumna;
+    private String nombreColumna;
     private String tipoDato;
-    private Integer numeroLongitud;
-    private Integer numeroDecimal;
-    private Integer codigoGlosario;
-    private Boolean esExcepcion;
-    private String comentario;
-    private String comentarioExcepcion;
+    private BigDecimal numeroLongitud;
+    private BigDecimal numeroDecimal;
+    private BigDecimal codigoGlosario;
+    private String mcaExcepcion;
+    private String txtComentario;
+    private String txtExcepcion;
     private String codigoUsuario;
     private Date fechaActualizacion;
 }
