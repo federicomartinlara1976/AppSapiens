@@ -1,6 +1,7 @@
 package com.mdval.ui.model.cabeceras;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mdval.utils.LiteralesSingleton;
@@ -13,6 +14,9 @@ public abstract class Cabecera {
 	
 	protected LiteralesSingleton literales;
 	
+	protected List<String> columnIdentifiers;
+	protected List<Class<?>> columnClasses;
+	
 	public Cabecera() {
 		super();
 		
@@ -23,6 +27,9 @@ public abstract class Cabecera {
 		try {
 			literales = LiteralesSingleton.getInstance();
 			
+			columnIdentifiers = new ArrayList<>();
+			columnClasses = new ArrayList<>();
+			
 			setupCabecera();
 		} catch (IOException e) {
 			LogWrapper.error(log,  "ERROR:", e);
@@ -31,7 +38,11 @@ public abstract class Cabecera {
 	
 	public abstract void setupCabecera();
 
-	public abstract List<String> getColumnIdentifiers();
+	public List<String> getColumnIdentifiers() {
+		return columnIdentifiers;
+	}
 	
-	public abstract List<Class<?>> getColumnClasses();
+	public List<Class<?>> getColumnClasses() {
+		return columnClasses;
+	}
 }

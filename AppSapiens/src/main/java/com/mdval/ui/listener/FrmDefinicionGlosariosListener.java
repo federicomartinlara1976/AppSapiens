@@ -67,6 +67,18 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * Busca glosarios por descripcion glosario
+	 * 
+	 * @param termino descripcion glosario a buscar
+	 * @return lista de glosarios que cumple con el termino buscado
+	 */
+	private List<Glosario> buscar(String termino) {
+		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
+		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
+		return glosarios;
+	}
 
 	/**
 	 * Vuelca la lista de glosarios encontrados en la tabla
@@ -82,17 +94,5 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
 		// deshabilitar el botón de selección para la próxima.
 		frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.FALSE);
-	}
-
-	/**
-	 * Busca glosarios por descripcion glosario
-	 * 
-	 * @param termino descripcion glosario a buscar
-	 * @return lista de glosarios que cumple con el termino buscado
-	 */
-	private List<Glosario> buscar(String termino) {
-		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
-		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
-		return glosarios;
 	}
 }
