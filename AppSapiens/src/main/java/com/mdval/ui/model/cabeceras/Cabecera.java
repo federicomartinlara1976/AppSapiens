@@ -9,6 +9,10 @@ import com.mdval.utils.LogWrapper;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * @author federico
+ *
+ */
 @Log4j
 public abstract class Cabecera {
 	
@@ -17,12 +21,18 @@ public abstract class Cabecera {
 	protected List<String> columnIdentifiers;
 	protected List<Class<?>> columnClasses;
 	
+	/**
+	 * 
+	 */
 	public Cabecera() {
 		super();
 		
 		initialize();
 	}
 	
+	/**
+	 * 
+	 */
 	private void initialize() {
 		try {
 			literales = LiteralesSingleton.getInstance();
@@ -36,12 +46,21 @@ public abstract class Cabecera {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public abstract void setupCabecera();
 
+	/**
+	 * @return
+	 */
 	public List<String> getColumnIdentifiers() {
 		return columnIdentifiers;
 	}
 	
+	/**
+	 * @return
+	 */
 	public List<Class<?>> getColumnClasses() {
 		return columnClasses;
 	}
