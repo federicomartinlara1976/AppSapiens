@@ -151,13 +151,13 @@ public class FrmDefinicionElementosNormaElemento extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Definición de Elementos por Norma / Elemento");
+		setTitle(literales.getLiteral("frmDefinicionElementosNormaElemento.titulo"));
 		
-		jLabel1.setText("Definición de Elementos por Norma / Elemento");
-		jLabel2.setText("Norma");
-		jLabel3.setText("Elemento:");
+		jLabel1.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.norma"));
+		jLabel3.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.elemento"));
 
-		btnBuscar.setText("BUSCAR");
+		btnBuscar.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.buscar"));
 	}
 
 	@Override
