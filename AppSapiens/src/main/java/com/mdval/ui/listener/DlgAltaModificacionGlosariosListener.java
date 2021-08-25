@@ -50,6 +50,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		String msg = StringUtils.EMPTY;
 		Integer resultado = 0;
 
+		// Se van a guardar las modificaciones de un registro existente
 		if (dlgAltaModificacionGlosarios.getEditar()) {
 			BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
 			resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
