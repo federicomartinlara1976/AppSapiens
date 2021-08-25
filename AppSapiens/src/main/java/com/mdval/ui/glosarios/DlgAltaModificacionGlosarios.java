@@ -62,13 +62,25 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
    
     @Getter
     private JFrame frameParent;
+    
+    @Getter
+    private Boolean editar;
 
     
+    /**
+     * @param parent
+     * @param modal
+     */
     public DlgAltaModificacionGlosarios(JFrame parent, boolean modal) {
         super(parent, modal);
         this.frameParent = parent;
     }
     
+    /**
+     * @param parent
+     * @param modal
+     * @param params
+     */
     public DlgAltaModificacionGlosarios(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
         this.frameParent = parent;
@@ -260,6 +272,7 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
 			Glosario glosario = (Glosario) params.get(Constants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO);
 			
@@ -268,10 +281,14 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 			txtUsuario.setText(glosario.getCodigoUsuario());
 			txtAlta.setText(dateFormatter.dateToString(glosario.getFechaAlta()));
 			txtModificacion.setText(dateFormatter.dateToString(glosario.getFechaActualizacion()));
+			
+			editar = Boolean.TRUE;
 		}
 		else {
 			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 			txtUsuario.setText(cod_usr);
+			
+			editar = Boolean.FALSE;
 		}
 		
 		txtUsuario.setEnabled(Boolean.FALSE);
@@ -281,8 +298,5 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 }

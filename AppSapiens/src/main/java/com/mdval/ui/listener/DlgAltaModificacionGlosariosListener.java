@@ -4,10 +4,15 @@ import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import javax.swing.*;
+
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
@@ -16,9 +21,6 @@ import lombok.extern.log4j.Log4j;
 public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
-
-	@Setter
-	private Boolean isEditing = Boolean.FALSE;
 
 	public DlgAltaModificacionGlosariosListener(DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios) {
 		super();
@@ -31,7 +33,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
-			eventBtnAlta();
+			eventBtnAltaModificacion();
 		}
 
 		if (Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
@@ -40,22 +42,26 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	}
 
 	@SneakyThrows
-	private void eventBtnAlta() {
+	private void eventBtnAltaModificacion() {
 		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
 		String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
-		String codigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
+		String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
 		String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
+		String msg = StringUtils.EMPTY;
 		Integer resultado = 0;
 
-		BigDecimal codigoBigDecimal = new BigDecimal(codigo);
-
-		if (isEditing) {
-			System.out.println("Editando");
+		if (dlgAltaModificacionGlosarios.getEditar()) {
+			BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
 			resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
+			msg = (resultado == 0) ? "Registro guardado correctamente" : "Ocurrió un error al guardar el registro";
+		} else {
+			resultado = glosarioService.altaGlosario(null, descripcion, usuario);
+			msg = (resultado == 0) ? "Registro creado correctamente" : "Ocurrió un error al crear el registro";
 		}
-		System.out.println("no editando");
-		resultado = glosarioService.altaGlosario(codigoBigDecimal, descripcion, usuario);
-		log.debug(resultado);
+
+		LogWrapper.debug(log, msg);
+		JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), msg);
+		dlgAltaModificacionGlosarios.dispose();
 	}
 
 }
