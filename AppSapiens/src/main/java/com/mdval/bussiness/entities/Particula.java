@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -17,10 +18,11 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class Particula {
 
-    private Integer codigo;
-    private String valorParticula;
-    private String descripcionValorParticula;
-    private String valorParticulaPadre;
+    private BigDecimal codigoParticula;
+    private String descripcionParticula;
     private String codigoUsuario;
     private Date fechaActualizacion;
+    private String mcaProyecto;
+    private String mcaSubProyecto;
+
 }

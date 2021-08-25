@@ -27,17 +27,17 @@ public class Glosario {
 
     @Id
     @Column
-    private BigDecimal codigo;
+    private BigDecimal codigoGlosario;
 
     @Column
-    private String descripcion;
-
-    @Column
-    private String usuario;
+    private String descripcionGlosario;
 
     @Column
     private Date fechaAlta;
 
     @Column
-    private Date fechaModificacion;
+    private String codigoUsuario;
+
+    @Column
+    private Date fechaActualizacion;
 }

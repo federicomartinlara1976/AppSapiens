@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
@@ -73,16 +72,15 @@ public class GlosarioServiceImpl implements GlosarioService {
             Array listaGlosarios = callableStatement.getArray(2);
             if (listaGlosarios != null) {
                 Object[] rows = (Object[]) listaGlosarios.getArray();
-                System.out.println(Arrays.toString(rows));
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
                     Glosario glosario = Glosario.builder()
-                            .codigo((BigDecimal) cols[0])
-                            .descripcion((String) cols[1])
+                            .codigoGlosario((BigDecimal) cols[0])
+                            .descripcionGlosario((String) cols[1])
                             .fechaAlta((Date) cols[2])
-                            .usuario((String) cols[3])
-                            .fechaModificacion((Date) cols[4])
+                            .codigoUsuario((String) cols[3])
+                            .fechaActualizacion((Date) cols[4])
                             .build();
                     glosarios.add(glosario);
                 }
@@ -141,11 +139,11 @@ public class GlosarioServiceImpl implements GlosarioService {
             log.info("[GlosarioService.consultarGlosario] ResultadoOperacion: " + resultadoOperacion);
 
             glosario.toBuilder()
-                    .codigo(codigoGlosario)
-                    .descripcion(descripcion)
-                    .usuario(usuario)
+                    .codigoGlosario(codigoGlosario)
+                    .descripcionGlosario(descripcion)
+                    .codigoUsuario(usuario)
                     .fechaAlta(fechaAlta)
-                    .fechaModificacion(fechaActualizacion)
+                    .fechaActualizacion(fechaActualizacion)
                     .build();
 
         } catch (SQLException e) {
