@@ -77,12 +77,8 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		// Obtiene el modelo y lo actualiza
 		DefinicionGlosariosTableModel tableModel = (DefinicionGlosariosTableModel) frmDefinicionGlosarios
 				.getTblGlosarios().getModel();
-		tableModel.setGlosarios(glosarios);
-
-		// Para que los cambios sean efectivos debe lanzar la notificación. La selección
-		// que hubiera se perderá
-		tableModel.fireTableDataChanged();
-
+		tableModel.setData(glosarios);
+		
 		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
 		// deshabilitar el botón de selección para la próxima.
 		frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.FALSE);

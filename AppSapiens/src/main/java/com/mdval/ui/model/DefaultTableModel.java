@@ -35,11 +35,12 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 		this.columnClasses = columnClasses;
 	}
 	
-	public void setGlosarios(List<T> newData) {
+	public void setData(List<T> newData) {
 		if (!CollectionUtils.isEmpty(this.data)) {
 			this.data.clear();
 		}
 		this.data.addAll(newData);
+		this.fireTableDataChanged();
 	}
 
 	@Override
