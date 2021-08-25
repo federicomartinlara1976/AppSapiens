@@ -155,14 +155,14 @@ public class FrmDefinicionElementos extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Definición de Elementos");
+		setTitle(literales.getLiteral("frmDefinicionElementos.titulo"));
 		
-		jLabel1.setText("Definición de Elementos");
-		jLabel2.setText("Elemento:");
+		jLabel1.setText(literales.getLiteral("frmDefinicionElementos.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionElementos.elemento"));
 
-		btnBuscar.setText("BUSCAR");
-		btnAlta.setText("ALTA");
-		btnModificacion.setText("MODIFICACIÓN");
+		btnBuscar.setText(literales.getLiteral("frmDefinicionElementos.buscar"));
+		btnAlta.setText(literales.getLiteral("frmDefinicionElementos.alta"));
+		btnModificacion.setText(literales.getLiteral("frmDefinicionElementos.modificacion"));
 	}
 
 	@Override
