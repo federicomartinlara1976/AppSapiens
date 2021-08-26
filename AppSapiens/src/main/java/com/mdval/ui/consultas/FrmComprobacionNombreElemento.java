@@ -307,20 +307,20 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Comprobación del Nombre de un Elemento");
+		setTitle(literales.getLiteral("frmComprobacionNombreElemento.titulo"));
 
-		jLabel1.setText("Comprobación del Nombre de un Elemento");
-		jLabel2.setText("Modelo o Proyecto:");
-		jLabel3.setText("Nombre a Comprobar:");
-		jLabel4.setText("Norma:");
-		jLabel5.setText("Resultado de la Comprobación:");
-		jLabel6.setText("Submodelo");
-		jLabel7.setText("Elemento:");
-		jLabel8.setText("Glosario:");
-		jLabel9.setText("Tamaño Máximo:");
-		jLabel10.setText("Expresión Regular:");
+		jLabel1.setText(literales.getLiteral("frmComprobacionNombreElemento.titulo"));
+		jLabel2.setText(literales.getLiteral("frmComprobacionNombreElemento.modeloProyecto"));
+		jLabel3.setText(literales.getLiteral("frmComprobacionNombreElemento.nombreComprobar"));
+		jLabel4.setText(literales.getLiteral("frmComprobacionNombreElemento.norma"));
+		jLabel5.setText(literales.getLiteral("frmComprobacionNombreElemento.resultadoComprobacion"));
+		jLabel6.setText(literales.getLiteral("frmComprobacionNombreElemento.submodelo"));
+		jLabel7.setText(literales.getLiteral("frmComprobacionNombreElemento.elemento"));
+		jLabel8.setText(literales.getLiteral("frmComprobacionNombreElemento.glosario"));
+		jLabel9.setText(literales.getLiteral("frmComprobacionNombreElemento.tamMaximo"));
+		jLabel10.setText(literales.getLiteral("frmComprobacionNombreElemento.expresionRegular"));
 
-		btnComprobar.setText("COMPROBAR");
+		btnComprobar.setText(literales.getLiteral("frmComprobacionNombreElemento.comprobar"));
 	}
 
 	@Override
