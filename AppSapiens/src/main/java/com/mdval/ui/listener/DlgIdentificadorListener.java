@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,19 +31,22 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 			eventBtnAceptar();
 		}
 	}
-	
+
 	private void eventBtnAceptar() {
 		String txtCodUsr = dlgIdentificador.getTxtIdentificador().getText();
-		
+
 		if (StringUtils.isNotBlank(txtCodUsr)) {
 			AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, txtCodUsr);
+
+			dlgIdentificador.setIsTerminate(Boolean.FALSE);
+			dlgIdentificador.dispose();
+
+			UIHelper.showMaximized(dlgIdentificador.getFrameParent());
+			dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
+		} else {
+			JOptionPane.showMessageDialog(dlgIdentificador.getFrameParent(),
+					literales.getLiteral("dlgIdentificador.mensaje"));
 		}
-		
-		dlgIdentificador.setIsTerminate(Boolean.FALSE);
-		dlgIdentificador.dispose();
-		
-		UIHelper.showMaximized(dlgIdentificador.getFrameParent());
-		dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
 	}
 
 }

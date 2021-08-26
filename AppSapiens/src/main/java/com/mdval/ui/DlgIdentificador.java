@@ -127,14 +127,8 @@ public class DlgIdentificador extends DialogSupport {
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 
 	@Override
-	protected void initialState() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialState() {}
 }

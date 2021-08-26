@@ -1,17 +1,32 @@
 package com.mdval.ui.utils;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdval.utils.AppHelper;
+import com.mdval.utils.LiteralesSingleton;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author federico
  *
  */
+@Log4j
 public abstract class ListenerSupport {
+	
+	protected LiteralesSingleton literales;
+	
+	public ListenerSupport() {
+		try {
+			literales = LiteralesSingleton.getInstance();
+		} catch (IOException e) {
+			log.warn("ERROR:", e);
+		}
+	}
 	
 	/**
 	 * @param nameService
