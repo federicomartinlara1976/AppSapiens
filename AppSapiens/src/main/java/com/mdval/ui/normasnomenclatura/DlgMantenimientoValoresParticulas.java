@@ -305,19 +305,19 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Asignación de Valores a los Tipos de Partícula");
+		setTitle(literales.getLiteral("dlgMantenimientoValoresParticulas.titulo"));
 		
-		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
-		jLabel2.setText("Código:");
-		jLabel3.setText("Descripción");
-		jLabel4.setText("Descripción");
-		jLabel5.setText("Proyecto");
-		jLabel6.setText("Valor");
-		jLabel7.setText("Subproyecto");
-		jLabel8.setText("Part.  Padre");
+		jLabel1.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.titulo"));
+		jLabel2.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.codigo"));
+		jLabel3.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.descripcion"));
+		jLabel4.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.descripcion"));
+		jLabel5.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.proyecto"));
+		jLabel6.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.valor"));
+		jLabel7.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.subproyecto"));
+		jLabel8.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.partPadre"));
 		
-		btnAceptar.setText("ACEPTAR");
-		btnCancelar.setText("CANCELAR");
+		btnAceptar.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.aceptar"));
+		btnCancelar.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.cancelar"));
 	}
 
 	@Override
