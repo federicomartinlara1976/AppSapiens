@@ -231,18 +231,18 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Alta/Modificación de Tipos de Partícula");
+		setTitle(literales.getLiteral("dlgAltaModificacionTiposParticula.titulo"));
 		
-		jLabel1.setText("Alta/Modificación de Tipos de Partícula");
-		jLabel2.setText("Código:");
-		jLabel3.setText("Descripción:");
-		jLabel4.setText("Usuario:");
-		jLabel5.setText("Fecha:");
-		jLabel6.setText("Distingue por Proyecto:");
-		jLabel7.setText("Distingue por Subroyecto:");
+		jLabel1.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.titulo"));
+		jLabel2.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.codigo"));
+		jLabel3.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.descripcion"));
+		jLabel4.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.usuario"));
+		jLabel5.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.fecha"));
+		jLabel6.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.distingueProyecto"));
+		jLabel7.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.distingueSubproyecto"));
 		
-		btnAceptar.setText("ACEPTAR");
-		btnCancelar.setText("CANCELAR");
+		btnAceptar.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.aceptar"));
+		btnCancelar.setText(literales.getLiteral("dlgAltaModificacionTiposParticula.cancelar"));
 	}
 	
 	@Override
