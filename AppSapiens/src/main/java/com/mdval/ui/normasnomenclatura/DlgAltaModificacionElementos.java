@@ -206,16 +206,16 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Alta/Modificación de Elementos");
+		setTitle(literales.getLiteral("dlgAltaModificacionElementos.titulo"));
 		
-		jLabel1.setText("Alta/Modificación de Elementos");
-		jLabel2.setText("Código:");
-		jLabel3.setText("Descripción:");
-		jLabel4.setText("Usuario:");
-		jLabel5.setText("Fecha:");
+		jLabel1.setText(literales.getLiteral("dlgAltaModificacionElementos.titulo"));
+		jLabel2.setText(literales.getLiteral("dlgAltaModificacionElementos.codigo"));
+		jLabel3.setText(literales.getLiteral("dlgAltaModificacionElementos.descripcion"));
+		jLabel4.setText(literales.getLiteral("dlgAltaModificacionElementos.usuario"));
+		jLabel5.setText(literales.getLiteral("dlgAltaModificacionElementos.fecha"));
 		
-		btnAceptar.setText("ACEPTAR");
-		btnCancelar.setText("CANCELAR");
+		btnAceptar.setText(literales.getLiteral("dlgAltaModificacionElementos.aceptar"));
+		btnCancelar.setText(literales.getLiteral("dlgAltaModificacionElementos.cancelar"));
 	}
 
 	@Override
