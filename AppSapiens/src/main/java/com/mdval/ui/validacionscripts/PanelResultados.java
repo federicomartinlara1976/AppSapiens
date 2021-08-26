@@ -95,14 +95,14 @@ public class PanelResultados extends PanelSupport {
 	 */
 	@Override
 	protected void setupLiterals() {
-		btnMarcarExcepcion.setText("Marcar como Excepción");
-		btnMarcarExcepcion.setToolTipText("Marcar como Excepción");
-		btnAddGlosario.setText("Añadir a Glosario");
-		btnAddGlosario.setToolTipText("Añadir a Glosario");
-		btnAddTodosGlosario.setText("Añadir Todos a Glosario");
-		btnAddTodosGlosario.setToolTipText("Añadir Todos a Glosario");
-		btnGenerarLog.setText("Generar log para Incidencia");
-		btnGenerarLog.setToolTipText("Generar log para Incidencia");
+		btnMarcarExcepcion.setText(literales.getLiteral("panelResultados.marcarExcepcion"));
+		btnMarcarExcepcion.setToolTipText(literales.getLiteral("panelResultados.marcarExcepcion"));
+		btnAddGlosario.setText(literales.getLiteral("panelResultados.addGlosario"));
+		btnAddGlosario.setToolTipText(literales.getLiteral("panelResultados.addGlosario"));
+		btnAddTodosGlosario.setText(literales.getLiteral("panelResultados.addTodos"));
+		btnAddTodosGlosario.setToolTipText(literales.getLiteral("panelResultados.addTodos"));
+		btnGenerarLog.setText(literales.getLiteral("panelResultados.generarLogIncidencia"));
+		btnGenerarLog.setToolTipText(literales.getLiteral("panelResultados.generarLogIncidencia"));
 	}
 
 	/**

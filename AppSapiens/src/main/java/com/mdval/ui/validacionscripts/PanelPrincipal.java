@@ -402,10 +402,10 @@ public class PanelPrincipal extends PanelSupport {
         PanelResultados panelConErrores = new PanelResultados();
         PanelResultados panelExcepciones = new PanelResultados();
 
-        jTabbedPane1.addTab("Elementos a Validar", panelElementosValidar);
-        jTabbedPane1.addTab("Elementos Correctos", panelElementosCorrectos);
-        jTabbedPane1.addTab("Elementos que No Están en Glosario", panelNoEstanEnGlosario);
-        jTabbedPane1.addTab("Elementos con Errores", panelConErrores);
-        jTabbedPane1.addTab("Excepciones", panelExcepciones);
+        jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosValidar"), panelElementosValidar);
+        jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosCorrectos"), panelElementosCorrectos);
+        jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosNoEstanGlosario"), panelNoEstanEnGlosario);
+        jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosErrores"), panelConErrores);
+        jTabbedPane1.addTab(literales.getLiteral("panelResultados.excepciones"), panelExcepciones);
 	}
 }
