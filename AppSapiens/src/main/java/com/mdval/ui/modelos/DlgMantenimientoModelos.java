@@ -562,34 +562,34 @@ public class DlgMantenimientoModelos extends DialogSupport {
     
     @Override
 	protected void setupLiterals() {
-    	setTitle("Definición de Modelos");
+    	setTitle(literales.getLiteral("dlgMantenimientoModelos.titulo"));
     	
-    	jLabel1.setText("Definición de Modelos");
-    	jLabel2.setText("Cod. Modelo");
-    	jLabel3.setText("Nombre Modelo");
-    	jLabel4.setText("Glosario");
-        jLabel5.setText("Esquema");
-    	jLabel6.setText("Norma");
-    	jLabel7.setText("Código");
-    	jLabel8.setText("Base de Datos");
-        jLabel9.setText("Carpeta");
-        jLabel10.setText("Grupo");
-        jLabel11.setText("Herramienta");
-        jLabel12.setText("Usuario");
-        jLabel13.setText("Fecha");
-        jLabel14.setText("Grant ALL");
-        jLabel15.setText("Grant Public");
-        jLabel16.setText("Genera Variables");
-        jLabel17.setText("Observaciones");
-    	jLabel18.setText("Descripción");
-    	jLabel19.setText("Submodelos");
-    	jLabel20.setText("Aplicación");
-    	jLabel21.setText("Variables con capa");
+    	jLabel1.setText(literales.getLiteral("dlgMantenimientoModelos.titulo"));
+    	jLabel2.setText(literales.getLiteral("dlgMantenimientoModelos.codModelo"));
+    	jLabel3.setText(literales.getLiteral("dlgMantenimientoModelos.nombreModelo"));
+    	jLabel4.setText(literales.getLiteral("dlgMantenimientoModelos.glosario"));
+        jLabel5.setText(literales.getLiteral("dlgMantenimientoModelos.esquema"));
+    	jLabel6.setText(literales.getLiteral("dlgMantenimientoModelos.norma"));
+    	jLabel7.setText(literales.getLiteral("dlgMantenimientoModelos.codigo"));
+    	jLabel8.setText(literales.getLiteral("dlgMantenimientoModelos.baseDatos"));
+        jLabel9.setText(literales.getLiteral("dlgMantenimientoModelos.carpeta"));
+        jLabel10.setText(literales.getLiteral("dlgMantenimientoModelos.grupo"));
+        jLabel11.setText(literales.getLiteral("dlgMantenimientoModelos.herramienta"));
+        jLabel12.setText(literales.getLiteral("dlgMantenimientoModelos.usuario"));
+        jLabel13.setText(literales.getLiteral("dlgMantenimientoModelos.fecha"));
+        jLabel14.setText(literales.getLiteral("dlgMantenimientoModelos.grantAll"));
+        jLabel15.setText(literales.getLiteral("dlgMantenimientoModelos.grantPublic"));
+        jLabel16.setText(literales.getLiteral("dlgMantenimientoModelos.generaVariables"));
+        jLabel17.setText(literales.getLiteral("dlgMantenimientoModelos.observaciones"));
+    	jLabel18.setText(literales.getLiteral("dlgMantenimientoModelos.descripcion"));
+    	jLabel19.setText(literales.getLiteral("dlgMantenimientoModelos.submodelos"));
+    	jLabel20.setText(literales.getLiteral("dlgMantenimientoModelos.aplicacion"));
+    	jLabel21.setText(literales.getLiteral("dlgMantenimientoModelos.variablesCapa"));
     	
-    	btnAddSubmodelo.setText("+");
-        btnRemoveSubmodelo.setText("-");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+    	btnAddSubmodelo.setText(literales.getLiteral("dlgMantenimientoModelos.mas"));
+        btnRemoveSubmodelo.setText(literales.getLiteral("dlgMantenimientoModelos.menos"));
+        btnAceptar.setText(literales.getLiteral("dlgMantenimientoModelos.aceptar"));
+        btnCancelar.setText(literales.getLiteral("dlgMantenimientoModelos.cancelar"));
 	}
 
 	@Override
