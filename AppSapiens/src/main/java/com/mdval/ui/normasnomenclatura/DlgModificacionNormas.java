@@ -271,21 +271,21 @@ public class DlgModificacionNormas extends DialogSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Alta/Modificación de Norma Completa");
+		setTitle(literales.getLiteral("dlgModificacionNormas.titulo"));
 		
-		jLabel1.setText("Alta/Modificación de Norma Completa");
-        jLabel2.setText("Código");
-        jLabel3.setText("Descripción");
-        jLabel4.setText("Elementos:");
-        jLabel5.setText("Partículas:");
-        jLabel6.setText("Usuario:");
-        jLabel7.setText("Fecha:");
+		jLabel1.setText(literales.getLiteral("dlgModificacionNormas.titulo"));
+        jLabel2.setText(literales.getLiteral("dlgModificacionNormas.codigo"));
+        jLabel3.setText(literales.getLiteral("dlgModificacionNormas.descripcion"));
+        jLabel4.setText(literales.getLiteral("dlgModificacionNormas.elementos"));
+        jLabel5.setText(literales.getLiteral("dlgModificacionNormas.particulas"));
+        jLabel6.setText(literales.getLiteral("dlgModificacionNormas.usuario"));
+        jLabel7.setText(literales.getLiteral("dlgModificacionNormas.fecha"));
 
-        btnAltaElemento.setText("ALTA");
-        btnBajaElemento.setText("BAJA");
-        btnModificacionElemento.setText("MODIFICACION");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+        btnAltaElemento.setText(literales.getLiteral("dlgModificacionNormas.alta"));
+        btnBajaElemento.setText(literales.getLiteral("dlgModificacionNormas.baja"));
+        btnModificacionElemento.setText(literales.getLiteral("dlgModificacionNormas.modificacion"));
+        btnAceptar.setText(literales.getLiteral("dlgModificacionNormas.aceptar"));
+        btnCancelar.setText(literales.getLiteral("dlgModificacionNormas.cancelar"));
 	}
 
 	@Override
