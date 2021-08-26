@@ -342,20 +342,20 @@ public class PanelPrincipal extends PanelSupport {
      *
      */
     protected void setupLiterals() {
-    	jLabel1.setText("Validador de scripts");
-    	jLabel2.setText("Submodelo");
-    	jLabel3.setText("IM");
-        jLabel4.setText("SD");
-        jLabel5.setText("Archivo con el Script");
-        jLabel6.setText("Script");
-        jLabel7.setText("Resultado Validación");
-        jLabel11.setText("Modelo o Proyecto");
-    	jLabel12.setText("Glosario");
-    	jLabel13.setText("Norma");
+    	jLabel1.setText(literales.getLiteral("panelPrincipal.titulo"));
+    	jLabel2.setText(literales.getLiteral("panelPrincipal.submodelo"));
+    	jLabel3.setText(literales.getLiteral("panelPrincipal.im"));
+        jLabel4.setText(literales.getLiteral("panelPrincipal.sd"));
+        jLabel5.setText(literales.getLiteral("panelPrincipal.archivoScript"));
+        jLabel6.setText(literales.getLiteral("panelPrincipal.script"));
+        jLabel7.setText(literales.getLiteral("panelPrincipal.resultadoValidacion"));
+        jLabel11.setText(literales.getLiteral("panelPrincipal.modeloProyecto"));
+    	jLabel12.setText(literales.getLiteral("panelPrincipal.glosario"));
+    	jLabel13.setText(literales.getLiteral("panelPrincipal.norma"));
         
-        btnValidar.setText("Validar");
-        btnLimpiarValidacion.setText("Limpiar validación");
-        btnLimpiarTodo.setText("Limpiar todo");
+        btnValidar.setText(literales.getLiteral("panelPrincipal.validar"));
+        btnLimpiarValidacion.setText(literales.getLiteral("panelPrincipal.limpiarValidacion"));
+        btnLimpiarTodo.setText(literales.getLiteral("panelPrincipal.limpiarTodo"));
 	}
     
 	/**
