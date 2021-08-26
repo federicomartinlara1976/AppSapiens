@@ -273,20 +273,20 @@ public class FrmValoresParticulas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Asignación de Valores a los Tipos de Partícula");
+		setTitle(literales.getLiteral("frmValoresParticulas.titulo"));
 		
-		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
-        jLabel2.setText("Código");
-        jLabel3.setText("Descripción");
-        jLabel4.setText("Tipos de partículas");
-        jLabel5.setText("Valores posibles de las partículas");
-        jLabel6.setText("Proyecto");
-        jLabel7.setText("Subproyecto");
+		jLabel1.setText(literales.getLiteral("frmValoresParticulas.titulo"));
+        jLabel2.setText(literales.getLiteral("frmValoresParticulas.codigo"));
+        jLabel3.setText(literales.getLiteral("frmValoresParticulas.descripcion"));
+        jLabel4.setText(literales.getLiteral("frmValoresParticulas.tiposParticulas"));
+        jLabel5.setText(literales.getLiteral("frmValoresParticulas.valoresPosibles"));
+        jLabel6.setText(literales.getLiteral("frmValoresParticulas.proyecto"));
+        jLabel7.setText(literales.getLiteral("frmValoresParticulas.subproyecto"));
         
-        btnBuscar.setText("BUSCAR");
-        btnAltaElemento.setText("ALTA");
-        btnBajaElemento.setText("BAJA");
-        btnModificacionElemento.setText("MODIFICACION");
+        btnBuscar.setText(literales.getLiteral("frmValoresParticulas.buscar"));
+        btnAltaElemento.setText(literales.getLiteral("frmValoresParticulas.alta"));
+        btnBajaElemento.setText(literales.getLiteral("frmValoresParticulas.baja"));
+        btnModificacionElemento.setText(literales.getLiteral("frmValoresParticulas.modificacion"));
 	}
 
 	@Override
