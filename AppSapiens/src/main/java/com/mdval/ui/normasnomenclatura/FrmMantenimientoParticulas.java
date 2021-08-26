@@ -255,20 +255,20 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle("Asignación de Valores a los Tipos de Partícula");
+		setTitle(literales.getLiteral("frmMantenimientoParticulas.titulo"));
 		
-		jLabel1.setText("Asignación de Valores a los Tipos de Partícula");
-        jLabel2.setText("Código");
-        jLabel3.setText("Descripción");
-        jLabel5.setText("Valores posibles de las partículas");
-        jLabel6.setText("Proyecto");
-        jLabel7.setText("Subproyecto");
+		jLabel1.setText(literales.getLiteral("frmMantenimientoParticulas.titulo"));
+        jLabel2.setText(literales.getLiteral("frmMantenimientoParticulas.codigo"));
+        jLabel3.setText(literales.getLiteral("frmMantenimientoParticulas.descripcion"));
+        jLabel5.setText(literales.getLiteral("frmMantenimientoParticulas.valoresPosibles"));
+        jLabel6.setText(literales.getLiteral("frmMantenimientoParticulas.proyecto"));
+        jLabel7.setText(literales.getLiteral("frmMantenimientoParticulas.subproyecto"));
         
-        btnAltaElemento.setText("ALTA");
-        btnBajaElemento.setText("BAJA");
-        btnModificacionElemento.setText("MODIFICACIÓN");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+        btnAltaElemento.setText(literales.getLiteral("frmMantenimientoParticulas.alta"));
+        btnBajaElemento.setText(literales.getLiteral("frmMantenimientoParticulas.baja"));
+        btnModificacionElemento.setText(literales.getLiteral("frmMantenimientoParticulas.modificacion"));
+        btnAceptar.setText(literales.getLiteral("frmMantenimientoParticulas.aceptar"));
+        btnCancelar.setText(literales.getLiteral("frmMantenimientoParticulas.cancelar"));
 	}
 
 	@Override
