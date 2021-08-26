@@ -254,21 +254,21 @@ public class FrmDefinicionModelos extends FrameSupport {
     
     @Override
 	protected void setupLiterals() {
-    	setTitle("Definición de Modelos");
+    	setTitle(literales.getLiteral("frmDefinicionModelos.titulo"));
     	
-    	jLabel1.setText("Definición de Modelos");
-        jLabel2.setText("Cod. Modelo:");
-        jLabel3.setText("Glosario:");
-        jLabel4.setText("Nombre Modelo:");
-        jLabel5.setText("Esquema:");
-        jLabel6.setText("Base de Datos:");
-        jLabel7.setText("Norma:");
+    	jLabel1.setText(literales.getLiteral("frmDefinicionModelos.titulo"));
+        jLabel2.setText(literales.getLiteral("frmDefinicionModelos.codModelo"));
+        jLabel3.setText(literales.getLiteral("frmDefinicionModelos.glosario"));
+        jLabel4.setText(literales.getLiteral("frmDefinicionModelos.nombreModelo"));
+        jLabel5.setText(literales.getLiteral("frmDefinicionModelos.esquema"));
+        jLabel6.setText(literales.getLiteral("frmDefinicionModelos.baseDatos"));
+        jLabel7.setText(literales.getLiteral("frmDefinicionModelos.norma"));
         
-        btnBuscar.setText("BUSCAR");
-        btnAlta.setText("ALTA");
-        btnBaja.setText("BAJA");
-        btnModificacion.setText("MODIFICACION");
-        btnSeleccionar.setText("SELECCIONAR");
+        btnBuscar.setText(literales.getLiteral("frmDefinicionModelos.buscar"));
+        btnAlta.setText(literales.getLiteral("frmDefinicionModelos.alta"));
+        btnBaja.setText(literales.getLiteral("frmDefinicionModelos.baja"));
+        btnModificacion.setText(literales.getLiteral("frmDefinicionModelos.modificacion"));
+        btnSeleccionar.setText(literales.getLiteral("frmDefinicionModelos.seleccionar"));
 	}
 
 	@Override
