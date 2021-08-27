@@ -1,7 +1,6 @@
 package com.mdval.bussiness.entities;
 
-import java.sql.Date;
-
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,14 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-public class ModeloGlosario {
+public class SubProyecto {
 
-    private Integer codigoProyecto;
-    private Integer numeroEsquema;
-    private Integer numeroModelo;
-    private String descripcionNorma;
-    private String descripcionGlosario;
-    private String nombreBbdd;
-    private String usuario;
+    private String codigoProyecto;
+    private String codigoSubProyecto;
+    private String descripcionSubProyecto;
+    private String codigoUsuario;
     private Date fechaActualizacion;
 }

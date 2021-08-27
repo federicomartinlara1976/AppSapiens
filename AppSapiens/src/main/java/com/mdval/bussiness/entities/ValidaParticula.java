@@ -13,10 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-public class ValidaScriptResponse {
+public class ValidaParticula {
 
-    private Integer numeroValidacion;
-    private Boolean elementosNoGlosario;
-    private Boolean elementosConErrores;
+    private Integer numeroParticula;
+    private String txtValidacion;
+    private String txtValor;
+    private String descripcionEstadoValidacion;
 
 }

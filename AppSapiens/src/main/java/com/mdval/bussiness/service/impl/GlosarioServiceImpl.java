@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author hcarreno
  */
-@Service("glosarioService")
+@Service(Constants.GLOSARIO_SERVICE)
 @Log4j
 public class GlosarioServiceImpl implements GlosarioService {
 
@@ -154,12 +154,12 @@ public class GlosarioServiceImpl implements GlosarioService {
 
     @Override
     @SneakyThrows
-    public Integer altaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
+    public Integer altaGlosario(String descripcionGlosario, String codigoUsuario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_alta_glosario");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
+        String runSP = "{ call " + llamada + "(?,?,?,?)}";
         Integer result = 0;
 
         try (Connection conn = dataSource.getConnection();
@@ -167,16 +167,15 @@ public class GlosarioServiceImpl implements GlosarioService {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-            callableStatement.setBigDecimal(1, codigoGlosario);
-            callableStatement.setString(2, descripcionGlosario);
-            callableStatement.setString(3, codigoUsuario);
-            callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
+            callableStatement.setString(1, descripcionGlosario);
+            callableStatement.setString(2, codigoUsuario);
+            callableStatement.registerOutParameter(3, Types.INTEGER);
+            callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
 
             callableStatement.execute();
 
-            result = callableStatement.getInt(4);
-            Array listaErrores = callableStatement.getArray(5); //TODO forzar error
+            result = callableStatement.getInt(3);
+            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
 
             if (listaErrores != null) {
                 Object[] rows = (Object[]) listaErrores.getArray();

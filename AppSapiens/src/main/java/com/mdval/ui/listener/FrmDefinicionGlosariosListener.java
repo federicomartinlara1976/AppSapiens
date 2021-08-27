@@ -75,7 +75,7 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	 * @return lista de glosarios que cumple con el termino buscado
 	 */
 	private List<Glosario> buscar(String termino) {
-		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
+		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
 		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
 		return glosarios;
 	}
