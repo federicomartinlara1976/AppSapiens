@@ -10,7 +10,10 @@ import java.util.List;
 public interface CamposGlosarioService {
 
     List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna, String mostrarExcepciones);
+
     Integer bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD);
+
     Integer altaCampoGlosario(CampoGlosario campoGlosario);
-    Integer modificarCampoGlosario(CampoGlosario oldCampoGlosario,CampoGlosario newCampoGlosario);
+
+    Integer modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario);
 }

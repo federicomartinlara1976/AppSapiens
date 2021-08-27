@@ -1,14 +1,12 @@
 package com.mdval.bussiness.entities;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -16,12 +14,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-@ToString
-public class Glosario {
+public class InformeValidacion {
 
-    private BigDecimal codigoGlosario;
-    private String descripcionGlosario;
-    private Date fechaAlta;
-    private String codigoUsuario;
-    private Date fechaActualizacion;
+    private List<DetValidacion> listaErroneos;
+    private List<DetValidacion> listaOtraDefinicion;
+    private List<CampoGlosario> listaDefinicionGlosario;
+
 }

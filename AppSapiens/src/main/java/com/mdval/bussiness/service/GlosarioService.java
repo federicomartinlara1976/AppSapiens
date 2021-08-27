@@ -1,9 +1,8 @@
 package com.mdval.bussiness.service;
 
+import com.mdval.bussiness.entities.Glosario;
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.mdval.bussiness.entities.Glosario;
 
 /**
  * @author hcarreno
@@ -11,8 +10,11 @@ import com.mdval.bussiness.entities.Glosario;
 public interface GlosarioService {
 
     List<Glosario> buscarGlosarios(String descripcionGlosario);
+
     Glosario consultarGlosario(BigDecimal codigoGlosario);
-    Integer altaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String usuario);
+
+    Integer altaGlosario(String descripcionGlosario, String usuario);
+
     Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String usuario);
 
 }

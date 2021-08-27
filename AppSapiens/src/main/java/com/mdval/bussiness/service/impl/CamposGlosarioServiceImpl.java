@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author hcarreno
  */
-@Service("camposGlosarioService")
+@Service(Constants.CAMPOS_GLOSARIO_SERVICE)
 @Log4j
 public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 	

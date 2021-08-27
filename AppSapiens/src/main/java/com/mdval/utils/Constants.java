@@ -15,7 +15,14 @@ public class Constants {
 	/**
 	 * Bean names
 	 */
+	public static final String GLOSARIO_SERVICE = "glosarioService";
+	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
+	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
 
+	/**
+	 * DataBase Types
+	 */
+	public static final String T_T_ELEMENTO_NORMA = "T_T_ELEMENTO_NORMA";
 	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
 	public static final String T_T_ERROR = "T_T_ERROR";
 	

@@ -44,7 +44,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 
 	@SneakyThrows
 	private void eventBtnAltaModificacion() {
-		GlosarioService glosarioService = (GlosarioService) getService("glosarioService");
+		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
 		String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
 		String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
 		String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
@@ -57,7 +57,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 			resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
 			msg = (resultado == 0) ? "Registro guardado correctamente" : "Ocurrió un error al guardar el registro";
 		} else {
-			resultado = glosarioService.altaGlosario(null, descripcion, usuario);
+			resultado = glosarioService.altaGlosario(descripcion, usuario);
 			msg = (resultado == 0) ? "Registro creado correctamente" : "Ocurrió un error al crear el registro";
 		}
 

@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-public class Elemento {
+public class TipoElemento {
 
     private BigDecimal codigoElemento;
     private String descripcionElemento;
