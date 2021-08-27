@@ -1,9 +1,5 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.Glosario;
-import com.mdval.bussiness.service.GlosarioService;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -13,11 +9,21 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.sql.DataSource;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.Glosario;
+import com.mdval.bussiness.service.GlosarioService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.ConfigurationSingleton;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -26,213 +32,208 @@ import org.springframework.stereotype.Service;
 @Log4j
 public class GlosarioServiceImpl implements GlosarioService {
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
+	@Override
+	@SneakyThrows
+	public List<Glosario> buscarGlosarios(String descripcionGlosario) {
+		List<Glosario> glosarios = new ArrayList<>();
 
-    @Override
-    @SneakyThrows
-    public List<Glosario> buscarGlosarios(String descripcionGlosario) {
-        List<Glosario> glosarios = new ArrayList<>();
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_buscar_glosarios");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = "{ call " + llamada + "(?,?,?,?)}";
 
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_buscar_glosarios");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?)}";
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeGlosario = String.format("%s.%s", paquete, Constants.T_T_GLOSARIO).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeGlosario = String.format("%s.%s", paquete, Constants.T_T_GLOSARIO).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-            callableStatement.setString(1, descripcionGlosario);
-            callableStatement.registerOutParameter(2, Types.ARRAY, typeGlosario);
-            callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+			callableStatement.setString(1, descripcionGlosario);
+			callableStatement.registerOutParameter(2, Types.ARRAY, typeGlosario);
+			callableStatement.registerOutParameter(3, Types.INTEGER);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            Integer resultadoOperacion = callableStatement.getInt(3);
-            log.info("[GlosarioService.buscarGlosarios] ResultadoOperacion: " + resultadoOperacion);
+			Integer resultadoOperacion = callableStatement.getInt(3);
+			log.info("[GlosarioService.buscarGlosarios] ResultadoOperacion: " + resultadoOperacion);
 
-            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
+			Array listaErrores = callableStatement.getArray(4); // TODO forzar error
 
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
-            }
+			if (listaErrores != null) {
+				Object[] rows = (Object[]) listaErrores.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					for (Object col : cols) {
+						log.info(col + " ");
+					}
+					log.info(" ");
+				}
+			}
 
-            Array listaGlosarios = callableStatement.getArray(2);
-            if (listaGlosarios != null) {
-                Object[] rows = (Object[]) listaGlosarios.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+			Array listaGlosarios = callableStatement.getArray(2);
+			if (listaGlosarios != null) {
+				Object[] rows = (Object[]) listaGlosarios.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-                    Glosario glosario = Glosario.builder()
-                            .codigoGlosario((BigDecimal) cols[0])
-                            .descripcionGlosario((String) cols[1])
-                            .fechaAlta((Date) cols[2])
-                            .codigoUsuario((String) cols[3])
-                            .fechaActualizacion((Date) cols[4])
-                            .build();
-                    glosarios.add(glosario);
-                }
-            }
+					Glosario glosario = Glosario.builder().codigoGlosario((BigDecimal) cols[0])
+							.descripcionGlosario((String) cols[1]).fechaAlta((Date) cols[2])
+							.codigoUsuario((String) cols[3]).fechaActualizacion((Date) cols[4]).build();
+					glosarios.add(glosario);
+				}
+			}
 
-        } catch (SQLException e) {
-            log.error("[GlosarioService.buscarGlosarios] Error:  " + e.getMessage());
-        }
-        return glosarios;
-    }
+			return glosarios;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[GlosarioService.buscarGlosarios] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-    @Override
-    @SneakyThrows
-    public Glosario consultarGlosario(BigDecimal codigoGlosario) {
-        Glosario glosario = new Glosario();
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_consulta_glosario");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?)}";
+	@Override
+	@SneakyThrows
+	public Glosario consultarGlosario(BigDecimal codigoGlosario) {
+		Glosario glosario = new Glosario();
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_consulta_glosario");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?)}";
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-            callableStatement.setBigDecimal(1, codigoGlosario);
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			callableStatement.setBigDecimal(1, codigoGlosario);
 
-            callableStatement.registerOutParameter(2, Types.VARCHAR);
-            callableStatement.registerOutParameter(3, Types.DATE);
-            callableStatement.registerOutParameter(4, Types.VARCHAR);
-            callableStatement.registerOutParameter(5, Types.DATE);
-            callableStatement.registerOutParameter(6, Types.INTEGER);
-            callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
+			callableStatement.registerOutParameter(2, Types.VARCHAR);
+			callableStatement.registerOutParameter(3, Types.DATE);
+			callableStatement.registerOutParameter(4, Types.VARCHAR);
+			callableStatement.registerOutParameter(5, Types.DATE);
+			callableStatement.registerOutParameter(6, Types.INTEGER);
+			callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            String descripcion = callableStatement.getString(2);
-            Date fechaAlta = callableStatement.getDate(3);
-            String usuario = callableStatement.getString(4);
-            Date fechaActualizacion = callableStatement.getDate(5);
+			String descripcion = callableStatement.getString(2);
+			Date fechaAlta = callableStatement.getDate(3);
+			String usuario = callableStatement.getString(4);
+			Date fechaActualizacion = callableStatement.getDate(5);
 
-            Integer resultadoOperacion = callableStatement.getInt(6);
-            Array listaErrores = callableStatement.getArray(7); //TODO forzar error
+			Integer resultadoOperacion = callableStatement.getInt(6);
+			Array listaErrores = callableStatement.getArray(7); // TODO forzar error
 
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
-            }
+			if (listaErrores != null) {
+				Object[] rows = (Object[]) listaErrores.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					for (Object col : cols) {
+						log.info(col + " ");
+					}
+					log.info(" ");
+				}
+			}
 
-            log.info("[GlosarioService.consultarGlosario] ResultadoOperacion: " + resultadoOperacion);
+			log.info("[GlosarioService.consultarGlosario] ResultadoOperacion: " + resultadoOperacion);
 
-            glosario.toBuilder()
-                    .codigoGlosario(codigoGlosario)
-                    .descripcionGlosario(descripcion)
-                    .codigoUsuario(usuario)
-                    .fechaAlta(fechaAlta)
-                    .fechaActualizacion(fechaActualizacion)
-                    .build();
+			glosario.toBuilder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
+					.fechaAlta(fechaAlta).fechaActualizacion(fechaActualizacion).build();
 
-        } catch (SQLException e) {
-            log.error("[GlosarioService.consultarGlosario] Error: " + e.getMessage());
-        }
-        return glosario;
-    }
+			return glosario;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[GlosarioService.consultarGlosario] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-    @Override
-    @SneakyThrows
-    public Integer altaGlosario(String descripcionGlosario, String codigoUsuario) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_alta_glosario");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?)}";
-        Integer result = 0;
+	@Override
+	@SneakyThrows
+	public Integer altaGlosario(String descripcionGlosario, String codigoUsuario) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_alta_glosario");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = "{ call " + llamada + "(?,?,?,?)}";
+		Integer result = 0;
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-            callableStatement.setString(1, descripcionGlosario);
-            callableStatement.setString(2, codigoUsuario);
-            callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
+			callableStatement.setString(1, descripcionGlosario);
+			callableStatement.setString(2, codigoUsuario);
+			callableStatement.registerOutParameter(3, Types.INTEGER);
+			callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            result = callableStatement.getInt(3);
-            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
+			result = callableStatement.getInt(3);
+			Array listaErrores = callableStatement.getArray(4); // TODO forzar error
 
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
-            }
+			if (listaErrores != null) {
+				Object[] rows = (Object[]) listaErrores.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					for (Object col : cols) {
+						log.info(col + " ");
+					}
+					log.info(" ");
+				}
+			}
 
-        } catch (SQLException e) {
-            log.error("[GlosarioService.altaGlosario] Error: " + e.getMessage());
-        }
-        return result;
-    }
+			return result;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[GlosarioService.altaGlosario] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-    @Override
-    @SneakyThrows
-    public Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_modifica_glosario");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
-        Integer result = 0;
+	@Override
+	@SneakyThrows
+	public Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_modifica_glosario");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
+		Integer result = 0;
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-            callableStatement.setBigDecimal(1, codigoGlosario);
-            callableStatement.setString(2, descripcionGlosario);
-            callableStatement.setString(3, codigoUsuario);
-            callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			callableStatement.setBigDecimal(1, codigoGlosario);
+			callableStatement.setString(2, descripcionGlosario);
+			callableStatement.setString(3, codigoUsuario);
+			callableStatement.registerOutParameter(4, Types.INTEGER);
+			callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            result = callableStatement.getInt(4);
-            Array listaErrores = callableStatement.getArray(5); //TODO forzar error
+			result = callableStatement.getInt(4);
+			Array listaErrores = callableStatement.getArray(5); // TODO forzar error
 
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
-            }
+			if (listaErrores != null) {
+				Object[] rows = (Object[]) listaErrores.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					for (Object col : cols) {
+						log.info(col + " ");
+					}
+					log.info(" ");
+				}
+			}
 
-        } catch (SQLException e) {
-            log.error("[GlosarioService.modificaGlosario] ErrorÑ " + e.getMessage());
-        }
-        return result;
-    }
+			return result;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[GlosarioService.modificaGlosario] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 }

@@ -44,26 +44,31 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 
 	@SneakyThrows
 	private void eventBtnAltaModificacion() {
-		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
-		String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
-		String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
-		String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
-		String msg = StringUtils.EMPTY;
-		Integer resultado = 0;
+		try {
+			GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
+			String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
+			String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
+			String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
+			String msg = StringUtils.EMPTY;
+			Integer resultado = 0;
 
-		// Se van a guardar las modificaciones de un registro existente
-		if (dlgAltaModificacionGlosarios.getEditar()) {
-			BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
-			resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
-			msg = (resultado == 0) ? "Registro guardado correctamente" : "Ocurrió un error al guardar el registro";
-		} else {
-			resultado = glosarioService.altaGlosario(descripcion, usuario);
-			msg = (resultado == 0) ? "Registro creado correctamente" : "Ocurrió un error al crear el registro";
+			// Se van a guardar las modificaciones de un registro existente
+			if (dlgAltaModificacionGlosarios.getEditar()) {
+				BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
+				resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
+				msg = (resultado == 0) ? "Registro guardado correctamente" : "Ocurrió un error al guardar el registro";
+			} else {
+				resultado = glosarioService.altaGlosario(descripcion, usuario);
+				msg = (resultado == 0) ? "Registro creado correctamente" : "Ocurrió un error al crear el registro";
+			}
+
+			LogWrapper.debug(log, msg);
+			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), msg);
+			dlgAltaModificacionGlosarios.dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		}
-
-		LogWrapper.debug(log, msg);
-		JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), msg);
-		dlgAltaModificacionGlosarios.dispose();
 	}
 
 }
