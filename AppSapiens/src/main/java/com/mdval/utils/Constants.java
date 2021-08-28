@@ -15,13 +15,19 @@ public class Constants {
 	/**
 	 * Bean names
 	 */
+	public static final String MODELO_SERVICE = "modeloService";
 	public static final String GLOSARIO_SERVICE = "glosarioService";
 	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
 	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
+	public static final String INFORME_SERVICE = "informeService";
 
 	/**
 	 * DataBase Types
 	 */
+	public static final String T_T_SUBPROYECTO = "T_T_SUBPROYECTO";
+	public static final String T_T_MODELO = "T_T_MODELO";
+	public static final String T_T_CAMPO_GLOSARIO = "T_T_CAMPO_GLOSARIO";
+	public static final String T_T_DET_VALIDACION = "T_T_DET_VALIDACION";
 	public static final String T_T_ELEMENTO_NORMA = "T_T_ELEMENTO_NORMA";
 	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
 	public static final String T_T_ERROR = "T_T_ERROR";

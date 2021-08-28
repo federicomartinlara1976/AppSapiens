@@ -2,9 +2,11 @@ package com.mdval.bussiness.service.impl;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.service.CamposGlosarioService;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.DateFormatter;
+import com.mdval.utils.LogWrapper;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -97,7 +99,8 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
             }
 
         } catch (SQLException e) {
-            log.error("Error en CamposGlosarioService.consultarCamposGlosario "+ e.getMessage());
+            LogWrapper.error(log, "[CamposGlosarioService.consultarCamposGlosario] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return campoGlosarios;
     }
@@ -148,7 +151,8 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
             }
 
         } catch (SQLException e) {
-            log.error("Error en CamposGlosarioService.bajaCampoGlosario "+ e.getMessage());
+            LogWrapper.error(log, "[CamposGlosarioService.bajaCampoGlosario] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return result;
     }
@@ -199,7 +203,8 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
             }
 
         } catch (SQLException e) {
-            log.error("Error en CamposGlosarioService.altaCampoGlosario "+ e.getMessage());
+            LogWrapper.error(log, "[CamposGlosarioService.altaCampoGlosario] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return result;
     }
@@ -256,7 +261,8 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
             }
 
         } catch (SQLException e) {
-            log.error("Error en CamposGlosarioService.modificarCampoGlosario "+ e.getMessage());
+            LogWrapper.error(log, "[CamposGlosarioService.modificarCampoGlosario] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return result;
     }

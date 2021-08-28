@@ -2,8 +2,10 @@ package com.mdval.bussiness.service.impl;
 
 import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.bussiness.service.ElementoNormaService;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -93,7 +95,8 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
             }
 
         } catch (SQLException e) {
-            log.error("[ElementoNormaService.consultarDefinicionElementoNorma] Error:  " + e.getMessage());
+            LogWrapper.error(log, "[ElementoNormaService.consultarDefinicionElementoNorma] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return elementoNormas;
     }
@@ -161,7 +164,8 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
             }
 
         } catch (SQLException e) {
-            log.error("[ElementoNormaService.consultarElementoNorma] Error:  " + e.getMessage());
+            LogWrapper.error(log, "[ElementoNormaService.consultarElementoNorma] Error: %s", e.getMessage());
+            throw new ServiceException(e);
         }
         return elementoNormas;
     }
