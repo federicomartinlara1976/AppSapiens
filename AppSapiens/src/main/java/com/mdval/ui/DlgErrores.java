@@ -6,6 +6,7 @@
 package com.mdval.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -73,6 +74,7 @@ public class DlgErrores extends DialogSupport {
         btnCerrar = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(400, 300));
 
         jPanel1.setLayout(new FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -88,6 +90,7 @@ public class DlgErrores extends DialogSupport {
 
         txtErrors.setColumns(20);
         txtErrors.setRows(5);
+        txtErrors.setLineWrap(true);
         jScrollPane1.setViewportView(txtErrors);
 
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
