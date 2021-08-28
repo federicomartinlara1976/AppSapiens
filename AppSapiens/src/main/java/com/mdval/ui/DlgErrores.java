@@ -117,9 +117,10 @@ public class DlgErrores extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		jLabel1.setText("Ocurrió un error");
+		setTitle(literales.getLiteral("error.titulo"));
+		jLabel1.setText(literales.getLiteral("error.label"));
 		
-		btnCerrar.setText("ACEPTAR");
+		btnCerrar.setText(literales.getLiteral("error.aceptar"));
 	}
 
 	@Override
