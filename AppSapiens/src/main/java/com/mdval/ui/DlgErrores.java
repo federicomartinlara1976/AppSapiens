@@ -27,6 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.Constants;
 
 /**
  *
@@ -126,8 +127,8 @@ public class DlgErrores extends DialogSupport {
 		txtErrors.setEditable(Boolean.FALSE);
 		
 		if (!Objects.isNull(params)) {
-			ServiceException serviceException = (ServiceException) params.get("SERVICE_ERROR");
-			Exception exception = (Exception) params.get("ERROR");
+			ServiceException serviceException = (ServiceException) params.get(Constants.SERVICE_ERROR);
+			Exception exception = (Exception) params.get(Constants.ERROR);
 			
 			if (!Objects.isNull(serviceException)) {
 				if (CollectionUtils.isNotEmpty(serviceException.getErrors())) {

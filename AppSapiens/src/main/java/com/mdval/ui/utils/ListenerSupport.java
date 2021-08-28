@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
+import com.mdval.utils.Constants;
 import com.mdval.utils.LiteralesSingleton;
 
 import lombok.extern.log4j.Log4j;
@@ -83,9 +84,9 @@ public abstract class ListenerSupport extends Observable {
 		Map<String, Object> params = new HashMap<>();
 
 		if (e instanceof ServiceException) {
-			params.put("SERVICE_ERROR", e);
+			params.put(Constants.SERVICE_ERROR, e);
 		} else {
-			params.put("ERROR", e);
+			params.put(Constants.ERROR, e);
 		}
 		return params;
 	}
