@@ -90,7 +90,7 @@ public class DlgErrores extends DialogSupport {
 
         txtErrors.setColumns(20);
         txtErrors.setRows(5);
-        txtErrors.setLineWrap(true);
+        txtErrors.setLineWrap(Boolean.TRUE);
         jScrollPane1.setViewportView(txtErrors);
 
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
