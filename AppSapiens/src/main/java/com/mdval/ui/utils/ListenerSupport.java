@@ -2,6 +2,7 @@ package com.mdval.ui.utils;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Observable;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ import lombok.extern.log4j.Log4j;
  *
  */
 @Log4j
-public abstract class ListenerSupport {
+public abstract class ListenerSupport extends Observable {
 	
 	protected LiteralesSingleton literales;
 	

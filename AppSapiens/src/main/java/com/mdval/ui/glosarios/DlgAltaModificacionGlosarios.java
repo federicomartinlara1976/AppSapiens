@@ -2,7 +2,6 @@ package com.mdval.ui.glosarios;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
@@ -18,6 +17,7 @@ import javax.swing.WindowConstants;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.DlgAltaModificacionGlosariosListener;
+import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
@@ -257,7 +257,11 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new DlgAltaModificacionGlosariosListener(this);
+		FrmDefinicionGlosarios parent = (FrmDefinicionGlosarios) this.getParent();
+		FrmDefinicionGlosariosListener frmDefinicionGlosariosListener = parent.getFrmDefinicionGlosariosListener();
+		
+		DlgAltaModificacionGlosariosListener actionListener = new DlgAltaModificacionGlosariosListener(this);
+		actionListener.addObservador(frmDefinicionGlosariosListener);
 		
 		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_CANCELAR);

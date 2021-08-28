@@ -2,7 +2,6 @@ package com.mdval.ui.glosarios;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -23,6 +22,7 @@ import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -60,6 +60,9 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	@Getter
 	private JTextField txtGlosario;
 
+	@Getter
+	private FrmDefinicionGlosariosListener frmDefinicionGlosariosListener;
+	
 	@Getter
 	@Setter
 	private Glosario seleccionado;
@@ -175,7 +178,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new FrmDefinicionGlosariosListener(this);
+		frmDefinicionGlosariosListener = new FrmDefinicionGlosariosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
 		
 		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR);
@@ -183,10 +186,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
 		btnSeleccionar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 
-		btnBuscar.addActionListener(actionListener);
-		btnAlta.addActionListener(actionListener);
-		btnModificacion.addActionListener(actionListener);
-		btnSeleccionar.addActionListener(actionListener);
+		btnBuscar.addActionListener(frmDefinicionGlosariosListener);
+		btnAlta.addActionListener(frmDefinicionGlosariosListener);
+		btnModificacion.addActionListener(frmDefinicionGlosariosListener);
+		btnSeleccionar.addActionListener(frmDefinicionGlosariosListener);
 		
 		ListSelectionModel rowSM = tblGlosarios.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);
@@ -205,6 +208,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	@Override
 	protected void initModels() {
 		tblGlosarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblGlosarios.setDefaultRenderer(Date.class, new DateRenderer());
 		tblGlosarios.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());

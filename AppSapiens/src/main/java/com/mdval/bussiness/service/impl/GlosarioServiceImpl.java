@@ -30,7 +30,7 @@ import lombok.extern.log4j.Log4j;
  */
 @Service(Constants.GLOSARIO_SERVICE)
 @Log4j
-public class GlosarioServiceImpl implements GlosarioService {
+public class GlosarioServiceImpl extends ServiceSupport implements GlosarioService {
 
 	@Autowired
 	private DataSource dataSource;
@@ -44,7 +44,9 @@ public class GlosarioServiceImpl implements GlosarioService {
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_buscar_glosarios");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?)}";
+		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		
+		LogWrapper.debug(log, "%s", runSP);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -59,20 +61,12 @@ public class GlosarioServiceImpl implements GlosarioService {
 
 			callableStatement.execute();
 
-			Integer resultadoOperacion = callableStatement.getInt(3);
-			log.info("[GlosarioService.buscarGlosarios] ResultadoOperacion: " + resultadoOperacion);
-
-			Array listaErrores = callableStatement.getArray(4); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			Integer result = callableStatement.getInt(3);
+			
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(4);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
 
 			Array listaGlosarios = callableStatement.getArray(2);
@@ -103,7 +97,9 @@ public class GlosarioServiceImpl implements GlosarioService {
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_consulta_glosario");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?)}";
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
+		
+		LogWrapper.debug(log, "%s", runSP);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -125,21 +121,13 @@ public class GlosarioServiceImpl implements GlosarioService {
 			String usuario = callableStatement.getString(4);
 			Date fechaActualizacion = callableStatement.getDate(5);
 
-			Integer resultadoOperacion = callableStatement.getInt(6);
-			Array listaErrores = callableStatement.getArray(7); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			Integer result = callableStatement.getInt(6);
+			
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(7);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
-
-			log.info("[GlosarioService.consultarGlosario] ResultadoOperacion: " + resultadoOperacion);
 
 			glosario.toBuilder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
 					.fechaAlta(fechaAlta).fechaActualizacion(fechaActualizacion).build();
@@ -153,14 +141,15 @@ public class GlosarioServiceImpl implements GlosarioService {
 
 	@Override
 	@SneakyThrows
-	public Integer altaGlosario(String descripcionGlosario, String codigoUsuario) {
+	public void altaGlosario(String descripcionGlosario, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_alta_glosario");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?)}";
-		Integer result = 0;
+		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
+		LogWrapper.debug(log, "%s", runSP);
+		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -169,25 +158,17 @@ public class GlosarioServiceImpl implements GlosarioService {
 			callableStatement.setString(1, descripcionGlosario);
 			callableStatement.setString(2, codigoUsuario);
 			callableStatement.registerOutParameter(3, Types.INTEGER);
-			callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
-			result = callableStatement.getInt(3);
-			Array listaErrores = callableStatement.getArray(4); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			Integer result = callableStatement.getInt(3);
+			
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(4);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
-
-			return result;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.altaGlosario] Error: %s", e.getMessage());
 			throw new ServiceException(e);
@@ -196,13 +177,14 @@ public class GlosarioServiceImpl implements GlosarioService {
 
 	@Override
 	@SneakyThrows
-	public Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
+	public void modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_modifica_glosario");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
-		Integer result = 0;
+		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
+		
+		LogWrapper.debug(log, "%s", runSP);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -212,25 +194,17 @@ public class GlosarioServiceImpl implements GlosarioService {
 			callableStatement.setString(2, descripcionGlosario);
 			callableStatement.setString(3, codigoUsuario);
 			callableStatement.registerOutParameter(4, Types.INTEGER);
-			callableStatement.registerOutParameter(5, Types.VARCHAR, typeError);
+			callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
-			result = callableStatement.getInt(4);
-			Array listaErrores = callableStatement.getArray(5); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			Integer result = callableStatement.getInt(4);
+			
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(5);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
-
-			return result;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.modificaGlosario] Error: %s", e.getMessage());
 			throw new ServiceException(e);

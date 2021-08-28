@@ -24,7 +24,7 @@ public class BigDecimalRenderer extends LabelRenderer implements TableCellRender
 		
 		setSelected(isSelected);
 		super.setHorizontalAlignment(LEFT);
-		super.setText(String.format("%.2f", num));
+		super.setText(String.format("%d", num.toBigInteger()));
 
 		return this;
 	}

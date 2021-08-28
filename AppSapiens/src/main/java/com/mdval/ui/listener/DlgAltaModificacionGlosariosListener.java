@@ -3,6 +3,7 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -13,12 +14,13 @@ import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
+/**
+ * @author federico
+ *
+ */
 public class DlgAltaModificacionGlosariosListener extends ListenerSupport implements ActionListener {
 
 	private DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios;
@@ -26,6 +28,10 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	public DlgAltaModificacionGlosariosListener(DlgAltaModificacionGlosarios dlgAltaModificacionGlosarios) {
 		super();
 		this.dlgAltaModificacionGlosarios = dlgAltaModificacionGlosarios;
+	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
 	}
 
 	@SneakyThrows
@@ -46,24 +52,32 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	private void eventBtnAltaModificacion() {
 		try {
 			GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
+			
 			String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
 			String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
 			String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
 			String msg = StringUtils.EMPTY;
-			Integer resultado = 0;
 
 			// Se van a guardar las modificaciones de un registro existente
 			if (dlgAltaModificacionGlosarios.getEditar()) {
 				BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
-				resultado = glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
-				msg = (resultado == 0) ? "Registro guardado correctamente" : "Ocurrió un error al guardar el registro";
+				glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
+				
+				msg = literales.getLiteral("mensaje.guardar");
 			} else {
-				resultado = glosarioService.altaGlosario(descripcion, usuario);
-				msg = (resultado == 0) ? "Registro creado correctamente" : "Ocurrió un error al crear el registro";
+				glosarioService.altaGlosario(descripcion, usuario);
+				
+				msg = literales.getLiteral("mensaje.crear");
 			}
 
-			LogWrapper.debug(log, msg);
 			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), msg);
+			
+			/**
+			 * En este punto invocar un método que informe a los observadores del patrón observer
+			 * para que invoquen a su método de actualización
+			 */
+			this.setChanged();
+			this.notifyObservers();
 			dlgAltaModificacionGlosarios.dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), e.getMessage(), "ERROR",

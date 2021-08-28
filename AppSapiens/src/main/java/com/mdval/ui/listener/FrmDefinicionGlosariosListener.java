@@ -1,19 +1,23 @@
 package com.mdval.ui.listener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.JButton;
+
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.*;
 
-public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener {
+public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener, Observer {
 
 	private FrmDefinicionGlosarios frmDefinicionGlosarios;
 
@@ -94,5 +98,13 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
 		// deshabilitar el botón de selección para la próxima.
 		frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.FALSE);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		eventBtnBuscar();
 	}
 }

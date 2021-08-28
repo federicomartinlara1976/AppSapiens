@@ -13,12 +13,16 @@ public interface GlosarioService {
     /**
      * @param descripcionGlosario
      * @return
+     * 
+     * @throws ServiceException
      */
     List<Glosario> buscarGlosarios(String descripcionGlosario);
 
     /**
      * @param codigoGlosario
      * @return
+     * 
+     * @throws ServiceException
      */
     Glosario consultarGlosario(BigDecimal codigoGlosario);
 
@@ -26,15 +30,19 @@ public interface GlosarioService {
      * @param descripcionGlosario
      * @param usuario
      * @return
+     * 
+     * @throws ServiceException
      */
-    Integer altaGlosario(String descripcionGlosario, String usuario);
+    void altaGlosario(String descripcionGlosario, String usuario);
 
     /**
      * @param codigoGlosario
      * @param descripcionGlosario
      * @param usuario
      * @return
+     * 
+     * @throws ServiceException
      */
-    Integer modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String usuario);
+    void modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String usuario);
 
 }

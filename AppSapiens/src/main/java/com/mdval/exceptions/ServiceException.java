@@ -1,5 +1,10 @@
 package com.mdval.exceptions;
 
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author federico
  *
@@ -10,6 +15,10 @@ public class ServiceException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 8287632943709257608L;
+	
+	@Getter
+	@Setter
+	private List<Object[]> errors;
 
 	/**
 	 * 
