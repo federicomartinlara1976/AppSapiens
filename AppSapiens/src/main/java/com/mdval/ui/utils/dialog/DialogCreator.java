@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import com.mdval.ui.DlgErrores;
 import com.mdval.ui.DlgIdentificador;
 import com.mdval.ui.glosarios.DlgAltaModificacionCampos;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
@@ -115,6 +116,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_MODIFICACION_MODELOS.equals(option)) {
 			dialog = new DlgMantenimientoModelos(frameParent, modal);
+		}
+		
+		if (Constants.CMD_ERROR.equals(option)) {
+			dialog = new DlgErrores(frameParent, modal, params);
 		}
 		
 		return dialog;

@@ -80,19 +80,14 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	
 	@Getter
 	private JTextField txtUsuario;
-	
-	@Getter
-    private JFrame frameParent;
 
     
     public DlgAltaModificacionCampos(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     public DlgAltaModificacionCampos(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	protected void setupComponents() {

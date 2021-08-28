@@ -3,9 +3,11 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +31,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 		super();
 		this.dlgAltaModificacionGlosarios = dlgAltaModificacionGlosarios;
 	}
-	
+
 	public void addObservador(Observer o) {
 		this.addObserver(o);
 	}
@@ -52,7 +54,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	private void eventBtnAltaModificacion() {
 		try {
 			GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
-			
+
 			String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
 			String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
 			String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
@@ -62,27 +64,26 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 			if (dlgAltaModificacionGlosarios.getEditar()) {
 				BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
 				glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
-				
+
 				msg = literales.getLiteral("mensaje.guardar");
 			} else {
 				glosarioService.altaGlosario(descripcion, usuario);
-				
+
 				msg = literales.getLiteral("mensaje.crear");
 			}
 
-			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), msg);
-			
+			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getParent(), msg);
+
 			/**
-			 * En este punto invocar un método que informe a los observadores del patrón observer
-			 * para que invoquen a su método de actualización
+			 * En este punto invocar un método que informe a los observadores del patrón
+			 * observer para que invoquen a su método de actualización
 			 */
 			this.setChanged();
 			this.notifyObservers();
 			dlgAltaModificacionGlosarios.dispose();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getFrameParent(), e.getMessage(), "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			Map<String, Object> params = buildError(e);
+			showPopup((JFrame) dlgAltaModificacionGlosarios.getParent(), Constants.CMD_ERROR, params);
 		}
 	}
-
 }

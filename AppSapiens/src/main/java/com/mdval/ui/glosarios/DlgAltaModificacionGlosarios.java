@@ -59,9 +59,6 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
     
     @Getter
     private JTextField txtUsuario;
-   
-    @Getter
-    private JFrame frameParent;
     
     @Getter
     private Boolean editar;
@@ -73,7 +70,6 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
      */
     public DlgAltaModificacionGlosarios(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     /**
@@ -83,7 +79,6 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
      */
     public DlgAltaModificacionGlosarios(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	/**

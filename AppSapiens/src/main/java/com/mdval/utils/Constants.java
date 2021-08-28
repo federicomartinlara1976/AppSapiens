@@ -66,6 +66,7 @@ public class Constants {
 	public static final String CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS = "CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS";
 	public static final String CMD_ALTA_MODELOS = "CMD_ALTA_MODELOS";
 	public static final String CMD_MODIFICACION_MODELOS = "CMD_MODIFICACION_MODELOS";
+	public static final String CMD_ERROR = "CMD_ERROR";
 	
 	/**
 	 * Panel principal
@@ -154,5 +155,6 @@ public class Constants {
 	
 	public static final String DLG_DEFINICION_MODELOS_BTN_ALTA = "DLG_DEFINICION_MODELOS_BTN_ALTA";
 	public static final String DLG_DEFINICION_MODELOS_BTN_MODIFICACION = "DLG_DEFINICION_MODELOS_BTN_MODIFICACION";
+	
 	
 }

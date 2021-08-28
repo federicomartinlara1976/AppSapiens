@@ -1,12 +1,14 @@
 package com.mdval.ui.utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LiteralesSingleton;
 
@@ -71,5 +73,20 @@ public abstract class ListenerSupport extends Observable {
 	protected void showPopup(JFrame frame, String cmd, Map<String, Object> params) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
+	}
+	
+	/**
+	 * @param e
+	 * @return
+	 */
+	protected Map<String, Object> buildError(Exception e) {
+		Map<String, Object> params = new HashMap<>();
+
+		if (e instanceof ServiceException) {
+			params.put("SERVICE_ERROR", e);
+		} else {
+			params.put("ERROR", e);
+		}
+		return params;
 	}
 }
