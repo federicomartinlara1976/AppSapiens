@@ -2,7 +2,6 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.GroupLayout;
@@ -57,6 +56,9 @@ public class FrmDefinicionNormas extends FrameSupport {
 	
 	@Getter
 	private JTextField txtNorma;
+	
+	@Getter
+	private FrmDefinicionNormasListener frmDefinicionNormasListener;
 	
 	@Getter
 	@Setter
@@ -169,16 +171,16 @@ public class FrmDefinicionNormas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmDefinicionNormasListener(this);
+		frmDefinicionNormasListener = new FrmDefinicionNormasListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionNormasTableListener(this);
 		
 		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_BUSCAR);
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_ALTA);
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
-		btnBuscar.addActionListener(listener);
-		btnAlta.addActionListener(listener);
-		btnModificacion.addActionListener(listener);
+		btnBuscar.addActionListener(frmDefinicionNormasListener);
+		btnAlta.addActionListener(frmDefinicionNormasListener);
+		btnModificacion.addActionListener(frmDefinicionNormasListener);
 		
 		ListSelectionModel rowSM = tblNormas.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);

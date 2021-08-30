@@ -9,8 +9,29 @@ import java.util.List;
  */
 public interface NormaService {
 
+    /**
+     * @param codigoNorma
+     * @return
+     */
     Norma consultaNorma(BigDecimal codigoNorma);
 
+    /**
+     * @param descripcionNorma
+     * @return
+     */
     List<Norma> consultaNormas(String descripcionNorma);
+
+	/**
+	 * @param codigoBigDecimal
+	 * @param descripcion
+	 * @param usuario
+	 */
+	void modificaNorma(BigDecimal codigoBigDecimal, String descripcion, String usuario);
+
+	/**
+	 * @param descripcion
+	 * @param usuario
+	 */
+	void altaNorma(String descripcion, String usuario);
 
 }

@@ -20,6 +20,7 @@ public class Constants {
 	public static final String MODELO_SERVICE = "modeloService";
 	public static final String GLOSARIO_SERVICE = "glosarioService";
 	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
+	public static final String NORMA_SERVICE = "normaService";
 	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
 	public static final String INFORME_SERVICE = "informeService";
 
@@ -145,6 +146,12 @@ public class Constants {
 	public static final String FRM_DEFINICION_NORMAS_BTN_ALTA = "FRM_DEFINICION_NORMAS_BTN_ALTA";
 	public static final String FRM_DEFINICION_NORMAS_BTN_MODIFICACION = "FRM_DEFINICION_NORMAS_BTN_MODIFICACION";
 	
+	public static final String DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO = "DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO";
+	public static final String DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO = "DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO";
+	public static final String DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO = "DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO";
+	public static final String DLG_MODIFICACION_NORMAS_BTN_ACEPTAR = "DLG_MODIFICACION_NORMAS_BTN_ACEPTAR";
+	public static final String DLG_MODIFICACION_NORMAS_BTN_CANCELAR = "DLG_MODIFICACION_NORMAS_BTN_CANCELAR";
+	
 	public static final String DLG_DEFINICION_ELEMENTOS_BTN_ALTA = "DLG_DEFINICION_ELEMENTOS_BTN_ALTA";
 	public static final String DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION = "DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION";
 	
@@ -163,6 +170,4 @@ public class Constants {
 	
 	public static final String DLG_DEFINICION_MODELOS_BTN_ALTA = "DLG_DEFINICION_MODELOS_BTN_ALTA";
 	public static final String DLG_DEFINICION_MODELOS_BTN_MODIFICACION = "DLG_DEFINICION_MODELOS_BTN_MODIFICACION";
-	
-	
 }
