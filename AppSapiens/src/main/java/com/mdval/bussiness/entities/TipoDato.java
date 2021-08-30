@@ -12,8 +12,4 @@ import lombok.NoArgsConstructor;
 public class TipoDato {
 
     private String tipoDato;
-    private String longitud;
-    private String decimales;
-    private String maximo;
-    private String minimo;
 }
