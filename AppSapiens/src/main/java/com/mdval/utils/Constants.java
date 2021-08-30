@@ -17,6 +17,8 @@ public class Constants {
 	/**
 	 * Bean names
 	 */
+	public static final String TIPO_DATO_SERVICE = "tipoDatoService";
+	public static final String TIPO_PARTICULA_SERVICE = "tipoParticulaService";
 	public static final String MODELO_SERVICE = "modeloService";
 	public static final String GLOSARIO_SERVICE = "glosarioService";
 	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
@@ -26,6 +28,8 @@ public class Constants {
 	/**
 	 * DataBase Types
 	 */
+	public static final String T_T_PARTICULA = "T_T_PARTICULA";
+	public static final String T_T_TIPO_DATO = "T_T_TIPO_DATO";
 	public static final String T_T_SUBPROYECTO = "T_T_SUBPROYECTO";
 	public static final String T_T_MODELO = "T_T_MODELO";
 	public static final String T_T_CAMPO_GLOSARIO = "T_T_CAMPO_GLOSARIO";
