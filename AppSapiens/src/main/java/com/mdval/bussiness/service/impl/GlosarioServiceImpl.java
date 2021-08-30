@@ -45,14 +45,14 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String procedure = configuration.getConfig("p_buscar_glosarios");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
-		
-		LogWrapper.debug(log, "%s", runSP);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeGlosario = String.format("%s.%s", paquete, Constants.T_T_GLOSARIO).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			
+			logProcedure(runSP, descripcionGlosario);
 
 			callableStatement.setString(1, descripcionGlosario);
 			callableStatement.registerOutParameter(2, Types.ARRAY, typeGlosario);
@@ -99,12 +99,13 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 		
-		LogWrapper.debug(log, "%s", runSP);
-
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			
+			logProcedure(runSP, codigoGlosario);
+			
 			callableStatement.setBigDecimal(1, codigoGlosario);
 
 			callableStatement.registerOutParameter(2, Types.VARCHAR);
@@ -148,13 +149,13 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
-		LogWrapper.debug(log, "%s", runSP);
-		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
+			logProcedure(runSP, descripcionGlosario, codigoUsuario);
+			
 			callableStatement.setString(1, descripcionGlosario);
 			callableStatement.setString(2, codigoUsuario);
 			callableStatement.registerOutParameter(3, Types.INTEGER);
@@ -184,12 +185,13 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
 		
-		LogWrapper.debug(log, "%s", runSP);
-
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			
+			logProcedure(runSP, codigoGlosario, descripcionGlosario, codigoUsuario);
+			
 			callableStatement.setBigDecimal(1, codigoGlosario);
 			callableStatement.setString(2, descripcionGlosario);
 			callableStatement.setString(3, codigoUsuario);
