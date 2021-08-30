@@ -47,6 +47,6 @@ public class ServiceSupport {
 			String value = (StringUtils.isBlank(o.toString())) ? "vacío" : o.toString();
 			sbArgumentos.append("\t").append(value).append("\n");
 		}
-		LogWrapper.debug(log, "%s", sbArgumentos.toString());
+		LogWrapper.debug(log, "%s", sbArgumentos.toString().trim());
 	}
 }

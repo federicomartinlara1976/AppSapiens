@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;
@@ -60,26 +61,31 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 			String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
 			String msg = StringUtils.EMPTY;
 
-			// Se van a guardar las modificaciones de un registro existente
-			if (dlgAltaModificacionGlosarios.getEditar()) {
-				BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
-				glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
-
-				msg = literales.getLiteral("mensaje.guardar");
-			} else {
-				glosarioService.altaGlosario(descripcion, usuario);
-
-				msg = literales.getLiteral("mensaje.crear");
+			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
+					literales.getLiteral("confirmacion.titulo"));
+			
+			if (response == JOptionPane.YES_OPTION) {
+				// Se van a guardar las modificaciones de un registro existente
+				if (dlgAltaModificacionGlosarios.getEditar()) {
+					BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
+					glosarioService.modificaGlosario(codigoBigDecimal, descripcion, usuario);
+	
+					msg = literales.getLiteral("mensaje.guardar");
+				} else {
+					glosarioService.altaGlosario(descripcion, usuario);
+	
+					msg = literales.getLiteral("mensaje.crear");
+				}
+	
+				JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getParent(), msg);
+	
+				/**
+				 * En este punto invocar un método que informe a los observadores del patrón
+				 * observer para que invoquen a su método de actualización
+				 */
+				this.setChanged();
+				this.notifyObservers();
 			}
-
-			JOptionPane.showMessageDialog(dlgAltaModificacionGlosarios.getParent(), msg);
-
-			/**
-			 * En este punto invocar un método que informe a los observadores del patrón
-			 * observer para que invoquen a su método de actualización
-			 */
-			this.setChanged();
-			this.notifyObservers();
 			dlgAltaModificacionGlosarios.dispose();
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);

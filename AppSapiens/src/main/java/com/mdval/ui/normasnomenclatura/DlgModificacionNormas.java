@@ -15,6 +15,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.ui.listener.DlgModificacionNormasListener;
+import com.mdval.ui.listener.FrmDefinicionNormasListener;
 import com.mdval.ui.utils.DialogSupport;
 
 import lombok.Getter;
@@ -64,13 +66,25 @@ public class DlgModificacionNormas extends DialogSupport {
 	
 	@Getter
     private JFrame frameParent;
+	
+	@Getter
+    private Boolean editar;
 
     
+    /**
+     * @param parent
+     * @param modal
+     */
     public DlgModificacionNormas(JFrame parent, boolean modal) {
         super(parent, modal);
         this.frameParent = parent;
     }
     
+    /**
+     * @param parent
+     * @param modal
+     * @param params
+     */
     public DlgModificacionNormas(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
         this.frameParent = parent;
@@ -290,8 +304,17 @@ public class DlgModificacionNormas extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		FrmDefinicionNormas parent = (FrmDefinicionNormas) this.getParent();
+		FrmDefinicionNormasListener frmDefinicionNormasListener = parent.getFrmDefinicionNormasListener();
 		
+		DlgModificacionNormasListener actionListener = new DlgModificacionNormasListener(this);
+		actionListener.addObservador(frmDefinicionNormasListener);
+		
+		btnAltaElemento.addActionListener(actionListener);
+        btnBajaElemento.addActionListener(actionListener);
+        btnModificacionElemento.addActionListener(actionListener);
+        btnAceptar.addActionListener(actionListener);
+        btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override

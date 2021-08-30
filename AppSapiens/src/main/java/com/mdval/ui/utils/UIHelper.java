@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.dialog.CabeceraTablaCreator;
@@ -115,5 +116,14 @@ public class UIHelper {
 	public static Cabecera createCabeceraTabla(String item) {
 		Creator cabeceraTablaCreator = new CabeceraTablaCreator(item);
 		return (Cabecera) cabeceraTablaCreator.factoryMethod();
+	}
+	
+	/**
+	 * @param title
+	 * @param msg
+	 * @return
+	 */
+	public static Integer showConfirm(String title, String msg) {
+		return JOptionPane.showConfirmDialog(null, title, msg, JOptionPane.YES_NO_OPTION);
 	}
 }
