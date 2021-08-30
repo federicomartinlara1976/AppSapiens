@@ -36,9 +36,9 @@ public class DefinicionTiposParticulaTableModel extends DefaultTableModel<TipoPa
 		TipoParticula row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getCodigo();
+			return row.getCodigoParticula();
 		} else if (1 == columnIndex) {
-			return row.getDescripcion();
+			return row.getDescripcionParticula();
 		} else if (2 == columnIndex) {
 			return row.getMcaProyecto();
 		} else if (3 == columnIndex) {
