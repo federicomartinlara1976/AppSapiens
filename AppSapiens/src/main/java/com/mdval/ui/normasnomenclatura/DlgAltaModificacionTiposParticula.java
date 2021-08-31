@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -14,7 +15,12 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.ui.listener.DlgAltaModificacionTiposParticulaListener;
+import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -58,19 +64,16 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 	@Getter
 	private JTextField txtUsuario;
 	
-	
 	@Getter
-    private JFrame frameParent;
+    private Boolean editar;
 
     
     public DlgAltaModificacionTiposParticula(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     public DlgAltaModificacionTiposParticula(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	/**
@@ -247,19 +250,49 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 	
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		FrmDefinicionTiposParticula parent = (FrmDefinicionTiposParticula) this.getParent();
+		FrmDefinicionTiposParticulaListener frmDefinicionTiposParticulaListener = parent.getFrmDefinicionTiposParticulaListener();
 		
+		DlgAltaModificacionTiposParticulaListener actionListener = new DlgAltaModificacionTiposParticulaListener(this);
+		actionListener.addObservador(frmDefinicionTiposParticulaListener);
+		
+		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		// Se trata de la edición de un registro
+		if (!Objects.isNull(params)) {
+			TipoParticula tipoParticula = (TipoParticula) params.get(Constants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO);
+			
+			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
+			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
+			txtUsuario.setText(tipoParticula.getCodigoUsuario());
+			
+			String mcaProyecto = tipoParticula.getMcaProyecto();
+			chkDistingueProyecto.setSelected("S".equals(mcaProyecto) ? Boolean.TRUE : Boolean.FALSE);
+			
+			String mcaSubproyecto = tipoParticula.getMcaSubProyecto();
+			chkDistingueSubproyecto.setSelected("S".equals(mcaSubproyecto) ? Boolean.TRUE : Boolean.FALSE);
+			
+			txtFecha.setText(dateFormatter.dateToString(tipoParticula.getFechaActualizacion()));
+			
+			editar = Boolean.TRUE;
+		}
+		else {
+			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
+			
+			editar = Boolean.FALSE;
+		}
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 }

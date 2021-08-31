@@ -49,9 +49,6 @@ public class DlgIdentificador extends DialogSupport {
     private JTextField txtIdentificador;
     
     @Getter
-    private JFrame frameParent;
-    
-    @Getter
     @Setter
     private Boolean isTerminate;
 
@@ -62,7 +59,6 @@ public class DlgIdentificador extends DialogSupport {
      */
     public DlgIdentificador(JFrame parent, boolean modal) {
     	super(parent, modal);
-        this.frameParent = parent;
         this.isTerminate = Boolean.TRUE;
     }
 

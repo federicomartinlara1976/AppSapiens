@@ -1,24 +1,27 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.Glosario;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mdval.bussiness.entities.TipoDato;
-import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.bussiness.service.TipoDatoService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author hcarreno
@@ -41,8 +44,6 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?)}", llamada);
 
-		LogWrapper.debug(log, "%s", runSP);
-
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -57,15 +58,15 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 
 			callableStatement.execute();
 
-			Integer result = callableStatement.getInt(3);
+			Integer result = callableStatement.getInt(2);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
+				Array listaErrores = callableStatement.getArray(3);
 				ServiceException exception = buildException((Object[]) listaErrores.getArray());
 				throw exception;
 			}
 
-			Array arrayTiposDatos = callableStatement.getArray(2);
+			Array arrayTiposDatos = callableStatement.getArray(1);
 			if (arrayTiposDatos != null) {
 				Object[] rows = (Object[]) arrayTiposDatos.getArray();
 				for (Object row : rows) {

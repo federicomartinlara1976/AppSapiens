@@ -24,145 +24,140 @@ import java.util.List;
 @Log4j
 public class TipoParticulaServiceImpl extends ServiceSupport implements TipoParticulaService {
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-    @Override
-    @SneakyThrows
-    public void altaTipoParticula(TipoParticula particula) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_alta_tipo_particula");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?.?)}", llamada);
+	@Override
+	@SneakyThrows
+	public void altaTipoParticula(TipoParticula particula) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_alta_tipo_particula");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
-        LogWrapper.debug(log, "%s", runSP);
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			logProcedure(runSP, particula.getDescripcionParticula(), particula.getCodigoUsuario(),
+					particula.getMcaProyecto(), particula.getMcaSubProyecto());
 
-            logProcedure(runSP, particula.getDescripcionParticula(), particula.getCodigoUsuario(), particula.getMcaProyecto(), particula.getMcaSubProyecto());
+			callableStatement.setString(1, particula.getDescripcionParticula());
+			callableStatement.setString(2, particula.getCodigoUsuario());
+			callableStatement.setString(3, particula.getMcaProyecto());
+			callableStatement.setString(4, particula.getMcaSubProyecto());
+			callableStatement.registerOutParameter(5, Types.INTEGER);
+			callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
 
-            callableStatement.setString(1, particula.getDescripcionParticula());
-            callableStatement.setString(2, particula.getCodigoUsuario());
-            callableStatement.setString(3, particula.getMcaProyecto());
-            callableStatement.setString(4, particula.getMcaSubProyecto());
-            callableStatement.registerOutParameter(5, Types.INTEGER);
-            callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+			callableStatement.execute();
 
-            callableStatement.execute();
+			Integer result = callableStatement.getInt(5);
 
-            Integer result = callableStatement.getInt(5);
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(6);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-            if (result == 0) {
-                Array listaErrores = callableStatement.getArray(6);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
-            }
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
+	@Override
+	@SneakyThrows
+	public void modificarTipoParticula(TipoParticula particula) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_modifcar_tipo_particula");// TODO validar nombre
+																					// p_modifcar_tipo_particula
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 
-    @Override
-    @SneakyThrows
-    public void modificarTipoParticula(TipoParticula particula) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_modificar_tipo_particula");//TODO validar nombre p_modifcar_tipo_particula
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?.?,?)}", llamada);
+		try (Connection conn = dataSource.getConnection();
+			CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-        LogWrapper.debug(log, "%s", runSP);
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+			logProcedure(runSP, particula.getCodigoParticula(), particula.getDescripcionParticula(),
+					particula.getCodigoUsuario(), particula.getMcaProyecto(), particula.getMcaSubProyecto());
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			callableStatement.setBigDecimal(1, particula.getCodigoParticula());
+			callableStatement.setString(2, particula.getDescripcionParticula());
+			callableStatement.setString(3, particula.getCodigoUsuario());
+			callableStatement.setString(4, particula.getMcaProyecto());
+			callableStatement.setString(5, particula.getMcaSubProyecto());
+			callableStatement.registerOutParameter(6, Types.INTEGER);
+			callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
 
-            logProcedure(runSP, particula.getCodigoParticula(), particula.getDescripcionParticula(), particula.getCodigoUsuario(), particula.getMcaProyecto(), particula.getMcaSubProyecto());
+			callableStatement.execute();
 
-            callableStatement.setBigDecimal(1, particula.getCodigoParticula());
-            callableStatement.setString(2, particula.getDescripcionParticula());
-            callableStatement.setString(3, particula.getCodigoUsuario());
-            callableStatement.setString(4, particula.getMcaProyecto());
-            callableStatement.setString(5, particula.getMcaSubProyecto());
-            callableStatement.registerOutParameter(6, Types.INTEGER);
-            callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
+			Integer result = callableStatement.getInt(6);
 
-            callableStatement.execute();
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(7);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-            Integer result = callableStatement.getInt(5);
+	@Override
+	@SneakyThrows
+	public List<TipoParticula> consultarDefinicionTiposParticula(String descripcionParticula) {
+		List<TipoParticula> tipoParticulas = new ArrayList<>();
 
-            if (result == 0) {
-                Array listaErrores = callableStatement.getArray(6);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
-            }
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_con_def_tipos_particulas");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
-    @Override
-    @SneakyThrows
-    public List<TipoParticula> consultarDefinicionTiposParticula(String descripcionParticula) {
-        List<TipoParticula> tipoParticulas = new ArrayList<>();
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_con_def_tipos_particulas");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-        LogWrapper.debug(log, "%s", runSP);
+			logProcedure(runSP, descripcionParticula);
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+			callableStatement.setString(1, descripcionParticula);
 
-            String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			callableStatement.registerOutParameter(2, Types.ARRAY, typeTipoParticula);
+			callableStatement.registerOutParameter(3, Types.INTEGER);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
 
-            callableStatement.setString(1, descripcionParticula);
+			callableStatement.execute();
 
-            callableStatement.registerOutParameter(2, Types.ARRAY, typeTipoParticula);
-            callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+			Integer result = callableStatement.getInt(3);
 
-            callableStatement.execute();
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(4);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
 
-            Integer result = callableStatement.getInt(3);
-
-            if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
-            }
-
-            Array arrayTipoParticula = callableStatement.getArray(2);
-            if (arrayTipoParticula != null) {
-                Object[] rows = (Object[]) arrayTipoParticula.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    TipoParticula tipoParticula = TipoParticula.builder()
-                            .codigoParticula((BigDecimal) cols[0])
-                            .descripcionParticula((String) cols[1])
-                            .codigoUsuario((String) cols[2])
-                            .fechaActualizacion((java.util.Date) cols[3])
-                            .mcaProyecto((String) cols[4])
-                            .mcaSubProyecto((String) cols[5])
-                            .build();
-                    tipoParticulas.add(tipoParticula);
-                }
-            }
-            return tipoParticulas;
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error:  %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
+			Array arrayTipoParticula = callableStatement.getArray(2);
+			if (arrayTipoParticula != null) {
+				Object[] rows = (Object[]) arrayTipoParticula.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					TipoParticula tipoParticula = TipoParticula.builder().codigoParticula((BigDecimal) cols[0])
+							.descripcionParticula((String) cols[1]).codigoUsuario((String) cols[2])
+							.fechaActualizacion((java.util.Date) cols[3]).mcaProyecto((String) cols[4])
+							.mcaSubProyecto((String) cols[5]).build();
+					tipoParticulas.add(tipoParticula);
+				}
+			}
+			return tipoParticulas;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 }

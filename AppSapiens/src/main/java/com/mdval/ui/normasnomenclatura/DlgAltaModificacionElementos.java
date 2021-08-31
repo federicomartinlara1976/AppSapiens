@@ -48,19 +48,14 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 	
 	@Getter
 	private JTextField txtUsuario;
-	
-	@Getter
-    private JFrame frameParent;
 
     
     public DlgAltaModificacionElementos(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     public DlgAltaModificacionElementos(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	/**

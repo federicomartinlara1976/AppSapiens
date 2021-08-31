@@ -90,4 +90,12 @@ public abstract class ListenerSupport extends Observable {
 		}
 		return params;
 	}
+	
+	/**
+	 * 
+	 */
+	protected void updateObservers() {
+		this.setChanged();
+		this.notifyObservers();
+	}
 }

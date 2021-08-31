@@ -2,7 +2,7 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.swing.GroupLayout;
@@ -19,11 +19,11 @@ import javax.swing.event.ListSelectionListener;
 import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaTableListener;
-import com.mdval.ui.model.DefinicionGlosariosTableModel;
+import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.BooleanRenderer;
 import com.mdval.ui.renderer.DateRenderer;
-import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -59,6 +59,9 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	
 	@Getter
 	private JTextField txtTipoParticula;
+	
+	@Getter
+	FrmDefinicionTiposParticulaListener frmDefinicionTiposParticulaListener;
 	
 	@Getter
 	@Setter
@@ -171,14 +174,16 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmDefinicionTiposParticulaListener(this);
+		frmDefinicionTiposParticulaListener = new FrmDefinicionTiposParticulaListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionTiposParticulaTableListener(this);
 		
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR);
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
 		
-		btnAlta.addActionListener(listener);
-		btnModificacion.addActionListener(listener);
+		btnBuscar.addActionListener(frmDefinicionTiposParticulaListener);
+		btnAlta.addActionListener(frmDefinicionTiposParticulaListener);
+		btnModificacion.addActionListener(frmDefinicionTiposParticulaListener);
 		
 		ListSelectionModel rowSM = tblTiposParticula.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);
@@ -193,11 +198,10 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	protected void initModels() {
 		tblTiposParticula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblTiposParticula.setDefaultRenderer(Date.class, new DateRenderer());
-		tblTiposParticula.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
-		tblTiposParticula.setDefaultRenderer(Boolean.class, new BooleanRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
-		tblTiposParticula.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

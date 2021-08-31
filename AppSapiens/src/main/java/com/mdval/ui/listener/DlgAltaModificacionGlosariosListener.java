@@ -83,8 +83,7 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				this.setChanged();
-				this.notifyObservers();
+				updateObservers();
 			}
 			dlgAltaModificacionGlosarios.dispose();
 		} catch (Exception e) {

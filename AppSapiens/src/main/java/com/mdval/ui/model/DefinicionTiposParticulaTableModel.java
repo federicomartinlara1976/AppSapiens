@@ -40,11 +40,13 @@ public class DefinicionTiposParticulaTableModel extends DefaultTableModel<TipoPa
 		} else if (1 == columnIndex) {
 			return row.getDescripcionParticula();
 		} else if (2 == columnIndex) {
-			return row.getMcaProyecto();
-		} else if (3 == columnIndex) {
 			return row.getCodigoUsuario();
-		} else if (4 == columnIndex) {
+		} else if (3 == columnIndex) {
 			return row.getFechaActualizacion();
+		} else if (4 == columnIndex) {
+			return row.getMcaProyecto();
+		} else if (5 == columnIndex) {
+			return row.getMcaSubProyecto();
 		}
 
 		return null;

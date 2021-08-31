@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,10 +42,10 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			dlgIdentificador.dispose();
 
-			UIHelper.showMaximized(dlgIdentificador.getFrameParent());
-			dlgIdentificador.getFrameParent().setVisible(Boolean.TRUE);
+			UIHelper.showMaximized((JFrame) dlgIdentificador.getParent());
+			dlgIdentificador.getParent().setVisible(Boolean.TRUE);
 		} else {
-			JOptionPane.showMessageDialog(dlgIdentificador.getFrameParent(),
+			JOptionPane.showMessageDialog(dlgIdentificador.getParent(),
 					literales.getLiteral("dlgIdentificador.mensaje"));
 		}
 	}

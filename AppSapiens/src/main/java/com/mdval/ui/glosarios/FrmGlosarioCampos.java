@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MaestrasSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
@@ -343,18 +344,18 @@ public class FrmGlosarioCampos extends FrameSupport {
 	 * 
 	 */
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		cmbTipoDato.setSelectedIndex(0);
+		cmbMostrarExcepciones.setSelectedIndex(1);
 	}
 
 	@Override
 	protected void initModels() {
-		cmbTipoDato.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		TipoDatoComboBoxModel cmbTipoDatoModel = MaestrasSupport.getTipoDatoCmbModel(); 
+		cmbTipoDato.setModel(cmbTipoDatoModel);
 
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
 		tblCampos.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
-		cmbMostrarExcepciones.setSelectedIndex(1);
 	}
 }

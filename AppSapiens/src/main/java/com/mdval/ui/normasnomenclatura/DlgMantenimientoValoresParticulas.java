@@ -61,18 +61,13 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 	@Getter
 	private JTextField txtValor;
 	
-	@Getter
-    private JFrame frameParent;
-
     
     public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	/**

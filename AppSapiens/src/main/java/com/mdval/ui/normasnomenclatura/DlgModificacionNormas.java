@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mdval.ui.listener.DlgModificacionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -65,9 +66,6 @@ public class DlgModificacionNormas extends DialogSupport {
 	private JTextField txtUsuario;
 	
 	@Getter
-    private JFrame frameParent;
-	
-	@Getter
     private Boolean editar;
 
     
@@ -77,7 +75,6 @@ public class DlgModificacionNormas extends DialogSupport {
      */
     public DlgModificacionNormas(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     /**
@@ -87,7 +84,6 @@ public class DlgModificacionNormas extends DialogSupport {
      */
     public DlgModificacionNormas(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
 	/**
@@ -309,6 +305,12 @@ public class DlgModificacionNormas extends DialogSupport {
 		
 		DlgModificacionNormasListener actionListener = new DlgModificacionNormasListener(this);
 		actionListener.addObservador(frmDefinicionNormasListener);
+		
+		btnAltaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
+        btnBajaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
+        btnModificacionElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO);
+        btnAceptar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR);
+        btnCancelar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR);
 		
 		btnAltaElemento.addActionListener(actionListener);
         btnBajaElemento.addActionListener(actionListener);

@@ -96,8 +96,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				this.setChanged();
-				this.notifyObservers();
+				updateObservers();
 			}
 			
 			dlgModificacionNormas.dispose();

@@ -3,6 +3,7 @@ package com.mdval.bussiness.service.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,11 +43,14 @@ public class ServiceSupport {
 	 */
 	protected void logProcedure(String runSP, Object... objects) {
 		LogWrapper.debug(log, "%s", runSP);
-		StringBuilder sbArgumentos = new StringBuilder("Parámetros de entrada: \n");
-		for (Object o : objects) {
-			String value = (StringUtils.isBlank(o.toString())) ? "vacío" : o.toString();
-			sbArgumentos.append("\t").append(value).append("\n");
+		
+		if (!Objects.isNull(objects)) {
+			StringBuilder sbArgumentos = new StringBuilder("Parámetros de entrada: \n");
+			for (Object o : objects) {
+				String value = (!Objects.isNull(o) && !StringUtils.isBlank(o.toString())) ? o.toString() : "NULL";
+				sbArgumentos.append("\t").append(value).append("\n");
+			}
+			LogWrapper.debug(log, "%s", sbArgumentos.toString().trim());
 		}
-		LogWrapper.debug(log, "%s", sbArgumentos.toString().trim());
 	}
 }

@@ -49,20 +49,15 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
     @Getter
     private JTextField txtSD;
     
-    @Getter
-    private JFrame frameParent;
-    
     /**
      * Creates new form DlgBajaGlosarioCampos
      */
     public DlgBajaGlosarioCampos(JFrame parent, boolean modal) {
         super(parent, modal);
-        this.frameParent = parent;
     }
     
     public DlgBajaGlosarioCampos(JFrame parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
-        this.frameParent = parent;
     }
 
     /**
