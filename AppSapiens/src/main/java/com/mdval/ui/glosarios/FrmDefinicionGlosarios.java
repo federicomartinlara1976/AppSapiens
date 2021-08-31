@@ -48,6 +48,8 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	
 	@Getter
 	private JButton btnModificacion;
+	
+	@Getter
 	private JButton btnSeleccionar;
 
 	private JLabel jLabel1;
@@ -200,6 +202,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	protected void initialState() {
 		btnModificacion.setEnabled(Boolean.FALSE);
+		btnSeleccionar.setEnabled(Boolean.FALSE);
 	}
 
 	/**

@@ -39,6 +39,7 @@ public class FrmDefinicionGlosariosTableListener extends ListenerSupport impleme
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			frmDefinicionGlosarios.setSeleccionado(seleccionado);
 			frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.TRUE);
+			frmDefinicionGlosarios.getBtnSeleccionar().setEnabled(Boolean.TRUE);
 		}
 	}
 

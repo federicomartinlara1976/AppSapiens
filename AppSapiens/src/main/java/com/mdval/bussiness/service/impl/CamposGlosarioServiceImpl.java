@@ -41,6 +41,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeCampoGlosario = String.format("%s.%s", paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
 
             logProcedure(runSP, codigoGlosario, tipoDato, nombreColumna, mostrarExcepciones);
 
@@ -48,7 +49,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
             callableStatement.setString(2, tipoDato);
             callableStatement.setString(3, nombreColumna);
             callableStatement.setString(4, mostrarExcepciones);
-            callableStatement.registerOutParameter(5, Types.ARRAY);
+            callableStatement.registerOutParameter(5, Types.ARRAY, typeCampoGlosario);
             callableStatement.registerOutParameter(6, Types.INTEGER);
             callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
 
@@ -104,6 +105,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            
             logProcedure(runSP, campoGlosario, codigoRF, codigoSD);
 
             callableStatement.setBigDecimal(1, campoGlosario.getCodigoGlosario());

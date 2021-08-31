@@ -1,28 +1,34 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.Glosario;
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author hcarreno
  */
-@Service(Constants.GLOSARIO_SERVICE)
+@Service(Constants.NORMA_SERVICE)
 @Log4j
 public class NormaServiceImpl extends ServiceSupport implements NormaService {
 

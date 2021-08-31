@@ -2,7 +2,6 @@ package com.mdval.ui.glosarios;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.GroupLayout;
@@ -19,7 +18,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
-import com.mdval.ui.model.DefinicionGlosariosTableModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -42,11 +41,18 @@ public class FrmGlosarioCampos extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 3506678199253519307L;
 	
+	@Getter
 	private JButton btnAlta;
-    private JButton btnBaja;
+    
+	@Getter
+	private JButton btnBaja;
+	
+	@Getter
     private JButton btnBuscar;
     private JButton btnBuscarGlosario;
     private JButton btnImprimir;
+    
+    @Getter
     private JButton btnModificacion;
     
     private JLabel jLabel1;
@@ -86,6 +92,9 @@ public class FrmGlosarioCampos extends FrameSupport {
     
     @Getter
     private JTextField txtNorma;
+    
+    @Getter
+    private FrmGlosarioCamposListener frmGlosarioCamposListener;
     
     @Getter
     @Setter
@@ -323,7 +332,7 @@ public class FrmGlosarioCampos extends FrameSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new FrmGlosarioCamposListener(this);
+		frmGlosarioCamposListener = new FrmGlosarioCamposListener(this);
 		
 		btnBuscarGlosario.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
 		btnBuscar.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR);
@@ -332,20 +341,27 @@ public class FrmGlosarioCampos extends FrameSupport {
 		btnModificacion.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION);
 		btnImprimir.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
 		
-		btnBuscarGlosario.addActionListener(actionListener);
-		btnBuscar.addActionListener(actionListener);
-		btnAlta.addActionListener(actionListener);
-		btnBaja.addActionListener(actionListener);
-		btnModificacion.addActionListener(actionListener);
-		btnImprimir.addActionListener(actionListener);
+		btnBuscarGlosario.addActionListener(frmGlosarioCamposListener);
+		btnBuscar.addActionListener(frmGlosarioCamposListener);
+		btnAlta.addActionListener(frmGlosarioCamposListener);
+		btnBaja.addActionListener(frmGlosarioCamposListener);
+		btnModificacion.addActionListener(frmGlosarioCamposListener);
+		btnImprimir.addActionListener(frmGlosarioCamposListener);
 	}
 	
 	/**
 	 * 
 	 */
 	protected void initialState() {
+		txtCodigoGlosario.setEnabled(Boolean.FALSE);
+		txtGlosario.setEnabled(Boolean.FALSE);
+		txtCodigoNorma.setEnabled(Boolean.FALSE);
+		txtNorma.setEnabled(Boolean.FALSE);
 		cmbTipoDato.setSelectedIndex(0);
-		cmbMostrarExcepciones.setSelectedIndex(1);
+		cmbMostrarExcepciones.setSelectedIndex(0);
+		btnBuscar.setEnabled(Boolean.FALSE);
+		btnBaja.setEnabled(Boolean.FALSE);
+		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
@@ -354,7 +370,7 @@ public class FrmGlosarioCampos extends FrameSupport {
 		cmbTipoDato.setModel(cmbTipoDatoModel);
 
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
-		tblCampos.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblCampos.setModel(new DefinicionCamposGlosarioTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
 	}

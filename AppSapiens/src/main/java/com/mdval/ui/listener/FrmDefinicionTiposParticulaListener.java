@@ -29,7 +29,7 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
-		
+
 		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
@@ -47,9 +47,14 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	 * 
 	 */
 	private void eventBtnBuscar() {
-		String cadenaBuscar = frmDefinicionTiposParticula.getTxtTipoParticula().getText();
-		List<TipoParticula> tiposParticula = buscar(cadenaBuscar);
-		populateModel(tiposParticula);
+		try {
+			String cadenaBuscar = frmDefinicionTiposParticula.getTxtTipoParticula().getText();
+			List<TipoParticula> tiposParticula = buscar(cadenaBuscar);
+			populateModel(tiposParticula);
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(frmDefinicionTiposParticula, Constants.CMD_ERROR, params);
+		}
 	}
 
 	/**
@@ -64,11 +69,12 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO, frmDefinicionTiposParticula.getSeleccionado());
-		
+		params.put(Constants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO,
+				frmDefinicionTiposParticula.getSeleccionado());
+
 		showPopup(frmDefinicionTiposParticula, Constants.CMD_MODIFICACION_TIPOS_PARTICULA, params);
 	}
-	
+
 	/**
 	 * Busca tipos de partícula por descripción
 	 * 
@@ -91,7 +97,7 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 		DefinicionTiposParticulaTableModel tableModel = (DefinicionTiposParticulaTableModel) frmDefinicionTiposParticula
 				.getTblTiposParticula().getModel();
 		tableModel.setData(tipos);
-		
+
 		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
 		// deshabilitar el botón de selección para la próxima.
 		frmDefinicionTiposParticula.getBtnModificacion().setEnabled(Boolean.FALSE);

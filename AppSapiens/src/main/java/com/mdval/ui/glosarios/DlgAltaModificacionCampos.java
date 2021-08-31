@@ -2,7 +2,6 @@ package com.mdval.ui.glosarios;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
@@ -21,8 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.mdval.ui.listener.DlgAltaModificacionCamposListener;
+import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.MaestrasSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -80,6 +82,9 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	
 	@Getter
 	private JTextField txtUsuario;
+	
+	@Getter
+    private Boolean editar;
 
     
     public DlgAltaModificacionCampos(JFrame parent, boolean modal) {
@@ -295,8 +300,12 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new DlgAltaModificacionCamposListener(this);
-
+		FrmGlosarioCampos parent = (FrmGlosarioCampos) this.getParent();
+		FrmGlosarioCamposListener frmGlosarioCamposListener = parent.getFrmGlosarioCamposListener();
+		
+		DlgAltaModificacionCamposListener actionListener = new DlgAltaModificacionCamposListener(this);
+		actionListener.addObservador(frmGlosarioCamposListener);
+		
 		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
 
@@ -322,16 +331,22 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 //			Object campoSeleccionado = params.get(Constants.DLG_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
 			
 			txtNombre.setEditable(Boolean.FALSE);
+			editar = Boolean.TRUE;
 		}
 		else {
-
+			cmbTipoDato.setSelectedIndex(0);
+			cmbExcepcion.setSelectedIndex(1);
 			
 			txtNombre.setEditable(Boolean.TRUE);
+			editar = Boolean.FALSE;
 		}
 	}
 
 	@Override
 	protected void initModels() {
+		TipoDatoComboBoxModel cmbTipoDatoModel = MaestrasSupport.getTipoDatoCmbModel(); 
+		cmbTipoDato.setModel(cmbTipoDatoModel);
+		
 		cmbExcepcion.setModel(new SiNoComboBoxModel());
 	}
 }

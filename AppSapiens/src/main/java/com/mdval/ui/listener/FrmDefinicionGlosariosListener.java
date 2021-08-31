@@ -25,6 +25,10 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		super();
 		this.frmDefinicionGlosarios = frmDefinicionGlosarios;
 	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -51,9 +55,14 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	 * 
 	 */
 	private void eventBtnBuscar() {
-		String cadenaBuscar = frmDefinicionGlosarios.getTxtGlosario().getText();
-		List<Glosario> glosarios = buscar(cadenaBuscar);
-		populateModel(glosarios);
+		try {
+			String cadenaBuscar = frmDefinicionGlosarios.getTxtGlosario().getText();
+			List<Glosario> glosarios = buscar(cadenaBuscar);
+			populateModel(glosarios);
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(frmDefinicionGlosarios, Constants.CMD_ERROR, params);
+		}
 	}
 
 	private void eventBtnAlta() {
@@ -67,9 +76,12 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		showPopup(frmDefinicionGlosarios, Constants.CMD_MODIFICACION_GLOSARIOS, params);
 	}
 
+	/**
+	 * 
+	 */
 	private void eventBtnSeleccionar() {
-		// TODO Auto-generated method stub
-
+		updateObservers();
+		frmDefinicionGlosarios.dispose();
 	}
 	
 	/**
@@ -98,6 +110,7 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
 		// deshabilitar el botón de selección para la próxima.
 		frmDefinicionGlosarios.getBtnModificacion().setEnabled(Boolean.FALSE);
+		frmDefinicionGlosarios.getBtnSeleccionar().setEnabled(Boolean.FALSE);
 	}
 
 	/**
