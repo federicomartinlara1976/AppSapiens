@@ -1,6 +1,7 @@
 package com.mdval.bussiness.service;
 
 import com.mdval.bussiness.entities.TipoElemento;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,8 +14,8 @@ public interface TipoElementoService {
 
     List<TipoElemento> consultarTiposElementos(String descripcionElemento);
 
-    Integer altaTipoElemento(TipoElemento tipoElemento);
+    void altaTipoElemento(String descripcionElemento, String codigoUsuario);
 
-    Integer modificarTipoElemento(TipoElemento tipoElemento);
+    void modificarTipoElemento(BigDecimal codigoElemento, String descripcionElemento, String codigoUsuario);
 
 }

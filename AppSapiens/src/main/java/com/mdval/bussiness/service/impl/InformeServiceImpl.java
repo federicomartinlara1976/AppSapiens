@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
  */
 @Service(Constants.INFORME_SERVICE)
 @Log4j
-public class InformeServiceImpl implements InformeService {
+public class InformeServiceImpl extends ServiceSupport implements InformeService {
 
     @Autowired
     private DataSource dataSource;
@@ -42,7 +42,7 @@ public class InformeServiceImpl implements InformeService {
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_generar_informe_val");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?)}";
+        String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -50,6 +50,8 @@ public class InformeServiceImpl implements InformeService {
             String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
             String typeCampoGlosario = String.format("%s.%s", paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+            logProcedure(runSP, codigoValidacion);
 
             callableStatement.setBigDecimal(1, codigoValidacion);
             callableStatement.registerOutParameter(2, Types.ARRAY, typeDetValidacion);
@@ -60,20 +62,12 @@ public class InformeServiceImpl implements InformeService {
 
             callableStatement.execute();
 
-            Integer resultadoOperacion = callableStatement.getInt(3);
-            log.info("[ElementoNormaService.consultarDefinicionElementoNorma] ResultadoOperacion: " + resultadoOperacion);
+            Integer result = callableStatement.getInt(5);
 
-            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(6);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
             Array arrayErroneos = callableStatement.getArray(2);

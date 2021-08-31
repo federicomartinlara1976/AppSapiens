@@ -1,5 +1,6 @@
 package com.mdval.bussiness.service.impl;
 
+import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.service.ModeloService;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import lombok.SneakyThrows;
@@ -26,20 +28,19 @@ import org.springframework.stereotype.Service;
  */
 @Service(Constants.MODELO_SERVICE)
 @Log4j
-public class ModeloServiceImpl implements ModeloService {
+public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 	@Autowired
 	private DataSource dataSource;
 
 	@Override
 	@SneakyThrows
-	public Integer altaModelo(Modelo modelo) {
+	public void altaModelo(Modelo modelo) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_alta_modelo");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-		Integer result = 0;
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -50,6 +51,11 @@ public class ModeloServiceImpl implements ModeloService {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 			String typeSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+
+			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
+					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
+					modelo.getCodigoUsuario(), modelo.getNomApnCmdb(), modelo.getMcaGrantAll(), modelo.getMcaGrantPublic(), modelo.getMcaVariables(),
+					modelo.getCodigoCapaUsrown(), arraySubProyectos.toString());
 
 			callableStatement.setString(1, modelo.getCodigoProyecto());
 			callableStatement.setString(2, modelo.getNombreModelo());
@@ -74,30 +80,51 @@ public class ModeloServiceImpl implements ModeloService {
 
 			callableStatement.execute();
 
-			result = callableStatement.getInt(4);
-			Array listaErrores = callableStatement.getArray(5); // TODO forzar error
+			Integer result = callableStatement.getInt(18);
 
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(19);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
-
-			return result;
 		} catch (SQLException e) {
-			LogWrapper.error(log, "[GlosarioService.altaModelo] Error: %s", e.getMessage());
+			LogWrapper.error(log, "[ModeloService.altaModelo] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
-	public Integer bajaLogicaModelo(String codigoProyecto, String codigoUsuario) {
-		return null;
+	@SneakyThrows
+	public void bajaLogicaModelo(String codigoProyecto, String codigoUsuario) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_baja_logica_modelo");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			logProcedure(runSP, codigoProyecto, codigoUsuario);
+
+			callableStatement.setString(1, codigoProyecto);
+			callableStatement.setString(2, codigoUsuario);
+			callableStatement.registerOutParameter(3, Types.INTEGER);
+			callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(3);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(4);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ModeloService.bajaLogicaModelo] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
@@ -111,13 +138,15 @@ public class ModeloServiceImpl implements ModeloService {
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_consulta_modelos");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?,?,?,?)}";
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeModelo = String.format("%s.%s", paquete, Constants.T_T_MODELO).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+			logProcedure(runSP, codigoProyecto, nombreModelo, codigoNorma, codigoGlosario, nombreEsquema, nombreBbdd, mostrarInh);
 
 			callableStatement.setString(1, codigoProyecto);
 			callableStatement.setString(2, nombreModelo);
@@ -132,20 +161,12 @@ public class ModeloServiceImpl implements ModeloService {
 
 			callableStatement.execute();
 
-			Integer resultadoOperacion = callableStatement.getInt(9);
-			log.info("[ModeloService.consultaModelos] ResultadoOperacion: " + resultadoOperacion);
+			Integer result = callableStatement.getInt(9);
 
-			Array listaErrores = callableStatement.getArray(10); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(10);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
 
 			Array arrayModelos = callableStatement.getArray(8);
@@ -189,8 +210,120 @@ public class ModeloServiceImpl implements ModeloService {
 	}
 
 	@Override
+	@SneakyThrows
 	public Modelo consultaModelo(String codigoProyecto) {
-		return null;
+		Modelo modelo = new Modelo();
+		List<SubProyecto> subProyectos = new ArrayList<>();
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_con_modelo");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			logProcedure(runSP, codigoProyecto);
+
+			callableStatement.setString(1, codigoProyecto);
+			callableStatement.registerOutParameter(2, Types.VARCHAR);
+			callableStatement.registerOutParameter(3, Types.NUMERIC);
+			callableStatement.registerOutParameter(4, Types.NUMERIC);
+			callableStatement.registerOutParameter(5, Types.VARCHAR);
+			callableStatement.registerOutParameter(6, Types.VARCHAR);
+			callableStatement.registerOutParameter(7, Types.VARCHAR);
+			callableStatement.registerOutParameter(8, Types.VARCHAR);
+			callableStatement.registerOutParameter(9, Types.VARCHAR);
+			callableStatement.registerOutParameter(10, Types.VARCHAR);
+			callableStatement.registerOutParameter(11, Types.VARCHAR);
+			callableStatement.registerOutParameter(12, Types.VARCHAR);
+			callableStatement.registerOutParameter(13, Types.DATE);
+			callableStatement.registerOutParameter(14, Types.VARCHAR);
+			callableStatement.registerOutParameter(15, Types.VARCHAR);
+			callableStatement.registerOutParameter(16, Types.VARCHAR);
+			callableStatement.registerOutParameter(17, Types.VARCHAR);
+			callableStatement.registerOutParameter(18, Types.VARCHAR);
+			callableStatement.registerOutParameter(19, Types.ARRAY, typeSubProyecto);
+			callableStatement.registerOutParameter(20, Types.INTEGER);
+			callableStatement.registerOutParameter(21, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(20);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(21);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+
+			Array arraySubProyectos = callableStatement.getArray(19);
+			if (arraySubProyectos != null) {
+				Object[] rows = (Object[]) arraySubProyectos.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+					SubProyecto subProyecto = SubProyecto.builder()
+							.codigoProyecto((String) cols[0])
+							.codigoSubProyecto((String) cols[1])
+							.descripcionSubProyecto((String) cols[2])
+							.codigoUsuario((String) cols[3])
+							.fechaActualizacion((Date) cols[4])
+							.build();
+					subProyectos.add(subProyecto);
+				}
+			}
+
+			String nombreModelo = callableStatement.getString(2);
+			BigDecimal codigoNorma = callableStatement.getBigDecimal(3);
+			BigDecimal codigoGlosario = callableStatement.getBigDecimal(4);
+			String descripcionGlosario = callableStatement.getString(5);
+			String nombreEsquema = callableStatement.getString(6);
+			String nombreBbdd = callableStatement.getString(7);
+			String carpetaAdj = callableStatement.getString(8);
+			String codGrupoBds = callableStatement.getString(9);
+			String nomApnCmdb = callableStatement.getString(10);
+			String codigoHerramienta = callableStatement.getString(11);
+			String codigoUsuario = callableStatement.getString(12);
+			Date fechaActualizacion = callableStatement.getDate(13);
+			String codCapaUsrOwn = callableStatement.getString(14);
+			String mcaGrantAll = callableStatement.getString(15);
+			String mcaGrantPublic = callableStatement.getString(16);
+			String mcaVariables = callableStatement.getString(17);
+			String obsModelo = callableStatement.getString(18);
+
+			modelo.toBuilder()
+					.codigoProyecto(codigoProyecto)
+					.nombreModelo(nombreModelo)
+					.nombreEsquema(nombreEsquema)
+					.nombreBbdd(nombreBbdd)
+					.codigoGrupoBds(codGrupoBds)
+					.nombreCarpetaAdj(carpetaAdj)
+					.codigoNorma(codigoNorma)
+					//.descripcionNorma() //TODO no esta en la respuesta, preguntar si falta ?
+					.nomApnCmdb(nomApnCmdb)
+					.codigoGlosario(codigoGlosario)
+					.descripcionGlosario(descripcionGlosario)
+					.codigoHerramienta(codigoHerramienta)
+					.observacionesModelo(obsModelo)
+					.codigoUsuario(codigoUsuario)
+					.fechaActualizacion(fechaActualizacion)
+					.codigoCapaUsrown(codCapaUsrOwn)
+					.mcaVariables(mcaVariables)
+					.mcaGrantAll(mcaGrantAll)
+					.mcaGrantPublic(mcaGrantPublic)
+					//.mcaInh() //TODO no esta en la respuesta, preguntar si falta ?
+					.subProyectos(subProyectos)
+					.build();
+
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ModeloService.consultaModelo] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+
+		return modelo;
 	}
 
 	@Override
@@ -202,13 +335,15 @@ public class ModeloServiceImpl implements ModeloService {
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_con_modelos_glosario");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call " + llamada + "(?,?,?,?)}";
+		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeModelo = String.format("%s.%s", paquete, Constants.T_T_MODELO).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+			logProcedure(runSP, codigoGlosario);
 
 			callableStatement.setBigDecimal(1, codigoGlosario);
 			callableStatement.registerOutParameter(2, Types.ARRAY, typeModelo);
@@ -217,20 +352,12 @@ public class ModeloServiceImpl implements ModeloService {
 
 			callableStatement.execute();
 
-			Integer resultadoOperacion = callableStatement.getInt(3);
-			log.info("[ModeloService.consultaModelos] ResultadoOperacion: " + resultadoOperacion);
+			Integer result = callableStatement.getInt(3);
 
-			Array listaErrores = callableStatement.getArray(4); // TODO forzar error
-
-			if (listaErrores != null) {
-				Object[] rows = (Object[]) listaErrores.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					for (Object col : cols) {
-						log.info(col + " ");
-					}
-					log.info(" ");
-				}
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(4);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
 			}
 
 			Array arrayModelos = callableStatement.getArray(2);
@@ -265,7 +392,6 @@ public class ModeloServiceImpl implements ModeloService {
 					modelos.add(modelo);
 				}
 			}
-
 			return modelos;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.consultarModelosGlosario] Error:  %s", e.getMessage());
@@ -274,7 +400,62 @@ public class ModeloServiceImpl implements ModeloService {
 	}
 
 	@Override
-	public Integer modificaModelo(Modelo modelo) {
-		return null;
+	@SneakyThrows
+	public void modificaModelo(Modelo modelo) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_modifica_modelo");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			SubProyecto[] arraySubProyectos = modelo.getSubProyectos().toArray(new SubProyecto[0]);
+
+			//Object[] array = modelo.getSubProyectos().toArray(); //TODO test in array parameter
+
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+
+			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
+					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
+					modelo.getCodigoUsuario(), modelo.getNomApnCmdb(), modelo.getMcaGrantAll(), modelo.getMcaGrantPublic(), modelo.getMcaVariables(),
+					modelo.getCodigoCapaUsrown(), arraySubProyectos.toString());
+
+			callableStatement.setString(1, modelo.getCodigoProyecto());
+			callableStatement.setString(2, modelo.getNombreModelo());
+			callableStatement.setBigDecimal(3, modelo.getCodigoNorma());
+			callableStatement.setBigDecimal(4, modelo.getCodigoGlosario());
+			callableStatement.setString(5, modelo.getNombreEsquema());
+			callableStatement.setString(6, modelo.getNombreBbdd());
+			callableStatement.setString(7, modelo.getNombreCarpetaAdj());
+			callableStatement.setString(8, modelo.getCodigoGrupoBds());
+			callableStatement.setString(9, modelo.getCodigoHerramienta());
+			callableStatement.setString(10, modelo.getObservacionesModelo());
+			callableStatement.setString(11, modelo.getCodigoUsuario());
+			callableStatement.setString(12, modelo.getNomApnCmdb());
+			callableStatement.setString(13, modelo.getMcaGrantAll());
+			callableStatement.setString(14, modelo.getMcaGrantPublic());
+			callableStatement.setString(15, modelo.getMcaVariables());
+			callableStatement.setString(16, modelo.getCodigoCapaUsrown());
+			callableStatement.setArray(17, conn.createArrayOf(typeSubProyecto, arraySubProyectos));
+
+			callableStatement.registerOutParameter(18, Types.INTEGER);
+			callableStatement.registerOutParameter(19, Types.VARCHAR, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(18);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(19);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[GlosarioService.altaModelo] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 }

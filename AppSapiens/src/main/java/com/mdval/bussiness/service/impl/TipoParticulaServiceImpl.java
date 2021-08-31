@@ -71,8 +71,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	public void modificarTipoParticula(TipoParticula particula) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
-		String procedure = configuration.getConfig("p_modifcar_tipo_particula");// TODO validar nombre
-																					// p_modifcar_tipo_particula
+		String procedure = configuration.getConfig("p_modifcar_tipo_particula");// TODO validar nombre p_modifcar_tipo_particula
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 

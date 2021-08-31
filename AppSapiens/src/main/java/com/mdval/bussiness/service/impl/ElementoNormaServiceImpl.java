@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
  */
 @Service(Constants.ELEMENTO_NORMA_SERVICE)
 @Log4j
-public class ElementoNormaServiceImpl implements ElementoNormaService {
+public class ElementoNormaServiceImpl extends ServiceSupport implements ElementoNormaService {
 
     @Autowired
     private DataSource dataSource;
@@ -40,12 +40,13 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_con_def_elem_norma");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?)}";
+        String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeElementoNorma = String.format("%s.%s", paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            logProcedure(runSP, codigoNorma, codigoElemento);
 
             callableStatement.setBigDecimal(1, codigoNorma);
             callableStatement.setBigDecimal(2, codigoElemento);
@@ -55,20 +56,12 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
 
             callableStatement.execute();
 
-            Integer resultadoOperacion = callableStatement.getInt(3);
-            log.info("[ElementoNormaService.consultarDefinicionElementoNorma] ResultadoOperacion: " + resultadoOperacion);
+            Integer result = callableStatement.getInt(4);
 
-            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(5);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
             Array listaElementoNorma = callableStatement.getArray(3);
@@ -110,12 +103,13 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_con_elem_norma");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?)}";
+        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeElementoNorma = String.format("%s.%s", paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            logProcedure(runSP, codigoNorma);
 
             callableStatement.setBigDecimal(1, codigoNorma);
             callableStatement.registerOutParameter(2, Types.ARRAY, typeElementoNorma);
@@ -124,20 +118,12 @@ public class ElementoNormaServiceImpl implements ElementoNormaService {
 
             callableStatement.execute();
 
-            Integer resultadoOperacion = callableStatement.getInt(3);
-            log.info("[ElementoNormaService.consultarElementoNorma] ResultadoOperacion: " + resultadoOperacion);
+            Integer result = callableStatement.getInt(3);
 
-            Array listaErrores = callableStatement.getArray(4); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(4);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
             Array listaElementoNorma = callableStatement.getArray(2);

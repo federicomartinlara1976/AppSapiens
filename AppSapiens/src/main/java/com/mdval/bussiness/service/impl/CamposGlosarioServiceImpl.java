@@ -5,41 +5,30 @@ import com.mdval.bussiness.service.CamposGlosarioService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
-import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LogWrapper;
-import java.math.BigDecimal;
-import java.sql.Array;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.sql.DataSource;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hcarreno
  */
 @Service(Constants.CAMPOS_GLOSARIO_SERVICE)
 @Log4j
-public class CamposGlosarioServiceImpl implements CamposGlosarioService {
-	
-	private DateFormatter dateFormatter;
+public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposGlosarioService {
 
     @Autowired
     private DataSource dataSource;
 
-    public CamposGlosarioServiceImpl() {
-		super();
-		dateFormatter = new DateFormatter();
-	}
-
-	@Override
+    @Override
     @SneakyThrows
     public List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna, String mostrarExcepciones) {
         List<CampoGlosario> campoGlosarios = new ArrayList<>();
@@ -47,11 +36,13 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_con_campos_glosario");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?)}";
+        String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+            logProcedure(runSP, codigoGlosario, tipoDato, nombreColumna, mostrarExcepciones);
 
             callableStatement.setBigDecimal(1, codigoGlosario);
             callableStatement.setString(2, tipoDato);
@@ -63,22 +54,17 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 
             callableStatement.execute();
 
-            Array listaErrores = callableStatement.getArray(7); //TODO forzar error
+            Integer result = callableStatement.getInt(6);
 
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(7);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
-            Array listaCamposGlosarios = callableStatement.getArray(5);
-            if (listaCamposGlosarios != null) {
-                Object[] rows = (Object[]) listaCamposGlosarios.getArray();
+            Array arrayCamposGlosario = callableStatement.getArray(5);
+            if (arrayCamposGlosario != null) {
+                Object[] rows = (Object[]) arrayCamposGlosario.getArray();
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
@@ -107,18 +93,18 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 
     @Override
     @SneakyThrows
-    public Integer bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD) {
+    public void bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_baja_campo_glosario");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?,?,?,?,?)}";
-        Integer result = 0;
+        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            logProcedure(runSP, campoGlosario, codigoRF, codigoSD);
 
             callableStatement.setBigDecimal(1, campoGlosario.getCodigoGlosario());
             callableStatement.setString(2, campoGlosario.getNombreColumna());
@@ -135,42 +121,34 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 
             callableStatement.execute();
 
-            result = callableStatement.getInt(10);
+            Integer result = callableStatement.getInt(10);
 
-            Array listaErrores = callableStatement.getArray(11); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(11);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[CamposGlosarioService.bajaCampoGlosario] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return result;
+
     }
 
     @Override
     @SneakyThrows
-    public Integer altaCampoGlosario(CampoGlosario campoGlosario) {
+    public void altaCampoGlosario(CampoGlosario campoGlosario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_alta_campo_glosario");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?,?,?,?,?)}";
-        Integer result = 0;
-
+        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            logProcedure(runSP, campoGlosario);
 
             callableStatement.setBigDecimal(1, campoGlosario.getCodigoGlosario());
             callableStatement.setString(2, campoGlosario.getNombreColumna());
@@ -187,42 +165,37 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 
             callableStatement.execute();
 
-            result = callableStatement.getInt(10);
+            Integer result = callableStatement.getInt(10);
 
-            Array listaErrores = callableStatement.getArray(11); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(11);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[CamposGlosarioService.altaCampoGlosario] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return result;
     }
 
     @Override
     @SneakyThrows
-    public Integer modificarCampoGlosario(CampoGlosario oldCampoGlosario,CampoGlosario newCampoGlosario) {
+    public void modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig("paquete");
         String procedure = configuration.getConfig("p_modificar_campo_glosario");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = "{ call " + llamada + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        Integer result = 0;
+        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            logProcedure(runSP, oldCampoGlosario.getCodigoGlosario(), oldCampoGlosario.getNombreColumna(), oldCampoGlosario.getTipoDato(),
+                    oldCampoGlosario.getNumeroLongitud(), oldCampoGlosario.getNumeroDecimal(), oldCampoGlosario.getMcaExcepcion(),
+                    newCampoGlosario.getNombreColumna(), newCampoGlosario.getTipoDato(), newCampoGlosario.getNumeroLongitud(), newCampoGlosario.getNumeroDecimal(),
+                    newCampoGlosario.getMcaExcepcion(), newCampoGlosario.getTxtExcepcion(), newCampoGlosario.getTxtComentario(), newCampoGlosario.getCodigoUsuario());
 
             callableStatement.setBigDecimal(1, oldCampoGlosario.getCodigoGlosario());
             callableStatement.setString(2, oldCampoGlosario.getNombreColumna());
@@ -245,25 +218,17 @@ public class CamposGlosarioServiceImpl implements CamposGlosarioService {
 
             callableStatement.execute();
 
-            result = callableStatement.getInt(15);
+            Integer result = callableStatement.getInt(15);
 
-            Array listaErrores = callableStatement.getArray(16); //TODO forzar error
-
-            if (listaErrores != null) {
-                Object[] rows = (Object[]) listaErrores.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    for (Object col : cols) {
-                        log.info(col + " ");
-                    }
-                    log.info(" ");
-                }
+            if (result == 0) {
+                Array listaErrores = callableStatement.getArray(16);
+                ServiceException exception = buildException((Object[]) listaErrores.getArray());
+                throw exception;
             }
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[CamposGlosarioService.modificarCampoGlosario] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return result;
     }
 }

@@ -11,9 +11,9 @@ public interface CamposGlosarioService {
 
     List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna, String mostrarExcepciones);
 
-    Integer bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD);
+    void bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD);
 
-    Integer altaCampoGlosario(CampoGlosario campoGlosario);
+    void altaCampoGlosario(CampoGlosario campoGlosario);
 
-    Integer modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario);
+    void modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario);
 }

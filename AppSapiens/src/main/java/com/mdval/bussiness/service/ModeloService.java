@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface ModeloService {
 
-    Integer altaModelo(Modelo modelo);
+    void altaModelo(Modelo modelo);
 
-    Integer bajaLogicaModelo(String codigoProyecto, String codigoUsuario);
+    void bajaLogicaModelo(String codigoProyecto, String codigoUsuario);
 
     List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo, BigDecimal codigoNorma, BigDecimal codigoGlosario, String nombreEsquema, String nombreBbdd, String mostrarInh);
 
@@ -19,6 +19,6 @@ public interface ModeloService {
 
     List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario);
 
-    Integer modificaModelo(Modelo modelo);
+    void modificaModelo(Modelo modelo);
 
 }
