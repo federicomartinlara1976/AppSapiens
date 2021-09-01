@@ -71,7 +71,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_ALTA_GLOSARIO_CAMPOS.equals(option)) {
-			dialog = new DlgAltaModificacionCampos(frameParent, modal);
+			dialog = new DlgAltaModificacionCampos(frameParent, modal, params);
 		}
 		
 		if (Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS.equals(option)) {

@@ -11,7 +11,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.service.CamposGlosarioService;
@@ -104,14 +103,20 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmGlosarioCampos, Constants.CMD_ALTA_GLOSARIO_CAMPOS);
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
+		
+		showPopup(frmGlosarioCampos, Constants.CMD_ALTA_GLOSARIO_CAMPOS, params);
 	}
 
 	/**
 	 * 
 	 */
 	private void eventBtnBaja() {
-		showPopup(frmGlosarioCampos, Constants.CMD_BAJA_GLOSARIO_CAMPOS);
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
+		
+		showPopup(frmGlosarioCampos, Constants.CMD_BAJA_GLOSARIO_CAMPOS, params);
 	}
 
 	/**
@@ -120,7 +125,8 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private void eventBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
-
+		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
+		
 		showPopup(frmGlosarioCampos, Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
 	}
 
@@ -165,18 +171,29 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 		// deshabilitar el botón de selección para la próxima.
 		frmGlosarioCampos.getBtnBaja().setEnabled(Boolean.FALSE);
 		frmGlosarioCampos.getBtnModificacion().setEnabled(Boolean.FALSE);
+		frmGlosarioCampos.getBtnImprimir().setEnabled(Boolean.TRUE);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof FrmDefinicionGlosariosListener) {
 			if (!Objects.isNull(frmDefinicionGlosarios.getSeleccionado())) {
+				frmGlosarioCampos.setGlosarioSeleccionado(frmDefinicionGlosarios.getSeleccionado());
 				frmGlosarioCampos.getTxtCodigoGlosario().setText(
 						frmDefinicionGlosarios.getSeleccionado().getCodigoGlosario().toBigInteger().toString());
 				frmGlosarioCampos.getTxtGlosario()
 						.setText(frmDefinicionGlosarios.getSeleccionado().getDescripcionGlosario());
 				frmGlosarioCampos.getBtnBuscar().setEnabled(Boolean.TRUE);
+				frmGlosarioCampos.getBtnAlta().setEnabled(Boolean.TRUE);
 			}
+		}
+		
+		if (o instanceof DlgAltaModificacionCamposListener) {
+			eventBtnBuscar();
+		}
+		
+		if (o instanceof DlgBajaGlosarioCamposListener) {
+			eventBtnBuscar();
 		}
 	}
 }

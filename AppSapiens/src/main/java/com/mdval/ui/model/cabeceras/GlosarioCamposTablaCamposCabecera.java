@@ -1,5 +1,6 @@
 package com.mdval.ui.model.cabeceras;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,8 +25,8 @@ public class GlosarioCamposTablaCamposCabecera extends Cabecera {
 			
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(Integer.class);
-		columnClasses.add(Integer.class);
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);

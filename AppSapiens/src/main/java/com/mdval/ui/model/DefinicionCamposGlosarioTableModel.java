@@ -44,12 +44,14 @@ public class DefinicionCamposGlosarioTableModel extends DefaultTableModel<CampoG
 		} else if (3 == columnIndex) {
 			return row.getNumeroDecimal();
 		} else if (4 == columnIndex) {
-			return row.getCodigoGlosario();
-		} else if (5 == columnIndex) {
 			return row.getMcaExcepcion();
+		} else if (5 == columnIndex) {
+			return row.getTxtComentario();
 		} else if (6 == columnIndex) {
-			return row.getCodigoUsuario();
+			return row.getTxtExcepcion();
 		} else if (7 == columnIndex) {
+			return row.getCodigoUsuario();
+		} else if (8 == columnIndex) {
 			return row.getFechaActualizacion();
 		}
 

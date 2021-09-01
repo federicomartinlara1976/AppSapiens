@@ -1,7 +1,6 @@
 package com.mdval.ui.glosarios;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -15,8 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.ui.listener.DlgBajaGlosarioCamposListener;
+import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -48,6 +50,9 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
     
     @Getter
     private JTextField txtSD;
+    
+    @Getter
+    private CampoGlosario campoSeleccionado;
     
     /**
      * Creates new form DlgBajaGlosarioCampos
@@ -152,21 +157,24 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new DlgBajaGlosarioCamposListener(this);
+		FrmGlosarioCampos parent = (FrmGlosarioCampos) this.getParent();
+		FrmGlosarioCamposListener frmGlosarioCamposListener = parent.getFrmGlosarioCamposListener();
+		
+		DlgBajaGlosarioCamposListener actionListener = new DlgBajaGlosarioCamposListener(this);
+		actionListener.addObservador(frmGlosarioCamposListener);
+		
+		btnAceptar.setActionCommand(Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		campoSeleccionado = (CampoGlosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
 	}
 }

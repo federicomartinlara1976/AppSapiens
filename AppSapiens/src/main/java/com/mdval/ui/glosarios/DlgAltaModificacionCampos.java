@@ -19,12 +19,15 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.DlgAltaModificacionCamposListener;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.MaestrasSupport;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -85,6 +88,12 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	
 	@Getter
     private Boolean editar;
+	
+	@Getter
+	private Glosario glosarioSeleccionado;
+	
+	@Getter
+	private CampoGlosario campoGlosarioSeleccionado;
 
     
     public DlgAltaModificacionCampos(JFrame parent, boolean modal) {
@@ -317,6 +326,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	 * 
 	 */
 	protected void initialState() {
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+		
 		cmbExcepcion.setSelectedIndex(1);
 		txtUsuario.setEnabled(Boolean.FALSE);
 		txtUsuario.setEditable(Boolean.FALSE);
@@ -324,11 +335,23 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		txtModificacion.setEditable(Boolean.FALSE);
 		
 		/** 
-		 * Para la modificación params no es nulo
-		 * y contiene una entrada con el campo a modificar
+		 * Para la modificación en este caso no debe haber un glosario seleccionado
+		 * ya que el código de glosario se encuentra en el campo a editar
 		 */
-		if (!Objects.isNull(params)) {
-//			Object campoSeleccionado = params.get(Constants.DLG_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
+		glosarioSeleccionado = (Glosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO);
+		campoGlosarioSeleccionado = (CampoGlosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
+		
+		if (!Objects.isNull(campoGlosarioSeleccionado)) {
+			txtNombre.setText(campoGlosarioSeleccionado.getNombreColumna());
+			cmbTipoDato.setSelectedItem(campoGlosarioSeleccionado.getTipoDato());
+			txtTamanio.setText(campoGlosarioSeleccionado.getNumeroLongitud().toString());
+			getTxtDecimales().setText(campoGlosarioSeleccionado.getNumeroDecimal().toString());
+			String mcaSelected = "S".equals(campoGlosarioSeleccionado.getMcaExcepcion()) ? "SI" : "NO";
+			cmbExcepcion.setSelectedItem(mcaSelected);
+			txtDescripcionExcepcion.setText(campoGlosarioSeleccionado.getTxtExcepcion());
+			txtObservaciones.setText(campoGlosarioSeleccionado.getTxtComentario());
+			txtUsuario.setText(campoGlosarioSeleccionado.getCodigoUsuario());
+			txtModificacion.setText(dateFormatter.dateToString(campoGlosarioSeleccionado.getFechaActualizacion()));
 			
 			txtNombre.setEditable(Boolean.FALSE);
 			editar = Boolean.TRUE;
@@ -336,8 +359,11 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		else {
 			cmbTipoDato.setSelectedIndex(0);
 			cmbExcepcion.setSelectedIndex(1);
-			
 			txtNombre.setEditable(Boolean.TRUE);
+			
+			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
+			
 			editar = Boolean.FALSE;
 		}
 	}

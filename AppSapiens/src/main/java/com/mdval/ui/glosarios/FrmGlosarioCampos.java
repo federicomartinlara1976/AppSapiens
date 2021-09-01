@@ -3,6 +3,8 @@ package com.mdval.ui.glosarios;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -13,15 +15,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
+import com.mdval.ui.listener.FrmGlosarioCamposTableListener;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.MaestrasSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -41,6 +52,11 @@ public class FrmGlosarioCampos extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 3506678199253519307L;
 	
+	private JButton btnBuscarGlosario;
+	
+	@Getter
+    private JButton btnBuscar;
+	
 	@Getter
 	private JButton btnAlta;
     
@@ -48,12 +64,10 @@ public class FrmGlosarioCampos extends FrameSupport {
 	private JButton btnBaja;
 	
 	@Getter
-    private JButton btnBuscar;
-    private JButton btnBuscarGlosario;
-    private JButton btnImprimir;
-    
-    @Getter
     private JButton btnModificacion;
+	
+	@Getter
+    private JButton btnImprimir;
     
     private JLabel jLabel1;
     private JLabel jLabel2;
@@ -98,7 +112,11 @@ public class FrmGlosarioCampos extends FrameSupport {
     
     @Getter
     @Setter
-    private Object campoSeleccionado;
+    private CampoGlosario campoSeleccionado;
+    
+    @Getter
+    @Setter
+    private Glosario glosarioSeleccionado;
     
     
 	/**
@@ -333,6 +351,7 @@ public class FrmGlosarioCampos extends FrameSupport {
 	 */
 	protected void initEvents() {
 		frmGlosarioCamposListener = new FrmGlosarioCamposListener(this);
+		ListSelectionListener listSelectionListener = new FrmGlosarioCamposTableListener(this);
 		
 		btnBuscarGlosario.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
 		btnBuscar.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR);
@@ -347,6 +366,9 @@ public class FrmGlosarioCampos extends FrameSupport {
 		btnBaja.addActionListener(frmGlosarioCamposListener);
 		btnModificacion.addActionListener(frmGlosarioCamposListener);
 		btnImprimir.addActionListener(frmGlosarioCamposListener);
+		
+		ListSelectionModel rowSM = tblCampos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 	
 	/**
@@ -360,8 +382,10 @@ public class FrmGlosarioCampos extends FrameSupport {
 		cmbTipoDato.setSelectedIndex(0);
 		cmbMostrarExcepciones.setSelectedIndex(0);
 		btnBuscar.setEnabled(Boolean.FALSE);
+		btnAlta.setEnabled(Boolean.FALSE);
 		btnBaja.setEnabled(Boolean.FALSE);
 		btnModificacion.setEnabled(Boolean.FALSE);
+		btnImprimir.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
@@ -371,6 +395,10 @@ public class FrmGlosarioCampos extends FrameSupport {
 
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
 		tblCampos.setModel(new DefinicionCamposGlosarioTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblCampos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblCampos.setDefaultRenderer(String.class, new StringRenderer());
+		tblCampos.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblCampos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
 	}
