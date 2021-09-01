@@ -3,6 +3,7 @@ package com.mdval.ui.utils.dialog;
 import java.util.Map;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.model.cabeceras.DefinicionElementosTablaTipoElementoCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionGlosariosTablaGlosariosCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionNormasTablaNormasCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionTiposParticulaTablaTiposCabecera;
@@ -42,6 +43,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionTiposParticulaTablaTiposCabecera();
+		}
+		
+		if (Constants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA.equals(item)) {
+			cabecera = new DefinicionElementosTablaTipoElementoCabecera();
 		}
 		
 		return cabecera;

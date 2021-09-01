@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -13,7 +14,12 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.TipoElemento;
+import com.mdval.ui.listener.DlgAltaModificacionElementosListener;
+import com.mdval.ui.listener.FrmDefinicionElementosListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -48,6 +54,9 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 	
 	@Getter
 	private JTextField txtUsuario;
+	
+	@Getter
+	private Boolean editar;
 
     
     public DlgAltaModificacionElementos(JFrame parent, boolean modal) {
@@ -215,19 +224,46 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		FrmDefinicionElementos parent = (FrmDefinicionElementos) this.getParent();
+		FrmDefinicionElementosListener frmDefinicionElementosListener = parent.getFrmDefinicionElementosListener();
 		
+		DlgAltaModificacionElementosListener actionListener = new DlgAltaModificacionElementosListener(this);
+		actionListener.addObservador(frmDefinicionElementosListener);
+		
+		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR);
+		
+		btnAceptar.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		// Se trata de la edición de un registro
+		if (!Objects.isNull(params)) {
+			TipoElemento tipoElemento = (TipoElemento) params.get(Constants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO);
+			
+			txtCodigo.setText(tipoElemento.getCodigoElemento().toString());
+			txtDescripcion.setText(tipoElemento.getDescripcionElemento());
+			txtUsuario.setText(tipoElemento.getCodigoUsuario());
+			txtFecha.setText(dateFormatter.dateToString(tipoElemento.getFechaActualizacion()));
+			
+			editar = Boolean.TRUE;
+		}
+		else {
+			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
+			
+			editar = Boolean.FALSE;
+		}
+		
+		txtUsuario.setEnabled(Boolean.FALSE);
+        txtCodigo.setEnabled(Boolean.FALSE);
+        txtFecha.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 }
