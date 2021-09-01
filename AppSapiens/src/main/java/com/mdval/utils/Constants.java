@@ -17,6 +17,8 @@ public class Constants {
 	/**
 	 * Bean names
 	 */
+	public static final String VALOR_PARTICULA_SERVICE = "valorParticulaService";
+	public static final String PARTICULA_NORMA_SERVICE = "particulaNormaService";
 	public static final String TIPO_ELEMENTO_SERVICE = "tipoElementoService";
 	public static final String TIPO_DATO_SERVICE = "tipoDatoService";
 	public static final String TIPO_PARTICULA_SERVICE = "tipoParticulaService";
@@ -30,6 +32,7 @@ public class Constants {
 	/**
 	 * DataBase Types
 	 */
+	public static final String T_T_VAL_PARTICULA = "T_T_VAL_PARTICULA";
 	public static final String T_T_ELEMENTO = "T_T_ELEMENTO";
 	public static final String T_T_NORMA = "T_T_NORMA";
 	public static final String T_T_PARTICULA = "T_T_PARTICULA";

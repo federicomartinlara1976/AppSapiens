@@ -9,14 +9,12 @@ import java.util.List;
  */
 public interface ValorParticulaService {
 
-    Integer altaValorParticula(ValorParticula valorParticula);
+    void altaValorParticula(ValorParticula valorParticula);
 
-    Integer modificarTipoParticula(ValorParticula valorParticula);
+    void modificarTipoParticula(ValorParticula valorParticula);
 
     List<ValorParticula> consultarValoresParticula(BigDecimal codigoParticula);
 
-    List<ValorParticula> consultarDefinicionTiposParticula(String valorParticula);
-
-    Integer modificarValorParticula(ValorParticula oldValorParticula, ValorParticula newValorParticula);
+    void modificarValorParticula(ValorParticula oldValorParticula, ValorParticula newValorParticula);
 
 }

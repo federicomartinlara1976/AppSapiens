@@ -11,5 +11,5 @@ public interface ParticulaNormaService {
 
     List<ParticulaNorma> consultarDefinicionParticulaNormaElemento(BigDecimal codigoNorma, BigDecimal codigoElemento);
 
-    List<ParticulaNorma> consultarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoParticula);
+    List<ParticulaNorma> consultarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento);
 }
