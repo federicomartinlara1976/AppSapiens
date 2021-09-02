@@ -80,7 +80,7 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	 * 
 	 */
 	private void eventBtnSeleccionar() {
-		updateObservers();
+		updateObservers(Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 		frmDefinicionGlosarios.dispose();
 	}
 	

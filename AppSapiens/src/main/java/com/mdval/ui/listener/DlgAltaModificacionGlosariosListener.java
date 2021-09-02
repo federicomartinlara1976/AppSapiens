@@ -85,9 +85,9 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers();
+				updateObservers(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
+				dlgAltaModificacionGlosarios.dispose();
 			}
-			dlgAltaModificacionGlosarios.dispose();
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup((JFrame) dlgAltaModificacionGlosarios.getParent(), Constants.CMD_ERROR, params);

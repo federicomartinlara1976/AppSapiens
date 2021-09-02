@@ -102,9 +102,9 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers();
+				updateObservers(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
+				dlgAltaModificacionCampos.dispose();
 			}
-			dlgAltaModificacionCampos.dispose();
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup((JFrame) dlgAltaModificacionCampos.getParent(), Constants.CMD_ERROR, params);

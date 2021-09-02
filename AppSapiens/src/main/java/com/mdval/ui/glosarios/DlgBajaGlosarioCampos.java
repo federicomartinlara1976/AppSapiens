@@ -163,8 +163,8 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 		DlgBajaGlosarioCamposListener actionListener = new DlgBajaGlosarioCamposListener(this);
 		actionListener.addObservador(frmGlosarioCamposListener);
 		
-		btnAceptar.setActionCommand(Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR);
+		btnAceptar.setActionCommand(Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

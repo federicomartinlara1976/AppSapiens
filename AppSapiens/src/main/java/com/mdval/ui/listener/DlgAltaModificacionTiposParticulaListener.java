@@ -95,9 +95,9 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers();
+				updateObservers(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
+				dlgAltaModificacionTiposParticula.dispose();
 			}
-			dlgAltaModificacionTiposParticula.dispose();
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup((JFrame) dlgAltaModificacionTiposParticula.getParent(), Constants.CMD_ERROR, params);

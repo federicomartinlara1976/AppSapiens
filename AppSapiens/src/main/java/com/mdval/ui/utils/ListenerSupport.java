@@ -92,10 +92,10 @@ public abstract class ListenerSupport extends Observable {
 	}
 	
 	/**
-	 * 
+	 * @param cmd
 	 */
-	protected void updateObservers() {
+	protected void updateObservers(String cmd) {
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(cmd);
 	}
 }

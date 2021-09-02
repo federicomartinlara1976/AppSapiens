@@ -39,11 +39,11 @@ public class DlgBajaGlosarioCamposListener extends ListenerSupport implements Ac
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_BAJA_GLOSARIO_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 
-		if (Constants.DLG_BAJA_GLOSARIO_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgBajaGlosario.dispose();
 		}
 	}
@@ -77,9 +77,9 @@ public class DlgBajaGlosarioCamposListener extends ListenerSupport implements Ac
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers();
+				updateObservers(Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR);
+				dlgBajaGlosario.dispose();
 			}
-		dlgBajaGlosario.dispose();
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup((JFrame) dlgBajaGlosario.getParent(), Constants.CMD_ERROR, params);

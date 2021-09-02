@@ -206,7 +206,9 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof FrmDefinicionGlosariosListener) {
+		String cmd = (String) arg;
+		
+		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
 			if (!Objects.isNull(frmDefinicionGlosarios.getSeleccionado())) {
 				frmGlosarioCampos.setGlosarioSeleccionado(frmDefinicionGlosarios.getSeleccionado());
 				frmGlosarioCampos.getTxtCodigoGlosario().setText(
@@ -218,11 +220,11 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			}
 		}
 		
-		if (o instanceof DlgAltaModificacionCamposListener) {
+		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 		
-		if (o instanceof DlgBajaGlosarioCamposListener) {
+		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 	}
