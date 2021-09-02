@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ValidacionService {
 
-    void insertarGlosario(BigDecimal numeroValidacion, BigDecimal numeroElemento);
+    void insertarGlosario(BigDecimal numeroValidacion, BigDecimal numeroElemento, String codigoUsuario);
 
     void insertarExcepcion(BigDecimal numeroValidacion, BigDecimal numeroElemento, String txtExcepcion, String codigoUsuario);
 
