@@ -25,7 +25,8 @@ import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.listener.FrmGlosarioCamposTableListener;
-import com.mdval.ui.model.DefinicionCamposGlosarioTableModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableModelosModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -393,12 +394,19 @@ public class FrmGlosarioCampos extends FrameSupport {
 		TipoDatoComboBoxModel cmbTipoDatoModel = MaestrasSupport.getTipoDatoCmbModel(); 
 		cmbTipoDato.setModel(cmbTipoDatoModel);
 
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
-		tblCampos.setModel(new DefinicionCamposGlosarioTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		Cabecera cabeceraCampos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
+		tblCampos.setModel(new DefinicionCamposGlosarioTableCamposModel(cabeceraCampos.getColumnIdentifiers(), cabeceraCampos.getColumnClasses()));
 		tblCampos.setDefaultRenderer(Date.class, new DateRenderer());
 		tblCampos.setDefaultRenderer(String.class, new StringRenderer());
 		tblCampos.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblCampos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		
+		Cabecera cabeceraModelos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA);
+		tblModelos.setModel(new DefinicionCamposGlosarioTableModelosModel(cabeceraModelos.getColumnIdentifiers(), cabeceraModelos.getColumnClasses()));
+		tblModelos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblModelos.setDefaultRenderer(String.class, new StringRenderer());
+		tblModelos.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblModelos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
 	}

@@ -328,8 +328,5 @@ public class DlgModificacionNormas extends DialogSupport {
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 }

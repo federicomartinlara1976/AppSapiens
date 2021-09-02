@@ -1,6 +1,8 @@
 package com.mdval.bussiness.service;
 
 import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.Modelo;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -37,4 +39,10 @@ public interface CamposGlosarioService {
      * @param newCampoGlosario
      */
     void modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario);
+
+	/**
+	 * @param codigoGlosario
+	 * @return
+	 */
+	List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario);
 }

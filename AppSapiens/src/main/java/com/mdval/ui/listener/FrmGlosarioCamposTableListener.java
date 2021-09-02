@@ -8,7 +8,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.ui.glosarios.FrmGlosarioCampos;
-import com.mdval.ui.model.DefinicionCamposGlosarioTableModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.LogWrapper;
 
@@ -32,7 +32,7 @@ public class FrmGlosarioCamposTableListener extends ListenerSupport implements L
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		Integer index = lsm.getMinSelectionIndex();
 		
-		DefinicionCamposGlosarioTableModel tableModel = (DefinicionCamposGlosarioTableModel) frmGlosarioCampos.getTblCampos().getModel();
+		DefinicionCamposGlosarioTableCamposModel tableModel = (DefinicionCamposGlosarioTableCamposModel) frmGlosarioCampos.getTblCampos().getModel();
 		
 		CampoGlosario seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {

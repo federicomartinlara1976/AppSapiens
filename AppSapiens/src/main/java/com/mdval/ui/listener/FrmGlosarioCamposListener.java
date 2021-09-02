@@ -13,10 +13,12 @@ import java.util.Observer;
 import javax.swing.JButton;
 
 import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.service.CamposGlosarioService;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.glosarios.FrmGlosarioCampos;
-import com.mdval.ui.model.DefinicionCamposGlosarioTableModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
+import com.mdval.ui.model.DefinicionCamposGlosarioTableModelosModel;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
@@ -91,8 +93,11 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			Long codGlosario = Long.parseLong(sCodGlosario);
 			BigDecimal bCodGlosario = new BigDecimal(codGlosario);
 
-			List<CampoGlosario> campos = buscar(bCodGlosario, tipoDato, nombreColumna, mostrarExcepciones);
-			populateModel(campos);
+			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mostrarExcepciones);
+			populateModelCampos(campos);
+			
+			List<Modelo> modelos = buscarModelos(bCodGlosario);
+			populateModelModelos(modelos);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(frmGlosarioCampos, Constants.CMD_ERROR, params);
@@ -147,7 +152,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * @param mostrarExcepciones
 	 * @return
 	 */
-	private List<CampoGlosario> buscar(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
+	private List<CampoGlosario> buscarCampos(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
 			String mostrarExcepciones) {
 		CamposGlosarioService camposGlosarioService = (CamposGlosarioService) getService(
 				Constants.CAMPOS_GLOSARIO_SERVICE);
@@ -155,15 +160,28 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 				nombreColumna, mostrarExcepciones);
 		return campos;
 	}
+	
+	/**
+	 * Busca modelos de un glosario
+	 * 
+	 * @param codigoGlosario
+	 * @return
+	 */
+	private List<Modelo> buscarModelos(BigDecimal codigoGlosario) {
+		CamposGlosarioService camposGlosarioService = (CamposGlosarioService) getService(
+				Constants.CAMPOS_GLOSARIO_SERVICE);
+		List<Modelo> modelos = camposGlosarioService.consultarModelosGlosario(codigoGlosario);
+		return modelos;
+	}
 
 	/**
 	 * Vuelca la lista de campos encontrados en la tabla
 	 * 
 	 * @return
 	 */
-	private void populateModel(List<CampoGlosario> campos) {
+	private void populateModelCampos(List<CampoGlosario> campos) {
 		// Obtiene el modelo y lo actualiza
-		DefinicionCamposGlosarioTableModel tableModel = (DefinicionCamposGlosarioTableModel) frmGlosarioCampos
+		DefinicionCamposGlosarioTableCamposModel tableModel = (DefinicionCamposGlosarioTableCamposModel) frmGlosarioCampos
 				.getTblCampos().getModel();
 		tableModel.setData(campos);
 
@@ -172,6 +190,18 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 		frmGlosarioCampos.getBtnBaja().setEnabled(Boolean.FALSE);
 		frmGlosarioCampos.getBtnModificacion().setEnabled(Boolean.FALSE);
 		frmGlosarioCampos.getBtnImprimir().setEnabled(Boolean.TRUE);
+	}
+	
+	/**
+	 * Vuelca la lista de campos encontrados en la tabla
+	 * 
+	 * @return
+	 */
+	private void populateModelModelos(List<Modelo> modelos) {
+		// Obtiene el modelo y lo actualiza
+		DefinicionCamposGlosarioTableModelosModel tableModel = (DefinicionCamposGlosarioTableModelosModel) frmGlosarioCampos
+				.getTblModelos().getModel();
+		tableModel.setData(modelos);
 	}
 
 	@Override

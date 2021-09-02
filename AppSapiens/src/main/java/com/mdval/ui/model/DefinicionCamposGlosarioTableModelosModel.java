@@ -2,13 +2,13 @@ package com.mdval.ui.model;
 
 import java.util.List;
 
-import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.Modelo;
 
 /**
  * @author federico
  *
  */
-public class DefinicionCamposGlosarioTableModel extends DefaultTableModel<CampoGlosario> {
+public class DefinicionCamposGlosarioTableModelosModel extends DefaultTableModel<Modelo> {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class DefinicionCamposGlosarioTableModel extends DefaultTableModel<CampoG
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionCamposGlosarioTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionCamposGlosarioTableModelosModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 	
@@ -28,32 +28,30 @@ public class DefinicionCamposGlosarioTableModel extends DefaultTableModel<CampoG
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionCamposGlosarioTableModel(List<CampoGlosario> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionCamposGlosarioTableModelosModel(List<Modelo> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		CampoGlosario row = data.get(rowIndex);
+		Modelo row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getNombreColumna();
+			return row.getCodigoProyecto();
 		} else if (1 == columnIndex) {
-			return row.getTipoDato();
+			return row.getNombreModelo();
 		} else if (2 == columnIndex) {
-			return row.getNumeroLongitud();
+			return row.getDescripcionNorma();
 		} else if (3 == columnIndex) {
-			return row.getNumeroDecimal();
+			return row.getDescripcionGlosario();
 		} else if (4 == columnIndex) {
-			return row.getMcaExcepcion();
+			return row.getNombreEsquema();
 		} else if (5 == columnIndex) {
-			return row.getTxtComentario();
+			return row.getNombreBbdd();
 		} else if (6 == columnIndex) {
-			return row.getTxtExcepcion();
-		} else if (7 == columnIndex) {
 			return row.getCodigoUsuario();
-		} else if (8 == columnIndex) {
+		} else if (7 == columnIndex) {
 			return row.getFechaActualizacion();
-		}
+		} 
 
 		return null;
 	}
