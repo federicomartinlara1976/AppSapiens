@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -15,9 +16,11 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.DlgModificacionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -321,6 +324,26 @@ public class DlgModificacionNormas extends DialogSupport {
 
 	@Override
 	protected void initialState() {
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+		
+		// Se trata de la edición de un registro
+		if (!Objects.isNull(params)) {
+			Norma norma = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
+			
+			txtCodigo.setText(norma.getCodigoNorma().toString());
+			txtDescripcion.setText(norma.getDescripcionNorma());
+			txtUsuario.setText(norma.getCodigoUsuario());
+			txtFecha.setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
+			
+			editar = Boolean.TRUE;
+		}
+		else {
+			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
+			
+			editar = Boolean.FALSE;
+		}
+		
 		txtUsuario.setEnabled(Boolean.FALSE);
 		txtUsuario.setEditable(Boolean.FALSE);
 		txtFecha.setEnabled(Boolean.FALSE);

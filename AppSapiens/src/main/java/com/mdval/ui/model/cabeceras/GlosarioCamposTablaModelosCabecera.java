@@ -1,6 +1,5 @@
 package com.mdval.ui.model.cabeceras;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
