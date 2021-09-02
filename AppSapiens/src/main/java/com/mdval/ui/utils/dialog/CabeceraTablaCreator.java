@@ -3,10 +3,12 @@ package com.mdval.ui.utils.dialog;
 import java.util.Map;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.model.cabeceras.DefinicionElementosTablaTipoElementoCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionGlosariosTablaGlosariosCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionNormasTablaNormasCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionTiposParticulaTablaTiposCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaCamposCabecera;
+import com.mdval.ui.model.cabeceras.GlosarioCamposTablaModelosCabecera;
 import com.mdval.utils.Constants;
 
 /**
@@ -36,12 +38,20 @@ public class CabeceraTablaCreator extends Creator {
 			cabecera = new GlosarioCamposTablaCamposCabecera();
 		}
 		
+		if (Constants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA.equals(item)) {
+			cabecera = new GlosarioCamposTablaModelosCabecera();
+		}
+		
 		if (Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA.equals(item)) {
 			cabecera = new DefinicionNormasTablaNormasCabecera();
 		}
 		
 		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionTiposParticulaTablaTiposCabecera();
+		}
+		
+		if (Constants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA.equals(item)) {
+			cabecera = new DefinicionElementosTablaTipoElementoCabecera();
 		}
 		
 		return cabecera;

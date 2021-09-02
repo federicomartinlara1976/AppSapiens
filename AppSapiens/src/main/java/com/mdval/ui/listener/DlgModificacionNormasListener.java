@@ -65,44 +65,6 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 
 	@SneakyThrows
 	private void eventBtnAltaModificacion() {
-		try {
-			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
-
-			String descripcion = dlgModificacionNormas.getTxtDescripcion().getText();
-			String sCodigo = dlgModificacionNormas.getTxtCodigo().getText();
-			String usuario = dlgModificacionNormas.getTxtUsuario().getText();
-			String msg = StringUtils.EMPTY;
-			
-			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
-					literales.getLiteral("confirmacion.titulo"));
-			
-			if (response == JOptionPane.YES_OPTION) {
-
-				// Se van a guardar las modificaciones de un registro existente
-				if (dlgModificacionNormas.getEditar()) {
-					BigDecimal codigoBigDecimal = new BigDecimal(Integer.parseInt(sCodigo));
-					normaService.modificaNorma(codigoBigDecimal, descripcion, usuario);
-	
-					msg = literales.getLiteral("mensaje.guardar");
-				} else {
-					normaService.altaNorma(descripcion, usuario);
-	
-					msg = literales.getLiteral("mensaje.crear");
-				}
-	
-				JOptionPane.showMessageDialog(dlgModificacionNormas.getParent(), msg);
-	
-				/**
-				 * En este punto invocar un método que informe a los observadores del patrón
-				 * observer para que invoquen a su método de actualización
-				 */
-				updateObservers();
-			}
-			
-			dlgModificacionNormas.dispose();
-		} catch (Exception e) {
-			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) dlgModificacionNormas.getParent(), Constants.CMD_ERROR, params);
-		}
+		dlgModificacionNormas.dispose();
 	}
 }

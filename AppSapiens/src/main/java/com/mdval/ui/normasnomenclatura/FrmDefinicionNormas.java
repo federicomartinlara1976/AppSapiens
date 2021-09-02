@@ -2,6 +2,7 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.swing.GroupLayout;
@@ -20,6 +21,7 @@ import com.mdval.ui.listener.FrmDefinicionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasTableListener;
 import com.mdval.ui.model.DefinicionNormasTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
@@ -196,6 +198,7 @@ public class FrmDefinicionNormas extends FrameSupport {
 		tblNormas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblNormas.setDefaultRenderer(Date.class, new DateRenderer());
 		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
+		tblNormas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
 		tblNormas.setModel(new DefinicionNormasTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));

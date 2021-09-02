@@ -1,5 +1,6 @@
 package com.mdval.ui.model.cabeceras;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ public class DefinicionNormasTablaNormasCabecera extends Cabecera {
 		columnIdentifiers.add(literales.getLiteral("tblNormas.codUsu"));
 		columnIdentifiers.add(literales.getLiteral("tblNormas.fecActu"));
 		
-		columnClasses.add(Integer.class);
+		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);

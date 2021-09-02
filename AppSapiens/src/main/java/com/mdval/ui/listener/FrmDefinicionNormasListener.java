@@ -66,7 +66,7 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA, frmDefinicionNormas.getSeleccionada());
 		
-		showPopup(frmDefinicionNormas, Constants.CMD_MODIFICACION_NORMAS);
+		showPopup(frmDefinicionNormas, Constants.CMD_MODIFICACION_NORMAS, params);
 	}
 	
 	/**

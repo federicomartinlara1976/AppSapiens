@@ -2,7 +2,8 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -11,14 +12,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmDefinicionElementosListener;
+import com.mdval.ui.listener.FrmDefinicionElementosTableListener;
+import com.mdval.ui.model.DefinicionTipoElementoTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -33,6 +44,8 @@ public class FrmDefinicionElementos extends FrameSupport {
 
 	private JButton btnAlta;
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnModificacion;
 	
 	private JLabel jLabel1;
@@ -40,10 +53,18 @@ public class FrmDefinicionElementos extends FrameSupport {
 	
 	private JScrollPane jScrollPane1;
 	
-	private JTable tblNormas;
+	@Getter
+	private JTable tblElementos;
 	
 	@Getter
-	private JTextField txtNorma;
+	private JTextField txtDescripcionElemento;
+	
+	@Getter
+	private FrmDefinicionElementosListener frmDefinicionElementosListener;
+	
+	@Getter
+	@Setter
+	private TipoElemento seleccionado;
 
 	/**
 	 * Creates new form DlgDefinicionNormas
@@ -58,11 +79,11 @@ public class FrmDefinicionElementos extends FrameSupport {
 	protected void setupComponents() {
 
 		jLabel1 = new JLabel();
-		txtNorma = new JTextField();
+		txtDescripcionElemento = new JTextField();
 		jLabel2 = new JLabel();
 		btnBuscar = new JButton();
 		jScrollPane1 = new JScrollPane();
-		tblNormas = new JTable();
+		tblElementos = new JTable();
 		btnAlta = new JButton();
 		btnModificacion = new JButton();
 
@@ -79,25 +100,9 @@ public class FrmDefinicionElementos extends FrameSupport {
 
 		jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
 
-		txtNorma.setPreferredSize(new Dimension(64, 27));
-
-		tblNormas.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null }, { null, null, null, null }, { null, null, null, null },
-						{ null, null, null, null } },
-				new String[] { "COD_ELEMENTO", "DES_ELEMENTO", "COD_USR", "FEC_ACTU" }) {
-			Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class, java.lang.String.class,
-					java.lang.Object.class };
-			boolean[] canEdit = new boolean[] { false, false, false, false };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		jScrollPane1.setViewportView(tblNormas);
+		txtDescripcionElemento.setPreferredSize(new Dimension(64, 27));
+		
+		jScrollPane1.setViewportView(tblElementos);
 
 		btnAlta.setPreferredSize(new Dimension(130, 27));
 
@@ -116,7 +121,7 @@ public class FrmDefinicionElementos extends FrameSupport {
 												.addGroup(layout.createSequentialGroup().addGap(25, 25, 25)
 														.addComponent(jLabel2)
 														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(txtNorma, GroupLayout.PREFERRED_SIZE, 280,
+														.addComponent(txtDescripcionElemento, GroupLayout.PREFERRED_SIZE, 280,
 																GroupLayout.PREFERRED_SIZE)))
 										.addGap(0, 140, Short.MAX_VALUE))
 								.addGroup(GroupLayout.Alignment.TRAILING,
@@ -138,7 +143,7 @@ public class FrmDefinicionElementos extends FrameSupport {
 						.addComponent(jLabel1))
 				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jLabel2).addComponent(
-						txtNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						txtDescripcionElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 				.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE).addGap(45, 45, 45))
 				.addGroup(GroupLayout.Alignment.TRAILING,
@@ -167,24 +172,34 @@ public class FrmDefinicionElementos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmDefinicionElementosListener(this);
+		frmDefinicionElementosListener = new FrmDefinicionElementosListener(this);
+		ListSelectionListener listSelectionListener = new FrmDefinicionElementosTableListener(this);
 		
-		btnAlta.setActionCommand(Constants.DLG_DEFINICION_ELEMENTOS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_ALTA);
+		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
 		
-		btnAlta.addActionListener(listener);
-		btnModificacion.addActionListener(listener);
+		btnBuscar.addActionListener(frmDefinicionElementosListener);
+		btnAlta.addActionListener(frmDefinicionElementosListener);
+		btnModificacion.addActionListener(frmDefinicionElementosListener);
+		
+		ListSelectionModel rowSM = tblElementos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		btnModificacion.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
+		tblElementos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblElementos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA);
+		tblElementos.setModel(new DefinicionTipoElementoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

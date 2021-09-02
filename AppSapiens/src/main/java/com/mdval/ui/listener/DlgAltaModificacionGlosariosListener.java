@@ -16,6 +16,7 @@ import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;
@@ -54,11 +55,12 @@ public class DlgAltaModificacionGlosariosListener extends ListenerSupport implem
 	@SneakyThrows
 	private void eventBtnAltaModificacion() {
 		try {
+			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 			GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
 
 			String descripcion = dlgAltaModificacionGlosarios.getTxtDescripcion().getText();
 			String sCodigo = dlgAltaModificacionGlosarios.getTxtCodigo().getText();
-			String usuario = dlgAltaModificacionGlosarios.getTxtUsuario().getText();
+			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 			String msg = StringUtils.EMPTY;
 
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),

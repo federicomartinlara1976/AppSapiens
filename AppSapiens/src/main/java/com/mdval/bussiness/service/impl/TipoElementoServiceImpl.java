@@ -88,8 +88,6 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
-        LogWrapper.debug(log, "%s", runSP);
-
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -144,8 +142,6 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
-        LogWrapper.debug(log, "%s", runSP);
-
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -181,8 +177,6 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String procedure = configuration.getConfig("p_modificar_tipo_elemento");
         String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
-
-        LogWrapper.debug(log, "%s", runSP);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
