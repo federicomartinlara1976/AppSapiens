@@ -19,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Glosario;
@@ -74,7 +73,6 @@ public class FrmGlosarioCampos extends FrameSupport {
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
-    private JLabel jLabel5;
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JLabel jLabel8;
@@ -97,16 +95,10 @@ public class FrmGlosarioCampos extends FrameSupport {
     private JTextField txtCodigoGlosario;
     
     @Getter
-    private JTextField txtCodigoNorma;
-    
-    @Getter
     private JTextField txtGlosario;
     
     @Getter
     private JTextField txtNombreColumna;
-    
-    @Getter
-    private JTextField txtNorma;
     
     @Getter
     private FrmGlosarioCamposListener frmGlosarioCamposListener;
@@ -140,8 +132,6 @@ public class FrmGlosarioCampos extends FrameSupport {
         jLabel4 = new JLabel();
         cmbTipoDato = new JComboBox<>();
         cmbMostrarExcepciones = new JComboBox<>();
-        jLabel5 = new JLabel();
-        txtNorma = new JTextField();
         btnBuscar = new JButton();
         jScrollPane2 = new JScrollPane();
         tblCampos = new JTable();
@@ -153,11 +143,10 @@ public class FrmGlosarioCampos extends FrameSupport {
         btnBaja = new JButton();
         btnModificacion = new JButton();
         btnImprimir = new JButton();
-        txtCodigoNorma = new JTextField();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(1022, 690));
-        
+
         panelLogo.setPreferredSize(new Dimension(286, 63));
 
         GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
@@ -172,7 +161,7 @@ public class FrmGlosarioCampos extends FrameSupport {
         );
 
         jLabel6.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        
+
         txtCodigoGlosario.setPreferredSize(new Dimension(64, 27));
 
         txtGlosario.setPreferredSize(new Dimension(64, 27));
@@ -183,21 +172,8 @@ public class FrmGlosarioCampos extends FrameSupport {
 
         jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
         
-        txtNorma.setPreferredSize(new Dimension(64, 27));
-        
         jScrollPane2.setViewportView(tblCampos);
 
-        tblModelos.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(tblModelos);
 
         btnAlta.setPreferredSize(new Dimension(150, 27));
@@ -207,8 +183,6 @@ public class FrmGlosarioCampos extends FrameSupport {
         btnModificacion.setPreferredSize(new Dimension(150, 27));
 
         btnImprimir.setPreferredSize(new Dimension(150, 27));
-
-        txtCodigoNorma.setPreferredSize(new Dimension(64, 27));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,20 +235,12 @@ public class FrmGlosarioCampos extends FrameSupport {
                                             .addComponent(jLabel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(cmbTipoDato, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtCodigoNorma, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtNorma, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(cmbMostrarExcepciones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnBuscar)))))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbTipoDato, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbMostrarExcepciones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnBuscar)))
+                                .addGap(0, 173, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))
                         .addGap(12, 12, 12))))
         );
@@ -296,10 +262,7 @@ public class FrmGlosarioCampos extends FrameSupport {
                             .addComponent(btnBuscarGlosario)))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbTipoDato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel5)
-                        .addComponent(txtCodigoNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNorma, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreColumna, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -335,7 +298,6 @@ public class FrmGlosarioCampos extends FrameSupport {
         jLabel2.setText(literales.getLiteral("frmGlosarioCampos.nombreColumna"));
         jLabel3.setText(literales.getLiteral("frmGlosarioCampos.tipoDato"));
         jLabel4.setText(literales.getLiteral("frmGlosarioCampos.mostrarExcepciones"));
-        jLabel5.setText(literales.getLiteral("frmGlosarioCampos.norma"));
         jLabel6.setText(literales.getLiteral("frmGlosarioCampos.titulo"));
         jLabel7.setText(literales.getLiteral("frmGlosarioCampos.campos"));
         jLabel8.setText(literales.getLiteral("frmGlosarioCampos.modelos"));
@@ -378,8 +340,8 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initialState() {
 		txtCodigoGlosario.setEnabled(Boolean.FALSE);
 		txtGlosario.setEnabled(Boolean.FALSE);
-		txtCodigoNorma.setEnabled(Boolean.FALSE);
-		txtNorma.setEnabled(Boolean.FALSE);
+//		txtCodigoNorma.setEnabled(Boolean.FALSE);
+//		txtNorma.setEnabled(Boolean.FALSE);
 		cmbTipoDato.setSelectedIndex(0);
 		cmbMostrarExcepciones.setSelectedIndex(0);
 		btnBuscar.setEnabled(Boolean.FALSE);

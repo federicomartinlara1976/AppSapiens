@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdval.bussiness.entities.TipoDato;
 
 /**
@@ -37,6 +39,9 @@ public class TipoDatoComboBoxModel extends AbstractListModel<String> implements 
 	public TipoDatoComboBoxModel(List<TipoDato> tiposDatos) {
 		super();
 		this.tipos = new ArrayList<>();
+		
+		// En este modelo de combo se añade el campo vacío
+		tipos.add(StringUtils.EMPTY);
 		
 		for (TipoDato tipoDato : tiposDatos) {
 			tipos.add(tipoDato.getTipoDato());
