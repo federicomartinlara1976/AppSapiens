@@ -50,6 +50,9 @@ public class Constants {
 	
 	 // CONSTANTES DE UI
 	
+	// Tecla Enter, para los botones
+	public static final String KEY_ENTER = "ENTER";
+	
 	/**
 	 * Menu de la aplicación
 	 */

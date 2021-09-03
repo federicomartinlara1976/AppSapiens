@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.sql.DataSource;
 import javax.swing.JDialog;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -24,9 +25,9 @@ import lombok.extern.log4j.Log4j;
 @SpringBootApplication
 @Log4j
 public class MDValApplication implements CommandLineRunner {
-	
+
 	@Autowired
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
 	@Autowired
 	private DataSource dataSource;
@@ -41,25 +42,25 @@ public class MDValApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		String version = System.getProperty("java.version");
 		LogWrapper.debug(log, "Java version: %s", version);
-		
+
 		setupSpringContext();
 		setupUIEnvironment();
 		displayApp();
 	}
 
 	/**
-	 * Inicializa el contexto de Spring y lo pone a disposición de
-	 * todo el aplicativo visual en el almacenamiento global.
+	 * Inicializa el contexto de Spring y lo pone a disposición de todo el
+	 * aplicativo visual en el almacenamiento global.
 	 */
 	private void setupSpringContext() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-		
+
 		LogWrapper.debug(log, "%s", applicationContext.getDisplayName());
 		appGlobalSingleton.setProperty(Constants.SPRING_CONTEXT, applicationContext);
-		
+
 		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -71,12 +72,19 @@ public class MDValApplication implements CommandLineRunner {
 					break;
 				}
 			}
+
+			// Enter para los botones que tengan el foco
+			UIManager.put("Button.focusInputMap",
+					new UIDefaults.LazyInputMap(
+							new Object[] { "ENTER", "pressed", "released ENTER", "released" }
+							)
+					);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException ex) {
 			LogWrapper.error(log, "FATAL:", ex);
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -84,9 +92,8 @@ public class MDValApplication implements CommandLineRunner {
 		/* Create and display the form */
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
-			
-			JDialog dialog = UIHelper.createDialog(framePrincipal,
-					Constants.CMD_INICIAR_APP);
+
+			JDialog dialog = UIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
 			UIHelper.show(dialog);
 		});
 	}
