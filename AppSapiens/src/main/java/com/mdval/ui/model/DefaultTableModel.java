@@ -23,18 +23,30 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	private final List<String> columnNames;
 	private final List<Class<?>> columnClasses ;
 	
+	/**
+	 * @param columnNames
+	 * @param columnClasses
+	 */
 	public DefaultTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		this.data = new ArrayList<>();
 		this.columnNames = columnNames;
 		this.columnClasses = columnClasses;
 	}
 
+	/**
+	 * @param data
+	 * @param columnNames
+	 * @param columnClasses
+	 */
 	public DefaultTableModel(List<T> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		this.data = data;
 		this.columnNames = columnNames;
 		this.columnClasses = columnClasses;
 	}
 	
+	/**
+	 * @param newData
+	 */
 	public void setData(List<T> newData) {
 		if (!CollectionUtils.isEmpty(this.data)) {
 			this.data.clear();
@@ -42,27 +54,50 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 		this.data.addAll(newData);
 		this.fireTableDataChanged();
 	}
+	
+	/**
+	 * 
+	 */
+	public void clearData() {
+		this.data.clear();
+		this.fireTableDataChanged();
+	}
 
+	/**
+	 *
+	 */
 	@Override
 	public String getColumnName(int column) {
 		return columnNames.get(column);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		return columnClasses.get(columnIndex);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public int getRowCount() {
 		return data.size();
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public int getColumnCount() {
 		return columnNames.size();
 	}
 
+	/**
+	 *
+	 */
 	public abstract Object getValueAt(int rowIndex, int columnIndex);
 	
 	/**

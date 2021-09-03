@@ -220,6 +220,15 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 						.setText(frmDefinicionGlosarios.getSeleccionado().getDescripcionGlosario());
 				frmGlosarioCampos.getBtnBuscar().setEnabled(Boolean.TRUE);
 				frmGlosarioCampos.getBtnAlta().setEnabled(Boolean.TRUE);
+				
+				// Limpiar las dos tablas al cambiar de glosario
+				DefinicionCamposGlosarioTableCamposModel tableModelCampos = (DefinicionCamposGlosarioTableCamposModel) frmGlosarioCampos
+						.getTblCampos().getModel();
+				DefinicionCamposGlosarioTableModelosModel tableModelModelos = (DefinicionCamposGlosarioTableModelosModel) frmGlosarioCampos
+						.getTblModelos().getModel();
+				
+				tableModelCampos.clearData();
+				tableModelModelos.clearData();
 			}
 		}
 		
