@@ -21,6 +21,7 @@ import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableModelosModel;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 /**
@@ -92,9 +93,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 
 			Long codGlosario = Long.parseLong(sCodGlosario);
 			BigDecimal bCodGlosario = new BigDecimal(codGlosario);
-			String mcaException = "SI".equals(vMostrarExcepciones)
-					? "S"
-					: "N";
+			String mcaException = AppHelper.normalizeCmbSiNoValue(vMostrarExcepciones);
 			
 			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mcaException);
 			populateModelCampos(campos);

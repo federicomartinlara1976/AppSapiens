@@ -28,6 +28,7 @@ import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.MaestrasSupport;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -346,7 +347,7 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 			cmbTipoDato.setSelectedItem(campoGlosarioSeleccionado.getTipoDato());
 			txtTamanio.setText(campoGlosarioSeleccionado.getNumeroLongitud().toString());
 			getTxtDecimales().setText(campoGlosarioSeleccionado.getNumeroDecimal().toString());
-			String mcaSelected = "S".equals(campoGlosarioSeleccionado.getMcaExcepcion()) ? "SI" : "NO";
+			String mcaSelected = AppHelper.normalizeSiNoValueToCmb(campoGlosarioSeleccionado.getMcaExcepcion());
 			cmbExcepcion.setSelectedItem(mcaSelected);
 			txtDescripcionExcepcion.setText(campoGlosarioSeleccionado.getTxtExcepcion());
 			txtObservaciones.setText(campoGlosarioSeleccionado.getTxtComentario());

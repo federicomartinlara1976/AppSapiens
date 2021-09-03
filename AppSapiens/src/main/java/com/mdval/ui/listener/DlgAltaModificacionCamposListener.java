@@ -19,6 +19,7 @@ import com.mdval.ui.glosarios.DlgAltaModificacionCampos;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 public class DlgAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
@@ -70,9 +71,7 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 			newCampoGlosario.setNumeroLongitud(new BigDecimal(longitud));
 			newCampoGlosario.setNumeroDecimal(new BigDecimal(decimales));
 
-			String mcaException = "SI".equals(((String) dlgAltaModificacionCampos.getCmbExcepcion().getSelectedItem()))
-					? "S"
-					: "N";
+			String mcaException = AppHelper.normalizeCmbSiNoValue(((String) dlgAltaModificacionCampos.getCmbExcepcion().getSelectedItem()));
 
 			newCampoGlosario.setMcaExcepcion(mcaException);
 			newCampoGlosario.setTxtComentario(dlgAltaModificacionCampos.getTxtObservaciones().getText());
