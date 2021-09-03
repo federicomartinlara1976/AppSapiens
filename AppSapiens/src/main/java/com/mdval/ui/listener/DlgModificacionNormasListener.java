@@ -2,20 +2,12 @@ package com.mdval.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.mdval.bussiness.service.NormaService;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
-import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;
