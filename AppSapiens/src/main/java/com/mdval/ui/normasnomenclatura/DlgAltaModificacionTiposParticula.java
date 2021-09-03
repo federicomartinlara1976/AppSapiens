@@ -20,6 +20,7 @@ import com.mdval.ui.listener.DlgAltaModificacionTiposParticulaListener;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -276,10 +277,10 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 			txtUsuario.setText(tipoParticula.getCodigoUsuario());
 			
 			String mcaProyecto = tipoParticula.getMcaProyecto();
-			chkDistingueProyecto.setSelected("S".equals(mcaProyecto) ? Boolean.TRUE : Boolean.FALSE);
+			chkDistingueProyecto.setSelected(AppHelper.normalizeCheckValue(mcaProyecto));
 			
 			String mcaSubproyecto = tipoParticula.getMcaSubProyecto();
-			chkDistingueSubproyecto.setSelected("S".equals(mcaSubproyecto) ? Boolean.TRUE : Boolean.FALSE);
+			chkDistingueSubproyecto.setSelected(AppHelper.normalizeCheckValue(mcaSubproyecto));
 			
 			txtFecha.setText(dateFormatter.dateToString(tipoParticula.getFechaActualizacion()));
 			

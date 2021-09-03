@@ -340,10 +340,8 @@ public class FrmGlosarioCampos extends FrameSupport {
 	protected void initialState() {
 		txtCodigoGlosario.setEnabled(Boolean.FALSE);
 		txtGlosario.setEnabled(Boolean.FALSE);
-//		txtCodigoNorma.setEnabled(Boolean.FALSE);
-//		txtNorma.setEnabled(Boolean.FALSE);
 		cmbTipoDato.setSelectedIndex(0);
-		cmbMostrarExcepciones.setSelectedIndex(0);
+		cmbMostrarExcepciones.setSelectedItem(Constants.SI);
 		btnBuscar.setEnabled(Boolean.FALSE);
 		btnAlta.setEnabled(Boolean.FALSE);
 		btnBaja.setEnabled(Boolean.FALSE);

@@ -49,4 +49,28 @@ public class AppHelper {
 				? "SI"
 				: "NO";
 	}
+	
+	/**
+	 * Normaliza el valor de S y N a true y false
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static Boolean normalizeCheckValue(String value) {
+		return "S".equals(value)
+				? Boolean.TRUE
+				: Boolean.FALSE;
+	}
+	
+	/**
+	 * Normaliza el valor de true y false a S y N
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static String normalizeValueToCheck(Boolean value) {
+		return Boolean.TRUE.equals(value)
+				? "S"
+				: "N";
+	}
 }

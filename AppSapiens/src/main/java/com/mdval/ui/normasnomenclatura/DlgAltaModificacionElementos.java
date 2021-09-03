@@ -241,6 +241,10 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		txtUsuario.setEnabled(Boolean.FALSE);
+        txtCodigo.setEnabled(Boolean.FALSE);
+        txtFecha.setEnabled(Boolean.FALSE);
+		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
 			TipoElemento tipoElemento = (TipoElemento) params.get(Constants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO);
@@ -258,10 +262,6 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 			
 			editar = Boolean.FALSE;
 		}
-		
-		txtUsuario.setEnabled(Boolean.FALSE);
-        txtCodigo.setEnabled(Boolean.FALSE);
-        txtFecha.setEnabled(Boolean.FALSE);
 	}
 
 	@Override

@@ -271,6 +271,11 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		txtUsuario.setEnabled(Boolean.FALSE);
+        txtCodigo.setEnabled(Boolean.FALSE);
+        txtAlta.setEnabled(Boolean.FALSE);
+        txtModificacion.setEnabled(Boolean.FALSE);
+		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
 			Glosario glosario = (Glosario) params.get(Constants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO);
@@ -289,11 +294,6 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 			
 			editar = Boolean.FALSE;
 		}
-		
-		txtUsuario.setEnabled(Boolean.FALSE);
-        txtCodigo.setEnabled(Boolean.FALSE);
-        txtAlta.setEnabled(Boolean.FALSE);
-        txtModificacion.setEnabled(Boolean.FALSE);
 	}
 
 	@Override

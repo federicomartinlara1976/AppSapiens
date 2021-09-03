@@ -18,6 +18,7 @@ import com.mdval.ui.normasnomenclatura.DlgAltaModificacionTiposParticula;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;
@@ -62,8 +63,8 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 			TipoParticula tipoParticula = new TipoParticula();
 			String descripcion = dlgAltaModificacionTiposParticula.getTxtDescripcion().getText();
 			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
-			String mcaProyecto = dlgAltaModificacionTiposParticula.getChkDistingueProyecto().isSelected() ? "S" : "N";
-			String mcaSubproyecto = dlgAltaModificacionTiposParticula.getChkDistingueSubproyecto().isSelected() ? "S" : "N";
+			String mcaProyecto = AppHelper.normalizeValueToCheck(dlgAltaModificacionTiposParticula.getChkDistingueProyecto().isSelected());
+			String mcaSubproyecto = AppHelper.normalizeValueToCheck(dlgAltaModificacionTiposParticula.getChkDistingueSubproyecto().isSelected());
 			
 			tipoParticula.setDescripcionParticula(descripcion);
 			tipoParticula.setCodigoUsuario(codUsuario);

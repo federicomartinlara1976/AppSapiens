@@ -329,7 +329,6 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
-		cmbExcepcion.setSelectedIndex(1);
 		txtUsuario.setEnabled(Boolean.FALSE);
 		txtUsuario.setEditable(Boolean.FALSE);
 		txtModificacion.setEnabled(Boolean.FALSE);
