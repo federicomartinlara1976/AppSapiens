@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
-import com.mdval.ui.listener.FrmDefinicionNormasTableListener;
+import com.mdval.ui.listener.tables.FrmDefinicionNormasTableListener;
 import com.mdval.ui.model.DefinicionNormasTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;

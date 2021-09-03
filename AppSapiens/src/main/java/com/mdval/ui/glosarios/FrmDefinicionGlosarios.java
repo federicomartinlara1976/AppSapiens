@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
-import com.mdval.ui.listener.FrmDefinicionGlosariosTableListener;
+import com.mdval.ui.listener.tables.FrmDefinicionGlosariosTableListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;

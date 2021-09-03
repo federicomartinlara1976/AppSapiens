@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
-import com.mdval.ui.listener.FrmDefinicionTiposParticulaTableListener;
+import com.mdval.ui.listener.tables.FrmDefinicionTiposParticulaTableListener;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;

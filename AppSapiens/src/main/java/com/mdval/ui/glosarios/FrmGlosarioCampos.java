@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
-import com.mdval.ui.listener.FrmGlosarioCamposTableListener;
+import com.mdval.ui.listener.tables.FrmGlosarioCamposTableListener;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableModelosModel;
 import com.mdval.ui.model.SiNoComboBoxModel;

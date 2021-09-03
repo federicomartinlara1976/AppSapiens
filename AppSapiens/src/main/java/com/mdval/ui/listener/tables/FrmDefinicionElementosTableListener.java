@@ -1,4 +1,4 @@
-package com.mdval.ui.listener;
+package com.mdval.ui.listener.tables;
 
 import java.util.Objects;
 
