@@ -1,4 +1,4 @@
-package com.mdval.ui.utils.dialog;
+package com.mdval.ui.utils.creators;
 
 import java.util.Map;
 

@@ -13,6 +13,8 @@ public class Constants {
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
 	public static final String SERVICE_ERROR = "SERVICE_ERROR";
 	public static final String ERROR = "ERROR";
+	public static final String SI = "SI";
+	public static final String NO = "NO";
 	
 	/**
 	 * Bean names

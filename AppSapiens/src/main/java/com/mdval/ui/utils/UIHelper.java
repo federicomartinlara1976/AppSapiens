@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
-import com.mdval.ui.utils.dialog.CabeceraTablaCreator;
-import com.mdval.ui.utils.dialog.Creator;
-import com.mdval.ui.utils.dialog.DialogCreator;
-import com.mdval.ui.utils.dialog.FrameCreator;
+import com.mdval.ui.utils.creators.CabeceraTablaCreator;
+import com.mdval.ui.utils.creators.Creator;
+import com.mdval.ui.utils.creators.DialogCreator;
+import com.mdval.ui.utils.creators.FrameCreator;
 
 /**
  * @author federico

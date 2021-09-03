@@ -359,7 +359,7 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		}
 		else {
 			cmbTipoDato.setSelectedIndex(0);
-			cmbExcepcion.setSelectedIndex(1);
+			cmbExcepcion.setSelectedItem(Constants.NO);
 			txtNombre.setEditable(Boolean.TRUE);
 			
 			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
