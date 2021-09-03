@@ -88,12 +88,15 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			String sCodGlosario = frmGlosarioCampos.getTxtCodigoGlosario().getText();
 			String tipoDato = (String) frmGlosarioCampos.getCmbTipoDato().getSelectedItem();
 			String nombreColumna = frmGlosarioCampos.getTxtNombreColumna().getText();
-			String mostrarExcepciones = (String) frmGlosarioCampos.getCmbMostrarExcepciones().getSelectedItem();
+			String vMostrarExcepciones = (String) frmGlosarioCampos.getCmbMostrarExcepciones().getSelectedItem();
 
 			Long codGlosario = Long.parseLong(sCodGlosario);
 			BigDecimal bCodGlosario = new BigDecimal(codGlosario);
-
-			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mostrarExcepciones);
+			String mcaException = "SI".equals(vMostrarExcepciones)
+					? "S"
+					: "N";
+			
+			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mcaException);
 			populateModelCampos(campos);
 			
 			List<Modelo> modelos = buscarModelos(bCodGlosario);
