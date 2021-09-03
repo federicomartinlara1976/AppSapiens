@@ -326,6 +326,11 @@ public class DlgModificacionNormas extends DialogSupport {
 	protected void initialState() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 		
+		txtUsuario.setEnabled(Boolean.FALSE);
+		txtUsuario.setEditable(Boolean.FALSE);
+		txtFecha.setEnabled(Boolean.FALSE);
+		txtFecha.setEditable(Boolean.FALSE);
+		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
 			Norma norma = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
@@ -343,11 +348,6 @@ public class DlgModificacionNormas extends DialogSupport {
 			
 			editar = Boolean.FALSE;
 		}
-		
-		txtUsuario.setEnabled(Boolean.FALSE);
-		txtUsuario.setEditable(Boolean.FALSE);
-		txtFecha.setEnabled(Boolean.FALSE);
-		txtFecha.setEditable(Boolean.FALSE);
 	}
 
 	@Override

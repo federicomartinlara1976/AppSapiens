@@ -304,8 +304,8 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		cmbProyecto.setSelectedIndex(1);
-		cmbSubproyecto.setSelectedIndex(1);	
+		cmbProyecto.setSelectedItem(Constants.NO);
+		cmbSubproyecto.setSelectedItem(Constants.NO);	
 	}
 
 	@Override
