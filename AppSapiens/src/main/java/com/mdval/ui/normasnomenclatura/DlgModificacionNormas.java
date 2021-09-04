@@ -320,7 +320,8 @@ public class DlgModificacionNormas extends DialogSupport {
 		DlgModificacionNormasListener dlgModificacionNormasListener = new DlgModificacionNormasListener(this);
 		dlgModificacionNormasListener.addObservador(frmDefinicionNormasListener);
 		
-		ListSelectionListener listSelectionListener = new DlgModificacionNormasElementoNormaTableListener(this);
+		DlgModificacionNormasElementoNormaTableListener listSelectionListener = new DlgModificacionNormasElementoNormaTableListener(this);
+		listSelectionListener.addObservador(dlgModificacionNormasListener);
 		
 		btnAltaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
         btnBajaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
