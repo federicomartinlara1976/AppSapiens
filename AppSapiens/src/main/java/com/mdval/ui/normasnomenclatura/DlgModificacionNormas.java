@@ -17,11 +17,14 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.DlgModificacionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
+import com.mdval.ui.listener.tables.DlgModificacionNormasElementoNormaTableListener;
 import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
@@ -34,6 +37,7 @@ import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -84,6 +88,10 @@ public class DlgModificacionNormas extends DialogSupport {
 	
 	@Getter
 	private Norma normaSeleccionada;
+	
+	@Getter
+	@Setter
+	private ElementoNorma elementoSeleccionado;
 
     
     /**
@@ -312,6 +320,8 @@ public class DlgModificacionNormas extends DialogSupport {
 		DlgModificacionNormasListener dlgModificacionNormasListener = new DlgModificacionNormasListener(this);
 		dlgModificacionNormasListener.addObservador(frmDefinicionNormasListener);
 		
+		ListSelectionListener listSelectionListener = new DlgModificacionNormasElementoNormaTableListener(this);
+		
 		btnAltaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
         btnBajaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
         btnModificacionElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO);
@@ -323,6 +333,9 @@ public class DlgModificacionNormas extends DialogSupport {
         btnModificacionElemento.addActionListener(dlgModificacionNormasListener);
         btnAceptar.addActionListener(dlgModificacionNormasListener);
         btnCancelar.addActionListener(dlgModificacionNormasListener);
+        
+        ListSelectionModel rowSM = tblElementos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
         
         this.addOnLoadListener(dlgModificacionNormasListener);
 	}
