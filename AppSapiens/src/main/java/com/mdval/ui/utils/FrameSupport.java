@@ -2,8 +2,12 @@ package com.mdval.ui.utils;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.utils.LiteralesSingleton;
@@ -27,6 +31,8 @@ public abstract class FrameSupport extends JFrame {
 	protected PanelLogotipo panelLogo;
 	
 	protected LiteralesSingleton literales;
+	
+	private List<OnLoadListener> onLoadListeners;
 
 	/**
 	 * 
@@ -43,11 +49,20 @@ public abstract class FrameSupport extends JFrame {
      */
     private void initialize() {
 		try {
+			onLoadListeners = new ArrayList<>();
+			
 			initComponents();
 			initLiterals();
 			initEvents();
 			
 			initModels();
+			
+			if (CollectionUtils.isNotEmpty(onLoadListeners)) {
+				for (OnLoadListener l : onLoadListeners) {
+					l.onLoad();
+				}
+			}
+			
 			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
@@ -62,6 +77,15 @@ public abstract class FrameSupport extends JFrame {
 		
 		pack();
 	}
+	
+	/**
+	 * Añade al cuadro un listener de carga inicial
+	 * 
+	 * @param l
+	 */
+	protected void addOnLoadListener(OnLoadListener l) {
+    	this.onLoadListeners.add(l);
+    }
 	
 	/**
 	 * Instala los componentes internos de este frame

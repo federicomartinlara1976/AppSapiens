@@ -9,7 +9,16 @@ import java.util.List;
  */
 public interface ElementoNormaService {
 
+    /**
+     * @param codigoNorma
+     * @param codigoElemento
+     * @return
+     */
     List<ElementoNorma> consultarDefinicionElementoNorma(BigDecimal codigoNorma, BigDecimal codigoElemento);
 
-    List<ElementoNorma> consultarElementoNorma(BigDecimal codigoNorma);
+    /**
+     * @param codigoNorma
+     * @return
+     */
+    List<ElementoNorma> consultarElementosNorma(BigDecimal codigoNorma);
 }

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
+import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LiteralesSingleton;
 
 import lombok.extern.log4j.Log4j;
@@ -24,9 +25,12 @@ public abstract class ListenerSupport extends Observable {
 	
 	protected LiteralesSingleton literales;
 	
+	protected DateFormatter dateFormatter;
+	
 	public ListenerSupport() {
 		try {
 			literales = LiteralesSingleton.getInstance();
+			dateFormatter = new DateFormatter();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}

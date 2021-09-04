@@ -2,12 +2,23 @@ package com.mdval.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
+import com.mdval.bussiness.entities.ElementoNorma;
+import com.mdval.bussiness.entities.Norma;
+import com.mdval.bussiness.service.ElementoNormaService;
+import com.mdval.bussiness.service.NormaService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;
@@ -16,7 +27,7 @@ import lombok.SneakyThrows;
  * @author federico
  *
  */
-public class DlgModificacionNormasListener extends ListenerSupport implements ActionListener {
+public class DlgModificacionNormasListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private DlgModificacionNormas dlgModificacionNormas;
 
@@ -33,21 +44,9 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
-		
-		if (Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO.equals(jButton.getActionCommand())) {
-			
-		}
-
-		if (Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO.equals(jButton.getActionCommand())) {
-			
-		}
-		
-		if (Constants.DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO.equals(jButton.getActionCommand())) {
-			
-		}
 
 		if (Constants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
-			eventBtnAltaModificacion();
+			dlgModificacionNormas.dispose();
 		}
 
 		if (Constants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
@@ -55,8 +54,53 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 		}
 	}
 
-	@SneakyThrows
-	private void eventBtnAltaModificacion() {
-		dlgModificacionNormas.dispose();
+	@Override
+	public void onLoad() {
+		try {
+			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
+			
+			Norma norma = cargarNorma(normaSeleccionada.getCodigoNorma());
+			List<ElementoNorma> elementosNorma = cargarElementosNorma(normaSeleccionada.getCodigoNorma());
+			
+			dlgModificacionNormas.getTxtCodigo().setText(norma.getCodigoNorma().toString());
+			dlgModificacionNormas.getTxtDescripcion().setText(norma.getDescripcionNorma());
+			dlgModificacionNormas.getTxtUsuario().setText(norma.getCodigoUsuario());
+			dlgModificacionNormas.getTxtFecha().setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
+			
+			populateModelElementos(elementosNorma);
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup((JFrame) dlgModificacionNormas.getParent(), Constants.CMD_ERROR, params);
+		}
+	}
+
+	/**
+	 * @param codigoNorma
+	 * @return
+	 */
+	private Norma cargarNorma(BigDecimal codigoNorma) throws ServiceException {
+		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+		return normaService.consultaNorma(codigoNorma);
+	}
+	
+	/**
+	 * @param codigoNorma
+	 * @return
+	 */
+	private List<ElementoNorma> cargarElementosNorma(BigDecimal codigoNorma) {
+		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(Constants.ELEMENTO_NORMA_SERVICE);
+		return elementoNormaService.consultarElementosNorma(codigoNorma);
+	}
+	
+	/**
+	 * Vuelca la lista de elementos encontrados en la tabla
+	 * 
+	 * @return
+	 */
+	private void populateModelElementos(List<ElementoNorma> elementos) {
+		// Obtiene el modelo y lo actualiza
+		AltaModificacionNormasElementoNormaTableModel tableModel = (AltaModificacionNormasElementoNormaTableModel) dlgModificacionNormas
+				.getTblElementos().getModel();
+		tableModel.setData(elementos);
 	}
 }

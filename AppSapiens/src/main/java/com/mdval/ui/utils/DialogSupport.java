@@ -2,10 +2,14 @@ package com.mdval.ui.utils;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.utils.DateFormatter;
@@ -34,6 +38,8 @@ public abstract class DialogSupport extends JDialog {
 	protected Map<String, Object> params;
 	
 	protected DateFormatter dateFormatter;
+	
+	private List<OnLoadListener> onLoadListeners;
 	
 	/**
 	 * 
@@ -72,12 +78,20 @@ public abstract class DialogSupport extends JDialog {
 			panelLogo.setPreferredSize(new Dimension(286, 63));
 			
 			dateFormatter = new DateFormatter();
+			onLoadListeners = new ArrayList<>();
 			
 			initComponents();
 			initLiterals();
 			initEvents();
 			
 			initModels();
+			
+			if (CollectionUtils.isNotEmpty(onLoadListeners)) {
+				for (OnLoadListener l : onLoadListeners) {
+					l.onLoad();
+				}
+			}
+			
 			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
@@ -92,6 +106,10 @@ public abstract class DialogSupport extends JDialog {
 		
 		pack();
 	}
+    
+    protected void addOnLoadListener(OnLoadListener l) {
+    	this.onLoadListeners.add(l);
+    }
     
     /**
 	 * Instala los componentes internos de este dialog

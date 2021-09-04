@@ -74,10 +74,9 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
                 throw exception;
             }
 
-            norma.toBuilder().codigoNorma(codigoNorma).descripcionNorma(descripcionNorma)
+            return norma.toBuilder().codigoNorma(codigoNorma).descripcionNorma(descripcionNorma)
                     .codigoUsuario(codigoUsuario).fechaActualizacion(fechaActualizacion).build();
 
-            return norma;
         } catch (SQLException e) {
             LogWrapper.error(log, "[NormaService.consultaNorma] Error: %s", e.getMessage());
             throw new ServiceException(e);
@@ -137,80 +136,5 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
         }
     }
 
-    @Override
-    @SneakyThrows
-    //TODO no esta en el paquete
-    public void modificaNorma(BigDecimal codigoBigDecimal, String descripcion, String usuario) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_modifica_norma");//TODO validar nombre procedimiento, no esta en paquete
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
-
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
-
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-
-            logProcedure(runSP, codigoBigDecimal, descripcion, usuario);
-
-            callableStatement.setBigDecimal(1, codigoBigDecimal);
-            callableStatement.setString(2, descripcion);
-            callableStatement.setString(3, usuario);
-            callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
-
-            callableStatement.execute();
-
-            Integer result = callableStatement.getInt(4);
-
-            if (result == 0) {
-                Array listaErrores = callableStatement.getArray(5);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
-            }
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[NormaService.modificaNorma] Error: %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    @SneakyThrows
-    //TODO no esta en el paquete
-    public void altaNorma(String descripcion, String usuario) {
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
-        String procedure = configuration.getConfig("p_alta_norma"); //TODO validar nombre procedimiento, no esta en paquete
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
-
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
-
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-
-            logProcedure(runSP, descripcion, usuario);
-
-            callableStatement.setString(1, descripcion);
-            callableStatement.setString(2, usuario);
-            callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
-
-            callableStatement.execute();
-
-            Integer result = callableStatement.getInt(3);
-
-            if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
-            }
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[NormaService.altaNorma] Error: %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-
-    }
+    
 }

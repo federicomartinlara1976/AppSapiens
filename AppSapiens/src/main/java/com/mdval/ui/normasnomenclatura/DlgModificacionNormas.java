@@ -2,6 +2,8 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,13 +15,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.DlgModificacionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
+import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
@@ -53,7 +63,8 @@ public class DlgModificacionNormas extends DialogSupport {
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	
-	private JTable tblElementos;
+	@Getter
+	private TableSupport tblElementos;
 	private JTable tblParticulas;
 	
 	@Getter
@@ -70,6 +81,9 @@ public class DlgModificacionNormas extends DialogSupport {
 	
 	@Getter
     private Boolean editar;
+	
+	@Getter
+	private Norma normaSeleccionada;
 
     
     /**
@@ -104,7 +118,7 @@ public class DlgModificacionNormas extends DialogSupport {
         btnBajaElemento = new JButton();
         btnModificacionElemento = new JButton();
         jScrollPane1 = new JScrollPane();
-        tblElementos = new JTable();
+        tblElementos = new TableSupport(Boolean.FALSE);
         jLabel5 = new JLabel();
         jScrollPane2 = new JScrollPane();
         tblParticulas = new JTable();
@@ -144,25 +158,6 @@ public class DlgModificacionNormas extends DialogSupport {
 
         btnBajaElemento.setPreferredSize(new Dimension(130, 27));
 
-        tblElementos.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "CE", "DES_ELEMENTO", "MAX", "EXPRESION_REGULAR_ASOCIADA", "TXT_FORMATO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(tblElementos);
 
         tblParticulas.setModel(new DefaultTableModel(
@@ -303,11 +298,19 @@ public class DlgModificacionNormas extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
+		/** 
+		 * En este punto cargar la norma seleccionada (para el disparador onLoad).
+		 * Esto podría ser un indicio de acoplamiento secuencial
+		 */
+		if (!Objects.isNull(params)) {
+			normaSeleccionada = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
+		}
+		
 		FrmDefinicionNormas parent = (FrmDefinicionNormas) this.getParent();
 		FrmDefinicionNormasListener frmDefinicionNormasListener = parent.getFrmDefinicionNormasListener();
 		
-		DlgModificacionNormasListener actionListener = new DlgModificacionNormasListener(this);
-		actionListener.addObservador(frmDefinicionNormasListener);
+		DlgModificacionNormasListener dlgModificacionNormasListener = new DlgModificacionNormasListener(this);
+		dlgModificacionNormasListener.addObservador(frmDefinicionNormasListener);
 		
 		btnAltaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
         btnBajaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
@@ -315,11 +318,13 @@ public class DlgModificacionNormas extends DialogSupport {
         btnAceptar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR);
         btnCancelar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR);
 		
-		btnAltaElemento.addActionListener(actionListener);
-        btnBajaElemento.addActionListener(actionListener);
-        btnModificacionElemento.addActionListener(actionListener);
-        btnAceptar.addActionListener(actionListener);
-        btnCancelar.addActionListener(actionListener);
+		btnAltaElemento.addActionListener(dlgModificacionNormasListener);
+        btnBajaElemento.addActionListener(dlgModificacionNormasListener);
+        btnModificacionElemento.addActionListener(dlgModificacionNormasListener);
+        btnAceptar.addActionListener(dlgModificacionNormasListener);
+        btnCancelar.addActionListener(dlgModificacionNormasListener);
+        
+        this.addOnLoadListener(dlgModificacionNormasListener);
 	}
 
 	@Override
@@ -331,15 +336,8 @@ public class DlgModificacionNormas extends DialogSupport {
 		txtFecha.setEnabled(Boolean.FALSE);
 		txtFecha.setEditable(Boolean.FALSE);
 		
-		// Se trata de la edición de un registro
-		if (!Objects.isNull(params)) {
-			Norma norma = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
-			
-			txtCodigo.setText(norma.getCodigoNorma().toString());
-			txtDescripcion.setText(norma.getDescripcionNorma());
-			txtUsuario.setText(norma.getCodigoUsuario());
-			txtFecha.setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
-			
+		// La carga se hará a través del método onLoad.
+		if (!Objects.isNull(normaSeleccionada)) {
 			editar = Boolean.TRUE;
 		}
 		else {
@@ -351,5 +349,13 @@ public class DlgModificacionNormas extends DialogSupport {
 	}
 
 	@Override
-	protected void initModels() {}
+	protected void initModels() {
+		tblElementos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblElementos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
+		
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA);
+		tblElementos.setModel(new AltaModificacionNormasElementoNormaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+	}
 }

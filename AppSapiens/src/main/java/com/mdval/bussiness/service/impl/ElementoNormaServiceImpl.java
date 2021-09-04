@@ -96,7 +96,7 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
 
     @Override
     @SneakyThrows
-    public List<ElementoNorma> consultarElementoNorma(BigDecimal codigoNorma) {
+    public List<ElementoNorma> consultarElementosNorma(BigDecimal codigoNorma) {
         List<ElementoNorma> elementoNormas = new ArrayList<>();
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
