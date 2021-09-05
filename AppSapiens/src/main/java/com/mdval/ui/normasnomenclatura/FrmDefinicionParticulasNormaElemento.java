@@ -2,19 +2,32 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.util.Date;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.Norma;
+import com.mdval.bussiness.entities.TipoElemento;
+import com.mdval.ui.listener.FrmDefinicionParticulasNormaElementoListener;
+import com.mdval.ui.model.DefinicionElementosNormaTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
+import com.mdval.ui.renderer.NormaRenderer;
+import com.mdval.ui.renderer.StringRenderer;
+import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -37,13 +50,14 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 	
 	private JScrollPane jScrollPane1;
 	
-	private JTable tblNormas;
+	@Getter
+	private TableSupport tblParticulas;
 	
 	@Getter
-	private JComboBox<String> cmbElemento;
+	private JComboBox<TipoElemento> cmbElemento;
 	
 	@Getter
-	private JComboBox<String> cmbNorma;
+	private JComboBox<Norma> cmbNorma;
 
 	/**
 	 * Creates new form DlgDefinicionNormas
@@ -61,7 +75,7 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 		jLabel2 = new JLabel();
 		btnBuscar = new JButton();
 		jScrollPane1 = new JScrollPane();
-		tblNormas = new JTable();
+		tblParticulas = new TableSupport(Boolean.FALSE);
 		cmbNorma = new JComboBox<>();
 		jLabel3 = new JLabel();
 		cmbElemento = new JComboBox<>();
@@ -79,30 +93,10 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 
 		jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
 
-		tblNormas.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null } },
-				new String[] { "CN", "DES_NORMA", "CE", "DES_ELEMENTO", "MAX", "EXPRESION_REGULAR_ASOCIADA",
-						"TXT_FORMATO_DEST", "TXT_FORMATO_DEST" }) {
-			Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class };
-			boolean[] canEdit = new boolean[] { false, false, false, false, false, true, true, true };
+		jScrollPane1.setViewportView(tblParticulas);
 
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		jScrollPane1.setViewportView(tblNormas);
-
-		cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 		cmbNorma.setPreferredSize(new Dimension(67, 27));
 
-		cmbElemento.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 		cmbElemento.setPreferredSize(new Dimension(67, 27));
 
 		GroupLayout layout = new GroupLayout(getContentPane());
@@ -162,19 +156,30 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		FrmDefinicionParticulasNormaElementoListener listener = new FrmDefinicionParticulasNormaElementoListener(this);
 		
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR);
+		
+		btnBuscar.addActionListener(listener);
+		
+		this.addOnLoadListener(listener);
 	}
 
 	@Override
-	protected void initialState() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialState() {}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
+		tblParticulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblParticulas.setDefaultRenderer(Date.class, new DateTimeRenderer());
+		tblParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
+		Cabecera cabeceraElementos = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA);
+		tblParticulas.setModel(new DefinicionElementosNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
+	
+		cmbElemento.setRenderer(new TipoElementoRenderer());
+		cmbNorma.setRenderer(new NormaRenderer());
 	}
 }

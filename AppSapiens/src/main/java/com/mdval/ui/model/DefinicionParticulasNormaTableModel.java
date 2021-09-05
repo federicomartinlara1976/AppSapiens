@@ -8,7 +8,7 @@ import com.mdval.bussiness.entities.ParticulaNorma;
  * @author federico
  *
  */
-public class DefinicionParticulasNormaElementoTableModel extends ParticulaNormaTableModel {
+public class DefinicionParticulasNormaTableModel extends ParticulaNormaTableModel {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class DefinicionParticulasNormaElementoTableModel extends ParticulaNormaT
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionParticulasNormaElementoTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionParticulasNormaTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 	
@@ -28,7 +28,7 @@ public class DefinicionParticulasNormaElementoTableModel extends ParticulaNormaT
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionParticulasNormaElementoTableModel(List<ParticulaNorma> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionParticulasNormaTableModel(List<ParticulaNorma> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 
