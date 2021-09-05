@@ -3,7 +3,6 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -17,22 +16,20 @@ import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.ParticulaNorma;
 import com.mdval.bussiness.service.ElementoNormaService;
 import com.mdval.bussiness.service.NormaService;
+import com.mdval.bussiness.service.ParticulaNormaService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
 public class DlgModificacionNormasListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
 	private DlgModificacionNormas dlgModificacionNormas;
@@ -102,8 +99,9 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	 * @param codigoNorma
 	 * @return
 	 */
-	private List<ParticulaNorma> cargarParticulasElemento(BigDecimal codigoElemento) {
-		return Collections.emptyList();
+	private List<ParticulaNorma> cargarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
+		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(Constants.PARTICULA_NORMA_SERVICE);
+		return particulaNormaService.consultarParticulasElemento(codigoNorma, codigoElemento);
 	}
 	
 	/**
@@ -136,8 +134,9 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 		
 		if (Constants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO.equals(cmd)) {
 			// Cargar la tabla de partículas
-			LogWrapper.debug(log, "Seleccionado: %s", dlgModificacionNormas.getElementoSeleccionado().toString());
-			List<ParticulaNorma> particulas = cargarParticulasElemento(dlgModificacionNormas.getElementoSeleccionado().getCodigoElemento());
+			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
+			ElementoNorma elementoSeleccionado = dlgModificacionNormas.getElementoSeleccionado();
+			List<ParticulaNorma> particulas = cargarParticulasElemento(normaSeleccionada.getCodigoNorma(), elementoSeleccionado.getCodigoElemento());
 			populateModelParticulas(particulas);
 		}
 		
