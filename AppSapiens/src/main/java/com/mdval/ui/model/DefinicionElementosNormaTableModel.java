@@ -8,7 +8,7 @@ import com.mdval.bussiness.entities.ElementoNorma;
  * @author federico
  *
  */
-public class DefinicionElementosNormaElementoNormaTableModel extends ElementoNormaTableModel {
+public class DefinicionElementosNormaTableModel extends ElementoNormaTableModel {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class DefinicionElementosNormaElementoNormaTableModel extends ElementoNor
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionElementosNormaElementoNormaTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionElementosNormaTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 	
@@ -28,29 +28,33 @@ public class DefinicionElementosNormaElementoNormaTableModel extends ElementoNor
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionElementosNormaElementoNormaTableModel(List<ElementoNorma> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public DefinicionElementosNormaTableModel(List<ElementoNorma> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 
 	@Override
 	protected Object getField(ElementoNorma row, int columnIndex) {
 		if (0 == columnIndex) {
-			return row.getCodigoElemento();
+			return row.getCodigoNorma();
 		} else if (1 == columnIndex) {
-			return row.getDescripcionElemento();
+			return row.getDescripcionNorma();
 		} else if (2 == columnIndex) {
-			return row.getValorTamanoMaximo();
+			return row.getCodigoElemento();
 		} else if (3 == columnIndex) {
-			return row.getTxtFormato();
+			return row.getDescripcionElemento();
 		} else if (4 == columnIndex) {
-			return row.getCodigoUsuario();
+			return row.getValorTamanoMaximo();
 		} else if (5 == columnIndex) {
-			return row.getFechaActualizacion();
+			return row.getTxtFormato();
 		} else if (6 == columnIndex) {
-			return row.getTxtFormatoDescripcion1();
+			return row.getCodigoUsuario();
 		} else if (7 == columnIndex) {
-			return row.getTxtFormatoDescripcion2();
+			return row.getFechaActualizacion();
 		} else if (8 == columnIndex) {
+			return row.getTxtFormatoDescripcion1();
+		} else if (9 == columnIndex) {
+			return row.getTxtFormatoDescripcion2();
+		} else if (10 == columnIndex) {
 			return row.getTxtFormatoDescripcion3();
 		}
 

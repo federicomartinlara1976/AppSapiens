@@ -7,7 +7,7 @@ import java.util.Date;
  * @author federico
  *
  */
-public class DefinicionElementosNormaElementoNormaCabecera extends Cabecera {
+public class DefinicionElementosNormaCabecera extends Cabecera {
 	
 	/**
 	 *
