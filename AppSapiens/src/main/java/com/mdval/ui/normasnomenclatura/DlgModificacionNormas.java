@@ -27,7 +27,7 @@ import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.model.AltaModificacionNormasParticulaNormaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -366,7 +366,7 @@ public class DlgModificacionNormas extends DialogSupport {
 	@Override
 	protected void initModels() {
 		tblElementos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblElementos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblElementos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		

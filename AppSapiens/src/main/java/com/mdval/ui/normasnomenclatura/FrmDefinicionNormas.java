@@ -22,7 +22,7 @@ import com.mdval.ui.listener.tables.FrmDefinicionNormasTableListener;
 import com.mdval.ui.model.DefinicionNormasTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -196,7 +196,7 @@ public class FrmDefinicionNormas extends FrameSupport {
 	@Override
 	protected void initModels() {
 		tblNormas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblNormas.setDefaultRenderer(Date.class, new DateRenderer());
+		tblNormas.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
 		tblNormas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		

@@ -22,7 +22,7 @@ import com.mdval.ui.listener.tables.FrmDefinicionElementosTableListener;
 import com.mdval.ui.model.DefinicionTipoElementoTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -195,7 +195,7 @@ public class FrmDefinicionElementos extends FrameSupport {
 	@Override
 	protected void initModels() {
 		tblElementos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblElementos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblElementos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		

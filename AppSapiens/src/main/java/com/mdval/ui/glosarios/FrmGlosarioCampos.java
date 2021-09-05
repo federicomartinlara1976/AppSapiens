@@ -30,7 +30,7 @@ import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
@@ -356,14 +356,14 @@ public class FrmGlosarioCampos extends FrameSupport {
 
 		Cabecera cabeceraCampos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
 		tblCampos.setModel(new DefinicionCamposGlosarioTableCamposModel(cabeceraCampos.getColumnIdentifiers(), cabeceraCampos.getColumnClasses()));
-		tblCampos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblCampos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblCampos.setDefaultRenderer(String.class, new StringRenderer());
 		tblCampos.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblCampos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
 		Cabecera cabeceraModelos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA);
 		tblModelos.setModel(new DefinicionCamposGlosarioTableModelosModel(cabeceraModelos.getColumnIdentifiers(), cabeceraModelos.getColumnClasses()));
-		tblModelos.setDefaultRenderer(Date.class, new DateRenderer());
+		tblModelos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblModelos.setDefaultRenderer(String.class, new StringRenderer());
 		tblModelos.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblModelos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());

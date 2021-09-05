@@ -22,7 +22,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class FrmDefinicionElementosNormaElemento extends FrameSupport {
+public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class FrmDefinicionElementosNormaElemento extends FrameSupport {
 	/**
 	 * Creates new form DlgDefinicionNormas
 	 */
-	public FrmDefinicionElementosNormaElemento() {
+	public FrmDefinicionParticulasNormaElemento() {
 		super();
 	}
 
@@ -151,13 +151,13 @@ public class FrmDefinicionElementosNormaElemento extends FrameSupport {
 	
 	@Override
 	protected void setupLiterals() {
-		setTitle(literales.getLiteral("frmDefinicionElementosNormaElemento.titulo"));
+		setTitle(literales.getLiteral("frmDefinicionParticulasNormaElemento.titulo"));
 		
-		jLabel1.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.titulo"));
-		jLabel2.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.norma"));
-		jLabel3.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.elemento"));
+		jLabel1.setText(literales.getLiteral("frmDefinicionParticulasNormaElemento.titulo"));
+		jLabel2.setText(literales.getLiteral("frmDefinicionParticulasNormaElemento.norma"));
+		jLabel3.setText(literales.getLiteral("frmDefinicionParticulasNormaElemento.elemento"));
 
-		btnBuscar.setText(literales.getLiteral("frmDefinicionElementosNormaElemento.buscar"));
+		btnBuscar.setText(literales.getLiteral("frmDefinicionParticulasNormaElemento.buscar"));
 	}
 
 	@Override

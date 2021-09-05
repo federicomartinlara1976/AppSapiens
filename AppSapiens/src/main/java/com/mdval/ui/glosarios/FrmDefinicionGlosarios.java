@@ -21,7 +21,7 @@ import com.mdval.ui.listener.tables.FrmDefinicionGlosariosTableListener;
 import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
@@ -212,7 +212,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	protected void initModels() {
 		tblGlosarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblGlosarios.setDefaultRenderer(Integer.class, new IntegerRenderer());
-		tblGlosarios.setDefaultRenderer(Date.class, new DateRenderer());
+		tblGlosarios.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblGlosarios.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
 		

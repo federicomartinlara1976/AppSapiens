@@ -8,7 +8,7 @@ import com.mdval.ui.glosarios.FrmGlosarioCampos;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionElementos;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionElementosNorma;
-import com.mdval.ui.normasnomenclatura.FrmDefinicionElementosNormaElemento;
+import com.mdval.ui.normasnomenclatura.FrmDefinicionParticulasNormaElemento;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionNormas;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionTiposParticula;
 import com.mdval.ui.normasnomenclatura.FrmMantenimientoParticulas;
@@ -72,7 +72,7 @@ public class FrameCreator extends Creator {
 		}
 		
 		if (Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO.equals(option)) {
-			frame = new FrmDefinicionElementosNormaElemento();
+			frame = new FrmDefinicionParticulasNormaElemento();
 		}
 		
 		if (Constants.MNU_VALORES_PARTICULAS.equals(option)) {
