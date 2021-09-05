@@ -3,6 +3,7 @@ package com.mdval.ui.utils.creators;
 import java.util.Map;
 
 import com.mdval.ui.model.cabeceras.AltaModificacionNormasElementoNormaCabecera;
+import com.mdval.ui.model.cabeceras.AltaModificacionNormasElementoParticulaCabecera;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.model.cabeceras.DefinicionElementosNormaElementoNormaCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionElementosTablaTipoElementoCabecera;
@@ -50,6 +51,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA.equals(item)) {
 			cabecera = new AltaModificacionNormasElementoNormaCabecera();
+		}
+		
+		if (Constants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA.equals(item)) {
+			cabecera = new AltaModificacionNormasElementoParticulaCabecera();
 		}
 		
 		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {

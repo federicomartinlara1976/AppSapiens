@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
@@ -25,6 +24,7 @@ import com.mdval.ui.listener.DlgModificacionNormasListener;
 import com.mdval.ui.listener.FrmDefinicionNormasListener;
 import com.mdval.ui.listener.tables.DlgModificacionNormasElementoNormaTableListener;
 import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
+import com.mdval.ui.model.AltaModificacionNormasParticulaNormaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateRenderer;
@@ -68,7 +68,9 @@ public class DlgModificacionNormas extends DialogSupport {
 	
 	@Getter
 	private TableSupport tblElementos;
-	private JTable tblParticulas;
+	
+	@Getter
+	private TableSupport tblParticulas;
 	
 	@Getter
 	private JTextField txtCodigo;
@@ -128,7 +130,7 @@ public class DlgModificacionNormas extends DialogSupport {
         tblElementos = new TableSupport(Boolean.FALSE);
         jLabel5 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblParticulas = new JTable();
+        tblParticulas = new TableSupport(Boolean.FALSE);
         jLabel6 = new JLabel();
         txtUsuario = new JTextField();
         jLabel7 = new JLabel();
@@ -368,7 +370,10 @@ public class DlgModificacionNormas extends DialogSupport {
 		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA);
-		tblElementos.setModel(new AltaModificacionNormasElementoNormaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		Cabecera cabeceraElementos = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA);
+		tblElementos.setModel(new AltaModificacionNormasElementoNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
+		
+		Cabecera cabeceraParticulas = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA);
+		tblParticulas.setModel(new AltaModificacionNormasParticulaNormaTableModel(cabeceraParticulas.getColumnIdentifiers(), cabeceraParticulas.getColumnClasses()));
 	}
 }

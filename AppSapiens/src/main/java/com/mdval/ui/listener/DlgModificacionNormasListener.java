@@ -19,6 +19,7 @@ import com.mdval.bussiness.service.NormaService;
 import com.mdval.bussiness.service.ParticulaNormaService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
+import com.mdval.ui.model.AltaModificacionNormasParticulaNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
@@ -61,15 +62,15 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	public void onLoad() {
 		try {
 			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
-			
+
 			Norma norma = cargarNorma(normaSeleccionada.getCodigoNorma());
 			List<ElementoNorma> elementosNorma = cargarElementosNorma(normaSeleccionada.getCodigoNorma());
-			
+
 			dlgModificacionNormas.getTxtCodigo().setText(norma.getCodigoNorma().toString());
 			dlgModificacionNormas.getTxtDescripcion().setText(norma.getDescripcionNorma());
 			dlgModificacionNormas.getTxtUsuario().setText(norma.getCodigoUsuario());
 			dlgModificacionNormas.getTxtFecha().setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
-			
+
 			populateModelElementos(elementosNorma);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
@@ -85,7 +86,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
 		return normaService.consultaNorma(codigoNorma);
 	}
-	
+
 	/**
 	 * @param codigoNorma
 	 * @return
@@ -94,16 +95,17 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(Constants.ELEMENTO_NORMA_SERVICE);
 		return elementoNormaService.consultarElementosNorma(codigoNorma);
 	}
-	
+
 	/**
 	 * @param codigoNorma
 	 * @return
 	 */
 	private List<ParticulaNorma> cargarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(Constants.PARTICULA_NORMA_SERVICE);
+		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(
+				Constants.PARTICULA_NORMA_SERVICE);
 		return particulaNormaService.consultarParticulasElemento(codigoNorma, codigoElemento);
 	}
-	
+
 	/**
 	 * Vuelca la lista de elementos encontrados en la tabla
 	 * 
@@ -115,14 +117,17 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 				.getTblElementos().getModel();
 		tableModel.setData(elementos);
 	}
-	
+
 	/**
 	 * Vuelca la lista de partículas encontradas para un elemento
 	 * 
 	 * @return
 	 */
 	private void populateModelParticulas(List<ParticulaNorma> particulas) {
-		
+		// Obtiene el modelo y lo actualiza
+		AltaModificacionNormasParticulaNormaTableModel tableModel = (AltaModificacionNormasParticulaNormaTableModel) dlgModificacionNormas
+				.getTblParticulas().getModel();
+		tableModel.setData(particulas);
 	}
 
 	/**
@@ -131,14 +136,15 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	@Override
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
-		
+
 		if (Constants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO.equals(cmd)) {
 			// Cargar la tabla de partículas
 			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
 			ElementoNorma elementoSeleccionado = dlgModificacionNormas.getElementoSeleccionado();
-			List<ParticulaNorma> particulas = cargarParticulasElemento(normaSeleccionada.getCodigoNorma(), elementoSeleccionado.getCodigoElemento());
+			List<ParticulaNorma> particulas = cargarParticulasElemento(normaSeleccionada.getCodigoNorma(),
+					elementoSeleccionado.getCodigoElemento());
 			populateModelParticulas(particulas);
 		}
-		
+
 	}
 }
