@@ -41,7 +41,7 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
+			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA_NORMA).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, codigoNorma, codigoElemento);

@@ -17,7 +17,7 @@ import javax.swing.WindowConstants;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmDefinicionParticulasNormaElementoListener;
-import com.mdval.ui.model.DefinicionElementosNormaTableModel;
+import com.mdval.ui.model.DefinicionParticulasNormaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
@@ -177,7 +177,7 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 		tblParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
 		Cabecera cabeceraElementos = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA);
-		tblParticulas.setModel(new DefinicionElementosNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
+		tblParticulas.setModel(new DefinicionParticulasNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
 	
 		cmbElemento.setRenderer(new TipoElementoRenderer());
 		cmbNorma.setRenderer(new NormaRenderer());

@@ -9,6 +9,7 @@ import com.mdval.ui.model.cabeceras.DefinicionElementosNormaCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionElementosTablaTipoElementoCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionGlosariosTablaGlosariosCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionNormasTablaNormasCabecera;
+import com.mdval.ui.model.cabeceras.DefinicionParticulasNormaElementoCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionTiposParticulaTablaTiposCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaCamposCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaModelosCabecera;
@@ -67,6 +68,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionTiposParticulaTablaTiposCabecera();
+		}
+		
+		if (Constants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA.equals(item)) {
+			cabecera = new DefinicionParticulasNormaElementoCabecera();
 		}
 		
 		return cabecera;
