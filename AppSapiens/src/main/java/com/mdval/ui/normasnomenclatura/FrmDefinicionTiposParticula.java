@@ -22,8 +22,7 @@ import com.mdval.ui.listener.tables.FrmDefinicionTiposParticulaTableListener;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.BooleanRenderer;
-import com.mdval.ui.renderer.DateTimeRenderer;
+import com.mdval.ui.renderer.DateRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -197,7 +196,7 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 	@Override
 	protected void initModels() {
 		tblTiposParticula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblTiposParticula.setDefaultRenderer(Date.class, new DateTimeRenderer());
+		tblTiposParticula.setDefaultRenderer(Date.class, new DateRenderer());
 		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
 		
