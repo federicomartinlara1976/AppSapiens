@@ -3,6 +3,8 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -12,12 +14,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.listener.FrmValoresParticulasListener;
+import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -34,8 +44,13 @@ public class FrmValoresParticulas extends FrameSupport {
 	private static final long serialVersionUID = 8100226088814590344L;
 
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnAltaElemento;
+	
 	private JButton btnBajaElemento;
+	
+	@Getter
 	private JButton btnModificacionElemento;
 	
 	private JLabel jLabel1;
@@ -49,7 +64,8 @@ public class FrmValoresParticulas extends FrameSupport {
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	
-	private JTable tblTiposParticular;
+	@Getter
+	private TableSupport tblTiposParticula;
 	private JTable tblValoresPosibles;
 	
 	@Getter
@@ -84,7 +100,7 @@ public class FrmValoresParticulas extends FrameSupport {
         btnBajaElemento = new JButton();
         btnModificacionElemento = new JButton();
         jScrollPane1 = new JScrollPane();
-        tblTiposParticular = new JTable();
+        tblTiposParticula = new TableSupport(Boolean.FALSE);
         jLabel5 = new JLabel();
         jScrollPane2 = new JScrollPane();
         tblValoresPosibles = new JTable();
@@ -121,33 +137,7 @@ public class FrmValoresParticulas extends FrameSupport {
         btnAltaElemento.setPreferredSize(new Dimension(130, 27));
         btnBajaElemento.setPreferredSize(new Dimension(130, 27));
 
-        tblTiposParticular.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "COD_PARTICULA", "DES_PARTICULA", "MCA_PROYECTO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblTiposParticular);
+        jScrollPane1.setViewportView(tblTiposParticula);
 
         tblValoresPosibles.setModel(new DefaultTableModel(
             new Object [][] {
@@ -293,12 +283,12 @@ public class FrmValoresParticulas extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmValoresParticulasListener(this);
 		
-		btnAltaElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_ALTA);
-		btnBajaElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_BAJA);
-		btnModificacionElemento.setActionCommand(Constants.DLG_VALORES_PARTICULAS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_BUSCAR);
+		btnAltaElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_ALTA);
+		btnModificacionElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION);
 		
+		btnBuscar.addActionListener(listener);
 		btnAltaElemento.addActionListener(listener);
-		btnBajaElemento.addActionListener(listener);
 		btnModificacionElemento.addActionListener(listener);
 	}
 
@@ -310,6 +300,14 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initModels() {
+		tblTiposParticula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblTiposParticula.setDefaultRenderer(Date.class, new DateRenderer());
+		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
+		
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
+		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+	
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	
 	}

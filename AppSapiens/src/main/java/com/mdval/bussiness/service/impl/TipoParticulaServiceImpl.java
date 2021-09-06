@@ -159,4 +159,61 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 			throw new ServiceException(e);
 		}
 	}
+
+	@Override
+	@SneakyThrows
+	public List<TipoParticula> consultarTiposParticula(BigDecimal codigo, String sDescripcion, String mcaProyecto,
+			String mcaSubproyecto) {
+		List<TipoParticula> tipoParticulas = new ArrayList<>();
+
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_con_particulas");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
+
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+			logProcedure(runSP, codigo, sDescripcion, mcaProyecto, mcaSubproyecto);
+
+			callableStatement.setBigDecimal(1, codigo);
+			callableStatement.setString(2, sDescripcion);
+			callableStatement.setString(3, mcaProyecto);
+			callableStatement.setString(4, mcaSubproyecto);
+			callableStatement.registerOutParameter(5, Types.ARRAY, typeTipoParticula);
+			callableStatement.registerOutParameter(6, Types.INTEGER);
+			callableStatement.registerOutParameter(7, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(6);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(7);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+
+			Array arrayTipoParticula = callableStatement.getArray(5);
+			if (arrayTipoParticula != null) {
+				Object[] rows = (Object[]) arrayTipoParticula.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+					TipoParticula tipoParticula = TipoParticula.builder().codigoParticula((BigDecimal) cols[0])
+							.descripcionParticula((String) cols[1]).codigoUsuario((String) cols[2])
+							.fechaActualizacion((java.util.Date) cols[3]).mcaProyecto((String) cols[4])
+							.mcaSubProyecto((String) cols[5]).build();
+					tipoParticulas.add(tipoParticula);
+				}
+			}
+			return tipoParticulas;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ParticulaService.consultarTiposParticula] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 }
