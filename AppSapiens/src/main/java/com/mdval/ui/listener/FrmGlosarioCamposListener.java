@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.service.CamposGlosarioService;
+import com.mdval.bussiness.service.ExcelGeneratorService;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.glosarios.FrmGlosarioCampos;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
@@ -141,7 +142,11 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnImprimir() {
-		// TODO Auto-generated method stub
+		ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
+				Constants.EXCEL_GENERATOR_SERVICE);
+
+		excelGeneratorService.generarExcelGlosarioCampoModelo(null, "/home/hernan/dev", BigDecimal.valueOf(123),"descripcionTest" );
+		//excelGeneratorService.generarExcelValidacionNomenclatura(null);
 
 	}
 

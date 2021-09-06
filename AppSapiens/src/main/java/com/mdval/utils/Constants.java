@@ -15,10 +15,16 @@ public class Constants {
 	public static final String ERROR = "ERROR";
 	public static final String SI = "SI";
 	public static final String NO = "NO";
+
+	/**
+	 * Report templates
+	 */
+	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "./AppSapiens/src/main/resources/templates/glosarioCamposModelo.xltx";
 	
 	/**
 	 * Bean names
 	 */
+	public static final String EXCEL_GENERATOR_SERVICE = "excelGeneratorService";
 	public static final String VALIDACION_SERVICE = "validacionService";
 	public static final String VALOR_PARTICULA_SERVICE = "valorParticulaService";
 	public static final String PARTICULA_NORMA_SERVICE = "particulaNormaService";
