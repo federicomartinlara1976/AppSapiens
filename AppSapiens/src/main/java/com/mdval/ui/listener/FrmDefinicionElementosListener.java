@@ -10,14 +10,17 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.bussiness.service.TipoElementoService;
 import com.mdval.ui.model.DefinicionTipoElementoTableModel;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionElementos;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.Constants;
 
-public class FrmDefinicionElementosListener extends ListenerSupport implements ActionListener, Observer {
+public class FrmDefinicionElementosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
 	private FrmDefinicionElementos frmDefinicionElementos;
 
@@ -108,5 +111,16 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	@Override
 	public void update(Observable o, Object arg) {
 		eventBtnBuscar();
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			List<TipoElemento> elementos = buscar(StringUtils.EMPTY);
+			populateModel(elementos);
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(frmDefinicionElementos, Constants.CMD_ERROR, params);
+		}
 	}
 }

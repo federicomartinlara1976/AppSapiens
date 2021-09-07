@@ -185,6 +185,8 @@ public class FrmDefinicionElementos extends FrameSupport {
 		
 		ListSelectionModel rowSM = tblElementos.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);
+		
+		this.addOnLoadListener(frmDefinicionElementosListener);
 	}
 
 	@Override
