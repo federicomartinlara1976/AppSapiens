@@ -19,7 +19,7 @@ public class Constants {
 	/**
 	 * Report templates
 	 */
-	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "./AppSapiens/src/main/resources/templates/glosarioCamposModelo.xltx";
+	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "/templates/glosarioCamposModelo.xltx";
 	
 	/**
 	 * Bean names

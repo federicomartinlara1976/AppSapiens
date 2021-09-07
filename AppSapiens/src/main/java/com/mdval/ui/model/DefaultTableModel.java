@@ -7,6 +7,8 @@ import javax.swing.table.AbstractTableModel;
 
 import org.springframework.util.CollectionUtils;
 
+import lombok.Getter;
+
 /**
  * @author federico
  *
@@ -18,6 +20,7 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 8351154302842174012L;
 
+	@Getter
 	protected List<T> data;
 	
 	private final List<String> columnNames;

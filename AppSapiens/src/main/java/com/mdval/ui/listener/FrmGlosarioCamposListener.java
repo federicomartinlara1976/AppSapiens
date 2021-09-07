@@ -2,6 +2,7 @@ package com.mdval.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Modelo;
@@ -24,11 +28,15 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author federico
  *
  */
+@Log4j
 public class FrmGlosarioCamposListener extends ListenerSupport implements ActionListener, Observer {
 
 	private FrmGlosarioCampos frmGlosarioCampos;
@@ -95,10 +103,10 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			Long codGlosario = Long.parseLong(sCodGlosario);
 			BigDecimal bCodGlosario = new BigDecimal(codGlosario);
 			String mcaException = AppHelper.normalizeCmbSiNoValue(vMostrarExcepciones);
-			
+
 			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mcaException);
 			populateModelCampos(campos);
-			
+
 			List<Modelo> modelos = buscarModelos(bCodGlosario);
 			populateModelModelos(modelos);
 		} catch (Exception e) {
@@ -113,7 +121,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private void eventBtnAlta() {
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
-		
+
 		showPopup(frmGlosarioCampos, Constants.CMD_ALTA_GLOSARIO_CAMPOS, params);
 	}
 
@@ -123,7 +131,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private void eventBtnBaja() {
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
-		
+
 		showPopup(frmGlosarioCampos, Constants.CMD_BAJA_GLOSARIO_CAMPOS, params);
 	}
 
@@ -134,7 +142,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
 		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
-		
+
 		showPopup(frmGlosarioCampos, Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
 	}
 
@@ -142,12 +150,22 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnImprimir() {
-		ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
-				Constants.EXCEL_GENERATOR_SERVICE);
+		// En este punto preguntar la ruta con el componente específico de
+		// selección de carpeta.
+		String path = selectFolder();
 
-		excelGeneratorService.generarExcelGlosarioCampoModelo(null, "/home/hernan/dev", BigDecimal.valueOf(123),"descripcionTest" );
-		//excelGeneratorService.generarExcelValidacionNomenclatura(null);
+		if (StringUtils.isNotBlank(path)) {
+			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
+					Constants.EXCEL_GENERATOR_SERVICE);
 
+			String codigoGlosario = frmGlosarioCampos.getTxtCodigoGlosario().getText();
+			String nombreGlosario = frmGlosarioCampos.getTxtGlosario().getText();
+			DefinicionCamposGlosarioTableCamposModel tableModel = (DefinicionCamposGlosarioTableCamposModel) frmGlosarioCampos
+					.getTblCampos().getModel();
+			List<CampoGlosario> campos = tableModel.getData();
+
+			excelGeneratorService.generarExcelGlosarioCampoModelo(campos, path, codigoGlosario, nombreGlosario);
+		}
 	}
 
 	/**
@@ -167,7 +185,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 				nombreColumna, mostrarExcepciones);
 		return campos;
 	}
-	
+
 	/**
 	 * Busca modelos de un glosario
 	 * 
@@ -198,7 +216,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 		frmGlosarioCampos.getBtnModificacion().setEnabled(Boolean.FALSE);
 		frmGlosarioCampos.getBtnImprimir().setEnabled(Boolean.TRUE);
 	}
-	
+
 	/**
 	 * Vuelca la lista de campos encontrados en la tabla
 	 * 
@@ -214,7 +232,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	@Override
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
-		
+
 		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
 			if (!Objects.isNull(frmDefinicionGlosarios.getSeleccionado())) {
 				frmGlosarioCampos.setGlosarioSeleccionado(frmDefinicionGlosarios.getSeleccionado());
@@ -224,24 +242,43 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 						.setText(frmDefinicionGlosarios.getSeleccionado().getDescripcionGlosario());
 				frmGlosarioCampos.getBtnBuscar().setEnabled(Boolean.TRUE);
 				frmGlosarioCampos.getBtnAlta().setEnabled(Boolean.TRUE);
-				
+
 				// Limpiar las dos tablas al cambiar de glosario
 				DefinicionCamposGlosarioTableCamposModel tableModelCampos = (DefinicionCamposGlosarioTableCamposModel) frmGlosarioCampos
 						.getTblCampos().getModel();
 				DefinicionCamposGlosarioTableModelosModel tableModelModelos = (DefinicionCamposGlosarioTableModelosModel) frmGlosarioCampos
 						.getTblModelos().getModel();
-				
+
 				tableModelCampos.clearData();
 				tableModelModelos.clearData();
 			}
 		}
-		
+
 		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
-		
+
 		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
+	}
+
+	private String selectFolder() {
+		String path = StringUtils.EMPTY;
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File("."));
+		chooser.setDialogTitle(literales.getLiteral("glosarioCampos.tituloChooser"));
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//
+		// disable the "All files" option.
+		//
+		chooser.setAcceptAllFileFilterUsed(false);
+		//
+		if (chooser.showOpenDialog(frmDefinicionGlosarios) == JFileChooser.APPROVE_OPTION) {
+			LogWrapper.debug(log, "Carpeta seleccionada: %s", chooser.getSelectedFile());
+			path = chooser.getSelectedFile().getAbsolutePath();
+		}
+
+		return path;
 	}
 }
