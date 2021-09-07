@@ -11,16 +11,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionListener;
 
 import com.mdval.ui.listener.FrmValoresParticulasListener;
+import com.mdval.ui.listener.tables.FrmValoresParticulasTableParticulasListener;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateRenderer;
@@ -66,7 +67,9 @@ public class FrmValoresParticulas extends FrameSupport {
 	
 	@Getter
 	private TableSupport tblTiposParticula;
-	private JTable tblValoresPosibles;
+	
+	@Getter
+	private TableSupport tblValoresParticulas;
 	
 	@Getter
 	private JComboBox<String> cmbProyecto;
@@ -103,7 +106,7 @@ public class FrmValoresParticulas extends FrameSupport {
         tblTiposParticula = new TableSupport(Boolean.FALSE);
         jLabel5 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblValoresPosibles = new JTable();
+        tblValoresParticulas = new TableSupport(Boolean.FALSE);
         jLabel6 = new JLabel();
         cmbProyecto = new JComboBox<>();
         jLabel7 = new JLabel();
@@ -139,33 +142,7 @@ public class FrmValoresParticulas extends FrameSupport {
 
         jScrollPane1.setViewportView(tblTiposParticula);
 
-        tblValoresPosibles.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "COD_PARTICULA", "VAL_PARTICULA", "DES_VAL_PART", "VAL_PART_PADRE", "COD_USR", "FEC_ACTU"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblValoresPosibles);
+        jScrollPane2.setViewportView(tblValoresParticulas);
 
         btnBuscar.setPreferredSize(new Dimension(130, 27));
 
@@ -282,6 +259,7 @@ public class FrmValoresParticulas extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		ActionListener listener = new FrmValoresParticulasListener(this);
+		ListSelectionListener listSelectionListenerTiposParticula = new FrmValoresParticulasTableParticulasListener(this);
 		
 		btnBuscar.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_BUSCAR);
 		btnAltaElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_ALTA);
@@ -290,6 +268,9 @@ public class FrmValoresParticulas extends FrameSupport {
 		btnBuscar.addActionListener(listener);
 		btnAltaElemento.addActionListener(listener);
 		btnModificacionElemento.addActionListener(listener);
+		
+		ListSelectionModel rowSMParticulas = tblTiposParticula.getSelectionModel();
+		rowSMParticulas.addListSelectionListener(listSelectionListenerTiposParticula);
 	}
 
 	@Override
@@ -305,9 +286,17 @@ public class FrmValoresParticulas extends FrameSupport {
 		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
-		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblValoresParticulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblValoresParticulas.setDefaultRenderer(Date.class, new DateRenderer());
+		tblValoresParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblValoresParticulas.setDefaultRenderer(String.class, new StringRenderer());
+		
+		Cabecera cabeceraTiposParticulas = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
+		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabeceraTiposParticulas.getColumnIdentifiers(), cabeceraTiposParticulas.getColumnClasses()));
 	
+		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
+		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
+		
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	
 	}
