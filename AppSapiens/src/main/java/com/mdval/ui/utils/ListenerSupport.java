@@ -53,11 +53,30 @@ public abstract class ListenerSupport extends Observable {
 	}
 	
 	/**
+	 * @param parent
+	 * @param cmd
+	 */
+	protected void showFrame(FrameSupport parent, String cmd) {
+		JFrame frame = UIHelper.createFrame(parent, cmd);
+		UIHelper.show(frame);
+	}
+	
+	/**
 	 * @param cmd
 	 * @param params
 	 */
 	protected void showFrame(String cmd, Map<String, Object> params) {
 		JFrame frame = UIHelper.createFrame(cmd, params);
+		UIHelper.show(frame);
+	}
+	
+	/**
+	 * @param parent
+	 * @param cmd
+	 * @param params
+	 */
+	protected void showFrame(FrameSupport parent, String cmd, Map<String, Object> params) {
+		JFrame frame = UIHelper.createFrame(parent, cmd, params);
 		UIHelper.show(frame);
 	}
 	

@@ -81,11 +81,31 @@ public class UIHelper {
 	
 	/**
 	 * @param item
+	 * @return
+	 */
+	public static JFrame createFrame(FrameSupport parent, String item) {
+		Creator frameCreator = new FrameCreator(parent, item);
+		return (JFrame) frameCreator.factoryMethod(null);
+	}
+	
+	/**
+	 * @param item
 	 * @param params
 	 * @return
 	 */
 	public static JFrame createFrame(String item, Map<String, Object> params) {
 		Creator frameCreator = new FrameCreator(item);
+		return (JFrame) frameCreator.factoryMethod(params);
+	}
+	
+	/**
+	 * @param parent
+	 * @param item
+	 * @param params
+	 * @return
+	 */
+	public static JFrame createFrame(FrameSupport parent, String item, Map<String, Object> params) {
+		Creator frameCreator = new FrameCreator(parent, item);
 		return (JFrame) frameCreator.factoryMethod(params);
 	}
 	

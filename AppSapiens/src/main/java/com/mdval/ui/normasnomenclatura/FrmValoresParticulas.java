@@ -2,7 +2,6 @@ package com.mdval.ui.normasnomenclatura;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionListener;
 
+import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.FrmValoresParticulasListener;
 import com.mdval.ui.listener.tables.FrmValoresParticulasTableParticulasListener;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
@@ -32,6 +32,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -82,6 +83,13 @@ public class FrmValoresParticulas extends FrameSupport {
 	
 	@Getter
 	private JTextField txtDescripcion;
+	
+	@Getter
+	@Setter
+	private TipoParticula seleccionada;
+	
+	@Getter
+	private FrmValoresParticulasListener frmValoresParticulasListener;
 	
 
 	/**
@@ -258,16 +266,16 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmValoresParticulasListener(this);
+		frmValoresParticulasListener = new FrmValoresParticulasListener(this);
 		ListSelectionListener listSelectionListenerTiposParticula = new FrmValoresParticulasTableParticulasListener(this);
 		
 		btnBuscar.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_BUSCAR);
 		btnAltaElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_ALTA);
 		btnModificacionElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION);
 		
-		btnBuscar.addActionListener(listener);
-		btnAltaElemento.addActionListener(listener);
-		btnModificacionElemento.addActionListener(listener);
+		btnBuscar.addActionListener(frmValoresParticulasListener);
+		btnAltaElemento.addActionListener(frmValoresParticulasListener);
+		btnModificacionElemento.addActionListener(frmValoresParticulasListener);
 		
 		ListSelectionModel rowSMParticulas = tblTiposParticula.getSelectionModel();
 		rowSMParticulas.addListSelectionListener(listSelectionListenerTiposParticula);
@@ -277,6 +285,8 @@ public class FrmValoresParticulas extends FrameSupport {
 	protected void initialState() {
 		cmbProyecto.setSelectedItem(Constants.NO);
 		cmbSubproyecto.setSelectedItem(Constants.NO);	
+		btnBajaElemento.setEnabled(Boolean.FALSE);
+		btnModificacionElemento.setEnabled(Boolean.FALSE);
 	}
 
 	@Override

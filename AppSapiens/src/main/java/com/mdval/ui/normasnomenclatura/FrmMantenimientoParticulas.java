@@ -3,10 +3,10 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -20,7 +20,9 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
+import com.mdval.ui.listener.FrmValoresParticulasListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -30,7 +32,7 @@ import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -83,17 +85,24 @@ public class FrmMantenimientoParticulas extends FrameSupport {
     private Boolean editar;
 
 	/**
-	 * Creates new form DlgModificacionNormas
+	 * Creates new form
 	 */
 	public FrmMantenimientoParticulas() {
 		super();
 	}
 	
 	/**
+	 * Creates new form
+	 */
+	public FrmMantenimientoParticulas(FrameSupport parent) {
+		super(parent);
+	}
+	
+	/**
 	 * @param params
 	 */
-	public FrmMantenimientoParticulas(Map<String, Object> params) {
-        super(params);
+	public FrmMantenimientoParticulas(FrameSupport parent, Map<String, Object> params) {
+        super(parent, params);
     }
 
 	/**
@@ -272,28 +281,47 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmMantenimientoParticulasListener(this);
+		FrmValoresParticulas parent = (FrmValoresParticulas) this.getParent();
+		FrmValoresParticulasListener frmValoresParticulasListener = parent.getFrmValoresParticulasListener();
+		
+		FrmMantenimientoParticulasListener listener = new FrmMantenimientoParticulasListener(this);
+		listener.addObservador(frmValoresParticulasListener);
 		
 		btnAltaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
 		btnBajaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
 		btnModificacionElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION);
+		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR);
 		
 		btnAltaElemento.addActionListener(listener);
 		btnBajaElemento.addActionListener(listener);
 		btnModificacionElemento.addActionListener(listener);
+		btnAceptar.addActionListener(listener);
+		btnCancelar.addActionListener(listener);
 	}
 
 	@Override
 	protected void initialState() {
-		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
-		
-		editar = Boolean.FALSE;
-		
 		txtCodigo.setEnabled(Boolean.FALSE);
 		txtCodigo.setEditable(Boolean.FALSE);
-		cmbProyecto.setSelectedItem(Constants.NO);
-		cmbSubproyecto.setSelectedItem(Constants.NO);	
+		btnBajaElemento.setEnabled(Boolean.FALSE);
+		
+		// Se trata de la edición de un registro
+		if (!Objects.isNull(params)) {
+			TipoParticula tipoParticula = (TipoParticula) params.get(Constants.FRM_VALORES_PARTICULAS_SELECCIONADA);
+			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
+			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
+			cmbProyecto.setSelectedItem(AppHelper.normalizeSiNoValueToCmb(tipoParticula.getMcaProyecto()));
+			cmbSubproyecto.setSelectedItem(AppHelper.normalizeSiNoValueToCmb(tipoParticula.getMcaSubProyecto()));
+			
+			editar = Boolean.TRUE;
+		}
+		else {
+			cmbProyecto.setSelectedItem(Constants.NO);
+			cmbSubproyecto.setSelectedItem(Constants.NO);
+		
+			editar = Boolean.FALSE;
+		}
 	}
 
 	@Override

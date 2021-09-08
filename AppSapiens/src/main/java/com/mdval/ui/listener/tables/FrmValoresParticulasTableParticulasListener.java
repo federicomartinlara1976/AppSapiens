@@ -44,7 +44,10 @@ public class FrmValoresParticulasTableParticulasListener extends ListenerSupport
 		TipoParticula seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
+			frmValoresParticulas.setSeleccionada(seleccionado);
 			cargarValores(seleccionado.getCodigoParticula());
+			
+			frmValoresParticulas.getBtnModificacionElemento().setEnabled(Boolean.TRUE);
 		}
 	}
 
@@ -83,9 +86,5 @@ public class FrmValoresParticulasTableParticulasListener extends ListenerSupport
 		ValoresParticulaTableModel tableModel = (ValoresParticulaTableModel) frmValoresParticulas
 				.getTblValoresParticulas().getModel();
 		tableModel.setData(valores);
-
-		// Como se ha regenerado el contenido de la tabla y se ha perdido la selección,
-		// deshabilitar el botón de selección para la próxima.
-		
 	}
 }

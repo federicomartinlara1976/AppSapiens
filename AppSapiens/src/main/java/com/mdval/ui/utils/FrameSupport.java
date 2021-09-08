@@ -36,6 +36,9 @@ public abstract class FrameSupport extends JFrame {
 	protected LiteralesSingleton literales;
 	
 	private List<OnLoadListener> onLoadListeners;
+	
+	@Getter
+	private FrameSupport parent;
 
 	/**
 	 * 
@@ -47,7 +50,16 @@ public abstract class FrameSupport extends JFrame {
 	/**
 	 * 
 	 */
-	public FrameSupport(Map<String, Object> params) {
+	public FrameSupport(FrameSupport parent) {
+		this.parent = parent;
+		initialize();
+	}
+	
+	/**
+	 * 
+	 */
+	public FrameSupport(FrameSupport parent, Map<String, Object> params) {
+		this.parent = parent;
 		this.params = params;
 		initialize();
 	}

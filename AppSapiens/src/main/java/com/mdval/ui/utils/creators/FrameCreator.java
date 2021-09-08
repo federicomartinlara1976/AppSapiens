@@ -28,7 +28,14 @@ public class FrameCreator extends Creator {
 	
 	private String option;
 	
+	private FrameSupport parent;
+	
 	public FrameCreator(String option) {
+		this.option = option;
+	}
+	
+	public FrameCreator(FrameSupport parent, String option) {
+		this.parent = parent;
 		this.option = option;
 	}
 
@@ -88,7 +95,7 @@ public class FrameCreator extends Creator {
 		}
 		
 		if (Constants.CMD_ALTA_VALORES_PARTICULAS.equals(option)) {
-			frame = new FrmMantenimientoParticulas();
+			frame = new FrmMantenimientoParticulas(parent);
 		}
 		
 		if (Constants.CMD_BAJA_VALORES_PARTICULAS.equals(option)) {
@@ -96,7 +103,7 @@ public class FrameCreator extends Creator {
 		}
 		
 		if (Constants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(option)) {
-			frame = new FrmMantenimientoParticulas();
+			frame = new FrmMantenimientoParticulas(parent, params);
 		}
 		
 		return frame;
