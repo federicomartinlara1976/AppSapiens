@@ -12,6 +12,6 @@ public interface ExcelGeneratorService {
 
     void generarExcelGlosarioCampoModelo(List<CampoGlosario> camposGlosario, String path, String codigoGlosario, String descripcionGlosario);
 
-    void generarExcelValidacionNomenclatura(InformeValidacion informeValidacion);
+    void generarExcelValidacionNomenclatura(InformeValidacion informeValidacion, String path);
 
 }
