@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
@@ -30,6 +31,8 @@ public abstract class FrameSupport extends JFrame {
 	@Getter
 	protected PanelLogotipo panelLogo;
 	
+	protected Map<String, Object> params;
+	
 	protected LiteralesSingleton literales;
 	
 	private List<OnLoadListener> onLoadListeners;
@@ -38,9 +41,14 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport() {
-		panelLogo = new PanelLogotipo("logotipo.png");
-		panelLogo.setPreferredSize(new Dimension(286, 63));
-		
+		initialize();
+	}
+	
+	/**
+	 * 
+	 */
+	public FrameSupport(Map<String, Object> params) {
+		this.params = params;
 		initialize();
 	}
 	
@@ -50,6 +58,9 @@ public abstract class FrameSupport extends JFrame {
     private void initialize() {
 		try {
 			onLoadListeners = new ArrayList<>();
+			
+			panelLogo = new PanelLogotipo("logotipo.png");
+			panelLogo.setPreferredSize(new Dimension(286, 63));
 			
 			initComponents();
 			initLiterals();

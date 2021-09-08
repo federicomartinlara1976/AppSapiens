@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -13,15 +15,22 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.ValoresParticulaTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -38,9 +47,9 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	private static final long serialVersionUID = 3576255765784636736L;
 
 	private JButton btnAceptar;
+	private JButton btnCancelar;
 	private JButton btnAltaElemento;
 	private JButton btnBajaElemento;
-	private JButton btnCancelar;
 	private JButton btnModificacionElemento;
 	
 	private JLabel jLabel1;
@@ -55,7 +64,8 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	private JPanel panelBotones;
 	private JPanel panelTabla;
 	
-	private JTable tblValoresPosibles;
+	@Getter
+	private TableSupport tblValoresParticulas;
 	
 	@Getter
 	private JComboBox<String> cmbProyecto;
@@ -69,7 +79,8 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	@Getter
 	private JTextField txtDescripcion;
 	
-	private Map<String, Object> params;
+	@Getter
+    private Boolean editar;
 
 	/**
 	 * Creates new form DlgModificacionNormas
@@ -82,8 +93,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	 * @param params
 	 */
 	public FrmMantenimientoParticulas(Map<String, Object> params) {
-        super();
-        this.params = params;
+        super(params);
     }
 
 	/**
@@ -103,7 +113,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
         cmbSubproyecto = new JComboBox<>();
         panelTabla = new JPanel();
         jScrollPane1 = new JScrollPane();
-        tblValoresPosibles = new JTable();
+        tblValoresParticulas = new TableSupport(Boolean.FALSE);
         panelBotones = new JPanel();
         btnAltaElemento = new JButton();
         btnBajaElemento = new JButton();
@@ -135,18 +145,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
         panelTabla.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
-        tblValoresPosibles.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "COD_PARTICULA", "VAL_PARTICULA", "DES_VAL_PART", "Proyecto", "Subproyecto", "COD_USR", "FEC_ACTU"
-            }
-        ));
-        jScrollPane1.setViewportView(tblValoresPosibles);
+        jScrollPane1.setViewportView(tblValoresParticulas);
 
         btnAltaElemento.setPreferredSize(new Dimension(130, 27));
         panelBotones.add(btnAltaElemento);
@@ -275,9 +274,9 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	protected void initEvents() {
 		ActionListener listener = new FrmMantenimientoParticulasListener(this);
 		
-		btnAltaElemento.setActionCommand(Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
-		btnBajaElemento.setActionCommand(Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
-		btnModificacionElemento.setActionCommand(Constants.DLG_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION);
+		btnAltaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
+		btnBajaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
+		btnModificacionElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION);
 		
 		btnAltaElemento.addActionListener(listener);
 		btnBajaElemento.addActionListener(listener);
@@ -286,12 +285,27 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+		String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+		
+		editar = Boolean.FALSE;
+		
+		txtCodigo.setEnabled(Boolean.FALSE);
+		txtCodigo.setEditable(Boolean.FALSE);
 		cmbProyecto.setSelectedItem(Constants.NO);
 		cmbSubproyecto.setSelectedItem(Constants.NO);	
 	}
 
 	@Override
 	protected void initModels() {
+		tblValoresParticulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblValoresParticulas.setDefaultRenderer(Date.class, new DateRenderer());
+		tblValoresParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblValoresParticulas.setDefaultRenderer(String.class, new StringRenderer());
+		
+		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
+		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
+		
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	
 	}
