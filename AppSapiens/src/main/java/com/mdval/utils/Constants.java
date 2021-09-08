@@ -20,6 +20,9 @@ public class Constants {
 	 * Report templates
 	 */
 	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "/templates/glosarioCamposModelo.xltx";
+	public static final String NOMENCLATURA_ERRORES_TEMPLATE_LOCATION = "/templates/validacionNomenclatura.xltx";
+	public static final String NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION = "/templates/validacionNomenclatura.xltx";
+	public static final String NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION = "/templates/validacionGlosario.xltx";
 	
 	/**
 	 * Bean names
