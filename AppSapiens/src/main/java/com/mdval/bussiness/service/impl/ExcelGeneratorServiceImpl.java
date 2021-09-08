@@ -1,22 +1,5 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.CampoGlosario;
-import com.mdval.bussiness.entities.DetValidacion;
-import com.mdval.bussiness.entities.InformeValidacion;
-import com.mdval.bussiness.service.ExcelGeneratorService;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LiteralesSingleton;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -26,6 +9,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.DetValidacion;
+import com.mdval.bussiness.entities.InformeValidacion;
+import com.mdval.bussiness.service.ExcelGeneratorService;
+import com.mdval.utils.ConfigurationSingleton;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LiteralesSingleton;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -64,7 +67,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		// FileInputStream inputStream = new FileInputStream(new
 		// File(Constants.CAMPO_GLOSARIO_TEMPLATE_LOCATION));
 		InputStream inputStream = getClass().getResourceAsStream(Constants.CAMPO_GLOSARIO_TEMPLATE_LOCATION);
-		Workbook workbook = new XSSFWorkbook(inputStream);
+		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(hoja);
 
 		int rownum = 4; // row to start writting

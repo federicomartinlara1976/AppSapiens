@@ -19,7 +19,7 @@ public class Constants {
 	/**
 	 * Report templates
 	 */
-	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "/templates/glosarioCamposModelo.xltx";
+	public static final String CAMPO_GLOSARIO_TEMPLATE_LOCATION = "/templates/glosarioCamposModelo.xlt";
 	public static final String NOMENCLATURA_ERRORES_TEMPLATE_LOCATION = "/templates/validacionNomenclatura.xltx";
 	public static final String NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION = "/templates/validacionNomenclatura.xltx";
 	public static final String NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION = "/templates/validacionGlosario.xltx";
@@ -224,6 +224,7 @@ public class Constants {
 	public static final String FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR = "FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR";
 	
 	public static final String FRM_VALORES_PARTICULAS_CABECERA = "FRM_VALORES_PARTICULAS_CABECERA";
+	public static final String FRM_VALORES_PARTICULAS_SELECCIONADA = "FRM_VALORES_PARTICULAS_SELECCIONADA";
 	public static final String FRM_VALORES_PARTICULAS_BTN_BUSCAR = "FRM_VALORES_PARTICULAS_BTN_BUSCAR";
 	public static final String FRM_VALORES_PARTICULAS_BTN_ALTA = "FRM_VALORES_PARTICULAS_BTN_ALTA";
 	public static final String FRM_VALORES_PARTICULAS_BTN_MODIFICACION = "FRM_VALORES_PARTICULAS_BTN_MODIFICACION";
