@@ -251,6 +251,10 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 
 				tableModelCampos.clearData();
 				tableModelModelos.clearData();
+				
+				// Limpiar el combo de selección de tipo y el de nombre de columna
+				frmGlosarioCampos.getCmbTipoDato().setSelectedItem(StringUtils.EMPTY);
+				frmGlosarioCampos.getTxtNombreColumna().setText(StringUtils.EMPTY);
 			}
 		}
 
