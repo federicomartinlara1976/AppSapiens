@@ -65,10 +65,8 @@ public class FrmValoresParticulasTableParticulasListener extends ListenerSupport
 	}
 	
 	/**
-	 * Busca tipos de partícula por descripción
-	 * 
-	 * @param termino descripcion tipo a buscar
-	 * @return lista de tipos que cumple con el termino buscado
+	 * @param codigoParticula
+	 * @return
 	 */
 	private List<ValorParticula> cargarValoresParticulas(BigDecimal codigoParticula) {
 		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(Constants.VALOR_PARTICULA_SERVICE);

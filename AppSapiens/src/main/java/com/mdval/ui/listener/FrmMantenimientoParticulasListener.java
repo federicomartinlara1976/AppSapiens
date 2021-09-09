@@ -3,7 +3,11 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
@@ -13,9 +17,13 @@ import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.bussiness.service.TipoParticulaService;
+import com.mdval.bussiness.service.ValorParticulaService;
+import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.normasnomenclatura.FrmMantenimientoParticulas;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
@@ -25,7 +33,7 @@ import com.mdval.utils.Constants;
  * @author federico
  *
  */
-public class FrmMantenimientoParticulasListener extends ListenerSupport implements ActionListener {
+public class FrmMantenimientoParticulasListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
 	private FrmMantenimientoParticulas frmMantenimientoParticulas;
 
@@ -120,7 +128,12 @@ public class FrmMantenimientoParticulasListener extends ListenerSupport implemen
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmMantenimientoParticulas, Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS);
+		TipoParticula particulaSeleccionada = frmMantenimientoParticulas.getSeleccionada();
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO, particulaSeleccionada);
+		
+		showPopup(frmMantenimientoParticulas, Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS, params);
 	}
 	
 	/**
@@ -133,6 +146,56 @@ public class FrmMantenimientoParticulasListener extends ListenerSupport implemen
 	 * 
 	 */
 	private void eventBtnModificacion() {
-		showPopup(frmMantenimientoParticulas, Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS);
+		TipoParticula particulaSeleccionada = frmMantenimientoParticulas.getSeleccionada();
+		ValorParticula valorSeleccionado = frmMantenimientoParticulas.getValorSeleccionado();
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO, particulaSeleccionada);
+		params.put(Constants.FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO, valorSeleccionado);
+		
+		showPopup(frmMantenimientoParticulas, Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS, params);
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			Map<String, Object> params = frmMantenimientoParticulas.getParams();
+			if (!Objects.isNull(params)) {
+				TipoParticula tipoParticula = (TipoParticula) params.get(Constants.FRM_VALORES_PARTICULAS_SELECCIONADA);
+			
+				List<ValorParticula> valores = cargarValoresParticulas(tipoParticula.getCodigoParticula());
+				populateModel(valores);
+			}
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(frmMantenimientoParticulas, Constants.CMD_ERROR, params);
+		}
+	}
+	
+	/**
+	 * @param codigoParticula
+	 * @return
+	 */
+	private List<ValorParticula> cargarValoresParticulas(BigDecimal codigoParticula) {
+		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(Constants.VALOR_PARTICULA_SERVICE);
+		List<ValorParticula> valores = valorParticulaService.consultarValoresParticula(codigoParticula);
+		return valores;
+	}
+
+	/**
+	 * Vuelca la lista de valores encontrados en la tabla
+	 * 
+	 * @return
+	 */
+	private void populateModel(List<ValorParticula> valores) {
+		// Obtiene el modelo y lo actualiza
+		ValoresParticulaTableModel tableModel = (ValoresParticulaTableModel) frmMantenimientoParticulas
+				.getTblValoresParticulas().getModel();
+		tableModel.setData(valores);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		onLoad();
 	}
 }

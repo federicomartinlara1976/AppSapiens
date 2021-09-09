@@ -31,6 +31,7 @@ public abstract class FrameSupport extends JFrame {
 	@Getter
 	protected PanelLogotipo panelLogo;
 	
+	@Getter
 	protected Map<String, Object> params;
 	
 	protected LiteralesSingleton literales;

@@ -52,7 +52,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             callableStatement.setString(6, valorParticula.getValorParticulaPadre());
             callableStatement.setString(7, valorParticula.getCodigoUsuario());
             callableStatement.registerOutParameter(8, Types.INTEGER);
-            callableStatement.registerOutParameter(9, Types.VARCHAR, typeError);
+            callableStatement.registerOutParameter(9, Types.ARRAY, typeError);
 
             callableStatement.execute();
 
@@ -94,7 +94,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             callableStatement.setString(6, valorParticula.getValorParticulaPadre());
             callableStatement.setString(7, valorParticula.getCodigoUsuario());
             callableStatement.registerOutParameter(8, Types.INTEGER);
-            callableStatement.registerOutParameter(9, Types.VARCHAR, typeError);
+            callableStatement.registerOutParameter(9, Types.ARRAY, typeError);
 
             callableStatement.execute();
 
@@ -202,7 +202,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             callableStatement.setString(10, newValorParticula.getCodigoUsuario());
 
             callableStatement.registerOutParameter(11, Types.INTEGER);
-            callableStatement.registerOutParameter(12, Types.VARCHAR, typeError);
+            callableStatement.registerOutParameter(12, Types.ARRAY, typeError);
 
             callableStatement.execute();
 

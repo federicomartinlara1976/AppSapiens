@@ -3,6 +3,7 @@ package com.mdval.ui.normasnomenclatura;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -13,7 +14,12 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.bussiness.entities.ValorParticula;
+import com.mdval.ui.listener.DlgAltaModificacionValoresParticulaListener;
+import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -30,7 +36,7 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	
+
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
@@ -39,36 +45,36 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 	private JLabel jLabel6;
 	private JLabel jLabel7;
 	private JLabel jLabel8;
-	
+
 	@Getter
 	private JTextField txtCodigo;
-	
+
 	@Getter
 	private JTextField txtDescripcion;
-	
+
 	@Getter
 	private JTextField txtDescripcionValor;
-	
+
 	@Getter
 	private JTextField txtPartPadre;
-	
+
 	@Getter
 	private JTextField txtProyecto;
-	
+
 	@Getter
 	private JTextField txtSubproyecto;
-	
+
 	@Getter
 	private JTextField txtValor;
+
+	@Getter
+	private Boolean editar;
 	
-    
-    public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal) {
-        super(parent, modal);
-    }
-    
-    public DlgMantenimientoValoresParticulas(JFrame parent, boolean modal, Map<String, Object> params) {
-        super(parent, modal, params);
-    }
+	@Getter
+	private TipoParticula tipoParticula;
+	
+	@Getter
+	private ValorParticula valorParticula;
 
 	/**
 	 * Creates new form DlgAltaModificacionGlosarios
@@ -76,14 +82,14 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 	public DlgMantenimientoValoresParticulas() {
 		super();
 	}
-	
-	/**
-	 * @param params
-	 */
-	public DlgMantenimientoValoresParticulas(Map<String, Object> params) {
-        super();
-        this.params = params;
-    }
+
+	public DlgMantenimientoValoresParticulas(JFrame parent, Boolean modal) {
+		super(parent, modal);
+	}
+
+	public DlgMantenimientoValoresParticulas(JFrame parent, Boolean modal, Map<String, Object> params) {
+		super(parent, modal, params);
+	}
 
 	/**
 	 * 
@@ -110,7 +116,7 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(900, 321));
-		
+
 		panelLogo.setPreferredSize(new Dimension(286, 63));
 
 		GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
@@ -297,11 +303,11 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(jLabel8))))));
 	}
-	
+
 	@Override
 	protected void setupLiterals() {
 		setTitle(literales.getLiteral("dlgMantenimientoValoresParticulas.titulo"));
-		
+
 		jLabel1.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.titulo"));
 		jLabel2.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.codigo"));
 		jLabel3.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.descripcion"));
@@ -310,26 +316,53 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 		jLabel6.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.valor"));
 		jLabel7.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.subproyecto"));
 		jLabel8.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.partPadre"));
-		
+
 		btnAceptar.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.aceptar"));
 		btnCancelar.setText(literales.getLiteral("dlgMantenimientoValoresParticulas.cancelar"));
 	}
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
-		
+		FrmMantenimientoParticulas parent = (FrmMantenimientoParticulas) this.getParent();
+		FrmMantenimientoParticulasListener frmMantenimientoParticulasListener = parent
+				.getFrmMantenimientoParticulasListener();
+
+		DlgAltaModificacionValoresParticulaListener listener = new DlgAltaModificacionValoresParticulaListener(this);
+		listener.addObservador(frmMantenimientoParticulasListener);
+
+		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR);
+
+		btnAceptar.addActionListener(listener);
+		btnCancelar.addActionListener(listener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		if (!Objects.isNull(params)) {
+			tipoParticula = (TipoParticula) params.get(Constants.FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO);
+			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
+			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
+			
+			valorParticula = (ValorParticula) params.get(Constants.FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO);
+			
+			// Se trata de la edición de un registro
+			if (!Objects.isNull(valorParticula)) {
+				txtValor.setText(valorParticula.getValorParticula());
+				txtDescripcionValor.setText(valorParticula.getDescripcionValorParticula());
+				txtProyecto.setText(valorParticula.getCodigoProyecto());
+				txtSubproyecto.setText(valorParticula.getCodigoSubProyecto());
+				txtPartPadre.setText(valorParticula.getValorParticulaPadre());
+				
+				editar = Boolean.TRUE;
+			}
+			else {
+				editar = Boolean.FALSE;
+			}
+		} 
 	}
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
-		
 	}
 }

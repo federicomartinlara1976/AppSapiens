@@ -35,6 +35,7 @@ public abstract class DialogSupport extends JDialog {
 	@Getter
 	protected PanelLogotipo panelLogo;
 	
+	@Getter
 	protected Map<String, Object> params;
 	
 	protected DateFormatter dateFormatter;

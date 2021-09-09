@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -61,17 +62,22 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	@Override
 	public void onLoad() {
 		try {
-			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
+			Map<String, Object> params = dlgModificacionNormas.getParams();
+			
+			if (!Objects.isNull(params)) {
+				Norma normaSeleccionada = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
+				dlgModificacionNormas.setNormaSeleccionada(normaSeleccionada);
 
-			Norma norma = cargarNorma(normaSeleccionada.getCodigoNorma());
-			List<ElementoNorma> elementosNorma = cargarElementosNorma(normaSeleccionada.getCodigoNorma());
+				Norma norma = cargarNorma(normaSeleccionada.getCodigoNorma());
+				List<ElementoNorma> elementosNorma = cargarElementosNorma(normaSeleccionada.getCodigoNorma());
 
-			dlgModificacionNormas.getTxtCodigo().setText(norma.getCodigoNorma().toString());
-			dlgModificacionNormas.getTxtDescripcion().setText(norma.getDescripcionNorma());
-			dlgModificacionNormas.getTxtUsuario().setText(norma.getCodigoUsuario());
-			dlgModificacionNormas.getTxtFecha().setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
+				dlgModificacionNormas.getTxtCodigo().setText(norma.getCodigoNorma().toString());
+				dlgModificacionNormas.getTxtDescripcion().setText(norma.getDescripcionNorma());
+				dlgModificacionNormas.getTxtUsuario().setText(norma.getCodigoUsuario());
+				dlgModificacionNormas.getTxtFecha().setText(dateFormatter.dateToString(norma.getFechaActualizacion()));
 
-			populateModelElementos(elementosNorma);
+				populateModelElementos(elementosNorma);
+			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup((JFrame) dlgModificacionNormas.getParent(), Constants.CMD_ERROR, params);

@@ -103,7 +103,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_ALTA_MANTENIMIENTO_PARTICULAS.equals(option)) {
-			dialog = new DlgMantenimientoValoresParticulas(frameParent, modal);
+			dialog = new DlgMantenimientoValoresParticulas(frameParent, modal, params);
 		}
 		
 		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(option)) {

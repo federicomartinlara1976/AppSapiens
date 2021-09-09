@@ -19,10 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
 import com.mdval.ui.listener.FrmValoresParticulasListener;
+import com.mdval.ui.listener.tables.FrmMantenimientoParticulasTableValoresListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -36,6 +39,7 @@ import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -52,6 +56,8 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	private JButton btnCancelar;
 	private JButton btnAltaElemento;
 	private JButton btnBajaElemento;
+	
+	@Getter
 	private JButton btnModificacionElemento;
 	
 	private JLabel jLabel1;
@@ -83,6 +89,17 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 	
 	@Getter
     private Boolean editar;
+	
+	@Getter
+	@Setter
+	private TipoParticula seleccionada;
+	
+	@Getter
+	@Setter
+	private ValorParticula valorSeleccionado;
+	
+	@Getter
+	private FrmMantenimientoParticulasListener frmMantenimientoParticulasListener;
 
 	/**
 	 * Creates new form
@@ -284,8 +301,10 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		FrmValoresParticulas parent = (FrmValoresParticulas) this.getParent();
 		FrmValoresParticulasListener frmValoresParticulasListener = parent.getFrmValoresParticulasListener();
 		
-		FrmMantenimientoParticulasListener listener = new FrmMantenimientoParticulasListener(this);
-		listener.addObservador(frmValoresParticulasListener);
+		frmMantenimientoParticulasListener = new FrmMantenimientoParticulasListener(this);
+		frmMantenimientoParticulasListener.addObservador(frmValoresParticulasListener);
+		
+		ListSelectionListener listSelectionListener = new FrmMantenimientoParticulasTableValoresListener(this);
 		
 		btnAltaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
 		btnBajaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
@@ -293,11 +312,16 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR);
 		
-		btnAltaElemento.addActionListener(listener);
-		btnBajaElemento.addActionListener(listener);
-		btnModificacionElemento.addActionListener(listener);
-		btnAceptar.addActionListener(listener);
-		btnCancelar.addActionListener(listener);
+		btnAltaElemento.addActionListener(frmMantenimientoParticulasListener);
+		btnBajaElemento.addActionListener(frmMantenimientoParticulasListener);
+		btnModificacionElemento.addActionListener(frmMantenimientoParticulasListener);
+		btnAceptar.addActionListener(frmMantenimientoParticulasListener);
+		btnCancelar.addActionListener(frmMantenimientoParticulasListener);
+		
+		ListSelectionModel rowSM = tblValoresParticulas.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
+		
+		this.addOnLoadListener(frmMantenimientoParticulasListener);
 	}
 
 	@Override
@@ -314,11 +338,19 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 			cmbProyecto.setSelectedItem(AppHelper.normalizeSiNoValueToCmb(tipoParticula.getMcaProyecto()));
 			cmbSubproyecto.setSelectedItem(AppHelper.normalizeSiNoValueToCmb(tipoParticula.getMcaSubProyecto()));
 			
+			btnAltaElemento.setEnabled(Boolean.TRUE);
+			btnModificacionElemento.setEnabled(Boolean.FALSE);
+			
+			seleccionada = tipoParticula;
+			
 			editar = Boolean.TRUE;
 		}
 		else {
 			cmbProyecto.setSelectedItem(Constants.NO);
 			cmbSubproyecto.setSelectedItem(Constants.NO);
+			
+			btnAltaElemento.setEnabled(Boolean.FALSE);
+			btnModificacionElemento.setEnabled(Boolean.FALSE);
 		
 			editar = Boolean.FALSE;
 		}

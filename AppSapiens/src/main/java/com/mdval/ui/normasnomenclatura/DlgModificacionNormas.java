@@ -88,6 +88,7 @@ public class DlgModificacionNormas extends DialogSupport {
     private Boolean editar;
 	
 	@Getter
+	@Setter
 	private Norma normaSeleccionada;
 	
 	@Getter
@@ -307,14 +308,6 @@ public class DlgModificacionNormas extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		/** 
-		 * En este punto cargar la norma seleccionada (para el disparador onLoad).
-		 * Esto podría ser un indicio de acoplamiento secuencial
-		 */
-		if (!Objects.isNull(params)) {
-			normaSeleccionada = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
-		}
-		
 		FrmDefinicionNormas parent = (FrmDefinicionNormas) this.getParent();
 		FrmDefinicionNormasListener frmDefinicionNormasListener = parent.getFrmDefinicionNormasListener();
 		
