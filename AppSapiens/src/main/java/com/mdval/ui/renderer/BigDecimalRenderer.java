@@ -2,9 +2,12 @@ package com.mdval.ui.renderer;
 
 import java.awt.Component;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class BigDecimalRenderer extends LabelRenderer implements TableCellRenderer {
 
@@ -24,7 +27,9 @@ public class BigDecimalRenderer extends LabelRenderer implements TableCellRender
 		
 		setSelected(isSelected);
 		super.setHorizontalAlignment(LEFT);
-		super.setText(String.format("%d", num.toBigInteger()));
+		
+		String val = !Objects.isNull(num) ? num.toBigInteger().toString() : StringUtils.EMPTY;
+		super.setText(String.format("%s", val));
 
 		return this;
 	}
