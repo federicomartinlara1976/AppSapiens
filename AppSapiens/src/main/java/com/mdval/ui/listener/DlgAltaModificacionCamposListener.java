@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Observer;
 
 import javax.swing.JButton;
@@ -65,11 +66,13 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 			String sNumeroLongitud = dlgAltaModificacionCampos.getTxtTamanio().getText();
 			String sDecimales = dlgAltaModificacionCampos.getTxtDecimales().getText();
 
-			Integer longitud = StringUtils.isNotBlank(sNumeroLongitud) ? Integer.parseInt(sNumeroLongitud) : 0;
-			Integer decimales = StringUtils.isNotBlank(sDecimales) ? Integer.parseInt(sDecimales) : 0;
+			Integer longitud = StringUtils.isNotBlank(sNumeroLongitud) ? Integer.parseInt(sNumeroLongitud) : null;
+			Integer decimales = StringUtils.isNotBlank(sDecimales) ? Integer.parseInt(sDecimales) : null;
 
-			newCampoGlosario.setNumeroLongitud(new BigDecimal(longitud));
-			newCampoGlosario.setNumeroDecimal(new BigDecimal(decimales));
+			BigDecimal bLongitud = !Objects.isNull(longitud) ? new BigDecimal(longitud) : null;
+			BigDecimal bDecimales = !Objects.isNull(decimales) ? new BigDecimal(decimales) : null;
+			newCampoGlosario.setNumeroLongitud(bLongitud);
+			newCampoGlosario.setNumeroDecimal(bDecimales);
 
 			String mcaException = AppHelper.normalizeCmbSiNoValue(((String) dlgAltaModificacionCampos.getCmbExcepcion().getSelectedItem()));
 
