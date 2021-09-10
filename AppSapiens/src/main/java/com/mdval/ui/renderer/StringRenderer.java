@@ -1,7 +1,6 @@
 package com.mdval.ui.renderer;
 
 import java.awt.Component;
-import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
