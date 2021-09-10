@@ -2,12 +2,15 @@ package com.mdval.ui.utils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.text.NumberFormat;
 import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.text.NumberFormatter;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.creators.CabeceraTablaCreator;
@@ -145,5 +148,20 @@ public class UIHelper {
 	 */
 	public static Integer showConfirm(String title, String msg) {
 		return JOptionPane.showConfirmDialog(null, title, msg, JOptionPane.YES_NO_OPTION);
+	}
+	
+	/**
+	 * @return
+	 */
+	public static JFormattedTextField createIntegerField() {
+		NumberFormat format = NumberFormat.getInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0);
+	    formatter.setMaximum(Integer.MAX_VALUE);
+	    formatter.setAllowsInvalid(false);
+	    // If you want the value to be committed on each keystroke instead of focus lost
+	    formatter.setCommitsOnValidEdit(true);
+	    return new JFormattedTextField(formatter);
 	}
 }

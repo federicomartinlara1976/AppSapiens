@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -79,7 +80,7 @@ public class FrmValoresParticulas extends FrameSupport {
 	private JComboBox<String> cmbSubproyecto;
 	
 	@Getter
-	private JTextField txtCodigo;
+	private JFormattedTextField txtCodigo;
 	
 	@Getter
 	private JTextField txtDescripcion;
@@ -104,7 +105,7 @@ public class FrmValoresParticulas extends FrameSupport {
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
-        txtCodigo = new JTextField();
+        txtCodigo = UIHelper.createIntegerField();
         txtDescripcion = new JTextField();
         jLabel4 = new JLabel();
         btnAltaElemento = new JButton();
