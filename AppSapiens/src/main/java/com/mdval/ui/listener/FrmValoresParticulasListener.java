@@ -14,7 +14,9 @@ import javax.swing.JButton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.bussiness.service.TipoParticulaService;
+import com.mdval.bussiness.service.ValorParticulaService;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.normasnomenclatura.FrmValoresParticulas;
@@ -136,6 +138,50 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 
 	@Override
 	public void update(Observable o, Object arg) {
-		eventBtnBuscar();
+		String cmd = (String) arg;
+		
+		if (Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
+			eventBtnBuscar();
+		}
+		
+		if (Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
+			TipoParticula tipoParticula = frmValoresParticulas.getSeleccionada();
+			cargarValores(tipoParticula.getCodigoParticula());
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void cargarValores(BigDecimal codigoParticula) {
+		try {
+			List<ValorParticula> valores = cargarValoresParticulas(codigoParticula);
+			populateModelValores(valores);
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(frmValoresParticulas, Constants.CMD_ERROR, params);
+		}
+	}
+	
+	/**
+	 * @param codigoParticula
+	 * @return
+	 */
+	private List<ValorParticula> cargarValoresParticulas(BigDecimal codigoParticula) {
+		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(Constants.VALOR_PARTICULA_SERVICE);
+		List<ValorParticula> valores = valorParticulaService.consultarValoresParticula(codigoParticula);
+		return valores;
+	}
+
+	/**
+	 * Vuelca la lista de valores encontrados en la tabla
+	 * 
+	 * @return
+	 */
+	private void populateModelValores(List<ValorParticula> valores) {
+		// Obtiene el modelo y lo actualiza
+		ValoresParticulaTableModel tableModel = (ValoresParticulaTableModel) frmValoresParticulas
+				.getTblValoresParticulas().getModel();
+		tableModel.setData(valores);
 	}
 }

@@ -18,6 +18,7 @@ import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.ui.listener.DlgAltaModificacionValoresParticulaListener;
 import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
+import com.mdval.ui.listener.FrmValoresParticulasListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.Constants;
 
@@ -326,9 +327,13 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 		FrmMantenimientoParticulas parent = (FrmMantenimientoParticulas) this.getParent();
 		FrmMantenimientoParticulasListener frmMantenimientoParticulasListener = parent
 				.getFrmMantenimientoParticulasListener();
+		
+		FrmValoresParticulas parent2 = (FrmValoresParticulas) parent.getParent();
+		FrmValoresParticulasListener frmValoresParticulasListener = parent2.getFrmValoresParticulasListener(); 
 
 		DlgAltaModificacionValoresParticulaListener listener = new DlgAltaModificacionValoresParticulaListener(this);
 		listener.addObservador(frmMantenimientoParticulasListener);
+		listener.addObservador(frmValoresParticulasListener);
 
 		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR);
