@@ -84,9 +84,11 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String format = "%s_%s_%s_%s.xls";
 		String fileName = String.format(format, fecha, nombreReporteGlosario, codigoGlosario, nombreGlosario);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
-		FileOutputStream outputStream = new FileOutputStream(new File(path + "/" + fileName));
+		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
+		outputStream.flush();
+		outputStream.close();
 
 	}
 
@@ -213,9 +215,11 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String format = "%s.xls";
 		String fileName = String.format(format, nombreReporteValidacionErroneos);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
-		FileOutputStream outputStream = new FileOutputStream(new File(path + "/" + fileName));
+		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
+		outputStream.flush();
+		outputStream.close();
 	}
 
 	/**
@@ -268,9 +272,11 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String format = "%s.xls";
 		String fileName = String.format(format, nombreReporteValidacionGlosario);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
-		FileOutputStream outputStream = new FileOutputStream(new File(path + "/" + fileName));
+		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
+		outputStream.flush();
+		outputStream.close();
 	}
 
 	private void createRowValidacionGlosario(CampoGlosario campoGlosario, Row row) {
@@ -332,9 +338,11 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String format = "%s.xls";
 		String fileName = String.format(format, nombreReporteValidacionOtraDefinicion);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
-		FileOutputStream outputStream = new FileOutputStream(new File(path + "/" + fileName));
+		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
+		outputStream.flush();
+		outputStream.close();
 	}
 
 	private void createRowValidacionOtraDefinicion(DetValidacion detValidacion, Row row) {
