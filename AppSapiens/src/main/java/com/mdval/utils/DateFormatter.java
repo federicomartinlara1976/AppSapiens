@@ -18,7 +18,7 @@ public class DateFormatter {
 	public DateFormatter() {
 		try {
 			ConfigurationSingleton instance = ConfigurationSingleton.getInstance();
-			String format = instance.getConfig("dateFormat");
+			String format = instance.getConfig("dateTimeFormat");
 			dateFormat = new SimpleDateFormat(format);
 		} catch (IOException e) {
 			LogWrapper.error(log, "ERROR:", e);
