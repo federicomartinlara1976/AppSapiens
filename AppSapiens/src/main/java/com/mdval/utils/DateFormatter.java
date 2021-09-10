@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author hcarreno
@@ -32,6 +33,7 @@ public class DateFormatter {
 	 * @return formated date in string
 	 */
 	public String dateToString(Date date) {
+		if (date == null ) return StringUtils.EMPTY;
 		return dateFormat.format(date);
 	}
 
