@@ -15,12 +15,12 @@ public class DetValidacion {
     private BigDecimal numeroValidacion;
     private BigDecimal numeroElementoValid;
     private String descripcionElemento;
+    private String nombreTabla;
     private String nombreElemento;
     private String tipoDato;
     private BigDecimal numeroLongitud;
     private BigDecimal numeroDecimal;
     private BigDecimal codigoEstadoValid;
     private String txtDescripcionValid;
-
 
 }

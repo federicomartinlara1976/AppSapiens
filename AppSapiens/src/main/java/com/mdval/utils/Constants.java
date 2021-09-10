@@ -44,6 +44,7 @@ public class Constants {
 	/**
 	 * DataBase Types
 	 */
+	public static final String T_T_LINEA = "T_T_LINEA";
 	public static final String T_T_VALIDA_PARTICULA = "T_T_VALIDA_PARTICULA";
 	public static final String T_T_VAL_PARTICULA = "T_T_VAL_PARTICULA";
 	public static final String T_T_ELEMENTO = "T_T_ELEMENTO";
