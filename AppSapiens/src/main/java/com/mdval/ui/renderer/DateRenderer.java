@@ -4,9 +4,12 @@ import java.awt.Component;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.LogWrapper;
@@ -42,7 +45,9 @@ public class DateRenderer extends LabelRenderer implements TableCellRenderer {
 		
 		setSelected(isSelected);
 		super.setHorizontalAlignment(LEFT);
-		super.setText(dateFormat.format(date));
+		
+		String val = !Objects.isNull(date) ? dateFormat.format(date) : StringUtils.EMPTY;
+		super.setText(val);
 
 		return this;
 	}

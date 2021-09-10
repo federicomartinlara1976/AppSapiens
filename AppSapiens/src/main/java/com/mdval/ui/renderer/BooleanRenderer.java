@@ -1,9 +1,12 @@
 package com.mdval.ui.renderer;
 
 import java.awt.Component;
+import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class BooleanRenderer extends LabelRenderer implements TableCellRenderer {
 
@@ -24,7 +27,7 @@ public class BooleanRenderer extends LabelRenderer implements TableCellRenderer 
 		setSelected(isSelected);
 		super.setHorizontalAlignment(LEFT);
 
-		String valor = (Boolean.TRUE.equals(val)) ? literales.getLiteral("si") : literales.getLiteral("no");
+		String valor = !Objects.isNull(val) ? (Boolean.TRUE.equals(val)) ? literales.getLiteral("si") : literales.getLiteral("no") : StringUtils.EMPTY;
 		super.setText(valor);
 
 		return this;

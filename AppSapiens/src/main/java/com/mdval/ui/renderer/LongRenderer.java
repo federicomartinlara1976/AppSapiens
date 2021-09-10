@@ -1,9 +1,12 @@
 package com.mdval.ui.renderer;
 
 import java.awt.Component;
+import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class LongRenderer extends LabelRenderer implements TableCellRenderer {
 
@@ -23,7 +26,9 @@ public class LongRenderer extends LabelRenderer implements TableCellRenderer {
 		
 		setSelected(isSelected);
 		super.setHorizontalAlignment(LEFT);
-		super.setText(num.toString());
+		
+		String val = !Objects.isNull(num) ? num.toString() : StringUtils.EMPTY;
+		super.setText(val);
 
 		return this;
 	}

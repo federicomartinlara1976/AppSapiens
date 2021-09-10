@@ -29,7 +29,7 @@ public class BigDecimalRenderer extends LabelRenderer implements TableCellRender
 		super.setHorizontalAlignment(LEFT);
 		
 		String val = !Objects.isNull(num) ? num.toBigInteger().toString() : StringUtils.EMPTY;
-		super.setText(String.format("%s", val));
+		super.setText(val);
 
 		return this;
 	}
