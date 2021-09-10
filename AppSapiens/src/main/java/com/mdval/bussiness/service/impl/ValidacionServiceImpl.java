@@ -1,7 +1,6 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.DetValidacion;
-import com.mdval.bussiness.entities.ValidaParticula;
+import com.mdval.bussiness.entities.*;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
@@ -14,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -405,6 +406,89 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			return detValidaciones;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	@SneakyThrows
+	public ValidaScriptResponse validaScript(ValidaScriptRequest validaScriptRequest) {
+		ValidaScriptResponse validaScriptResponse = new ValidaScriptResponse();
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_valida_script");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeLinea = String.format("%s.%s", paquete, Constants.T_T_LINEA).toUpperCase();
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+
+			Object[] itemAttributes = new Object[ validaScriptRequest.getPScript().getBytes().length];
+			itemAttributes[0] = validaScriptRequest.getPScript();
+			Struct lineaStruct = conn.createStruct(typeLinea, itemAttributes);
+
+			logProcedure(runSP, validaScriptRequest.getPScript(), validaScriptRequest.getCodigoRF(), validaScriptRequest.getCodigoSD(),
+					validaScriptRequest.getCodigoProyecto(), validaScriptRequest.getCodigoSubProyecto(), validaScriptRequest.getCodigoUsuario(), validaScriptRequest.getNombreFichero());
+
+			callableStatement.setObject(1, lineaStruct, Types.STRUCT);
+			callableStatement.setString(2, validaScriptRequest.getCodigoRF());
+			callableStatement.setString(3, validaScriptRequest.getCodigoSD());
+			callableStatement.setString(4, validaScriptRequest.getCodigoProyecto());
+			callableStatement.setString(5, validaScriptRequest.getCodigoSubProyecto());
+			callableStatement.setString(6, validaScriptRequest.getCodigoUsuario());
+			callableStatement.setString(7, validaScriptRequest.getNombreFichero());
+
+			callableStatement.registerOutParameter(8, Types.NUMERIC);
+			callableStatement.registerOutParameter(9, Types.ARRAY, typeDetValidacion);
+			callableStatement.registerOutParameter(10, Types.VARCHAR);
+			callableStatement.registerOutParameter(11, Types.VARCHAR);
+			callableStatement.registerOutParameter(12, Types.INTEGER);
+			callableStatement.registerOutParameter(13, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			BigDecimal numeroValidacion = callableStatement.getBigDecimal(8);
+			String elementosNoGlosario = callableStatement.getString(10);
+			String elementosErrores = callableStatement.getString(11);
+
+			Integer result = callableStatement.getInt(12);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(13);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+			List<DetValidacion> detValidaciones = new ArrayList<>();
+			Array arrayDetValidacion = callableStatement.getArray(9);
+			if (arrayDetValidacion != null) {
+				Object[] rows = (Object[]) arrayDetValidacion.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+					DetValidacion detValidacion = DetValidacion.builder()
+							.numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1])
+							.descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3])
+							.tipoDato((String) cols[4])
+							.numeroLongitud((BigDecimal) cols[5])
+							.numeroDecimal((BigDecimal) cols[6])
+							.codigoEstadoValid((BigDecimal) cols[7])
+							.txtDescripcionValid((String) cols[8])
+							.build();
+					detValidaciones.add(detValidacion);
+				}
+			}
+			validaScriptResponse.toBuilder().numeroValidacion(numeroValidacion).listaElementosValid(detValidaciones).elementosNoGlosario(elementosNoGlosario)
+					.elementosErrores(elementosErrores).build();
+
+			return validaScriptResponse;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ValidacionService.validaScript] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
