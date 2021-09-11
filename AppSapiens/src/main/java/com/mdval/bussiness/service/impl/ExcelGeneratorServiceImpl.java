@@ -111,6 +111,14 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		decimalCell.setCellValue(literales.getLiteral("glosarioCampos.decimal"));
 		Cell errorCell = headerRow.getCell(4);
 		errorCell.setCellValue(literales.getLiteral("glosarioCampos.ce"));
+		Cell comentarioCell = headerRow.getCell(5);
+		comentarioCell.setCellValue(literales.getLiteral("glosarioCampos.comentario"));
+		Cell comentarioErrorCell = headerRow.getCell(6);
+		comentarioErrorCell.setCellValue(literales.getLiteral("glosarioCampos.comentarioExcepcion"));
+		Cell codUsrCell = headerRow.getCell(7);
+		codUsrCell.setCellValue(literales.getLiteral("glosarioCampos.codUsr"));
+		Cell fecActuCell = headerRow.getCell(8);
+		fecActuCell.setCellValue(literales.getLiteral("glosarioCampos.fecActu"));
 	}
 
 	/**
@@ -138,6 +146,18 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String correcto = "N".equals(campoGlosario.getMcaExcepcion()) ? literales.getLiteral("glosarioCampos.correcto")
 				: literales.getLiteral("glosarioCampos.error");
 		cell.setCellValue(correcto);
+		
+		cell = row.createCell(5);
+		cell.setCellValue(campoGlosario.getTxtComentario());
+		
+		cell = row.createCell(6);
+		cell.setCellValue(campoGlosario.getTxtExcepcion());
+		
+		cell = row.createCell(7);
+		cell.setCellValue(campoGlosario.getCodigoUsuario());
+		
+		cell = row.createCell(8);
+		cell.setCellValue(dateFormatter.dateToString(campoGlosario.getFechaActualizacion()));
 	}
 
 	@Override

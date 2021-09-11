@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.log4j.Log4j;
@@ -18,6 +19,12 @@ import lombok.extern.log4j.Log4j;
  */
 @Log4j
 public class ServiceSupport {
+	
+	protected DateFormatter dateFormatter;
+	
+	public ServiceSupport() {
+		dateFormatter = new DateFormatter();
+	}
 	
 	/**
 	 * @param array
