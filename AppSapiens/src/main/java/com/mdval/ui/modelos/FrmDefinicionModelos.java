@@ -2,26 +2,34 @@ package com.mdval.ui.modelos;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.FrmDefinicionModelosListener;
+import com.mdval.ui.listener.tables.FrmDefinicionModelosTableListener;
+import com.mdval.ui.model.DefinicionModelosTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.NormaRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -36,8 +44,12 @@ public class FrmDefinicionModelos extends FrameSupport {
 	
 	private JButton btnBuscar;
 	private JButton btnAlta;
+	
+	@Getter
     private JButton btnBaja;
-    private JButton btnModificacion;
+    
+	@Getter
+	private JButton btnModificacion;
     private JButton btnSeleccionar;
     
     private JLabel jLabel1;
@@ -50,10 +62,11 @@ public class FrmDefinicionModelos extends FrameSupport {
     
     private JScrollPane jScrollPane1;
     
-    private JTable tblGlosarios;
+    @Getter
+    private TableSupport tblModelos;
     
     @Getter
-    private JComboBox<String> cmbNorma;
+    private JComboBox<Norma> cmbNorma;
     
     @Getter
     private JTextField txtBaseDatos;
@@ -65,10 +78,17 @@ public class FrmDefinicionModelos extends FrameSupport {
     private JTextField txtEsquema;
     
     @Getter
-    private JTextField txtGlosario;
+    private JFormattedTextField txtGlosario;
     
     @Getter
     private JTextField txtNombreModelo;
+    
+    @Getter
+    private FrmDefinicionModelosListener frmDefinicionModelosListener;
+    
+    @Getter
+    @Setter
+    private Modelo seleccionado;
 
     /**
      * 
@@ -90,10 +110,10 @@ public class FrmDefinicionModelos extends FrameSupport {
         btnSeleccionar = new JButton();
         jLabel2 = new JLabel();
         jScrollPane1 = new JScrollPane();
-        tblGlosarios = new JTable();
+        tblModelos = new TableSupport(Boolean.FALSE);
         btnAlta = new JButton();
         jLabel3 = new JLabel();
-        txtGlosario = new JTextField();
+        txtGlosario = UIHelper.createIntegerField();
         jLabel4 = new JLabel();
         txtNombreModelo = new JTextField();
         jLabel5 = new JLabel();
@@ -127,26 +147,7 @@ public class FrmDefinicionModelos extends FrameSupport {
 
         btnSeleccionar.setPreferredSize(new Dimension(130, 27));
 
-        tblGlosarios.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "COD_PROYECTO", "NOM_MODELO", "DES_NORMA", "DES_GLOSARIO", "NOM_ESQUEMA", "NOM_BBDD", "COD_USR", "FEC_ACTU"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblGlosarios);
+        jScrollPane1.setViewportView(tblModelos);
 
         btnAlta.setPreferredSize(new Dimension(130, 27));
 
@@ -161,8 +162,6 @@ public class FrmDefinicionModelos extends FrameSupport {
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
         txtBaseDatos.setMinimumSize(new Dimension(4, 27));
         txtBaseDatos.setPreferredSize(new Dimension(300, 27));
-        
-        cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,25 +272,38 @@ public class FrmDefinicionModelos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener listener = new FrmDefinicionModelosListener(this);
+		frmDefinicionModelosListener = new FrmDefinicionModelosListener(this);
+		ListSelectionListener listSelectionListener = new FrmDefinicionModelosTableListener(this);
 		
-		btnAlta.setActionCommand(Constants.DLG_DEFINICION_MODELOS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.DLG_DEFINICION_MODELOS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_ALTA);
+		btnBaja.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_BAJA);
+		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION);
 		
-		btnAlta.addActionListener(listener);
-		btnModificacion.addActionListener(listener);
+		btnBuscar.addActionListener(frmDefinicionModelosListener);
+		btnAlta.addActionListener(frmDefinicionModelosListener);
+		btnBaja.addActionListener(frmDefinicionModelosListener);
+		btnModificacion.addActionListener(frmDefinicionModelosListener);
 		
+		ListSelectionModel rowSM = tblModelos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
+	
+		this.addOnLoadListener(frmDefinicionModelosListener);
 	}
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		btnBaja.setEnabled(Boolean.FALSE);
+		btnModificacion.setEnabled(Boolean.FALSE);
+		btnSeleccionar.setEnabled(Boolean.FALSE);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
+		tblModelos.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
+		cmbNorma.setRenderer(new NormaRenderer());
 	}
 }
