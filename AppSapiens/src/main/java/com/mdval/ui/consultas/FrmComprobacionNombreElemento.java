@@ -12,12 +12,19 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.TipoElemento;
+import com.mdval.ui.listener.FrmComprobacionNombreElementoListener;
+import com.mdval.ui.model.ValidaParticulaTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
 
@@ -32,7 +39,10 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	 */
 	private static final long serialVersionUID = 2718727106396297482L;
 
+	@Getter
 	private JButton btnBuscar;
+	
+	@Getter
 	private JButton btnComprobar;
 
 	private JLabel jLabel1;
@@ -49,10 +59,12 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	private JPanel jPanel1;
 
 	private JScrollPane jScrollPane1;
-	private JTable tblValoresPosibles;
+	
+	@Getter
+	private TableSupport tblValidaParticula;
 
 	@Getter
-	private JComboBox<String> cmbElemento;
+	private JComboBox<TipoElemento> cmbElemento;
 
 	@Getter
 	private JComboBox<String> cmbSubmodelo;
@@ -111,7 +123,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		txtCodGlosario = new JTextField();
 		txtDescGlosario = new JTextField();
 		jScrollPane1 = new JScrollPane();
-		tblValoresPosibles = new JTable();
+		tblValidaParticula = new TableSupport(Boolean.FALSE);
 		txtTamMaximo = new JTextField();
 		txtExpresionRegular = new JTextField();
 		jLabel9 = new JLabel();
@@ -157,7 +169,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		txtDescGlosario.setMinimumSize(new Dimension(4, 27));
 		txtDescGlosario.setPreferredSize(new Dimension(64, 27));
 
-		jScrollPane1.setViewportView(tblValoresPosibles);
+		jScrollPane1.setViewportView(tblValidaParticula);
 
 		txtTamMaximo.setEditable(false);
 		txtTamMaximo.setEnabled(false);
@@ -325,8 +337,15 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		FrmComprobacionNombreElementoListener listener = new FrmComprobacionNombreElementoListener(this);
+		
+		btnBuscar.setActionCommand(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR);
+		btnComprobar.setActionCommand(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR);
 
+		btnBuscar.addActionListener(listener);
+		btnComprobar.addActionListener(listener);
+		
+		this.addOnLoadListener(listener);
 	}
 
 	@Override
@@ -335,16 +354,15 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		cmbSubmodelo.setModel(new DefaultComboBoxModel<>(
 				new String[] { "Submodelo 1", "Submodelo 2", "Submodelo 3", "Submodelo 4" }));
 
-		cmbElemento.setModel(
-				new DefaultComboBoxModel<>(new String[] { "Elemento 1", "Elemento 2", "Elemento 3", "Elemento 4" }));
+		cmbElemento.setRenderer(new TipoElementoRenderer());
 		
-//		tblValoresPosibles.setModel(new ValoresPosiblesTableModel(
-//				new Object[][] { { "Valor", "Valor", "..." }, { "Valor", "Valor", "..." }, { "...", "...", "..." } },
-//				new String[] { "Campo 1", "Campo 2", "..." }));
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);
+		tblValidaParticula.setModel(new ValidaParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

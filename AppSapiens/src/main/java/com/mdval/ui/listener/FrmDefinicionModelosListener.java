@@ -3,11 +3,15 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +24,8 @@ import com.mdval.ui.model.NormaComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 /**
@@ -33,6 +39,10 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	public FrmDefinicionModelosListener(FrmDefinicionModelos frmDefinicionModelos) {
 		super();
 		this.frmDefinicionModelos = frmDefinicionModelos;
+	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
 	}
 
 	@Override
@@ -83,14 +93,38 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmDefinicionModelos, Constants.CMD_ALTA_MODELOS);
+		showFrame(frmDefinicionModelos, Constants.CMD_ALTA_MODELOS);
 	}
 
 	/**
 	 * 
 	 */
 	private void eventBtnBaja() {
-		// TODO Auto-generated method stub
+		try {
+			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+			
+			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
+			
+			String msg = StringUtils.EMPTY;
+
+			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
+					literales.getLiteral("confirmacion.titulo"));
+
+			if (response == JOptionPane.YES_OPTION) {
+				// Se va a borrar un registro existente
+				modeloService.bajaLogicaModelo(seleccionado.getCodigoProyecto(), codUsuario);
+
+				msg = literales.getLiteral("mensaje.borrar");
+				JOptionPane.showMessageDialog(frmDefinicionModelos.getParent(), msg);
+
+				eventBtnBuscar();
+			}
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup((JFrame) frmDefinicionModelos.getParent(), Constants.CMD_ERROR, params);
+		}
 
 	}
 
@@ -98,7 +132,9 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evntBtnModificacion() {
-		showPopup(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS);
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.FRM_MANTENIMIENTO_MODELOS_SELECCIONADO, frmDefinicionModelos.getSeleccionado());
+		showPopup(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS, params);
 	}
 
 	/**
@@ -125,6 +161,8 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 */
 	private List<Modelo> buscar(String codModelo, String nombreModelo, Norma norma, String glosario, String esquema,
 			String baseDatos) {
+		
+		Boolean fromMenu = Boolean.TRUE;
 		BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
 		BigDecimal codigoGlosario = null;
 		if (StringUtils.isNotBlank(glosario)) {
@@ -133,8 +171,17 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 		}
 
 		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+		
+		Map<String, Object> params = frmDefinicionModelos.getParams();
+		
+		if (!Objects.isNull(params)) {
+			fromMenu = (Boolean) params.get("fromMenu");
+		}
+		
+		String mcaInh = (fromMenu) ? Constants.S : Constants.N;
+		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codigoNorma, codigoGlosario, esquema, baseDatos,
-				"S");
+				mcaInh);
 	}
 
 	/**

@@ -15,6 +15,8 @@ public class Constants {
 	public static final String ERROR = "ERROR";
 	public static final String SI = "SI";
 	public static final String NO = "NO";
+	public static final String S = "S";
+	public static final String N = "N";
 
 	/**
 	 * Report templates
@@ -104,6 +106,7 @@ public class Constants {
 	public static final String CMD_ALTA_MODELOS = "CMD_ALTA_MODELOS";
 	public static final String CMD_MODIFICACION_MODELOS = "CMD_MODIFICACION_MODELOS";
 	public static final String CMD_ERROR = "CMD_ERROR";
+	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
 	
 	/**
 	 * Panel principal
@@ -246,4 +249,14 @@ public class Constants {
 	public static final String FRM_DEFINICION_MODELOS_BTN_ALTA = "FRM_DEFINICION_MODELOS_BTN_ALTA";
 	public static final String FRM_DEFINICION_MODELOS_BTN_BAJA = "FRM_DEFINICION_MODELOS_BTN_BAJA";
 	public static final String FRM_DEFINICION_MODELOS_BTN_MODIFICACION = "FRM_DEFINICION_MODELOS_BTN_MODIFICACION";
+	
+	public static final String FRM_MANTENIMIENTO_MODELOS_SELECCIONADO = "FRM_MANTENIMIENTO_MODELOS_SELECCIONADO";
+	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO = "FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO";
+	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR = "FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR";
+	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR = "FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR";
+	
+	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA = "FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA";
+	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR = "FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR";
+	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR = "FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR";
+	
 }

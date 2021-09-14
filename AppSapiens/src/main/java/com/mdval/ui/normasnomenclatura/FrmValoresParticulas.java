@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -124,6 +125,7 @@ public class FrmValoresParticulas extends FrameSupport {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(1338, 506));
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
         
         panelLogo.setPreferredSize(new Dimension(286, 63));
 

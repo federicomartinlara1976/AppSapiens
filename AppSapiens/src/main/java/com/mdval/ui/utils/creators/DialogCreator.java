@@ -9,7 +9,6 @@ import com.mdval.ui.DlgIdentificador;
 import com.mdval.ui.glosarios.DlgAltaModificacionCampos;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.glosarios.DlgBajaGlosarioCampos;
-import com.mdval.ui.modelos.DlgMantenimientoModelos;
 import com.mdval.ui.normasnomenclatura.DlgAltaModificacionElementos;
 import com.mdval.ui.normasnomenclatura.DlgAltaModificacionTiposParticula;
 import com.mdval.ui.normasnomenclatura.DlgMantenimientoValoresParticulas;
@@ -108,14 +107,6 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS.equals(option)) {
 			dialog = new DlgMantenimientoValoresParticulas(frameParent, modal, params);
-		}
-		
-		if (Constants.CMD_ALTA_MODELOS.equals(option)) {
-			dialog = new DlgMantenimientoModelos(frameParent, modal);
-		}
-		
-		if (Constants.CMD_MODIFICACION_MODELOS.equals(option)) {
-			dialog = new DlgMantenimientoModelos(frameParent, modal);
 		}
 		
 		if (Constants.CMD_ERROR.equals(option)) {

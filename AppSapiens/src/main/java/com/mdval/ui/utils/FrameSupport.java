@@ -66,6 +66,14 @@ public abstract class FrameSupport extends JFrame {
 	}
 	
 	/**
+	 * 
+	 */
+	public FrameSupport(Map<String, Object> params) {
+		this.params = params;
+		initialize();
+	}
+	
+	/**
      * Proceso de inicialización
      */
     private void initialize() {

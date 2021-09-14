@@ -2,6 +2,8 @@ package com.mdval.ui.modelos;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -96,6 +98,20 @@ public class FrmDefinicionModelos extends FrameSupport {
     public FrmDefinicionModelos() {
         super();
     }
+    
+    /**
+	 * @param params
+	 */
+	public FrmDefinicionModelos(Map<String, Object> params) {
+        super(params);
+    }
+	
+	/**
+	 * Creates new form
+	 */
+	public FrmDefinicionModelos(FrameSupport parent, Map<String, Object> params) {
+		super(parent, params);
+	}
 
     /**
      * 
@@ -293,9 +309,23 @@ public class FrmDefinicionModelos extends FrameSupport {
 
 	@Override
 	protected void initialState() {
+		Boolean fromMenu = Boolean.TRUE;
+		if (!Objects.isNull(params)) {
+			fromMenu = (Boolean) params.get("fromMenu");
+		}
+		
 		btnBaja.setEnabled(Boolean.FALSE);
 		btnModificacion.setEnabled(Boolean.FALSE);
 		btnSeleccionar.setEnabled(Boolean.FALSE);
+		
+		if (fromMenu) {
+			btnSeleccionar.setVisible(Boolean.FALSE);
+		}
+		else {
+			btnAlta.setVisible(Boolean.FALSE);
+			btnBaja.setVisible(Boolean.FALSE);
+			btnModificacion.setVisible(Boolean.FALSE);
+		}
 	}
 
 	@SuppressWarnings("unchecked")

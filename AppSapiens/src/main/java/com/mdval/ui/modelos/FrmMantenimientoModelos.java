@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -23,16 +24,23 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.bussiness.entities.Glosario;
+import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.Norma;
+import com.mdval.ui.listener.FrmMantenimientoModelosListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
-import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.renderer.NormaRenderer;
+import com.mdval.ui.utils.FrameSupport;
+import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author federico
  */
-public class DlgMantenimientoModelos extends DialogSupport {
+public class FrmMantenimientoModelos extends FrameSupport {
 
     /**
 	 * 
@@ -83,7 +91,7 @@ public class DlgMantenimientoModelos extends DialogSupport {
     private JComboBox<String> cmbGrantPublic;
     
     @Getter
-    private JComboBox<String> cmbNorma;
+    private JComboBox<Norma> cmbNorma;
     
     @Getter
     private JComboBox<String> cmbVariablesConCapa;
@@ -135,16 +143,24 @@ public class DlgMantenimientoModelos extends DialogSupport {
 	
     @Getter
     private JFrame frameParent;
+    
+    @Getter
+    private FrmMantenimientoModelosListener dlgMantenimientoModelosListener;
+    
+    @Getter
+    @Setter
+    private Glosario glosarioSeleccionado;
+    
+    @Getter
+    private Boolean editar;
 
     
-    public DlgMantenimientoModelos(JFrame parent, boolean modal) {
-        super(parent, modal);
-        this.frameParent = parent;
+    public FrmMantenimientoModelos(FrameSupport parent) {
+        super(parent);
     }
     
-    public DlgMantenimientoModelos(JFrame parent, boolean modal, Map<String, Object> params) {
-        super(parent, modal, params);
-        this.frameParent = parent;
+    public FrmMantenimientoModelos(FrameSupport parent, Map<String, Object> params) {
+        super(parent, params);
     }
 
     /**
@@ -594,30 +610,49 @@ public class DlgMantenimientoModelos extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		dlgMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);
 		
+		btnBuscarGlosario.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
+		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR);
+		
+		btnBuscarGlosario.addActionListener(dlgMantenimientoModelosListener);
+		btnAceptar.addActionListener(dlgMantenimientoModelosListener);
+		btnCancelar.addActionListener(dlgMantenimientoModelosListener);
+		
+		this.addOnLoadListener(dlgMantenimientoModelosListener);
 	}
 
 	@Override
 	protected void initialState() {
-		cmbGrantAll.setSelectedIndex(1);
-        cmbGrantPublic.setSelectedIndex(1);
-        cmbGeneraVariables.setSelectedIndex(0);
-        cmbVariablesConCapa.setSelectedIndex(0);
-        
-        txtUsuario.setEnabled(Boolean.FALSE);
+		txtUsuario.setEnabled(Boolean.FALSE);
         txtUsuario.setEditable(Boolean.FALSE);
         txtFecha.setEnabled(Boolean.FALSE);
         txtFecha.setEditable(Boolean.FALSE);
+		
+		if (!Objects.isNull(params)) {
+			Modelo modelo = (Modelo) params.get(Constants.FRM_MANTENIMIENTO_MODELOS_SELECCIONADO);
+			
+			editar = Boolean.TRUE;
+		}
+		else {
+			cmbGrantAll.setSelectedIndex(1);
+	        cmbGrantPublic.setSelectedIndex(1);
+	        cmbGeneraVariables.setSelectedIndex(0);
+	        cmbVariablesConCapa.setSelectedIndex(0);
+	        
+	        editar = Boolean.FALSE;
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		cmbNorma.setModel(new DefaultComboBoxModel<>(new String[] { "Norma 1", "Norma 2", "Norma 3", "Norma 4" }));
-		
 		cmbGrantAll.setModel(new SiNoComboBoxModel());
         cmbGrantPublic.setModel(new SiNoComboBoxModel());
         cmbGeneraVariables.setModel(new SiNoComboBoxModel());
         cmbVariablesConCapa.setModel(new SiNoComboBoxModel());
+        
+        cmbNorma.setRenderer(new NormaRenderer());
 	}
 }

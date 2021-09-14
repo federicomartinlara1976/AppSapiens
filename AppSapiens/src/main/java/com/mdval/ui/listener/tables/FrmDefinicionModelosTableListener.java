@@ -10,6 +10,7 @@ import com.mdval.bussiness.entities.Modelo;
 import com.mdval.ui.model.DefinicionModelosTableModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.log4j.Log4j;
@@ -40,7 +41,11 @@ public class FrmDefinicionModelosTableListener extends ListenerSupport implement
 			frmDefinicionModelos.setSeleccionado(seleccionado);
 			
 			frmDefinicionModelos.getBtnModificacion().setEnabled(Boolean.TRUE);
-			frmDefinicionModelos.getBtnBaja().setEnabled(Boolean.TRUE);
+			
+			// Habilitar el botón de borrado si el registro seleccionado no está deshabilitado
+			if (Constants.N.equals(seleccionado.getMcaInh())) {
+				frmDefinicionModelos.getBtnBaja().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 }
