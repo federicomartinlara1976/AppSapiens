@@ -1,14 +1,15 @@
 package com.mdval.bussiness.service.impl;
 
+
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Struct;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -19,6 +20,7 @@ import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.ValidaParticula;
 import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
+import com.mdval.bussiness.entities.types.TypeLine;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
@@ -27,6 +29,7 @@ import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.OracleCallableStatement;
 
 /**
  * @author hcarreno
@@ -430,20 +433,19 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+			 OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeDetValidacion = String.format("SAPIENS.%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeLinea = String.format("%s.%s", paquete, Constants.T_T_LINEA).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-			Object[] itemAttributes = new Object[ validaScriptRequest.getPScript().getBytes().length];
-			itemAttributes[0] = validaScriptRequest.getPScript();
-			Struct lineaStruct = conn.createStruct(typeLinea, itemAttributes);
+			Map<String,Class<?>> typeMap = conn.getTypeMap();
+			typeMap.put( typeLinea, TypeLine.class );
 
 			logProcedure(runSP, validaScriptRequest.getPScript(), validaScriptRequest.getCodigoRF(), validaScriptRequest.getCodigoSD(),
 					validaScriptRequest.getCodigoProyecto(), validaScriptRequest.getCodigoSubProyecto(), validaScriptRequest.getCodigoUsuario(), validaScriptRequest.getNombreFichero());
 
-			callableStatement.setObject(1, lineaStruct, Types.STRUCT);
+			callableStatement.setObject(1, validaScriptRequest.getPScript());
 			callableStatement.setString(2, validaScriptRequest.getCodigoRF());
 			callableStatement.setString(3, validaScriptRequest.getCodigoSD());
 			callableStatement.setString(4, validaScriptRequest.getCodigoProyecto());
