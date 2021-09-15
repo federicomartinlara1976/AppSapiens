@@ -33,6 +33,7 @@ public class Modelo {
     private String mcaVariables;
     private String mcaGrantAll;
     private String mcaGrantPublic;
+    private String mcaVariablesConCapa;
     private String mcaInh;
     private List<SubProyecto> subProyectos;
 }
