@@ -59,6 +59,22 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	}
 	
 	/**
+	 * @param newData
+	 */
+	public void addData(T newData) {
+		this.data.add(newData);
+		this.fireTableDataChanged();
+	}
+	
+	/**
+	 * @param object
+	 */
+	public void removeData(T object) {
+		this.data.remove(object);
+		this.fireTableDataChanged();
+	}
+	
+	/**
 	 * 
 	 */
 	public void clearData() {

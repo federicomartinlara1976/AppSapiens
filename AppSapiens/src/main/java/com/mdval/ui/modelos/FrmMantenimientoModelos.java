@@ -3,6 +3,7 @@ package com.mdval.ui.modelos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,16 +20,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.entities.Norma;
+import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.ui.listener.FrmMantenimientoModelosListener;
+import com.mdval.ui.listener.tables.SubProyectoTableListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.SubProyectoTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.NormaRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import com.mdval.ui.utils.UIHelper;
@@ -53,6 +60,8 @@ public class FrmMantenimientoModelos extends FrameSupport {
 	private JButton btnCancelar;
 	private JButton btnBuscarGlosario;
     private JButton btnAddSubmodelo;
+    
+    @Getter
     private JButton btnRemoveSubmodelo;
     
     private JLabel jLabel1;
@@ -154,6 +163,10 @@ public class FrmMantenimientoModelos extends FrameSupport {
     @Getter
     @Setter
     private Glosario glosarioSeleccionado;
+    
+    @Getter
+    @Setter
+    private SubProyecto subProyectoSeleccionado;
     
     @Getter
     private Boolean editar;
@@ -596,14 +609,22 @@ public class FrmMantenimientoModelos extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		frmMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);
+		ListSelectionListener listSelectionListener = new SubProyectoTableListener(this);
 		
 		btnBuscarGlosario.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
+		btnAddSubmodelo.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO);
+		btnRemoveSubmodelo.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO);
 		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR);
 		
 		btnBuscarGlosario.addActionListener(frmMantenimientoModelosListener);
+		btnAddSubmodelo.addActionListener(frmMantenimientoModelosListener);
+		btnRemoveSubmodelo.addActionListener(frmMantenimientoModelosListener);
 		btnAceptar.addActionListener(frmMantenimientoModelosListener);
 		btnCancelar.addActionListener(frmMantenimientoModelosListener);
+		
+		ListSelectionModel rowSM = tblSubproyectos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 		
 		this.addOnLoadListener(frmMantenimientoModelosListener);
 	}
@@ -616,6 +637,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         txtUsuario.setEditable(Boolean.FALSE);
         txtFecha.setEnabled(Boolean.FALSE);
         txtFecha.setEditable(Boolean.FALSE);
+        btnRemoveSubmodelo.setEnabled(Boolean.FALSE);
 		
 		if (!Objects.isNull(params)) {
 			editar = Boolean.TRUE;
@@ -636,6 +658,10 @@ public class FrmMantenimientoModelos extends FrameSupport {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
+		tblSubproyectos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblSubproyectos.setDefaultRenderer(Date.class, new DateTimeRenderer());
+		tblSubproyectos.setDefaultRenderer(String.class, new StringRenderer());
+		
 		cmbGrantAll.setModel(new SiNoComboBoxModel());
         cmbGrantPublic.setModel(new SiNoComboBoxModel());
         cmbGeneraVariables.setModel(new SiNoComboBoxModel());
