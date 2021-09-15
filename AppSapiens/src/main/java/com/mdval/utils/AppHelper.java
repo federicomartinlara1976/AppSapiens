@@ -1,5 +1,7 @@
 package com.mdval.utils;
 
+import java.math.BigDecimal;
+
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -72,5 +74,14 @@ public class AppHelper {
 		return Boolean.TRUE.equals(value)
 				? "S"
 				: "N";
+	}
+	
+	/**
+	 * @param sCodigo
+	 * @return
+	 */
+	public static BigDecimal toBigDecimal(String sCodigo) {
+		Integer valor = Integer.parseInt(sCodigo);
+		return new BigDecimal(valor);
 	}
 }
