@@ -3,12 +3,19 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
@@ -79,7 +86,20 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		String cmd = (String) arg;
 		
+		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
+			
+			if (!Objects.isNull(seleccionado)) {
+				panelPrincipal.getTxtModeloProyecto().setText(seleccionado.getCodigoProyecto());
+				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
+				
+				if (CollectionUtils.isNotEmpty(subProyectos)) {
+					SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
+					panelPrincipal.getCmbSubmodelo().setModel(modelSubProyectos);
+				}
+ 			}
+		}
 	}
 }
