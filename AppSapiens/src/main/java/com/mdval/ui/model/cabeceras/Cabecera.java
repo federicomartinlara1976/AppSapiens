@@ -7,6 +7,7 @@ import java.util.List;
 import com.mdval.utils.LiteralesSingleton;
 import com.mdval.utils.LogWrapper;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -18,8 +19,14 @@ public abstract class Cabecera {
 	
 	protected LiteralesSingleton literales;
 	
+	@Getter
 	protected List<String> columnIdentifiers;
+	
+	@Getter
 	protected List<Class<?>> columnClasses;
+	
+	@Getter
+	protected List<Integer> columnSizes;
 	
 	/**
 	 * 
@@ -39,6 +46,7 @@ public abstract class Cabecera {
 			
 			columnIdentifiers = new ArrayList<>();
 			columnClasses = new ArrayList<>();
+			columnSizes = new ArrayList<>();
 			
 			setupCabecera();
 		} catch (IOException e) {
@@ -50,18 +58,4 @@ public abstract class Cabecera {
 	 * 
 	 */
 	public abstract void setupCabecera();
-
-	/**
-	 * @return
-	 */
-	public List<String> getColumnIdentifiers() {
-		return columnIdentifiers;
-	}
-	
-	/**
-	 * @return
-	 */
-	public List<Class<?>> getColumnClasses() {
-		return columnClasses;
-	}
 }

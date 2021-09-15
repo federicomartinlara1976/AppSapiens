@@ -23,5 +23,12 @@ public class DefinicionTiposParticulaTablaTiposCabecera extends Cabecera {
 		columnClasses.add(Date.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(60);
+		columnSizes.add(300);
+		columnSizes.add(60);
+		columnSizes.add(100);
+		columnSizes.add(60);
+		columnSizes.add(60);
 	}
 }

@@ -141,10 +141,13 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			String carpeta = frmMantenimientoModelos.getTxtCarpeta().getText();
 			String grupo = frmMantenimientoModelos.getTxtGrupo().getText();
 			String herramienta = frmMantenimientoModelos.getTxtHerramienta().getText();
+			String observaciones = frmMantenimientoModelos.getTxtObservaciones().getText();
 			String mcaGrantAll = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantAll().getSelectedItem());
 			String mcaGrantPublic = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantPublic().getSelectedItem());
 			String mcaGeneraVariables = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGeneraVariables().getSelectedItem());
 			String mcaVariablesConCapa = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbVariablesConCapa().getSelectedItem());
+			SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
+			List<SubProyecto> subProyectos = tableModel.getData();
 			
 			Modelo modelo = new Modelo();
 			modelo.setCodigoProyecto(codigoProyecto);
@@ -156,12 +159,16 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			modelo.setNombreCarpetaAdj(carpeta);
 			modelo.setCodigoGrupoBds(grupo);
 			modelo.setCodigoHerramienta(herramienta);
+			modelo.setObservacionesModelo(observaciones);
 			modelo.setMcaGrantAll(mcaGrantAll);
 			modelo.setMcaGrantPublic(mcaGrantPublic);
 			modelo.setMcaVariables(mcaGeneraVariables);
-			modelo.setMcaVariablesConCapa(mcaVariablesConCapa);
+			modelo.setCodigoCapaUsrown(mcaVariablesConCapa);
 			modelo.setMcaInh(Constants.S);
 			modelo.setCodigoUsuario(usuario);
+			
+			// Subproyectos
+			modelo.setSubProyectos(subProyectos);
 			
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
 					literales.getLiteral("confirmacion.titulo"));
