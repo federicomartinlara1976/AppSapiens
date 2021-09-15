@@ -1,12 +1,12 @@
 package com.mdval.bussiness.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.ValidaParticula;
 import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author hcarreno

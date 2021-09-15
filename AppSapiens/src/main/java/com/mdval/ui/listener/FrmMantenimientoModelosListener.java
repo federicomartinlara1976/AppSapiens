@@ -3,15 +3,19 @@ package com.mdval.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.Norma;
+import com.mdval.bussiness.service.ModeloService;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
 import com.mdval.ui.model.NormaComboBoxModel;
@@ -66,11 +70,24 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 
 	@Override
 	public void onLoad() {
-		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
-		List<Norma> normas = normaService.consultaNormas(StringUtils.EMPTY);
-		
-		NormaComboBoxModel modelNormas = new NormaComboBoxModel(normas);
-		dlgMantenimientoModelos.getCmbNorma().setModel(modelNormas);
+		try {
+			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+			List<Norma> normas = normaService.consultaNormas(StringUtils.EMPTY);
+			
+			NormaComboBoxModel modelNormas = new NormaComboBoxModel(normas);
+			dlgMantenimientoModelos.getCmbNorma().setModel(modelNormas);
+			
+			Map<String, Object> params = dlgMantenimientoModelos.getParams();
+			
+			if (!Objects.isNull(params)) {
+				ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+				Modelo seleccionado = (Modelo) params.get(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO);
+				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
+			}
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup((JFrame) dlgMantenimientoModelos.getParent(), Constants.CMD_ERROR, params);
+		}
 	}
 
 	@Override

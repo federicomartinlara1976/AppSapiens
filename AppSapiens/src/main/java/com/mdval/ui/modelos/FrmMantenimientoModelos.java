@@ -16,21 +16,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdval.bussiness.entities.Glosario;
-import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.FrmMantenimientoModelosListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
+import com.mdval.ui.model.SubProyectoTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.NormaRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -79,7 +81,9 @@ public class FrmMantenimientoModelos extends FrameSupport {
     private JScrollPane jScrollPane2;
     
     private JPanel panelTabla;
-    private JTable tblValoresPosibles;
+    
+    @Getter
+    private TableSupport tblSubproyectos;
     
     @Getter
     private JComboBox<String> cmbGeneraVariables;
@@ -145,7 +149,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
     private JFrame frameParent;
     
     @Getter
-    private FrmMantenimientoModelosListener dlgMantenimientoModelosListener;
+    private FrmMantenimientoModelosListener frmMantenimientoModelosListener;
     
     @Getter
     @Setter
@@ -178,7 +182,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         cmbGrantAll = new JComboBox<>();
         panelTabla = new JPanel();
         jScrollPane1 = new JScrollPane();
-        tblValoresPosibles = new JTable();
+        tblSubproyectos = new TableSupport(Boolean.FALSE);
         jLabel7 = new JLabel();
         txtCodigoSubmodelo = new JTextField();
         jLabel18 = new JLabel();
@@ -252,26 +256,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
         panelTabla.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
-        tblValoresPosibles.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "COD", "DESCRIPCIÓN", "COD_USR", "FEC_ACTU"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblValoresPosibles);
+        jScrollPane1.setViewportView(tblSubproyectos);
 
         jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
         
@@ -610,36 +595,39 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		dlgMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);
+		frmMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);
 		
 		btnBuscarGlosario.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
 		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR);
 		
-		btnBuscarGlosario.addActionListener(dlgMantenimientoModelosListener);
-		btnAceptar.addActionListener(dlgMantenimientoModelosListener);
-		btnCancelar.addActionListener(dlgMantenimientoModelosListener);
+		btnBuscarGlosario.addActionListener(frmMantenimientoModelosListener);
+		btnAceptar.addActionListener(frmMantenimientoModelosListener);
+		btnCancelar.addActionListener(frmMantenimientoModelosListener);
 		
-		this.addOnLoadListener(dlgMantenimientoModelosListener);
+		this.addOnLoadListener(frmMantenimientoModelosListener);
 	}
 
 	@Override
 	protected void initialState() {
+		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+		
 		txtUsuario.setEnabled(Boolean.FALSE);
         txtUsuario.setEditable(Boolean.FALSE);
         txtFecha.setEnabled(Boolean.FALSE);
         txtFecha.setEditable(Boolean.FALSE);
 		
 		if (!Objects.isNull(params)) {
-			Modelo modelo = (Modelo) params.get(Constants.FRM_MANTENIMIENTO_MODELOS_SELECCIONADO);
-			
 			editar = Boolean.TRUE;
 		}
 		else {
-			cmbGrantAll.setSelectedIndex(1);
-	        cmbGrantPublic.setSelectedIndex(1);
-	        cmbGeneraVariables.setSelectedIndex(0);
-	        cmbVariablesConCapa.setSelectedIndex(0);
+			cmbGrantAll.setSelectedItem(Constants.NO);
+	        cmbGrantPublic.setSelectedItem(Constants.NO);
+	        cmbGeneraVariables.setSelectedItem(Constants.SI);
+	        cmbVariablesConCapa.setSelectedItem(Constants.SI);
+	        
+	        String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			txtUsuario.setText(cod_usr);
 	        
 	        editar = Boolean.FALSE;
 		}
@@ -654,5 +642,8 @@ public class FrmMantenimientoModelos extends FrameSupport {
         cmbVariablesConCapa.setModel(new SiNoComboBoxModel());
         
         cmbNorma.setRenderer(new NormaRenderer());
+        
+        Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA);
+        tblSubproyectos.setModel(new SubProyectoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

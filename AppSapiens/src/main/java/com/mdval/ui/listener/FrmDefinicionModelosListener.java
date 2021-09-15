@@ -133,7 +133,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_MANTENIMIENTO_MODELOS_SELECCIONADO, frmDefinicionModelos.getSeleccionado());
+		params.put(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO, frmDefinicionModelos.getSeleccionado());
 		showPopup(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS, params);
 	}
 

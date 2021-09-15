@@ -13,6 +13,7 @@ import com.mdval.ui.model.cabeceras.DefinicionParticulasNormaElementoCabecera;
 import com.mdval.ui.model.cabeceras.DefinicionTiposParticulaTablaTiposCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaCamposCabecera;
 import com.mdval.ui.model.cabeceras.GlosarioCamposTablaModelosCabecera;
+import com.mdval.ui.model.cabeceras.SubProyectoCabecera;
 import com.mdval.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdval.ui.model.cabeceras.TablaValidaParticulaCabecera;
 import com.mdval.ui.model.cabeceras.TablaValoresParticulasCabecera;
@@ -87,6 +88,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaValidaParticulaCabecera();
+		}
+		
+		if (Constants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA.equals(item)) {
+			cabecera = new SubProyectoCabecera();
 		}
 		
 		return cabecera;
