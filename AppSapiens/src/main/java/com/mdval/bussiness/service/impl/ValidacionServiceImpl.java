@@ -427,7 +427,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		try (Connection conn = dataSource.getConnection();
 			 OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("SAPIENS.%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeLinea = String.format("%s.%s", paquete, Constants.T_T_LINEA).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
