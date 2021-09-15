@@ -306,9 +306,11 @@ public class FrmValoresParticulas extends FrameSupport {
 		
 		Cabecera cabeceraTiposParticulas = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
 		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabeceraTiposParticulas.getColumnIdentifiers(), cabeceraTiposParticulas.getColumnClasses()));
+		tblTiposParticula.setColumnWidths(cabeceraTiposParticulas);
 	
 		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
 		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
+		tblValoresParticulas.setColumnWidths(cabeceraValoresParticula);
 		
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	

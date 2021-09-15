@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,10 +15,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmComprobacionNombreElementoListener;
 import com.mdval.ui.model.ValidaParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -67,7 +68,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	private JComboBox<TipoElemento> cmbElemento;
 
 	@Getter
-	private JComboBox<String> cmbSubmodelo;
+	private JComboBox<SubProyecto> cmbSubmodelo;
 
 	@Getter
 	private JTextField txtCodGlosario;
@@ -357,9 +358,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		cmbSubmodelo.setModel(new DefaultComboBoxModel<>(
-				new String[] { "Submodelo 1", "Submodelo 2", "Submodelo 3", "Submodelo 4" }));
-
+		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 		cmbElemento.setRenderer(new TipoElementoRenderer());
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);

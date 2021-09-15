@@ -295,11 +295,13 @@ public class FrmDefinicionModelos extends FrameSupport {
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_ALTA);
 		btnBaja.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_BAJA);
 		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION);
+		btnSeleccionar.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
 		
 		btnBuscar.addActionListener(frmDefinicionModelosListener);
 		btnAlta.addActionListener(frmDefinicionModelosListener);
 		btnBaja.addActionListener(frmDefinicionModelosListener);
 		btnModificacion.addActionListener(frmDefinicionModelosListener);
+		btnSeleccionar.addActionListener(frmDefinicionModelosListener);
 		
 		ListSelectionModel rowSM = tblModelos.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -91,9 +92,11 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		String descripcionSubProyecto = frmMantenimientoModelos.getTxtDescripcionSubmodelo().getText();
 		
 		SubProyecto subProyecto = new SubProyecto();
+		subProyecto.setCodigoProyecto(StringUtils.EMPTY);
 		subProyecto.setCodigoSubProyecto(codigoSubProyecto);
 		subProyecto.setDescripcionSubProyecto(descripcionSubProyecto);
 		subProyecto.setCodigoUsuario(usuario);
+		subProyecto.setFechaActualizacion(new Date());
 		
 		// Ver si el objeto ya está en la lista (por código de subproyecto)
 		SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
@@ -141,10 +144,13 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			String carpeta = frmMantenimientoModelos.getTxtCarpeta().getText();
 			String grupo = frmMantenimientoModelos.getTxtGrupo().getText();
 			String herramienta = frmMantenimientoModelos.getTxtHerramienta().getText();
+			String observaciones = frmMantenimientoModelos.getTxtObservaciones().getText();
 			String mcaGrantAll = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantAll().getSelectedItem());
 			String mcaGrantPublic = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantPublic().getSelectedItem());
 			String mcaGeneraVariables = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGeneraVariables().getSelectedItem());
 			String mcaVariablesConCapa = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbVariablesConCapa().getSelectedItem());
+			SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
+			List<SubProyecto> subProyectos = tableModel.getData();
 			
 			Modelo modelo = new Modelo();
 			modelo.setCodigoProyecto(codigoProyecto);
@@ -156,12 +162,16 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			modelo.setNombreCarpetaAdj(carpeta);
 			modelo.setCodigoGrupoBds(grupo);
 			modelo.setCodigoHerramienta(herramienta);
+			modelo.setObservacionesModelo(observaciones);
 			modelo.setMcaGrantAll(mcaGrantAll);
 			modelo.setMcaGrantPublic(mcaGrantPublic);
 			modelo.setMcaVariables(mcaGeneraVariables);
-			modelo.setMcaVariablesConCapa(mcaVariablesConCapa);
+			modelo.setCodigoCapaUsrown(mcaVariablesConCapa);
 			modelo.setMcaInh(Constants.S);
 			modelo.setCodigoUsuario(usuario);
+			
+			// Subproyectos
+			modelo.setSubProyectos(subProyectos);
 			
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
 					literales.getLiteral("confirmacion.titulo"));
@@ -208,6 +218,13 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 				ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
 				Modelo seleccionado = (Modelo) params.get(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO);
 				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
+				
+				// TODO - rellenar los campos
+				
+				// se cargan los subproyectos
+				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
+				SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
+				tableModel.setData(subProyectos);
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);

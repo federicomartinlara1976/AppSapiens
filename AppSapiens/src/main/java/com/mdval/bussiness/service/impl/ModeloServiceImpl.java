@@ -25,6 +25,8 @@ import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.internal.OracleConnection;
+
 
 /**
  * @author hcarreno
@@ -45,7 +47,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
-		try (Connection conn = dataSource.getConnection();
+		try (Connection conn = dataSource.getConnection(); OracleConnection oConn = (OracleConnection) conn;
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			SubProyecto[] arraySubProyectos = modelo.getSubProyectos().toArray(new SubProyecto[0]);
@@ -76,8 +78,10 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setString(14, modelo.getMcaGrantPublic());
 			callableStatement.setString(15, modelo.getMcaVariables());
 			callableStatement.setString(16, modelo.getCodigoCapaUsrown());
-			callableStatement.setArray(17, conn.createArrayOf(typeSubProyecto, arraySubProyectos));
-
+			
+			Array array = oConn.createOracleArray(typeSubProyecto, arraySubProyectos);
+			callableStatement.setArray(17, array);
+			
 			callableStatement.registerOutParameter(18, Types.INTEGER);
 			callableStatement.registerOutParameter(19, Types.VARCHAR, typeError);
 

@@ -30,5 +30,14 @@ public class TablaValoresParticulasCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);
+		
+		columnSizes.add(60);
+		columnSizes.add(60);
+		columnSizes.add(300);
+		columnSizes.add(60);
+		columnSizes.add(60);
+		columnSizes.add(60);
+		columnSizes.add(60);
+		columnSizes.add(100);
 	}
 }

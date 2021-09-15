@@ -365,6 +365,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		
 		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
 		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
+		tblValoresParticulas.setColumnWidths(cabeceraValoresParticula);
 		
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	

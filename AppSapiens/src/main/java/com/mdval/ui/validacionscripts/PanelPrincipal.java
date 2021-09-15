@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,9 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.event.ChangeListener;
 
+import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.ui.listener.PanelPrincipalActionListener;
 import com.mdval.ui.listener.PanelPrincipalChangeListener;
+import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.PanelSupport;
 import com.mdval.utils.Constants;
@@ -68,7 +69,7 @@ public class PanelPrincipal extends PanelSupport {
     private JPanel panelContenido;
     
     @Getter
-    private JComboBox<String> cmbSubModelo;
+    private JComboBox<SubProyecto> cmbSubmodelo;
     
     @Getter
     private JTextField txtDescGlosario;
@@ -121,7 +122,7 @@ public class PanelPrincipal extends PanelSupport {
         txtCodGlosario = new JTextField();
         txtDescGlosario = new JTextField();
         jLabel2 = new JLabel();
-        cmbSubModelo = new JComboBox<>();
+        cmbSubmodelo = new JComboBox<>();
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
         txtIM = new JTextField();
@@ -196,8 +197,6 @@ public class PanelPrincipal extends PanelSupport {
         txtDescGlosario.setEnabled(false);
         txtDescGlosario.setPreferredSize(new Dimension(64, 27));
 
-        cmbSubModelo.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtIM.setPreferredSize(new Dimension(64, 27));
 
         txtSD.setPreferredSize(new Dimension(64, 27));
@@ -265,7 +264,7 @@ public class PanelPrincipal extends PanelSupport {
                                         .addComponent(txtCodNorma, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtDescNorma, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cmbSubModelo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cmbSubmodelo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(36, 36, 36)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -295,7 +294,7 @@ public class PanelPrincipal extends PanelSupport {
                                 .addComponent(jLabel11)
                                 .addComponent(txtModeloProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)
-                                .addComponent(cmbSubModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbSubmodelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4)
                                 .addComponent(txtIM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -383,9 +382,10 @@ public class PanelPrincipal extends PanelSupport {
 	/**
 	 *
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		cmbSubModelo.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 	}
 	
 	/**

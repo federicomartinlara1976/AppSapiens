@@ -64,6 +64,10 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 		if (Constants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
+		
+		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
+			evntBtnSeleccionar();
+		}
 	}
 
 	/**
@@ -137,6 +141,14 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 		showPopup(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS, params);
 	}
 
+	/**
+	 * 
+	 */
+	private void evntBtnSeleccionar() {
+		updateObservers(Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
+		frmDefinicionModelos.dispose();
+	}
+	
 	/**
 	 *
 	 */
