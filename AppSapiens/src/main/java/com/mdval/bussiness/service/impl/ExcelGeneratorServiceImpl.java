@@ -47,25 +47,6 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String nombreReporteGlosario = configuration.getConfig("nombreReporteGlosario");
 		String hoja = configuration.getConfig("nombreHojaGlosario");
 
-//        List<CampoGlosario> lista = new ArrayList<>();
-//
-//        for (int i = 0; i < 10; i++) {
-//            CampoGlosario campoGlosario = CampoGlosario.builder()
-//                    .tipoDato("tipoDato"+i) // Tipo
-//                    .nombreColumna("nombre"+i) //Campo
-//                    .numeroLongitud(BigDecimal.valueOf(i)) //Longitud
-//                    .numeroDecimal(BigDecimal.valueOf(i)) //Decimales
-//                    .mcaExcepcion("mcaEx"+i) //Excepcion
-//                    .txtComentario("comentario"+i) //Comentario
-//                    .txtExcepcion("comentarioExcepcion"+i) //Comentario Excepcion
-//                    .codigoUsuario("usuario"+i) //COD_USR
-//                    .fechaActualizacion(new Date()) // FEC_ACTU
-//                    .build();
-//            lista.add(campoGlosario);
-//        }
-
-		// FileInputStream inputStream = new FileInputStream(new
-		// File(Constants.CAMPO_GLOSARIO_TEMPLATE_LOCATION));
 		InputStream inputStream = getClass().getResourceAsStream(Constants.CAMPO_GLOSARIO_TEMPLATE_LOCATION);
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(hoja);
@@ -143,8 +124,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		cell.setCellValue(campoGlosario.getNumeroDecimal().toString());
 
 		cell = row.createCell(4);
-		String correcto = "N".equals(campoGlosario.getMcaExcepcion()) ? literales.getLiteral("glosarioCampos.correcto")
-				: literales.getLiteral("glosarioCampos.error");
+		String correcto = campoGlosario.getMcaExcepcion();
 		cell.setCellValue(correcto);
 		
 		cell = row.createCell(5);
