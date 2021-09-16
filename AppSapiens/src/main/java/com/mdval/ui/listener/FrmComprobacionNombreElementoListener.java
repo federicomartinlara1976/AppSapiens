@@ -83,7 +83,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	private void eventBtnComprobar() {
 		try {
 			String sCodigoNorma = frmComprobacionNombreElemento.getTxtCodNorma().getText();
-			BigDecimal codigoNorma = AppHelper.toBigDecimal(sCodigoNorma);
+			BigDecimal codigoNorma = AppHelper.toBigDecimal(sCodigoNorma, literales.getLiteral("codigoNorma.error"));
 			
 			String codigoProyecto = frmComprobacionNombreElemento.getTxtModeloProyecto().getText();
 			

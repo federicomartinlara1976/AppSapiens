@@ -138,7 +138,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			Norma norma = (Norma) frmMantenimientoModelos.getCmbNorma().getSelectedItem();
 			BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
 			String sCodigoGlosario = frmMantenimientoModelos.getTxtCodGlosario().getText();
-			BigDecimal codigoGlosario = AppHelper.toBigDecimal(sCodigoGlosario);
+			BigDecimal codigoGlosario = AppHelper.toBigDecimal(sCodigoGlosario, literales.getLiteral("codigoGlosario.error"));
 			String esquema = frmMantenimientoModelos.getTxtEsquema().getText();
 			String bbdd = frmMantenimientoModelos.getTxtBD().getText();
 			String carpeta = frmMantenimientoModelos.getTxtCarpeta().getText();

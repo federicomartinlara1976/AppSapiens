@@ -11,8 +11,6 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.bussiness.service.TipoParticulaService;
@@ -63,13 +61,17 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	private void eventBtnBuscar() {
 		try {
 			String sCodigoParticula = frmValoresParticulas.getTxtCodigo().getText();
+			BigDecimal codigoParticula = AppHelper.toBigDecimal(sCodigoParticula, literales.getLiteral("codigoParticula.error"));
+			
 			String descripcionParticula = frmValoresParticulas.getTxtDescripcion().getText();
+			
 			String mcaProyecto = AppHelper
 					.normalizeCmbSiNoValue((String) frmValoresParticulas.getCmbProyecto().getSelectedItem());
+			
 			String mcaSubproyecto = AppHelper
 					.normalizeCmbSiNoValue((String) frmValoresParticulas.getCmbSubproyecto().getSelectedItem());
 
-			List<TipoParticula> tiposParticula = buscar(sCodigoParticula, descripcionParticula, mcaProyecto,
+			List<TipoParticula> tiposParticula = buscar(codigoParticula, descripcionParticula, mcaProyecto,
 					mcaSubproyecto);
 			populateModel(tiposParticula);
 		} catch (Exception e) {
@@ -101,14 +103,8 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	 * @param termino descripcion tipo a buscar
 	 * @return lista de tipos que cumple con el termino buscado
 	 */
-	private List<TipoParticula> buscar(String sCodigo, String sDescripcion, String mcaProyecto, String mcaSubproyecto) {
+	private List<TipoParticula> buscar(BigDecimal codigo, String sDescripcion, String mcaProyecto, String mcaSubproyecto) {
 		TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(Constants.TIPO_PARTICULA_SERVICE);
-
-		BigDecimal codigo = null;
-		if (StringUtils.isNotBlank(sCodigo)) {
-			Long lCodigo = Long.parseLong(sCodigo);
-			codigo = new BigDecimal(lCodigo);
-		}
 
 		List<TipoParticula> tipos = tipoParticulaService.consultarTiposParticula(codigo, sDescripcion, mcaProyecto,
 				mcaSubproyecto);

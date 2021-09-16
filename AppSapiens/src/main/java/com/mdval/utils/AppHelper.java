@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
+import lombok.SneakyThrows;
+
 /**
  * @author federico
  *
@@ -72,12 +74,17 @@ public class AppHelper {
 	 * @param sCodigo
 	 * @return
 	 */
-	public static BigDecimal toBigDecimal(String sCodigo) {
-		if (StringUtils.isNotBlank(sCodigo)) {
-			Integer valor = Integer.parseInt(sCodigo);
-			return new BigDecimal(valor);
+	@SneakyThrows
+	public static BigDecimal toBigDecimal(String sCodigo, String errMessage) {
+		try {
+			if (StringUtils.isNotBlank(sCodigo)) {
+				Long valor = Long.parseLong(sCodigo);
+				return new BigDecimal(valor);
+			}
+	
+			return null;
+		} catch (NumberFormatException e) {
+			throw new Exception(errMessage);
 		}
-		
-		return null;
 	}
 }
