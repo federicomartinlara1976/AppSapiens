@@ -219,17 +219,34 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 				Modelo seleccionado = (Modelo) params.get(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO);
 				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
 				
-				// TODO - rellenar los campos
+				// rellenar los campos
+				dumpData(seleccionado);
 				
 				// se cargan los subproyectos
 				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
-				SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
-				tableModel.setData(subProyectos);
+				if (CollectionUtils.isNotEmpty(subProyectos)) {
+					SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
+					tableModel.setData(subProyectos);
+				}
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(frmMantenimientoModelos, Constants.CMD_ERROR, params);
 		}
+	}
+
+	private void dumpData(Modelo seleccionado) {
+		frmMantenimientoModelos.getTxtCodModelo().setText(seleccionado.getCodigoProyecto());
+		frmMantenimientoModelos.getTxtNombreModelo().setText(seleccionado.getNombreModelo());
+		String codGlosario = !Objects.isNull(seleccionado.getCodigoGlosario()) ? seleccionado.getCodigoGlosario().toString() : StringUtils.EMPTY;
+		frmMantenimientoModelos.getTxtCodGlosario().setText(codGlosario);
+		frmMantenimientoModelos.getTxtEsquema().setText(seleccionado.getNombreEsquema());
+		frmMantenimientoModelos.getTxtBD().setText(seleccionado.getNombreBbdd());
+		frmMantenimientoModelos.getTxtCarpeta().setText(seleccionado.getNombreCarpetaAdj());
+		frmMantenimientoModelos.getTxtGrupo().setText(seleccionado.getCodigoGrupoBds());
+		frmMantenimientoModelos.getTxtHerramienta().setText(seleccionado.getCodigoHerramienta());
+		frmMantenimientoModelos.getTxtObservaciones().setText(seleccionado.getObservacionesModelo());
+		frmMantenimientoModelos.getTxtUsuario().setText(seleccionado.getCodigoUsuario());
 	}
 
 	@Override

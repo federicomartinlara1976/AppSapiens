@@ -45,6 +45,7 @@ public class FrmDefinicionModelosTableListener extends ListenerSupport implement
 			// Habilitar el botón de borrado si el registro seleccionado no está deshabilitado
 			if (Constants.N.equals(seleccionado.getMcaInh())) {
 				frmDefinicionModelos.getBtnBaja().setEnabled(Boolean.TRUE);
+				frmDefinicionModelos.getBtnSeleccionar().setEnabled(Boolean.TRUE);
 			}
 		}
 	}
