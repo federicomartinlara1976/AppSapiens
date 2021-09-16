@@ -1,16 +1,24 @@
 package com.mdval.ui.validacionscripts;
 
 import java.awt.Dimension;
+import java.math.BigDecimal;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
+import com.mdval.ui.model.DetalleValidacionTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.BigDecimalRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.PanelSupport;
+import com.mdval.ui.utils.TableSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.Constants;
+
+import lombok.Getter;
 
 /**
  *
@@ -23,14 +31,22 @@ public class PanelResultados extends PanelSupport {
 	 */
 	private static final long serialVersionUID = 8717868648566455220L;
 
+	@Getter
 	private JButton btnAddGlosario;
+	
+	@Getter
 	private JButton btnAddTodosGlosario;
+	
+	@Getter
 	private JButton btnGenerarLog;
+	
+	@Getter
 	private JButton btnMarcarExcepcion;
 
 	private JScrollPane jScrollPane1;
 
-	private JTable tblResultados;
+	@Getter
+	private TableSupport tblResultados;
 
 	/**
 	 * Creates new form PanelResultados
@@ -45,7 +61,7 @@ public class PanelResultados extends PanelSupport {
 	protected void initComponents() {
 
 		jScrollPane1 = new JScrollPane();
-		tblResultados = new JTable();
+		tblResultados = new TableSupport(Boolean.FALSE);
 		btnMarcarExcepcion = new JButton();
 		btnAddGlosario = new JButton();
 		btnAddTodosGlosario = new JButton();
@@ -127,12 +143,10 @@ public class PanelResultados extends PanelSupport {
 
 	@Override
 	protected void initModels() {
-		tblResultados.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null, null, null, null },
-						{ null, null, null, null, null, null, null, null },
-						{ null, null, null, null, null, null, null, null },
-						{ null, null, null, null, null, null, null, null } },
-				new String[] { "Validación", "Tipo Elemento", "Nombre Elemento", "Tipo", "Longitud", "Decimales",
-						"Resultado Validación", "Detalle Validación" }));
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DETALLE_VALIDACION_TABLA_CABECERA);
+		tblResultados.setModel(new DetalleValidacionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		
+		tblResultados.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
+		tblResultados.setDefaultRenderer(String.class, new StringRenderer());
 	}
 }

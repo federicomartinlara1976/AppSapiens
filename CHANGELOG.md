@@ -16,6 +16,17 @@
   
   Código fuente.
   
+  - Versión 1.0.0-SNAPSHOT (16/09/2021), Entregable-1.0.6
+
+  Se entrega:
+  
+  	- Comprobación de nombres
+	- Definición y mantenimiento de modelos
+	- Validación de scripts
+	
+  Incidencias que se corrigen: Incidencias registradas el día 09-09-2021 (ver en carpeta /Documentacion/Monitorizacion/Incidencias)
+  
+  Código fuente.
   
        
        

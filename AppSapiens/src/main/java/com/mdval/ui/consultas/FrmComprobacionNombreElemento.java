@@ -20,6 +20,8 @@ import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmComprobacionNombreElementoListener;
 import com.mdval.ui.model.ValidaParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
@@ -363,5 +365,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);
 		tblValidaParticula.setModel(new ValidaParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblValidaParticula.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblValidaParticula.setDefaultRenderer(String.class, new StringRenderer());
 	}
 }

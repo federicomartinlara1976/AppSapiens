@@ -52,6 +52,8 @@ public class FrmDefinicionModelos extends FrameSupport {
     
 	@Getter
 	private JButton btnModificacion;
+	
+	@Getter
     private JButton btnSeleccionar;
     
     private JLabel jLabel1;

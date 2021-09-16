@@ -112,7 +112,7 @@ public class FrameCreator extends Creator {
 		}
 		
 		if (Constants.CMD_MODIFICACION_MODELOS.equals(option)) {
-			frame = new FrmMantenimientoModelos(parent);
+			frame = new FrmMantenimientoModelos(parent, params);
 		}
 		
 		if (Constants.CMD_BUSCAR_MODELOS.equals(option)) {
