@@ -1,11 +1,7 @@
 package com.mdval.bussiness.service.impl;
 
 import java.math.BigDecimal;
-import java.sql.Array;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -416,17 +412,25 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			SubProyecto[] arraySubProyectos = modelo.getSubProyectos().toArray(new SubProyecto[0]);
-
-			//Object[] array = modelo.getSubProyectos().toArray(); //TODO test in array parameter
-
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-			String typeSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String tableSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String recordSubProyecto = String.format("%s.%s", paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
 
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
 					modelo.getCodigoUsuario(), modelo.getNomApnCmdb(), modelo.getMcaGrantAll(), modelo.getMcaGrantPublic(), modelo.getMcaVariables(),
-					modelo.getCodigoCapaUsrown(), arraySubProyectos.toString());
+					modelo.getCodigoCapaUsrown(), modelo.getSubProyectos());
+
+			Struct[] struct = new Struct[modelo.getSubProyectos().size()];
+
+			int arrayIndex = 0;
+			for (SubProyecto data : modelo.getSubProyectos()) {
+				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
+						new Object[]{ data.getCodigoProyecto(), data.getCodigoSubProyecto(), data.getDescripcionSubProyecto(),
+								data.getCodigoUsuario(), "2012-11-26 16:41:09" });
+			}
+
+			Array subProyectoTable = ((OracleConnection) conn).createOracleArray(tableSubProyecto, struct);
 
 			callableStatement.setString(1, modelo.getCodigoProyecto());
 			callableStatement.setString(2, modelo.getNombreModelo());
@@ -444,7 +448,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setString(14, modelo.getMcaGrantPublic());
 			callableStatement.setString(15, modelo.getMcaVariables());
 			callableStatement.setString(16, modelo.getCodigoCapaUsrown());
-			callableStatement.setArray(17, conn.createArrayOf(typeSubProyecto, arraySubProyectos));
+			callableStatement.setArray(17, subProyectoTable);
 
 			callableStatement.registerOutParameter(18, Types.INTEGER);
 			callableStatement.registerOutParameter(19, Types.VARCHAR, typeError);

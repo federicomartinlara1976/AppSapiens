@@ -46,6 +46,7 @@ public class Constants {
 	/**
 	 * DataBase Types
 	 */
+	public static final String T_R_LINEA = "T_R_LINEA";
 	public static final String T_T_LINEA = "T_T_LINEA";
 	public static final String T_T_VALIDA_PARTICULA = "T_T_VALIDA_PARTICULA";
 	public static final String T_T_VAL_PARTICULA = "T_T_VAL_PARTICULA";
@@ -53,6 +54,7 @@ public class Constants {
 	public static final String T_T_NORMA = "T_T_NORMA";
 	public static final String T_T_PARTICULA = "T_T_PARTICULA";
 	public static final String T_T_TIPO_DATO = "T_T_TIPO_DATO";
+	public static final String T_R_SUBPROYECTO = "T_R_SUBPROYECTO";
 	public static final String T_T_SUBPROYECTO = "T_T_SUBPROYECTO";
 	public static final String T_T_MODELO = "T_T_MODELO";
 	public static final String T_T_CAMPO_GLOSARIO = "T_T_CAMPO_GLOSARIO";
