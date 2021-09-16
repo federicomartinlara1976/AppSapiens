@@ -17,7 +17,7 @@ public class Constants {
 	public static final String NO = "NO";
 	public static final String S = "S";
 	public static final String N = "N";
-
+	public static final String ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES = "yyyy-MM-dd HH:mm:ss";
 	/**
 	 * Report templates
 	 */
