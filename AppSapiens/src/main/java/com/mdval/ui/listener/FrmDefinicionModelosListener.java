@@ -26,6 +26,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 
 /**
@@ -79,7 +80,10 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 			String baseDatos = frmDefinicionModelos.getTxtBaseDatos().getText();
 			String codModelo = frmDefinicionModelos.getTxtCodModelo().getText();
 			String esquema = frmDefinicionModelos.getTxtEsquema().getText();
-			String glosario = frmDefinicionModelos.getTxtGlosario().getText();
+			
+			String sGlosario = frmDefinicionModelos.getTxtGlosario().getText();
+			BigDecimal glosario = AppHelper.toBigDecimal(sGlosario, literales.getLiteral("codigoGlosario.error"));
+			
 			String nombreModelo = frmDefinicionModelos.getTxtNombreModelo().getText();
 
 			List<Modelo> modelos = buscar(codModelo, nombreModelo, norma, glosario, esquema, baseDatos);
@@ -166,21 +170,16 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 * @param codModelo
 	 * @param nombreModelo
 	 * @param norma
-	 * @param glosario
+	 * @param codigoGlosario
 	 * @param esquema
 	 * @param baseDatos
 	 * @return
 	 */
-	private List<Modelo> buscar(String codModelo, String nombreModelo, Norma norma, String glosario, String esquema,
+	private List<Modelo> buscar(String codModelo, String nombreModelo, Norma norma, BigDecimal codigoGlosario, String esquema,
 			String baseDatos) {
 		
 		Boolean fromMenu = Boolean.TRUE;
 		BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
-		BigDecimal codigoGlosario = null;
-		if (StringUtils.isNotBlank(glosario)) {
-			Long lCodigo = Long.parseLong(glosario);
-			codigoGlosario = new BigDecimal(lCodigo);
-		}
 
 		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
 		

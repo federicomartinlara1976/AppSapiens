@@ -8,7 +8,6 @@ import java.util.Objects;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -82,7 +81,7 @@ public class FrmDefinicionModelos extends FrameSupport {
     private JTextField txtEsquema;
     
     @Getter
-    private JFormattedTextField txtGlosario;
+    private JTextField txtGlosario;
     
     @Getter
     private JTextField txtNombreModelo;
@@ -131,7 +130,7 @@ public class FrmDefinicionModelos extends FrameSupport {
         tblModelos = new TableSupport(Boolean.FALSE);
         btnAlta = new JButton();
         jLabel3 = new JLabel();
-        txtGlosario = UIHelper.createIntegerField();
+        txtGlosario = new JTextField();
         jLabel4 = new JLabel();
         txtNombreModelo = new JTextField();
         jLabel5 = new JLabel();

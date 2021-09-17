@@ -10,7 +10,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -30,7 +29,6 @@ import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.MaestrasSupport;
-import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
@@ -71,7 +69,7 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	private JComboBox<String> cmbTipoDato;
 
 	@Getter
-	private JFormattedTextField txtDecimales;
+	private JTextField txtDecimales;
 
 	@Getter
 	private JTextArea txtDescripcionExcepcion;
@@ -86,7 +84,7 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	private JTextArea txtObservaciones;
 
 	@Getter
-	private JFormattedTextField txtTamanio;
+	private JTextField txtTamanio;
 
 	@Getter
 	private JTextField txtUsuario;
@@ -120,8 +118,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		jLabel8 = new JLabel();
 		txtNombre = new JTextField();
 		cmbTipoDato = new JComboBox<>();
-		txtTamanio = UIHelper.createIntegerField();
-		txtDecimales = UIHelper.createIntegerField();
+		txtTamanio = new JTextField();
+		txtDecimales = new JTextField();
 		cmbExcepcion = new JComboBox<>();
 		jScrollPane1 = new JScrollPane();
 		txtDescripcionExcepcion = new JTextArea();

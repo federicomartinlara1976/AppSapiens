@@ -96,18 +96,18 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private void eventBtnBuscar() {
 		try {
 			String sCodGlosario = frmGlosarioCampos.getTxtCodigoGlosario().getText();
+			BigDecimal codGlosario = AppHelper.toBigDecimal(sCodGlosario, literales.getLiteral("codigoGlosario.error"));
+			
 			String tipoDato = (String) frmGlosarioCampos.getCmbTipoDato().getSelectedItem();
 			String nombreColumna = frmGlosarioCampos.getTxtNombreColumna().getText();
 			String vMostrarExcepciones = (String) frmGlosarioCampos.getCmbMostrarExcepciones().getSelectedItem();
 
-			Long codGlosario = Long.parseLong(sCodGlosario);
-			BigDecimal bCodGlosario = new BigDecimal(codGlosario);
 			String mcaException = AppHelper.normalizeCmbSiNoValue(vMostrarExcepciones);
 
-			List<CampoGlosario> campos = buscarCampos(bCodGlosario, tipoDato, nombreColumna, mcaException);
+			List<CampoGlosario> campos = buscarCampos(codGlosario, tipoDato, nombreColumna, mcaException);
 			populateModelCampos(campos);
 
-			List<Modelo> modelos = buscarModelos(bCodGlosario);
+			List<Modelo> modelos = buscarModelos(codGlosario);
 			populateModelModelos(modelos);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);

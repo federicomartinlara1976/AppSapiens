@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -93,7 +92,7 @@ public class FrmGlosarioCampos extends FrameSupport {
     private JComboBox<String> cmbTipoDato;
     
     @Getter
-    private JFormattedTextField txtCodigoGlosario;
+    private JTextField txtCodigoGlosario;
     
     @Getter
     private JTextField txtGlosario;
@@ -125,7 +124,7 @@ public class FrmGlosarioCampos extends FrameSupport {
     	jLabel6 = new JLabel();
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
-        txtCodigoGlosario = UIHelper.createIntegerField();
+        txtCodigoGlosario = new JTextField();
         txtGlosario = new JTextField();
         btnBuscarGlosario = new JButton();
         txtNombreColumna = new JTextField();
