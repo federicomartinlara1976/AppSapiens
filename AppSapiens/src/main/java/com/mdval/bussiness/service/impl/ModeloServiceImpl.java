@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import oracle.jdbc.OracleCallableStatement;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -413,18 +414,17 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void modificaModelo(Modelo modelo) {
+		//TODO fix this method. upload for test purposes
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_modifica_modelo");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = "{ call SM2_K_VALIDATOR.P_MODIFICA_MODELO( ?, ?, ? ) }";
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-			String tableSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String recordSubProyecto = String.format("%s.%s", paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
+			String typeError = "SM2_K_VALIDATOR.T_T_ERROR";
 
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
@@ -435,40 +435,24 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 			int arrayIndex = 0;
 			for (SubProyecto data : modelo.getSubProyectos()) {
-				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
+				java.sql.Date sqlDate = new java.sql.Date(data.getFechaActualizacion().getTime());
+				struct[arrayIndex++] = conn.createStruct("SM2_K_VALIDATOR.T_R_SUBPROYECTO",
 						new Object[]{ data.getCodigoProyecto(), data.getCodigoSubProyecto(), data.getDescripcionSubProyecto(),
-								data.getCodigoUsuario(), formatDate(data.getFechaActualizacion()) });
+								data.getCodigoUsuario(), sqlDate});
 			}
 
-			Array subProyectoTable = ((OracleConnection) conn).createOracleArray(tableSubProyecto, struct);
+			Array subProyectoTable = ((OracleConnection) conn).createOracleArray("SM2_K_VALIDATOR.T_T_SUBPROYECTO", struct);
 
-			callableStatement.setString(1, modelo.getCodigoProyecto());
-			callableStatement.setString(2, modelo.getNombreModelo());
-			callableStatement.setBigDecimal(3, modelo.getCodigoNorma());
-			callableStatement.setBigDecimal(4, modelo.getCodigoGlosario());
-			callableStatement.setString(5, modelo.getNombreEsquema());
-			callableStatement.setString(6, modelo.getNombreBbdd());
-			callableStatement.setString(7, modelo.getNombreCarpetaAdj());
-			callableStatement.setString(8, modelo.getCodigoGrupoBds());
-			callableStatement.setString(9, modelo.getCodigoHerramienta());
-			callableStatement.setString(10, modelo.getObservacionesModelo());
-			callableStatement.setString(11, modelo.getCodigoUsuario());
-			callableStatement.setString(12, modelo.getNomApnCmdb());
-			callableStatement.setString(13, modelo.getMcaGrantAll());
-			callableStatement.setString(14, modelo.getMcaGrantPublic());
-			callableStatement.setString(15, modelo.getMcaVariables());
-			callableStatement.setString(16, modelo.getCodigoCapaUsrown());
-			callableStatement.setArray(17, subProyectoTable);
-
-			callableStatement.registerOutParameter(18, Types.INTEGER);
-			callableStatement.registerOutParameter(19, Types.VARCHAR, typeError);
+			callableStatement.setArray(1, subProyectoTable);
+			callableStatement.registerOutParameter(2, Types.INTEGER);
+			callableStatement.registerOutParameter(3, Types.VARCHAR, typeError);
 
 			callableStatement.execute();
 
-			Integer result = callableStatement.getInt(18);
+			Integer result = callableStatement.getInt(2);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(19);
+				Array listaErrores = callableStatement.getArray(3);
 				ServiceException exception = buildException((Object[]) listaErrores.getArray());
 				throw exception;
 			}
