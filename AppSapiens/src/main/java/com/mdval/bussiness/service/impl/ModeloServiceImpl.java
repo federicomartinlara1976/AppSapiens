@@ -1,19 +1,5 @@
 package com.mdval.bussiness.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.sql.DataSource;
-
-import oracle.jdbc.OracleCallableStatement;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.service.ModeloService;
@@ -21,10 +7,20 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
-
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 import oracle.jdbc.internal.OracleConnection;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -60,8 +56,6 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 			Struct[] struct = new Struct[modelo.getSubProyectos().size()];
 
-
-
 			int arrayIndex = 0;
 			for (SubProyecto data : modelo.getSubProyectos()) {
 				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
@@ -90,7 +84,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setArray(17, subProyectoTable);
 			
 			callableStatement.registerOutParameter(18, Types.INTEGER);
-			callableStatement.registerOutParameter(19, Types.VARCHAR, typeError);
+			callableStatement.registerOutParameter(19, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
@@ -414,17 +408,18 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void modificaModelo(Modelo modelo) {
-		//TODO fix this method. upload for test purposes
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_modifica_modelo");
 		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
-		String runSP = "{ call SM2_K_VALIDATOR.P_MODIFICA_MODELO( ?, ?, ? ) }";
+		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = "SM2_K_VALIDATOR.T_T_ERROR";
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String tableSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String recordSubProyecto = String.format("%s.%s", paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
 
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
@@ -435,24 +430,40 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 			int arrayIndex = 0;
 			for (SubProyecto data : modelo.getSubProyectos()) {
-				java.sql.Date sqlDate = new java.sql.Date(data.getFechaActualizacion().getTime());
-				struct[arrayIndex++] = conn.createStruct("SM2_K_VALIDATOR.T_R_SUBPROYECTO",
+				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
 						new Object[]{ data.getCodigoProyecto(), data.getCodigoSubProyecto(), data.getDescripcionSubProyecto(),
-								data.getCodigoUsuario(), sqlDate});
+								data.getCodigoUsuario(), formatDate(data.getFechaActualizacion()) });
 			}
 
-			Array subProyectoTable = ((OracleConnection) conn).createOracleArray("SM2_K_VALIDATOR.T_T_SUBPROYECTO", struct);
+			Array subProyectoTable = ((OracleConnection) conn).createOracleArray(tableSubProyecto, struct);
 
-			callableStatement.setArray(1, subProyectoTable);
-			callableStatement.registerOutParameter(2, Types.INTEGER);
-			callableStatement.registerOutParameter(3, Types.VARCHAR, typeError);
+			callableStatement.setString(1, modelo.getCodigoProyecto());
+			callableStatement.setString(2, modelo.getNombreModelo());
+			callableStatement.setBigDecimal(3, modelo.getCodigoNorma());
+			callableStatement.setBigDecimal(4, modelo.getCodigoGlosario());
+			callableStatement.setString(5, modelo.getNombreEsquema());
+			callableStatement.setString(6, modelo.getNombreBbdd());
+			callableStatement.setString(7, modelo.getNombreCarpetaAdj());
+			callableStatement.setString(8, modelo.getCodigoGrupoBds());
+			callableStatement.setString(9, modelo.getCodigoHerramienta());
+			callableStatement.setString(10, modelo.getObservacionesModelo());
+			callableStatement.setString(11, modelo.getCodigoUsuario());
+			callableStatement.setString(12, modelo.getNomApnCmdb());
+			callableStatement.setString(13, modelo.getMcaGrantAll());
+			callableStatement.setString(14, modelo.getMcaGrantPublic());
+			callableStatement.setString(15, modelo.getMcaVariables());
+			callableStatement.setString(16, modelo.getCodigoCapaUsrown());
+			callableStatement.setArray(17, subProyectoTable);
+
+			callableStatement.registerOutParameter(18, Types.INTEGER);
+			callableStatement.registerOutParameter(19, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
-			Integer result = callableStatement.getInt(2);
+			Integer result = callableStatement.getInt(18);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(3);
+				Array listaErrores = callableStatement.getArray(19);
 				ServiceException exception = buildException((Object[]) listaErrores.getArray());
 				throw exception;
 			}
