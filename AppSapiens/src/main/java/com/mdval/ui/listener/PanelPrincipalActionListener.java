@@ -22,9 +22,12 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
+import com.mdval.bussiness.service.ModeloService;
+import com.mdval.bussiness.service.NormaService;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
@@ -200,10 +203,19 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		String cmd = (String) arg;
 		
 		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
 			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 			
 			if (!Objects.isNull(seleccionado)) {
+				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
+				Norma norma = normaService.consultaNorma(seleccionado.getCodigoNorma()); 
 				panelPrincipal.getTxtModeloProyecto().setText(seleccionado.getCodigoProyecto());
+				panelPrincipal.getTxtCodNorma().setText(norma.getCodigoNorma().toString());
+				panelPrincipal.getTxtDescNorma().setText(norma.getDescripcionNorma());
+				panelPrincipal.getTxtCodGlosario().setText(seleccionado.getCodigoGlosario().toString());
+				panelPrincipal.getTxtDescGlosario().setText(seleccionado.getDescripcionGlosario());
+				
 				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
 				
 				if (CollectionUtils.isNotEmpty(subProyectos)) {
