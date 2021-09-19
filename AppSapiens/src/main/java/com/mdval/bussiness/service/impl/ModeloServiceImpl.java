@@ -302,7 +302,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			String mcaVariables = callableStatement.getString(17);
 			String obsModelo = callableStatement.getString(18);
 
-			modelo.toBuilder()
+			modelo = Modelo.builder()
 					.codigoProyecto(codigoProyecto)
 					.nombreModelo(nombreModelo)
 					.nombreEsquema(nombreEsquema)
@@ -324,12 +324,11 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 					.subProyectos(subProyectos)
 					.build();
 
+			return modelo;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.consultaModelo] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
-
-		return modelo;
 	}
 
 	@Override

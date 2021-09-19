@@ -130,7 +130,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 				throw exception;
 			}
 
-			glosario.toBuilder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
+			glosario = Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
 					.fechaAlta(fechaAlta).fechaActualizacion(fechaActualizacion).build();
 
 			return glosario;

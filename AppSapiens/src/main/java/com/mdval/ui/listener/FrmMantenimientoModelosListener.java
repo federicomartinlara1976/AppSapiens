@@ -17,9 +17,11 @@ import javax.swing.JOptionPane;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.bussiness.service.ModeloService;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.ui.glosarios.FrmDefinicionGlosarios;
@@ -220,7 +222,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
 				
 				// rellenar los campos
-				dumpData(seleccionado);
+				dumpData(seleccionado, normaService);
 				
 				// se cargan los subproyectos
 				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
@@ -235,11 +237,26 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		}
 	}
 
-	private void dumpData(Modelo seleccionado) {
+	private void dumpData(Modelo seleccionado, NormaService normaService) {
+		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
+		
 		frmMantenimientoModelos.getTxtCodModelo().setText(seleccionado.getCodigoProyecto());
 		frmMantenimientoModelos.getTxtNombreModelo().setText(seleccionado.getNombreModelo());
-		String codGlosario = !Objects.isNull(seleccionado.getCodigoGlosario()) ? seleccionado.getCodigoGlosario().toString() : StringUtils.EMPTY;
-		frmMantenimientoModelos.getTxtCodGlosario().setText(codGlosario);
+		
+		// Consulta la norma
+		BigDecimal codNorma = seleccionado.getCodigoNorma();
+		if (!Objects.isNull(codNorma)) {
+			Norma norma = normaService.consultaNorma(codNorma);
+			frmMantenimientoModelos.getCmbNorma().setSelectedItem(norma);
+		}
+		
+		BigDecimal codGlosario = seleccionado.getCodigoGlosario();
+		if (!Objects.isNull(codGlosario)) {
+			Glosario glosario = glosarioService.consultarGlosario(codGlosario);
+			frmMantenimientoModelos.getTxtCodGlosario().setText(glosario.getCodigoGlosario().toString());
+			frmMantenimientoModelos.getTxtDescGlosario().setText(glosario.getDescripcionGlosario());
+		}
+		
 		frmMantenimientoModelos.getTxtEsquema().setText(seleccionado.getNombreEsquema());
 		frmMantenimientoModelos.getTxtBD().setText(seleccionado.getNombreBbdd());
 		frmMantenimientoModelos.getTxtCarpeta().setText(seleccionado.getNombreCarpetaAdj());
@@ -247,6 +264,20 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		frmMantenimientoModelos.getTxtHerramienta().setText(seleccionado.getCodigoHerramienta());
 		frmMantenimientoModelos.getTxtObservaciones().setText(seleccionado.getObservacionesModelo());
 		frmMantenimientoModelos.getTxtUsuario().setText(seleccionado.getCodigoUsuario());
+		frmMantenimientoModelos.getTxtFecha().setText(dateFormatter.dateToString(seleccionado.getFechaActualizacion()));
+		frmMantenimientoModelos.getTxtAplicacion().setText(seleccionado.getNomApnCmdb());
+		
+		String selectedGrantAll = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaGrantAll());
+		frmMantenimientoModelos.getCmbGrantAll().setSelectedItem(selectedGrantAll);
+		
+		String selectedGrantPublic = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaGrantPublic());
+		frmMantenimientoModelos.getCmbGrantPublic().setSelectedItem(selectedGrantPublic);
+		
+		String selectedVariables = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaVariables());
+		frmMantenimientoModelos.getCmbGeneraVariables().setSelectedItem(selectedVariables);
+		
+		String selectedVariablesConCapa = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaVariablesConCapa());
+		frmMantenimientoModelos.getCmbVariablesConCapa().setSelectedItem(selectedVariablesConCapa);
 	}
 
 	@Override
