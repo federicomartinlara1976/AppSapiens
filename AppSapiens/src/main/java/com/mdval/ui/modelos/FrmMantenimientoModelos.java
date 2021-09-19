@@ -13,7 +13,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.ui.listener.FrmDefinicionModelosListener;
 import com.mdval.ui.listener.FrmMantenimientoModelosListener;
 import com.mdval.ui.listener.tables.SubProyectoTableListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
@@ -153,9 +153,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
     
     @Getter
     private JTextArea txtObservaciones;
-	
-    @Getter
-    private JFrame frameParent;
     
     @Getter
     private FrmMantenimientoModelosListener frmMantenimientoModelosListener;
@@ -608,8 +605,13 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
+		FrmDefinicionModelos frmDefinicionModelos = (FrmDefinicionModelos) this.getParent();
+		FrmDefinicionModelosListener frmDefinicionModelosListener = frmDefinicionModelos.getFrmDefinicionModelosListener();
+		
 		frmMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);
 		ListSelectionListener listSelectionListener = new SubProyectoTableListener(this);
+		
+		frmMantenimientoModelosListener.addObservador(frmDefinicionModelosListener);
 		
 		btnBuscarGlosario.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
 		btnAddSubmodelo.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO);

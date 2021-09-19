@@ -15,10 +15,15 @@ import javax.swing.JButton;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.bussiness.entities.ValidaParticula;
+import com.mdval.bussiness.service.ElementoNormaService;
+import com.mdval.bussiness.service.ModeloService;
+import com.mdval.bussiness.service.NormaService;
 import com.mdval.bussiness.service.TipoElementoService;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.ui.consultas.FrmComprobacionNombreElemento;
@@ -101,14 +106,40 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 			
 			String nombreComprobar = frmComprobacionNombreElemento.getTxtNombreComprobar().getText();
 			
+			List<ElementoNorma> elementosNorma = obtenerElementosNorma(codigoNorma, codigoElemento);
 			List<ValidaParticula> validaciones = comprobar(codigoNorma, codigoProyecto, codSubModelo, codigoElemento, nombreComprobar);
 			populateModel(validaciones);
+			rellenarCamposElementoNorma(elementosNorma);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(frmComprobacionNombreElemento, Constants.CMD_ERROR, params);
 		}
 	}
+
+	/**
+	 * @param codigoNorma
+	 * @param codigoElemento
+	 * @return
+	 */
+	private List<ElementoNorma> obtenerElementosNorma(BigDecimal codigoNorma, BigDecimal codigoElemento) {
+		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(Constants.ELEMENTO_NORMA_SERVICE);
+		return elementoNormaService.consultarDefinicionElementoNorma(codigoNorma, codigoElemento);
+	}
 	
+	/**
+	 * @param elementosNorma
+	 */
+	private void rellenarCamposElementoNorma(List<ElementoNorma> elementosNorma) {
+		if (CollectionUtils.isNotEmpty(elementosNorma)) {
+			ElementoNorma elementoNorma = elementosNorma.get(0);
+		
+			frmComprobacionNombreElemento.getTxtCodNorma().setText(elementoNorma.getCodigoNorma().toString());
+			frmComprobacionNombreElemento.getTxtDescNorma().setText(elementoNorma.getDescripcionNorma());
+			frmComprobacionNombreElemento.getTxtTamMaximo().setText(elementoNorma.getValorTamanoMaximo().toString());
+			frmComprobacionNombreElemento.getTxtExpresionRegular().setText(elementoNorma.getTxtFormato());
+		}
+	}
+
 	/**
 	 * @param codigoNorma
 	 * @param codigoProyecto
@@ -153,15 +184,27 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 		String cmd = (String) arg;
 		
 		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
 			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 			
 			if (!Objects.isNull(seleccionado)) {
+				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
+				Norma norma = normaService.consultaNorma(seleccionado.getCodigoNorma()); 
 				frmComprobacionNombreElemento.getTxtModeloProyecto().setText(seleccionado.getCodigoProyecto());
-				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
+				frmComprobacionNombreElemento.getTxtCodNorma().setText(norma.getCodigoNorma().toString());
+				frmComprobacionNombreElemento.getTxtDescNorma().setText(norma.getDescripcionNorma());
+				frmComprobacionNombreElemento.getTxtCodGlosario().setText(seleccionado.getCodigoGlosario().toString());
+				frmComprobacionNombreElemento.getTxtDescGlosario().setText(seleccionado.getDescripcionGlosario());
 				
+				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
 				if (CollectionUtils.isNotEmpty(subProyectos)) {
 					SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
 					frmComprobacionNombreElemento.getCmbSubmodelo().setModel(modelSubProyectos);
+					
+					if (subProyectos.size() == 1) {
+						frmComprobacionNombreElemento.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
+					}
 				}
  			}
 		}

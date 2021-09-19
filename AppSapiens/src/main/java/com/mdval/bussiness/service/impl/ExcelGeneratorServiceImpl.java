@@ -109,8 +109,6 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	private void createRowCampoGlosario(CampoGlosario campoGlosario, Row row) // creating cells for each row
 	{
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-
 		Cell cell = row.createCell(0);
 		cell.setCellValue(campoGlosario.getNombreColumna());
 

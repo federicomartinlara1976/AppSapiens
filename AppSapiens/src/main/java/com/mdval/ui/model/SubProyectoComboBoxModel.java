@@ -38,9 +38,6 @@ public class SubProyectoComboBoxModel extends AbstractListModel<SubProyecto> imp
 		super();
 		this.subProyectos = new ArrayList<>();
 		
-		// En este modelo de combo se añade el campo vacío
-		this.subProyectos.add(null);
-		
 		for (SubProyecto subProyecto : subProyectos) {
 			this.subProyectos.add(subProyecto);
 		}

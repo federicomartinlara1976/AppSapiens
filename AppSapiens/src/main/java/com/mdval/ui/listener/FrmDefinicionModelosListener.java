@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
@@ -33,7 +34,7 @@ import com.mdval.utils.Constants;
  * @author federico
  *
  */
-public class FrmDefinicionModelosListener extends ListenerSupport implements ActionListener, OnLoadListener {
+public class FrmDefinicionModelosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
 	private FrmDefinicionModelos frmDefinicionModelos;
 
@@ -203,5 +204,18 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 		DefinicionModelosTableModel tableModel = (DefinicionModelosTableModel) frmDefinicionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		String cmd = (String) arg;
+		
+		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR.equals(cmd)) {
+			eventBtnBuscar();
+		}
+		
 	}
 }

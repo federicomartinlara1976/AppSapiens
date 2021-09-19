@@ -38,9 +38,6 @@ public class TipoElementoComboBoxModel extends AbstractListModel<TipoElemento> i
 		super();
 		this.tipos = new ArrayList<>();
 		
-		// En este modelo de combo se añade el campo vacío
-		this.tipos.add(null);
-		
 		for (TipoElemento tipoElemento : tipos) {
 			this.tipos.add(tipoElemento);
 		}
