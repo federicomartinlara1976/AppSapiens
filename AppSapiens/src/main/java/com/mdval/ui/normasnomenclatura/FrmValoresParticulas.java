@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -25,7 +24,7 @@ import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
-import com.mdval.ui.renderer.DateRenderer;
+import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -102,7 +101,7 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	protected void setupComponents() {
 
-        jLabel1 = new JLabel();
+		jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         txtCodigo = new JTextField();
@@ -123,9 +122,8 @@ public class FrmValoresParticulas extends FrameSupport {
         btnBuscar = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(1338, 506));
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
-        
+        setMinimumSize(new Dimension(1338, 906));
+
         panelLogo.setPreferredSize(new Dimension(286, 63));
 
         GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
@@ -140,14 +138,13 @@ public class FrmValoresParticulas extends FrameSupport {
         );
 
         jLabel1.setFont(new Font("Dialog", 1, 18)); // NOI18N
-
         txtCodigo.setPreferredSize(new Dimension(4, 27));
-        
+
         txtDescripcion.setMinimumSize(new Dimension(4, 27));
         txtDescripcion.setPreferredSize(new Dimension(64, 27));
-        
-        
+
         btnAltaElemento.setPreferredSize(new Dimension(130, 27));
+
         btnBajaElemento.setPreferredSize(new Dimension(130, 27));
 
         jScrollPane1.setViewportView(tblTiposParticula);
@@ -206,8 +203,8 @@ public class FrmValoresParticulas extends FrameSupport {
                                 .addComponent(jLabel5)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2)
                         .addContainerGap())))
         );
@@ -294,12 +291,12 @@ public class FrmValoresParticulas extends FrameSupport {
 	@Override
 	protected void initModels() {
 		tblTiposParticula.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblTiposParticula.setDefaultRenderer(Date.class, new DateRenderer());
+		tblTiposParticula.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
 		
 		tblValoresParticulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblValoresParticulas.setDefaultRenderer(Date.class, new DateRenderer());
+		tblValoresParticulas.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblValoresParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblValoresParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
