@@ -147,12 +147,18 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			String grupo = frmMantenimientoModelos.getTxtGrupo().getText();
 			String herramienta = frmMantenimientoModelos.getTxtHerramienta().getText();
 			String observaciones = frmMantenimientoModelos.getTxtObservaciones().getText();
+			String aplicacion = frmMantenimientoModelos.getTxtAplicacion().getText();
 			String mcaGrantAll = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantAll().getSelectedItem());
 			String mcaGrantPublic = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGrantPublic().getSelectedItem());
 			String mcaGeneraVariables = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbGeneraVariables().getSelectedItem());
 			String mcaVariablesConCapa = AppHelper.normalizeCmbSiNoValue((String) frmMantenimientoModelos.getCmbVariablesConCapa().getSelectedItem());
 			SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
 			List<SubProyecto> subProyectos = tableModel.getData();
+			
+			// Error si no se ha rellenado la lista de subproyectos
+			if (CollectionUtils.isEmpty(subProyectos)) {
+				throw new Exception(literales.getLiteral("subproyectos.error"));
+			}
 			
 			Modelo modelo = new Modelo();
 			modelo.setCodigoProyecto(codigoProyecto);
@@ -165,6 +171,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			modelo.setCodigoGrupoBds(grupo);
 			modelo.setCodigoHerramienta(herramienta);
 			modelo.setObservacionesModelo(observaciones);
+			modelo.setNomApnCmdb(aplicacion);
 			modelo.setMcaGrantAll(mcaGrantAll);
 			modelo.setMcaGrantPublic(mcaGrantPublic);
 			modelo.setMcaVariables(mcaGeneraVariables);

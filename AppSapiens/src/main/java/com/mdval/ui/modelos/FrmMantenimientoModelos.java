@@ -673,5 +673,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
         
         Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA);
         tblSubproyectos.setModel(new SubProyectoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+        tblSubproyectos.setColumnWidths(cabecera);
 	}
 }

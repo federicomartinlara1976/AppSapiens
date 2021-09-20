@@ -21,5 +21,10 @@ public class SubProyectoCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);
+		
+		columnSizes.add(60);
+		columnSizes.add(450);
+		columnSizes.add(60);
+		columnSizes.add(100);
 	}
 }

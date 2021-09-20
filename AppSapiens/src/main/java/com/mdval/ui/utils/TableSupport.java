@@ -1,6 +1,7 @@
 package com.mdval.ui.utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JTable;
 
@@ -43,7 +44,10 @@ public class TableSupport extends JTable {
 		if (CollectionUtils.isNotEmpty(widths)) {
 	        for (int i = 0; i < widths.size(); i++) {
 	            if (i < columnModel.getColumnCount()) {
-	                columnModel.getColumn(i).setPreferredWidth(widths.get(i));
+	            	Integer width = widths.get(i);
+	            	if (!Objects.isNull(width)) {
+	            		columnModel.getColumn(i).setPreferredWidth(width);
+	            	}
 	            }
 	            else break;
 	        }

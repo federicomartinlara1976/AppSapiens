@@ -33,7 +33,7 @@ public class TablaValoresParticulasCabecera extends Cabecera {
 		
 		columnSizes.add(60);
 		columnSizes.add(60);
-		columnSizes.add(300);
+		columnSizes.add(450);
 		columnSizes.add(60);
 		columnSizes.add(60);
 		columnSizes.add(60);

@@ -221,6 +221,10 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				if (CollectionUtils.isNotEmpty(subProyectos)) {
 					SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
 					panelPrincipal.getCmbSubmodelo().setModel(modelSubProyectos);
+					
+					if (subProyectos.size() == 1) {
+						panelPrincipal.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
+					}
 				}
  			}
 		}
