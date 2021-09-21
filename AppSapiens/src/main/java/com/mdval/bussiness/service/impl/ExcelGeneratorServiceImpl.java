@@ -7,7 +7,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -249,10 +251,12 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		cell.setCellValue(campoGlosario.getTipoDato());
 
 		cell = row.createCell(2);
-		cell.setCellValue(campoGlosario.getNumeroLongitud().toString());
+		String longitud = (!Objects.isNull(campoGlosario.getNumeroLongitud())) ? campoGlosario.getNumeroLongitud().toString() : StringUtils.EMPTY;
+		cell.setCellValue(longitud);
 
 		cell = row.createCell(3);
-		cell.setCellValue(campoGlosario.getNumeroDecimal().toString());
+		String decimales = (!Objects.isNull(campoGlosario.getNumeroDecimal())) ? campoGlosario.getNumeroDecimal().toString() : StringUtils.EMPTY;
+		cell.setCellValue(decimales);
 	}
 
 	@SneakyThrows
