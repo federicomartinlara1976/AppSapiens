@@ -143,7 +143,7 @@ public class FrmDefinicionModelos extends FrameSupport {
         cmbNorma = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(961, 609));
+        setMinimumSize(new Dimension(1366, 768));
 
         panelLogo.setPreferredSize(new Dimension(286, 63));
 

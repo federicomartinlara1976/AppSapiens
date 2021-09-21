@@ -122,7 +122,7 @@ public class FrmValoresParticulas extends FrameSupport {
         btnBuscar = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(1338, 906));
+        setMinimumSize(new Dimension(1366, 768));
 
         panelLogo.setPreferredSize(new Dimension(286, 63));
 

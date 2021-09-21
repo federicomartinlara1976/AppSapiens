@@ -90,31 +90,39 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 		
 		// Recoger los datos de los cuadros y crear un objeto SubProyecto
+		String codigoProyecto = frmMantenimientoModelos.getTxtCodModelo().getText();
+		if (StringUtils.isBlank(codigoProyecto)) {
+			JOptionPane.showMessageDialog(frmMantenimientoModelos, literales.getLiteral("subproyectos.proyecto.error"));
+			return;
+		}
+		
 		String codigoSubProyecto = frmMantenimientoModelos.getTxtCodigoSubmodelo().getText();
 		String descripcionSubProyecto = frmMantenimientoModelos.getTxtDescripcionSubmodelo().getText();
 		
-		SubProyecto subProyecto = new SubProyecto();
-		subProyecto.setCodigoProyecto(StringUtils.EMPTY);
-		subProyecto.setCodigoSubProyecto(codigoSubProyecto);
-		subProyecto.setDescripcionSubProyecto(descripcionSubProyecto);
-		subProyecto.setCodigoUsuario(usuario);
-		subProyecto.setFechaActualizacion(new Date());
+		if (StringUtils.isNotBlank(codigoSubProyecto) && StringUtils.isNotBlank(descripcionSubProyecto)) {
+			SubProyecto subProyecto = new SubProyecto();
+			subProyecto.setCodigoProyecto(codigoProyecto);
+			subProyecto.setCodigoSubProyecto(codigoSubProyecto);
+			subProyecto.setDescripcionSubProyecto(descripcionSubProyecto);
+			subProyecto.setCodigoUsuario(usuario);
+			subProyecto.setFechaActualizacion(new Date());
 		
-		// Ver si el objeto ya está en la lista (por código de subproyecto)
-		SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
-		List<SubProyecto> subProyectos = tableModel.getData();
-		
-		SubProyectoPredicate predicate = new SubProyectoPredicate(subProyecto);
-		List<SubProyecto> encontrados = new ArrayList<>(CollectionUtils.select(subProyectos, predicate));
-		
-		if (CollectionUtils.isEmpty(encontrados)) { // Meterlo si no está
-			tableModel.addData(subProyecto);
-		}
-		else { // Actualizarlo si está
-			List<SubProyecto> replaces = new ArrayList<>(subProyectos);
-			SubProyectoUpdateClosure closure = new SubProyectoUpdateClosure(subProyecto);
-			CollectionUtils.forAllDo(replaces, closure);
-			tableModel.setData(replaces);
+			// Ver si el objeto ya está en la lista (por código de subproyecto)
+			SubProyectoTableModel tableModel = (SubProyectoTableModel) frmMantenimientoModelos.getTblSubproyectos().getModel();
+			List<SubProyecto> subProyectos = tableModel.getData();
+			
+			SubProyectoPredicate predicate = new SubProyectoPredicate(subProyecto);
+			List<SubProyecto> encontrados = new ArrayList<>(CollectionUtils.select(subProyectos, predicate));
+			
+			if (CollectionUtils.isEmpty(encontrados)) { // Meterlo si no está
+				tableModel.addData(subProyecto);
+			}
+			else { // Actualizarlo si está
+				List<SubProyecto> replaces = new ArrayList<>(subProyectos);
+				SubProyectoUpdateClosure closure = new SubProyectoUpdateClosure(subProyecto);
+				CollectionUtils.forAllDo(replaces, closure);
+				tableModel.setData(replaces);
+			}
 		}
 	}
 
