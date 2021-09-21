@@ -54,12 +54,23 @@ public class PanelResultados extends PanelSupport {
 	@Getter
 	@Setter
 	private DetValidacion seleccionado;
+	
+	@Getter
+	private PanelPrincipal panelPrincipal;
 
 	/**
 	 * Creates new form PanelResultados
 	 */
 	public PanelResultados() {
 		super();
+	}
+	
+	/**
+	 * Creates new form PanelResultados
+	 */
+	public PanelResultados(PanelPrincipal panelPrincipal) {
+		super();
+		this.panelPrincipal = panelPrincipal;
 	}
 
 	/**

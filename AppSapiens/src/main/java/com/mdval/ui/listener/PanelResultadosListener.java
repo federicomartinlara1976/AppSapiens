@@ -6,14 +6,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.InformeValidacion;
+import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.bussiness.service.ExcelGeneratorService;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.ui.model.DetalleValidacionTableModel;
@@ -70,6 +73,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			String excepcion = dlg.getTxtComentario().getText();
 			if (StringUtils.isNotBlank(excepcion)) {
 				insertarExcepcion(seleccionado, excepcion);
+				cargarElementosErrores();
 			}
 
 		} catch (Exception e) {
@@ -162,11 +166,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 				JOptionPane.showMessageDialog(panelResultados.getParent(), msg);
 
-				/**
-				 * En este punto invocar un método que informe a los observadores del patrón
-				 * observer para que invoquen a su método de actualización
-				 */
-				updateObservers(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
+				cargarElementosNoGlosario();
 
 			}
 		} catch (Exception e) {
@@ -206,6 +206,41 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void cargarElementosNoGlosario() {
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosNoGlosarioValidacion(response.getNumeroValidacion());
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.TRUE);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void cargarElementosErrores() {
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosConErroresValidacion(response.getNumeroValidacion());
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 }

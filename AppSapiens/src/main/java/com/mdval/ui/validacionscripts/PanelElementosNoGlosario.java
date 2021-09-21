@@ -16,6 +16,10 @@ public class PanelElementosNoGlosario extends PanelResultados {
 	 */
 	private static final long serialVersionUID = 8717868648566455220L;
 	
+	public PanelElementosNoGlosario(PanelPrincipal panelPrincipal) {
+		super(panelPrincipal);
+	}
+
 	/**
 	 *
 	 */

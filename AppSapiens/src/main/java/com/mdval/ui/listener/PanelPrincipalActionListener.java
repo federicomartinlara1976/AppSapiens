@@ -1,5 +1,6 @@
 package com.mdval.ui.listener;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -180,14 +181,14 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				
 				panelPrincipal.setResponse(response);
 				
-				// Poner en rojo si hay elementos que no están en el glosario
+				// Poner en rojo el título de la pestaña si hay elementos que no están en el glosario
 				if (Constants.S.equals(response.getElementosNoGlosario())) {
-					
+					panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.RED);
 				}
 				
-				// Poner en rojo si hay elementos con errores
+				// Poner en rojo título de la pestaña si hay elementos con errores
 				if (Constants.S.equals(response.getElementosErrores())) {
-					
+					panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.RED);
 				}
 				
 				// Se carga la información en Elementos a Validar

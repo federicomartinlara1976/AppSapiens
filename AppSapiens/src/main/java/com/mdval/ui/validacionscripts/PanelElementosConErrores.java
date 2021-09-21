@@ -16,6 +16,10 @@ public class PanelElementosConErrores extends PanelResultados {
 	 */
 	private static final long serialVersionUID = 8717868648566455220L;
 	
+	public PanelElementosConErrores(PanelPrincipal panelPrincipal) {
+		super(panelPrincipal);
+	}
+
 	/**
 	 *
 	 */

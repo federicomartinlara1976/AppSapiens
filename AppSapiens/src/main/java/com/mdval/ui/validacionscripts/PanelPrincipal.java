@@ -421,11 +421,11 @@ public class PanelPrincipal extends PanelSupport {
 	}
 	
 	private void loadResultados() {
-		panelElementosValidar = new PanelResultados();
-        panelElementosCorrectos = new PanelResultados();
-        panelNoEstanEnGlosario = new PanelElementosNoGlosario();
-        panelConErrores = new PanelElementosConErrores();
-        panelExcepciones = new PanelResultados();
+		panelElementosValidar = new PanelResultados(this);
+        panelElementosCorrectos = new PanelResultados(this);
+        panelNoEstanEnGlosario = new PanelElementosNoGlosario(this);
+        panelConErrores = new PanelElementosConErrores(this);
+        panelExcepciones = new PanelResultados(this);
 
         jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosValidar"), panelElementosValidar);
         jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosCorrectos"), panelElementosCorrectos);
