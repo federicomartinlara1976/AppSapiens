@@ -2,21 +2,26 @@ package com.mdval.ui.utils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.text.NumberFormat;
 import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.NumberFormatter;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.creators.CabeceraTablaCreator;
 import com.mdval.ui.utils.creators.Creator;
 import com.mdval.ui.utils.creators.DialogCreator;
 import com.mdval.ui.utils.creators.FrameCreator;
+import com.mdval.utils.LiteralesSingleton;
 
 /**
  * @author federico
@@ -163,5 +168,29 @@ public class UIHelper {
 	    // If you want the value to be committed on each keystroke instead of focus lost
 	    formatter.setCommitsOnValidEdit(true);
 	    return new JFormattedTextField(formatter);
+	}
+	
+	public static String selectFolder(FrameSupport parent) {
+		try {
+			LiteralesSingleton literales = LiteralesSingleton.getInstance();
+			
+			String path = StringUtils.EMPTY;
+			JFileChooser chooser = new JFileChooser();
+			chooser.setCurrentDirectory(new File("."));
+			chooser.setDialogTitle(literales.getLiteral("glosarioCampos.tituloChooser"));
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			//
+			// disable the "All files" option.
+			//
+			chooser.setAcceptAllFileFilterUsed(false);
+			//
+			if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+				path = chooser.getSelectedFile().getAbsolutePath();
+			}
+	
+			return path;
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
 	}
 }

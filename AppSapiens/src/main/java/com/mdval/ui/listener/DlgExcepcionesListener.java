@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.validacionscripts.DlgExcepciones;
 import com.mdval.utils.Constants;
@@ -27,20 +29,12 @@ public class DlgExcepcionesListener extends ListenerSupport implements ActionLis
 		JButton jButton = (JButton) e.getSource();
 		
 		if (Constants.DLG_EXCEPCIONES_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
-			eventBtnAceptar();
+			dlgExcepciones.dispose();
 		}
 
 		if (Constants.DLG_EXCEPCIONES_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+			dlgExcepciones.getTxtComentario().setText(StringUtils.EMPTY);
 			dlgExcepciones.dispose();
 		}
 	}
-
-	/**
-	 * 
-	 */
-	private void eventBtnAceptar() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

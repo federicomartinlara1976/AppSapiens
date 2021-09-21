@@ -2,7 +2,6 @@ package com.mdval.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,15 +26,11 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-
-import lombok.extern.log4j.Log4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
 public class FrmGlosarioCamposListener extends ListenerSupport implements ActionListener, Observer {
 
 	private FrmGlosarioCampos frmGlosarioCampos;
@@ -152,7 +146,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private void eventBtnImprimir() {
 		// En este punto preguntar la ruta con el componente específico de
 		// selección de carpeta.
-		String path = selectFolder();
+		String path = UIHelper.selectFolder(frmGlosarioCampos);
 
 		if (StringUtils.isNotBlank(path)) {
 			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
@@ -265,24 +259,5 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
-	}
-
-	private String selectFolder() {
-		String path = StringUtils.EMPTY;
-		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new File("."));
-		chooser.setDialogTitle(literales.getLiteral("glosarioCampos.tituloChooser"));
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		//
-		// disable the "All files" option.
-		//
-		chooser.setAcceptAllFileFilterUsed(false);
-		//
-		if (chooser.showOpenDialog(frmDefinicionGlosarios) == JFileChooser.APPROVE_OPTION) {
-			LogWrapper.debug(log, "Carpeta seleccionada: %s", chooser.getSelectedFile());
-			path = chooser.getSelectedFile().getAbsolutePath();
-		}
-
-		return path;
 	}
 }

@@ -1,7 +1,9 @@
 package com.mdval.bussiness.service.impl;
 
 
+import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.DetValidacion;
+import com.mdval.bussiness.entities.InformeValidacion;
 import com.mdval.bussiness.entities.ValidaParticula;
 import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
@@ -21,6 +23,7 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -502,5 +505,114 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			LogWrapper.error(log, "[ValidacionService.validaScript] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	@SneakyThrows
+	public InformeValidacion generarInformeValidacion(BigDecimal numeroValidacion) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String paquete = configuration.getConfig("paquete");
+		String procedure = configuration.getConfig("p_generar_informe_val");
+		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeCampoGlosario = String.format("%s.%s", paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
+
+			logProcedure(runSP, numeroValidacion);
+
+			callableStatement.setBigDecimal(1, numeroValidacion);
+			callableStatement.registerOutParameter(2, Types.ARRAY, typeDetValidacion);
+			callableStatement.registerOutParameter(3, Types.ARRAY, typeDetValidacion);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeCampoGlosario);
+			callableStatement.registerOutParameter(5, Types.INTEGER);
+			callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(5);
+
+			if (result == 0) {
+				Array listaErrores = callableStatement.getArray(6);
+				ServiceException exception = buildException((Object[]) listaErrores.getArray());
+				throw exception;
+			}
+			
+			Array arrayDetValidacion = callableStatement.getArray(2);
+			List<DetValidacion> listaErrores = toListDetalles(arrayDetValidacion);
+			
+			arrayDetValidacion = callableStatement.getArray(3);
+			List<DetValidacion> listaOtraDef = toListDetalles(arrayDetValidacion);
+			
+			Array arrayCampoGlosario = callableStatement.getArray(4);
+			List<CampoGlosario> listaCampos = toListCampos(arrayCampoGlosario);
+			
+			InformeValidacion informeValidacion = new InformeValidacion();
+			informeValidacion.setListaErroneos(listaErrores);
+			informeValidacion.setListaOtraDefinicion(listaOtraDef);
+			informeValidacion.setListaDefinicionGlosario(listaCampos);
+			
+			return informeValidacion;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ValidacionService.generarInformeValidacion] Error: %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * @param arrayCamposGlosario
+	 * @return
+	 * @throws SQLException
+	 */
+	private List<CampoGlosario> toListCampos(Array arrayCamposGlosario) throws SQLException {
+		List<CampoGlosario> camposGlosario = new ArrayList<>();
+		
+		if (arrayCamposGlosario != null) {
+			Object[] rows = (Object[]) arrayCamposGlosario.getArray();
+			for (Object row : rows) {
+				Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+				CampoGlosario campoGlosario = CampoGlosario.builder().nombreColumna((String) cols[0])
+						.tipoDato((String) cols[1]).numeroLongitud((BigDecimal) cols[2])
+						.numeroDecimal((BigDecimal) cols[3]).codigoGlosario((BigDecimal) cols[4])
+						.mcaExcepcion((String) cols[5]).txtComentario((String) cols[6])
+						.txtExcepcion((String) cols[7]).codigoUsuario((String) cols[8])
+						.fechaActualizacion((Date) cols[9]).build();
+				camposGlosario.add(campoGlosario);
+			}
+		}
+
+		return camposGlosario;
+	}
+
+	private List<DetValidacion> toListDetalles(Array arrayDetValidacion) throws SQLException {
+		List<DetValidacion> detValidaciones = new ArrayList<>();
+		
+		if (arrayDetValidacion != null) {
+			Object[] rows = (Object[]) arrayDetValidacion.getArray();
+			for (Object row : rows) {
+				Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+				DetValidacion detValidacion = DetValidacion.builder()
+						.numeroValidacion((BigDecimal) cols[0])
+						.numeroElementoValid((BigDecimal) cols[1])
+						.descripcionElemento((String) cols[2])
+						.nombreElemento((String) cols[3])
+						.nombreTabla((String) cols[4])
+						.tipoDato((String) cols[5])
+						.numeroLongitud((BigDecimal) cols[6])
+						.numeroDecimal((BigDecimal) cols[7])
+						.codigoEstadoValid((BigDecimal) cols[8])
+						.txtDescripcionValid((String) cols[9])
+						.build();
+				detValidaciones.add(detValidacion);
+			}
+		}
+		
+		return detValidaciones;
 	}
 }
