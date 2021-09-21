@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import javax.swing.JDialog;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -65,24 +64,9 @@ public class MDValApplication implements CommandLineRunner {
 	 * 
 	 */
 	private void setupUIEnvironment() {
-		try {
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-
-			// Enter para los botones que tengan el foco
-			UIManager.put("Button.focusInputMap",
-					new UIDefaults.LazyInputMap(
-							new Object[] { "ENTER", "pressed", "released ENTER", "released" }
-							)
-					);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException ex) {
-			LogWrapper.error(log, "FATAL:", ex);
-		}
+		// Enter para los botones que tengan el foco
+		UIManager.put("Button.focusInputMap",
+				new UIDefaults.LazyInputMap(new Object[] { "ENTER", "pressed", "released ENTER", "released" }));
 	}
 
 	/**

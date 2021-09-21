@@ -158,7 +158,7 @@ public class PanelPrincipal extends PanelSupport {
         txtScript = new JTextArea();
         btnValidar = new JButton();
         jLabel7 = new JLabel();
-        jTabbedPane1 = new JTabbedPane();
+        jTabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
         txtCodNorma = new JTextField();
         txtDescNorma = new JTextField();
         jLabel13 = new JLabel();
