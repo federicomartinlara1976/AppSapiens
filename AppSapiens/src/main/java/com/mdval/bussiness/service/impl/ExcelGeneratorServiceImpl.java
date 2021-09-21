@@ -3,10 +3,8 @@ package com.mdval.bussiness.service.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -142,9 +140,9 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	public void generarExcelValidacionNomenclatura(InformeValidacion informeValidacion, String path) {
 
-//		List<DetValidacion> listaErroneos = informeValidacion.getListaErroneos();  nombreReporteValidacionErroneos
-//		List<DetValidacion> listaOtraDefinicion = informeValidacion.getListaOtraDefinicion(); nombreReporteValidacionOtraDefinicion
-//		List<CampoGlosario> listaDefinicionGlosario = informeValidacion.getListaDefinicionGlosario(); nombreReporteValidacionGlosario
+		List<DetValidacion> listaError = informeValidacion.getListaErroneos();  //nombreReporteValidacionErroneos
+		List<DetValidacion> listaOtraDefinicion = informeValidacion.getListaOtraDefinicion(); //nombreReporteValidacionOtraDefinicion
+		List<CampoGlosario> listaGlosario = informeValidacion.getListaDefinicionGlosario(); //nombreReporteValidacionGlosario
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String nombreReporteValidacionErroneos = configuration.getConfig("nombreReporteValidacionErroneos");
@@ -156,43 +154,9 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String nombreReporteValidacionGlosario = configuration.getConfig("nombreReporteValidacionGlosario");
 		String nombreHojaValidacionGlosario = configuration.getConfig("nombreHojaValidacionGlosario");
 
-        List<CampoGlosario> listaGlosario = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            CampoGlosario campoGlosario = CampoGlosario.builder()
-                    .tipoDato("tipoDato"+i) // Tipo
-                    .nombreColumna("nombre"+i) //Campo
-                    .numeroLongitud(BigDecimal.valueOf(i)) //Longitud
-                    .numeroDecimal(BigDecimal.valueOf(i)) //Decimales
-                    .mcaExcepcion("mcaEx"+i) //Excepcion
-                    .txtComentario("comentario"+i) //Comentario
-                    .txtExcepcion("comentarioExcepcion"+i) //Comentario Excepcion
-                    .codigoUsuario("usuario"+i) //COD_USR
-                    .fechaActualizacion(new Date()) // FEC_ACTU
-                    .build();
-			listaGlosario.add(campoGlosario);
-        }
-
-		List<DetValidacion> listaError = new ArrayList<>();
-
-		for (int i = 0; i < 10; i++) {
-			DetValidacion detValidacion = DetValidacion.builder()
-					.numeroValidacion(BigDecimal.valueOf(i))
-					.numeroElementoValid(BigDecimal.valueOf(i))
-					.descripcionElemento("descripcionElemento"+i)
-					.nombreElemento("nombreElemento"+i)
-					.tipoDato("tipoDato"+i)
-					.numeroLongitud(BigDecimal.valueOf(i))
-					.numeroDecimal(BigDecimal.valueOf(i))
-					.codigoEstadoValid(BigDecimal.valueOf(i))
-					.txtDescripcionValid("comentarioExcepcion"+i)
-					.build();
-			listaError.add(detValidacion);
-		}
-
 		generateReporteValidacionErroneos(listaError, nombreReporteValidacionErroneos, nombreHojaValidacionErroneos, path);
 		generateReporteValidacionGlosario(listaGlosario, nombreReporteValidacionGlosario, nombreHojaValidacionGlosario, path);
-		generateReporteValidacionOtraDefinicion(listaError, nombreReporteValidacionOtraDefinicion, nombreHojaValidacionOtraDefinicion, path);
+		generateReporteValidacionOtraDefinicion(listaOtraDefinicion, nombreReporteValidacionOtraDefinicion, nombreHojaValidacionOtraDefinicion, path);
 
 	}
 
