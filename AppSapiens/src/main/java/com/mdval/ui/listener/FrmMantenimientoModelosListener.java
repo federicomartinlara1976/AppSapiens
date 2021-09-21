@@ -14,6 +14,7 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,6 +32,7 @@ import com.mdval.ui.modelos.FrmMantenimientoModelos;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.ui.utils.collections.CheckSubProyectoUpdateClosure;
 import com.mdval.ui.utils.collections.SubProyectoPredicate;
 import com.mdval.ui.utils.collections.SubProyectoUpdateClosure;
 import com.mdval.utils.AppGlobalSingleton;
@@ -144,6 +146,11 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			String msg = StringUtils.EMPTY;
 			
 			String codigoProyecto = frmMantenimientoModelos.getTxtCodModelo().getText();
+			if (StringUtils.isBlank(codigoProyecto)) {
+				JOptionPane.showMessageDialog(frmMantenimientoModelos, literales.getLiteral("proyecto.error"));
+				return;
+			}
+			
 			String nombreModelo = frmMantenimientoModelos.getTxtNombreModelo().getText();
 			Norma norma = (Norma) frmMantenimientoModelos.getCmbNorma().getSelectedItem();
 			BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
@@ -167,6 +174,8 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			if (CollectionUtils.isEmpty(subProyectos)) {
 				throw new Exception(literales.getLiteral("subproyectos.error"));
 			}
+			
+			checkSubProyectos(subProyectos, codigoProyecto);
 			
 			Modelo modelo = new Modelo();
 			modelo.setCodigoProyecto(codigoProyecto);
@@ -293,6 +302,15 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		
 		String selectedVariablesConCapa = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaVariablesConCapa());
 		frmMantenimientoModelos.getCmbVariablesConCapa().setSelectedItem(selectedVariablesConCapa);
+	}
+	
+	/**
+	 * @param subProyectos
+	 * @param codigoProyecto
+	 */
+	private void checkSubProyectos(List<SubProyecto> subProyectos, String codigoProyecto) {
+		Closure closure = new CheckSubProyectoUpdateClosure(codigoProyecto);
+		CollectionUtils.forAllDo(subProyectos, closure);
 	}
 
 	@Override
