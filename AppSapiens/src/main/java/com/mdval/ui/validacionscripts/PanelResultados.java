@@ -164,6 +164,7 @@ public class PanelResultados extends PanelSupport {
 		
 		tblResultados.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblResultados.setDefaultRenderer(String.class, new StringRenderer());
+		tblResultados.setColumnWidths(cabecera);
 	}
 	
 	/**
