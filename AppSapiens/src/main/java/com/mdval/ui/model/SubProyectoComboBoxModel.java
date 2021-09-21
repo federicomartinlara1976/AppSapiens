@@ -42,6 +42,13 @@ public class SubProyectoComboBoxModel extends AbstractListModel<SubProyecto> imp
 			this.subProyectos.add(subProyecto);
 		}
 	}
+	
+	/**
+	 * 
+	 */
+	public void clear() {
+		this.subProyectos.clear();
+	}
 
 	@Override
 	public int getSize() {

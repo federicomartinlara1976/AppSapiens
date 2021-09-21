@@ -1,23 +1,103 @@
 package com.mdval.ui.listener;
 
+import java.util.List;
+import java.util.Objects;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.mdval.bussiness.entities.DetValidacion;
+import com.mdval.bussiness.entities.ValidaScriptResponse;
+import com.mdval.bussiness.service.ValidacionService;
+import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
-import com.mdval.utils.LogWrapper;
+import com.mdval.ui.validacionscripts.PanelResultados;
+import com.mdval.utils.Constants;
 
-import lombok.extern.log4j.Log4j;
-
-@Log4j
 public class PanelPrincipalChangeListener extends PanelPrincipalListener implements ChangeListener {
+	
+	private ValidacionService validacionService;
 
 	public PanelPrincipalChangeListener(PanelPrincipal panelPrincipal) {
 		super(panelPrincipal);
+		
+		validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		Integer selectedIndex = panelPrincipal.getJTabbedPane1().getSelectedIndex();
-		LogWrapper.debug(log, "Está en %s", panelPrincipal.getJTabbedPane1().getTitleAt(selectedIndex));
+		
+		switch (selectedIndex) {
+		case 0: break;
+		case 1:
+			cargarElementosCorrectos();
+			break;
+		case 2: 
+			cargarElementosNoGlosario();
+			break;
+		case 3: 
+			cargarElementosErrores();
+			break;
+		case 4: 
+			cargarExcepciones();
+			break;
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void cargarExcepciones() {
+		PanelResultados panelResultados = panelPrincipal.getPanelExcepciones();
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelPrincipal.getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosExcepcionesValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void cargarElementosErrores() {
+		PanelResultados panelResultados = panelPrincipal.getPanelConErrores();
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelPrincipal.getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosConErroresValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void cargarElementosNoGlosario() {
+		PanelResultados panelResultados = panelPrincipal.getPanelNoEstanEnGlosario();
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelPrincipal.getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosNoGlosarioValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void cargarElementosCorrectos() {
+		PanelResultados panelResultados = panelPrincipal.getPanelElementosCorrectos();
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelPrincipal.getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosCorrectosValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+		}
 	}
 }

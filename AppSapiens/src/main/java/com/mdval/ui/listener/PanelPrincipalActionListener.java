@@ -29,10 +29,12 @@ import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.bussiness.service.ModeloService;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.bussiness.service.ValidacionService;
+import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
+import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -73,11 +75,50 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	}
 
 	private void eventBtnLimpiarTodo() {
-		LogWrapper.debug(log, "Click boton limpiar todo");
+		panelPrincipal.getTxtCodGlosario().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtDescGlosario().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtIM().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtSD().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtModeloProyecto().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtCodNorma().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtDescNorma().setText(StringUtils.EMPTY);
+		
+		SubProyectoComboBoxModel model = (SubProyectoComboBoxModel) panelPrincipal.getCmbSubmodelo().getModel();
+		model.clear();
+		panelPrincipal.getCmbSubmodelo().setSelectedItem(null);
+		
+		eventBtnLimpiarValidacion();
 	}
 
 	private void eventBtnLimpiarValidacion() {
-		LogWrapper.debug(log, "Click boton limpiar validacion");
+		panelPrincipal.setResponse(null);
+		panelPrincipal.getJTabbedPane1().setSelectedIndex(0);
+		panelPrincipal.getTxtArchivoScript().setText(StringUtils.EMPTY);
+		panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
+		
+		limpiarPaneles();
+	}
+	
+	private void limpiarPaneles() {
+		PanelResultados panelResultados = panelPrincipal.getPanelElementosValidar();
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+		model.clearData();
+		
+		panelResultados = panelPrincipal.getPanelExcepciones();
+		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+		model.clearData();
+		
+		panelResultados = panelPrincipal.getPanelConErrores();
+		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+		model.clearData();
+		
+		panelResultados = panelPrincipal.getPanelNoEstanEnGlosario();
+		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+		model.clearData();
+
+		panelResultados = panelPrincipal.getPanelElementosCorrectos();
+		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+		model.clearData();
 	}
 
 	/**
@@ -90,6 +131,9 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			panelPrincipal.getTxtArchivoScript().setText(file.getAbsolutePath());
 			dumpContentToText(file, panelPrincipal.getTxtScript());
 		}
+		
+		panelPrincipal.setResponse(null);
+		limpiarPaneles();
 	}
 
 	/**
@@ -130,9 +174,25 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				validaScriptRequest.setCodigoRF(im);
 				validaScriptRequest.setCodigoSD(sd);
 				
-				// TODO - Las líneas
+				validaScriptRequest.setPScript(panelPrincipal.getTxtScript().getText());
 				
 				ValidaScriptResponse response = validarScript(validaScriptRequest);
+				
+				panelPrincipal.setResponse(response);
+				
+				// Poner en rojo si hay elementos que no están en el glosario
+				if (Constants.S.equals(response.getElementosNoGlosario())) {
+					
+				}
+				
+				// Poner en rojo si hay elementos con errores
+				if (Constants.S.equals(response.getElementosErrores())) {
+					
+				}
+				
+				// Se carga la información en Elementos a Validar
+				DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelPrincipal.getPanelElementosValidar().getTblResultados().getModel();
+				model.setData(response.getListaElementosValid());
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);

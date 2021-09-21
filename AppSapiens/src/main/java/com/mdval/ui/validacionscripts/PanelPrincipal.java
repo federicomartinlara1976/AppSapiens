@@ -21,6 +21,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.event.ChangeListener;
 
 import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.ui.listener.PanelPrincipalActionListener;
 import com.mdval.ui.listener.PanelPrincipalChangeListener;
@@ -30,6 +31,7 @@ import com.mdval.ui.utils.PanelSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -97,6 +99,25 @@ public class PanelPrincipal extends PanelSupport {
     
     @Getter
     private JTextArea txtScript;
+    
+    @Getter
+    private PanelResultados panelElementosValidar;
+    
+    @Getter
+    private PanelResultados panelElementosCorrectos;
+    
+    @Getter
+    private PanelResultados panelNoEstanEnGlosario;
+    
+    @Getter
+    private PanelResultados panelConErrores;
+    
+    @Getter
+    private PanelResultados panelExcepciones;
+    
+    @Getter
+    @Setter
+    private ValidaScriptResponse response;
 
 	/**
 	 * Creates new form PanelPrincipal
@@ -396,11 +417,11 @@ public class PanelPrincipal extends PanelSupport {
 	}
 	
 	private void loadResultados() {
-		PanelResultados panelElementosValidar = new PanelResultados();
-        PanelResultados panelElementosCorrectos = new PanelResultados();
-        PanelResultados panelNoEstanEnGlosario = new PanelResultados();
-        PanelResultados panelConErrores = new PanelResultados();
-        PanelResultados panelExcepciones = new PanelResultados();
+		panelElementosValidar = new PanelResultados();
+        panelElementosCorrectos = new PanelResultados();
+        panelNoEstanEnGlosario = new PanelResultados();
+        panelConErrores = new PanelResultados();
+        panelExcepciones = new PanelResultados();
 
         jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosValidar"), panelElementosValidar);
         jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosCorrectos"), panelElementosCorrectos);
