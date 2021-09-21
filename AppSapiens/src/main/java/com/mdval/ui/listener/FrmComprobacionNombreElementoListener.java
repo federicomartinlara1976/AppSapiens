@@ -76,6 +76,11 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 		Map<String, Object> params = new HashMap<>();
 		params.put("fromMenu", Boolean.FALSE);
 		
+		String nombreModelo = frmComprobacionNombreElemento.getTxtModeloProyecto().getText();
+		if (StringUtils.isNotBlank(nombreModelo)) {
+			params.put("nombreModelo", nombreModelo);
+		}
+		
 		frmDefinicionModelos = (FrmDefinicionModelos) UIHelper.createFrame(Constants.CMD_BUSCAR_MODELOS, params);
 		UIHelper.show(frmDefinicionModelos);
 

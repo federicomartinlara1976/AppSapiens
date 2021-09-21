@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -25,6 +26,7 @@ import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.ui.listener.PanelPrincipalActionListener;
 import com.mdval.ui.listener.PanelPrincipalChangeListener;
+import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.PanelSupport;
@@ -406,6 +408,8 @@ public class PanelPrincipal extends PanelSupport {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
+		SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(new ArrayList<>());
+		cmbSubmodelo.setModel(modelSubProyectos);
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 	}
 	

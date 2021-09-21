@@ -17,6 +17,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.ui.listener.FrmDefinicionModelosListener;
@@ -313,8 +315,10 @@ public class FrmDefinicionModelos extends FrameSupport {
 	@Override
 	protected void initialState() {
 		Boolean fromMenu = Boolean.TRUE;
+		String nombreModelo = StringUtils.EMPTY;
 		if (!Objects.isNull(params)) {
 			fromMenu = (Boolean) params.get("fromMenu");
+			nombreModelo = (String) params.get("nombreModelo");
 		}
 		
 		btnBaja.setEnabled(Boolean.FALSE);
@@ -325,6 +329,10 @@ public class FrmDefinicionModelos extends FrameSupport {
 			btnSeleccionar.setVisible(Boolean.FALSE);
 		}
 		else {
+			if (StringUtils.isNotBlank(nombreModelo)) {
+				txtCodModelo.setText(nombreModelo);
+			}
+			
 			btnAlta.setVisible(Boolean.FALSE);
 			btnBaja.setVisible(Boolean.FALSE);
 			btnModificacion.setVisible(Boolean.FALSE);

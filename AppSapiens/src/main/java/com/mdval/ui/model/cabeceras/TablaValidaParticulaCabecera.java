@@ -1,5 +1,7 @@
 package com.mdval.ui.model.cabeceras;
 
+import java.math.BigDecimal;
+
 /**
  * @author federico
  *
@@ -15,9 +17,14 @@ public class TablaValidaParticulaCabecera extends Cabecera {
 		columnIdentifiers.add(literales.getLiteral("tblValidaParticula.validacion"));
 		columnIdentifiers.add(literales.getLiteral("tblValidaParticula.descEstadoValidacion"));
 			
-		columnClasses.add(Integer.class);
+		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(700);
 	}
 }

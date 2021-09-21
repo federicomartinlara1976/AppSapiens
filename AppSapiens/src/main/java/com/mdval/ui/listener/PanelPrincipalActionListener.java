@@ -35,6 +35,7 @@ import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
 import com.mdval.ui.validacionscripts.PanelResultados;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -123,6 +124,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		File file = selectFile();
 		
 		if (!Objects.isNull(file)) {
+			panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
 			panelPrincipal.getTxtArchivoScript().setText(file.getAbsolutePath());
 			dumpContentToText(file, panelPrincipal.getTxtScript());
 		}
@@ -136,6 +138,8 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	 */
 	private void eventBtnValidar() {
 		try {
+			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
+			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
 			String pathScript = panelPrincipal.getTxtArchivoScript().getText();
 			
 			if (StringUtils.isNotBlank(pathScript)) {
@@ -168,7 +172,8 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				validaScriptRequest.setCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
 				validaScriptRequest.setCodigoRF(im);
 				validaScriptRequest.setCodigoSD(sd);
-				
+				validaScriptRequest.setNombreFichero(pathScript);
+				validaScriptRequest.setCodigoUsuario(codUsuario);
 				validaScriptRequest.setPScript(panelPrincipal.getTxtScript().getText());
 				
 				ValidaScriptResponse response = validarScript(validaScriptRequest);
@@ -199,6 +204,11 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	private void eventBtnSearch() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("fromMenu", Boolean.FALSE);
+		
+		String nombreModelo = panelPrincipal.getTxtModeloProyecto().getText();
+		if (StringUtils.isNotBlank(nombreModelo)) {
+			params.put("nombreModelo", nombreModelo);
+		}
 
 		frmDefinicionModelos = (FrmDefinicionModelos) UIHelper.createFrame(Constants.CMD_BUSCAR_MODELOS, params);
 		UIHelper.show(frmDefinicionModelos);

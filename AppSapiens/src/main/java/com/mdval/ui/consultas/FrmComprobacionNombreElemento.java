@@ -3,6 +3,7 @@ package com.mdval.ui.consultas;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.math.BigDecimal;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -20,7 +21,7 @@ import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmComprobacionNombreElementoListener;
 import com.mdval.ui.model.ValidaParticulaTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
-import com.mdval.ui.renderer.IntegerRenderer;
+import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.renderer.TipoElementoRenderer;
@@ -365,7 +366,8 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);
 		tblValidaParticula.setModel(new ValidaParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-		tblValidaParticula.setDefaultRenderer(Integer.class, new IntegerRenderer());
+		tblValidaParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblValidaParticula.setDefaultRenderer(String.class, new StringRenderer());
+		tblValidaParticula.setColumnWidths(cabecera);
 	}
 }
