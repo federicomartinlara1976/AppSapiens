@@ -101,24 +101,19 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	
 	private void limpiarPaneles() {
 		PanelResultados panelResultados = panelPrincipal.getPanelElementosValidar();
-		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
-		model.clearData();
+		panelResultados.reset();
 		
 		panelResultados = panelPrincipal.getPanelExcepciones();
-		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
-		model.clearData();
+		panelResultados.reset();
 		
 		panelResultados = panelPrincipal.getPanelConErrores();
-		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
-		model.clearData();
+		panelResultados.reset();
 		
 		panelResultados = panelPrincipal.getPanelNoEstanEnGlosario();
-		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
-		model.clearData();
-
+		panelResultados.reset();
+		
 		panelResultados = panelPrincipal.getPanelElementosCorrectos();
-		model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
-		model.clearData();
+		panelResultados.reset();
 	}
 
 	/**
@@ -193,6 +188,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				// Se carga la información en Elementos a Validar
 				DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelPrincipal.getPanelElementosValidar().getTblResultados().getModel();
 				model.setData(response.getListaElementosValid());
+				panelPrincipal.getPanelElementosValidar().getBtnGenerarLog().setEnabled(Boolean.TRUE);
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);

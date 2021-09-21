@@ -107,10 +107,10 @@ public class PanelPrincipal extends PanelSupport {
     private PanelResultados panelElementosCorrectos;
     
     @Getter
-    private PanelResultados panelNoEstanEnGlosario;
+    private PanelElementosNoGlosario panelNoEstanEnGlosario;
     
     @Getter
-    private PanelResultados panelConErrores;
+    private PanelElementosConErrores panelConErrores;
     
     @Getter
     private PanelResultados panelExcepciones;
@@ -419,8 +419,8 @@ public class PanelPrincipal extends PanelSupport {
 	private void loadResultados() {
 		panelElementosValidar = new PanelResultados();
         panelElementosCorrectos = new PanelResultados();
-        panelNoEstanEnGlosario = new PanelResultados();
-        panelConErrores = new PanelResultados();
+        panelNoEstanEnGlosario = new PanelElementosNoGlosario();
+        panelConErrores = new PanelElementosConErrores();
         panelExcepciones = new PanelResultados();
 
         jTabbedPane1.addTab(literales.getLiteral("panelResultados.elementosValidar"), panelElementosValidar);

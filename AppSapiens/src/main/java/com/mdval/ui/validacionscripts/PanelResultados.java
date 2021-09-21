@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 
+import com.mdval.bussiness.entities.DetValidacion;
+import com.mdval.ui.listener.PanelResultadosListener;
 import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
@@ -19,6 +21,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -47,6 +50,10 @@ public class PanelResultados extends PanelSupport {
 
 	@Getter
 	private TableSupport tblResultados;
+	
+	@Getter
+	@Setter
+	private DetValidacion seleccionado;
 
 	/**
 	 * Creates new form PanelResultados
@@ -126,8 +133,17 @@ public class PanelResultados extends PanelSupport {
 	 */
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		PanelResultadosListener listener = new PanelResultadosListener(this);
+		
+		btnMarcarExcepcion.setActionCommand(Constants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION);
+		btnAddGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO);
+		btnAddTodosGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO);
+		btnGenerarLog.setActionCommand(Constants.PANEL_RESULTADOS_BTN_GENERAR_LOG);
 
+		btnMarcarExcepcion.addActionListener(listener);
+		btnAddGlosario.addActionListener(listener);
+		btnAddTodosGlosario.addActionListener(listener);
+		btnGenerarLog.addActionListener(listener);
 	}
 
 	/**
@@ -135,10 +151,10 @@ public class PanelResultados extends PanelSupport {
 	 */
 	@Override
 	protected void initialState() {
-		btnMarcarExcepcion.setEnabled(false);
-		btnAddGlosario.setEnabled(false);
-		btnAddTodosGlosario.setEnabled(false);
-		btnGenerarLog.setEnabled(false);
+		btnMarcarExcepcion.setEnabled(Boolean.FALSE);
+		btnAddGlosario.setEnabled(Boolean.FALSE);
+		btnAddTodosGlosario.setEnabled(Boolean.FALSE);
+		btnGenerarLog.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
@@ -148,5 +164,15 @@ public class PanelResultados extends PanelSupport {
 		
 		tblResultados.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblResultados.setDefaultRenderer(String.class, new StringRenderer());
+	}
+	
+	/**
+	 * 
+	 */
+	public void reset() {
+		initialState();
+		
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) tblResultados.getModel();
+		model.clearData();
 	}
 }

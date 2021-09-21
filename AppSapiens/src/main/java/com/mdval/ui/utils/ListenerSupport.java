@@ -121,4 +121,9 @@ public abstract class ListenerSupport extends Observable {
 		this.setChanged();
 		this.notifyObservers(cmd);
 	}
+	
+	/**
+	 * 
+	 */
+	public void onSeleccionado() {}
 }

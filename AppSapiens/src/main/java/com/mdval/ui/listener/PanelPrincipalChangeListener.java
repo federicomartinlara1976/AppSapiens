@@ -6,6 +6,8 @@ import java.util.Objects;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.bussiness.service.ValidacionService;
@@ -55,7 +57,11 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 		ValidaScriptResponse response = panelPrincipal.getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosExcepcionesValidacion(response.getNumeroValidacion());
-			model.setData(detalles);
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 
@@ -69,7 +75,11 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 		ValidaScriptResponse response = panelPrincipal.getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosConErroresValidacion(response.getNumeroValidacion());
-			model.setData(detalles);
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 
@@ -83,7 +93,12 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 		ValidaScriptResponse response = panelPrincipal.getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosNoGlosarioValidacion(response.getNumeroValidacion());
-			model.setData(detalles);
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.TRUE);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 
@@ -97,7 +112,11 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 		ValidaScriptResponse response = panelPrincipal.getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosCorrectosValidacion(response.getNumeroValidacion());
-			model.setData(detalles);
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				model.setData(detalles);
+				
+				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 }
