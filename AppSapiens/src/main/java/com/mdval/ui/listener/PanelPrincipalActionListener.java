@@ -98,6 +98,9 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		panelPrincipal.getTxtArchivoScript().setText(StringUtils.EMPTY);
 		panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
 		
+		panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.BLACK);
+		panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.BLACK);
+		
 		limpiarPaneles();
 	}
 	
