@@ -24,7 +24,7 @@ public class TablaValidaParticulaCabecera extends Cabecera {
 		
 		columnSizes.add(100);
 		columnSizes.add(100);
-		columnSizes.add(100);
 		columnSizes.add(700);
+		columnSizes.add(100);
 	}
 }

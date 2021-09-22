@@ -157,7 +157,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
 					ValidaParticula validaParticula = ValidaParticula.builder()
-							.numeroParticula((Integer) cols[0])
+							.numeroParticula((BigDecimal) cols[0])
 							.txtValidacion((String) cols[1])
 							.txtValor((String) cols[2])
 							.descripcionEstadoValidacion((String) cols[3])
