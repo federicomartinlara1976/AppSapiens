@@ -1,5 +1,20 @@
 package com.mdval.bussiness.service.impl;
 
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Struct;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.DetValidacion;
@@ -12,19 +27,11 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.internal.OracleConnection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author hcarreno
@@ -46,7 +53,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
@@ -75,7 +82,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 	@Override
 	@SneakyThrows
-	public void insertarExcepcion(BigDecimal numeroValidacion, BigDecimal numeroElemento, String txtExcepcion, String codigoUsuario) {
+	public void insertarExcepcion(BigDecimal numeroValidacion, BigDecimal numeroElemento, String txtExcepcion,
+			String codigoUsuario) {
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
@@ -84,7 +92,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
@@ -114,7 +122,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 	@Override
 	@SneakyThrows
-	public List<ValidaParticula> validarElemento(BigDecimal codigoNorma, String codigoProyecto, String codigoSubProyecto, BigDecimal codigoElemento, String nombreElemento) {
+	public List<ValidaParticula> validarElemento(BigDecimal codigoNorma, String codigoProyecto,
+			String codigoSubProyecto, BigDecimal codigoElemento, String nombreElemento) {
 		List<ValidaParticula> validaParticulas = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
@@ -124,7 +133,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeValidaParticula = String.format("%s.%s", paquete, Constants.T_T_VALIDA_PARTICULA).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
@@ -156,12 +165,9 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					ValidaParticula validaParticula = ValidaParticula.builder()
-							.numeroParticula((BigDecimal) cols[0])
-							.txtValidacion((String) cols[1])
-							.txtValor((String) cols[2])
-							.descripcionEstadoValidacion((String) cols[3])
-							.build();
+					ValidaParticula validaParticula = ValidaParticula.builder().numeroParticula((BigDecimal) cols[0])
+							.txtValidacion((String) cols[1]).txtValor((String) cols[2])
+							.descripcionEstadoValidacion((String) cols[3]).build();
 					validaParticulas.add(validaParticula);
 				}
 			}
@@ -185,7 +191,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
@@ -213,24 +219,18 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					DetValidacion detValidacion = DetValidacion.builder()
-							.numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1])
-							.descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3])
-							.nombreTabla((String) cols[4])
-							.tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6])
-							.numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8])
-							.txtDescripcionValid((String) cols[9])
-							.build();
+					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
 				}
 			}
 			return detValidaciones;
 		} catch (SQLException e) {
-			LogWrapper.error(log, "[ValidacionService.consultaElementosCorrectosValidacion] Error:  %s", e.getMessage());
+			LogWrapper.error(log, "[ValidacionService.consultaElementosCorrectosValidacion] Error:  %s",
+					e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
@@ -247,7 +247,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
@@ -275,24 +275,18 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					DetValidacion detValidacion = DetValidacion.builder()
-							.numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1])
-							.descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3])
-							.nombreTabla((String) cols[4])
-							.tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6])
-							.numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8])
-							.txtDescripcionValid((String) cols[9])
-							.build();
+					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
 				}
 			}
 			return detValidaciones;
 		} catch (SQLException e) {
-			LogWrapper.error(log, "[ValidacionService.consultaElementosConErroresValidacion] Error:  %s", e.getMessage());
+			LogWrapper.error(log, "[ValidacionService.consultaElementosConErroresValidacion] Error:  %s",
+					e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
@@ -309,7 +303,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
@@ -337,24 +331,18 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					DetValidacion detValidacion = DetValidacion.builder()
-							.numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1])
-							.descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3])
-							.nombreTabla((String) cols[4])
-							.tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6])
-							.numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8])
-							.txtDescripcionValid((String) cols[9])
-							.build();
+					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
 				}
 			}
 			return detValidaciones;
 		} catch (SQLException e) {
-			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s", e.getMessage());
+			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s",
+					e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
@@ -371,7 +359,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
@@ -399,24 +387,18 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					DetValidacion detValidacion = DetValidacion.builder()
-							.numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1])
-							.descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3])
-							.nombreTabla((String) cols[4])
-							.tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6])
-							.numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8])
-							.txtDescripcionValid((String) cols[9])
-							.build();
+					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
 				}
 			}
 			return detValidaciones;
 		} catch (SQLException e) {
-			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s", e.getMessage());
+			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s",
+					e.getMessage());
 			throw new ServiceException(e);
 		}
 	}
@@ -432,20 +414,28 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
+				OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
 
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
 			String trLinea = String.format("%s.%s", paquete, Constants.T_R_LINEA).toUpperCase();
 			String tableLinea = String.format("%s.%s", paquete, Constants.T_T_LINEA).toUpperCase();
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 
-			Struct[] struct = new Struct[1];
-			struct[0] = conn.createStruct(trLinea, new Object[]{validaScriptRequest.getPScript()});
-
+			// El script se manda manda línea a línea
+			Struct[] struct = new Struct[validaScriptRequest.getLines().size()];
+			
+			int arrayIndex = 0;
+			for (String linea : validaScriptRequest.getLines()) {
+				struct[arrayIndex++] = conn.createStruct(trLinea,
+						new Object[]{ linea });
+			}
+			
 			Array lineaArray = ((OracleConnection) conn).createOracleArray(tableLinea, struct);
 
-			logProcedure(runSP, validaScriptRequest.getPScript(), validaScriptRequest.getCodigoRF(), validaScriptRequest.getCodigoSD(),
-					validaScriptRequest.getCodigoProyecto(), validaScriptRequest.getCodigoSubProyecto(), validaScriptRequest.getCodigoUsuario(), validaScriptRequest.getNombreFichero());
+			logProcedure(runSP, validaScriptRequest.getCodigoRF(), validaScriptRequest.getCodigoSD(),
+					validaScriptRequest.getCodigoProyecto(), validaScriptRequest.getCodigoSubProyecto(),
+					validaScriptRequest.getCodigoUsuario(), validaScriptRequest.getNombreFichero(),
+					validaScriptRequest.getLines());
 
 			callableStatement.setArray(1, lineaArray);
 			callableStatement.setString(2, validaScriptRequest.getCodigoRF());
@@ -482,22 +472,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					DetValidacion detValidacion = DetValidacion.builder()
-							.numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1])
-							.descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3])
-							.nombreTabla((String) cols[4])
-							.tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6])
-							.numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8])
-							.txtDescripcionValid((String) cols[9])
-							.build();
+					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
 				}
 			}
-			validaScriptResponse = ValidaScriptResponse.builder().numeroValidacion(numeroValidacion).listaElementosValid(detValidaciones).elementosNoGlosario(elementosNoGlosario)
+			validaScriptResponse = ValidaScriptResponse.builder().numeroValidacion(numeroValidacion)
+					.listaElementosValid(detValidaciones).elementosNoGlosario(elementosNoGlosario)
 					.elementosErrores(elementosErrores).build();
 
 			return validaScriptResponse;
@@ -517,7 +501,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
-			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
 			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
@@ -541,21 +525,22 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				ServiceException exception = buildException((Object[]) listaErrores.getArray());
 				throw exception;
 			}
-			
+
 			Array arrayDetValidacion = callableStatement.getArray(2);
 			List<DetValidacion> listaErrores = toListDetalles(arrayDetValidacion);
-			
+
 			arrayDetValidacion = callableStatement.getArray(3);
 			List<DetValidacion> listaOtraDef = toListDetalles(arrayDetValidacion);
-			
+
 			Array arrayCampoGlosario = callableStatement.getArray(4);
 			List<CampoGlosario> listaCampos = toListCampos(arrayCampoGlosario);
-			
+
 			InformeValidacion informeValidacion = new InformeValidacion();
+			informeValidacion.setNumValidacion(numeroValidacion);
 			informeValidacion.setListaErroneos(listaErrores);
 			informeValidacion.setListaOtraDefinicion(listaOtraDef);
 			informeValidacion.setListaDefinicionGlosario(listaCampos);
-			
+
 			return informeValidacion;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.generarInformeValidacion] Error: %s", e.getMessage());
@@ -570,7 +555,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	 */
 	private List<CampoGlosario> toListCampos(Array arrayCamposGlosario) throws SQLException {
 		List<CampoGlosario> camposGlosario = new ArrayList<>();
-		
+
 		if (arrayCamposGlosario != null) {
 			Object[] rows = (Object[]) arrayCamposGlosario.getArray();
 			for (Object row : rows) {
@@ -579,9 +564,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				CampoGlosario campoGlosario = CampoGlosario.builder().nombreColumna((String) cols[0])
 						.tipoDato((String) cols[1]).numeroLongitud((BigDecimal) cols[2])
 						.numeroDecimal((BigDecimal) cols[3]).codigoGlosario((BigDecimal) cols[4])
-						.mcaExcepcion((String) cols[5]).txtComentario((String) cols[6])
-						.txtExcepcion((String) cols[7]).codigoUsuario((String) cols[8])
-						.fechaActualizacion((Date) cols[9]).build();
+						.mcaExcepcion((String) cols[5]).txtComentario((String) cols[6]).txtExcepcion((String) cols[7])
+						.codigoUsuario((String) cols[8]).fechaActualizacion((Date) cols[9]).build();
 				camposGlosario.add(campoGlosario);
 			}
 		}
@@ -591,28 +575,21 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 	private List<DetValidacion> toListDetalles(Array arrayDetValidacion) throws SQLException {
 		List<DetValidacion> detValidaciones = new ArrayList<>();
-		
+
 		if (arrayDetValidacion != null) {
 			Object[] rows = (Object[]) arrayDetValidacion.getArray();
 			for (Object row : rows) {
 				Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-				DetValidacion detValidacion = DetValidacion.builder()
-						.numeroValidacion((BigDecimal) cols[0])
-						.numeroElementoValid((BigDecimal) cols[1])
-						.descripcionElemento((String) cols[2])
-						.nombreElemento((String) cols[3])
-						.nombreTabla((String) cols[4])
-						.tipoDato((String) cols[5])
-						.numeroLongitud((BigDecimal) cols[6])
-						.numeroDecimal((BigDecimal) cols[7])
-						.codigoEstadoValid((BigDecimal) cols[8])
-						.txtDescripcionValid((String) cols[9])
-						.build();
+				DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
+						.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
+						.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+						.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
+						.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 				detValidaciones.add(detValidacion);
 			}
 		}
-		
+
 		return detValidaciones;
 	}
 }

@@ -22,6 +22,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.event.ChangeListener;
 
 import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.ui.listener.PanelPrincipalActionListener;
@@ -119,6 +120,10 @@ public class PanelPrincipal extends PanelSupport {
     
     @Getter
     @Setter
+    private ValidaScriptRequest request;
+    
+    @Getter
+    @Setter
     private ValidaScriptResponse response;
 
 	/**
@@ -126,6 +131,7 @@ public class PanelPrincipal extends PanelSupport {
 	 */
 	public PanelPrincipal(FrameSupport frameParent) {
 		super(frameParent);
+		request = new ValidaScriptRequest();
 	}
 
 	/**

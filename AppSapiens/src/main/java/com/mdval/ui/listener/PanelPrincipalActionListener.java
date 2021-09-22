@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,9 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.BLACK);
 		
 		limpiarPaneles();
+		
+		ValidaScriptRequest request = new ValidaScriptRequest();
+		panelPrincipal.setRequest(request);
 	}
 	
 	private void limpiarPaneles() {
@@ -125,16 +129,22 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	 * 
 	 */
 	private void eventBtnLoadScript() {
-		File file = selectFile();
-		
-		if (!Objects.isNull(file)) {
-			panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
-			panelPrincipal.getTxtArchivoScript().setText(file.getAbsolutePath());
-			dumpContentToText(file, panelPrincipal.getTxtScript());
+		try {
+			File file = selectFile();
+			
+			if (!Objects.isNull(file)) {
+				panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
+				panelPrincipal.getTxtArchivoScript().setText(file.getAbsolutePath());
+				List<String> lines = dumpContentToText(file, panelPrincipal.getTxtScript());
+				panelPrincipal.getRequest().setLines(lines);
+			}
+			
+			panelPrincipal.setResponse(null);
+			limpiarPaneles();
+		} catch (IOException e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
 		}
-		
-		panelPrincipal.setResponse(null);
-		limpiarPaneles();
 	}
 
 	/**
@@ -171,7 +181,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 					return;
 				}
 				
-				ValidaScriptRequest validaScriptRequest = new ValidaScriptRequest();
+				ValidaScriptRequest validaScriptRequest = panelPrincipal.getRequest();
 				validaScriptRequest.setCodigoProyecto(codProyecto);
 				validaScriptRequest.setCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
 				validaScriptRequest.setCodigoRF(im);
@@ -243,18 +253,22 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	 * @param file
 	 * @param txtScript
 	 */
-	private void dumpContentToText(File file, JTextArea txtScript) {
+	private List<String> dumpContentToText(File file, JTextArea txtScript) throws IOException {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			List<String> lines = new ArrayList<>();
+			
 			String line = reader.readLine();
+			lines.add(line);
+			
 			while (line != null) {
 				txtScript.append(line);
 				txtScript.append("\n");
 				line = reader.readLine();
+				lines.add(line);
 			}
-		} catch (IOException e) {
-			Map<String, Object> params = buildError(e);
-			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
-		}
+			
+			return lines;
+		} 
 		
 	}
 	
@@ -271,32 +285,36 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	@Override
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
-		
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
-			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
-			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
-			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
-			
-			if (!Objects.isNull(seleccionado)) {
-				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
-				Norma norma = normaService.consultaNorma(seleccionado.getCodigoNorma()); 
-				panelPrincipal.getTxtModeloProyecto().setText(seleccionado.getCodigoProyecto());
-				panelPrincipal.getTxtCodNorma().setText(norma.getCodigoNorma().toString());
-				panelPrincipal.getTxtDescNorma().setText(norma.getDescripcionNorma());
-				panelPrincipal.getTxtCodGlosario().setText(seleccionado.getCodigoGlosario().toString());
-				panelPrincipal.getTxtDescGlosario().setText(seleccionado.getDescripcionGlosario());
+		try {
+			if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+				ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+				NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+				Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 				
-				List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
-				
-				if (CollectionUtils.isNotEmpty(subProyectos)) {
-					SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
-					panelPrincipal.getCmbSubmodelo().setModel(modelSubProyectos);
+				if (!Objects.isNull(seleccionado)) {
+					seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
+					Norma norma = normaService.consultaNorma(seleccionado.getCodigoNorma()); 
+					panelPrincipal.getTxtModeloProyecto().setText(seleccionado.getCodigoProyecto());
+					panelPrincipal.getTxtCodNorma().setText(norma.getCodigoNorma().toString());
+					panelPrincipal.getTxtDescNorma().setText(norma.getDescripcionNorma());
+					panelPrincipal.getTxtCodGlosario().setText(seleccionado.getCodigoGlosario().toString());
+					panelPrincipal.getTxtDescGlosario().setText(seleccionado.getDescripcionGlosario());
 					
-					if (subProyectos.size() == 1) {
-						panelPrincipal.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
+					List<SubProyecto> subProyectos = seleccionado.getSubProyectos();
+					
+					if (CollectionUtils.isNotEmpty(subProyectos)) {
+						SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
+						panelPrincipal.getCmbSubmodelo().setModel(modelSubProyectos);
+						
+						if (subProyectos.size() == 1) {
+							panelPrincipal.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
+						}
 					}
-				}
- 			}
+	 			}
+			}
+		} catch (Exception e) {
+			Map<String, Object> params = buildError(e);
+			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 }

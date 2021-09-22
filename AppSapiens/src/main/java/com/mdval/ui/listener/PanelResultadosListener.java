@@ -122,18 +122,22 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			String path = UIHelper.selectFolder(panelResultados.getFrameParent());
 
 			if (StringUtils.isNotBlank(path)) {
-				DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados()
-						.getModel();
-				List<DetValidacion> detalles = model.getData();
-
 				ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
 						Constants.EXCEL_GENERATOR_SERVICE);
 
 				ValidacionService validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
 
-				// Coge el número de validación
-				BigDecimal numeroValidacion = detalles.get(0).getNumeroValidacion();
+				// Coge el número de validación del response y RF y SD del panel principal
+				ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
+				BigDecimal numeroValidacion = response.getNumeroValidacion();
+				
+				String rf = panelResultados.getPanelPrincipal().getRequest().getCodigoRF();
+				String sd = panelResultados.getPanelPrincipal().getRequest().getCodigoSD();
+				
 				InformeValidacion informeValidacion = validacionService.generarInformeValidacion(numeroValidacion);
+				informeValidacion.setRF(rf);
+				informeValidacion.setSD(sd);
+				
 				excelGeneratorService.generarExcelValidacionNomenclatura(informeValidacion, path);
 			}
 

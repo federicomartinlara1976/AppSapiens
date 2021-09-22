@@ -1,6 +1,8 @@
 package com.mdval.bussiness.entities;
 
+import java.math.BigDecimal;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class InformeValidacion {
+	
+	private BigDecimal numValidacion;
+	private String RF;
+	private String SD;
 
     private List<DetValidacion> listaErroneos;
     private List<DetValidacion> listaOtraDefinicion;

@@ -1,5 +1,7 @@
 package com.mdval.bussiness.entities;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +23,7 @@ public class ValidaScriptRequest {
     private String codigoSubProyecto;
     private String codigoUsuario;
     private String nombreFichero;
+    
+    private List<String> lines;
 
 }

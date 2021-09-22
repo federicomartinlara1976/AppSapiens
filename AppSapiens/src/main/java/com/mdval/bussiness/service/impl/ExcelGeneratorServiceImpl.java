@@ -3,12 +3,14 @@ package com.mdval.bussiness.service.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -50,13 +52,13 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(hoja);
 
+		setupCabeceraGlosario(sheet);
+
 		int rownum = 4; // row to start writting
 		for (CampoGlosario campoGlosario : camposGlosario) {
 			Row row = sheet.createRow(rownum++);
 			createRowCampoGlosario(campoGlosario, row);
 		}
-
-		setupCabeceraGlosario(sheet);
 
 		DateFormat formatter = new SimpleDateFormat(dateFormatReporte);
 		String fecha = formatter.format(new Date(System.currentTimeMillis()));
@@ -123,16 +125,16 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		cell = row.createCell(4);
 		String correcto = campoGlosario.getMcaExcepcion();
 		cell.setCellValue(correcto);
-		
+
 		cell = row.createCell(5);
 		cell.setCellValue(campoGlosario.getTxtComentario());
-		
+
 		cell = row.createCell(6);
 		cell.setCellValue(campoGlosario.getTxtExcepcion());
-		
+
 		cell = row.createCell(7);
 		cell.setCellValue(campoGlosario.getCodigoUsuario());
-		
+
 		cell = row.createCell(8);
 		cell.setCellValue(dateFormatter.dateToString(campoGlosario.getFechaActualizacion()));
 	}
@@ -141,9 +143,9 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	public void generarExcelValidacionNomenclatura(InformeValidacion informeValidacion, String path) {
 
-		List<DetValidacion> listaError = informeValidacion.getListaErroneos();  //nombreReporteValidacionErroneos
-		List<DetValidacion> listaOtraDefinicion = informeValidacion.getListaOtraDefinicion(); //nombreReporteValidacionOtraDefinicion
-		List<CampoGlosario> listaGlosario = informeValidacion.getListaDefinicionGlosario(); //nombreReporteValidacionGlosario
+		List<DetValidacion> listaError = informeValidacion.getListaErroneos(); // nombreReporteValidacionErroneos
+		List<DetValidacion> listaOtraDefinicion = informeValidacion.getListaOtraDefinicion(); // nombreReporteValidacionOtraDefinicion
+		List<CampoGlosario> listaGlosario = informeValidacion.getListaDefinicionGlosario(); // nombreReporteValidacionGlosario
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String nombreReporteValidacionErroneos = configuration.getConfig("nombreReporteValidacionErroneos");
@@ -154,86 +156,164 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		String nombreReporteValidacionGlosario = configuration.getConfig("nombreReporteValidacionGlosario");
 		String nombreHojaValidacionGlosario = configuration.getConfig("nombreHojaValidacionGlosario");
+		
+		BigDecimal numeroValidacion = informeValidacion.getNumValidacion();
+		String rf = informeValidacion.getRF();
+		String sd = informeValidacion.getSD();
 
-		generateReporteValidacionErroneos(listaError, nombreReporteValidacionErroneos, nombreHojaValidacionErroneos, path);
-		generateReporteValidacionGlosario(listaGlosario, nombreReporteValidacionGlosario, nombreHojaValidacionGlosario, path);
-		generateReporteValidacionOtraDefinicion(listaOtraDefinicion, nombreReporteValidacionOtraDefinicion, nombreHojaValidacionOtraDefinicion, path);
+		if (CollectionUtils.isNotEmpty(listaError)) {
+			generateReporteValidacion(listaError, nombreReporteValidacionErroneos, nombreHojaValidacionErroneos,
+					Constants.NOMENCLATURA_ERRORES_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
+		}
 
+		if (CollectionUtils.isNotEmpty(listaOtraDefinicion)) {
+			generateReporteValidacion(listaOtraDefinicion, nombreReporteValidacionOtraDefinicion, nombreHojaValidacionOtraDefinicion,
+					Constants.NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
+		}
+		
+		if (CollectionUtils.isNotEmpty(listaGlosario)) {
+			generateReporteValidacionGlosario(listaGlosario, nombreReporteValidacionGlosario,
+					nombreHojaValidacionGlosario, path, numeroValidacion, rf, sd);
+		}
 	}
 
 	@SneakyThrows
-	private void generateReporteValidacionErroneos(List<DetValidacion> listaErroneos, String nombreReporteValidacionErroneos, String nombreHojaValidacionErroneos, String path) {
-		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION);
+	private void generateReporteValidacion(List<DetValidacion> listaDetalles,
+			String nombreReporteValidacionErroneos, String nombreHojaValidacionErroneos, String resource, String path, BigDecimal numeroValidacion, String rf, String sd) {
+		InputStream inputStream = getClass().getResourceAsStream(resource);
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionErroneos);
 
+		setupCabeceraValidacion(sheet);
+
 		int rownum = 4; // row to start writting
-		for (DetValidacion detValidacion : listaErroneos) {
+		for (DetValidacion detValidacion : listaDetalles) {
 			Row row = sheet.createRow(rownum++);
-			createRowValidacionErroneos(detValidacion, row);
+			createRowValidacion(detValidacion, row);
 		}
 
-		setupCabeceraValidacionErroneos(sheet);
-
-		String format = "%s.xls";
-		String fileName = String.format(format, nombreReporteValidacionErroneos);
+		String format = "%s RF%s-SD%s %s.xls";
+		String fileName = String.format(format, numeroValidacion.toString(), rf, sd, nombreReporteValidacionErroneos);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
 		outputStream.flush();
 		outputStream.close();
+	}
+	
+	@SneakyThrows
+	private void setupCabeceraValidacion(Sheet sheet) {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+
+		Row titleRow = sheet.getRow(1);
+		Cell titleCell = titleRow.getCell(2);
+		titleCell.setCellValue(literales.getLiteral("validacionErroneos.titulo"));
+
+		Row headerRow = sheet.getRow(3);
+		Cell numValidacionCell = headerRow.getCell(0);
+		numValidacionCell.setCellValue(literales.getLiteral("validacionErroneos.numValidacion"));
+		Cell numElemValidCell = headerRow.getCell(1);
+		numElemValidCell.setCellValue(literales.getLiteral("validacionErroneos.numElemValid"));
+		Cell desElementoCell = headerRow.getCell(2);
+		desElementoCell.setCellValue(literales.getLiteral("validacionErroneos.desElemento"));
+		Cell nomElementoCell = headerRow.getCell(3);
+		nomElementoCell.setCellValue(literales.getLiteral("validacionErroneos.nomElemento"));
+		Cell tipDatoCell = headerRow.getCell(4);
+		tipDatoCell.setCellValue(literales.getLiteral("validacionErroneos.tipDato"));
+		Cell numLongitudCell = headerRow.getCell(5);
+		numLongitudCell.setCellValue(literales.getLiteral("validacionErroneos.numLongitud"));
+		Cell numDecimalesCell = headerRow.getCell(6);
+		numDecimalesCell.setCellValue(literales.getLiteral("validacionErroneos.numDecimales"));
+		Cell descripcionValidacionCell = headerRow.getCell(7);
+		descripcionValidacionCell.setCellValue(literales.getLiteral("validacionErroneos.descripcionValidacion"));
+		Cell codEstValid = headerRow.getCell(8);
+		codEstValid.setCellValue(literales.getLiteral("validacionErroneos.codEstValid"));
+		Cell nomTablaCell = headerRow.getCell(9);
+		nomTablaCell.setCellValue(literales.getLiteral("validacionErroneos.nomTabla"));
 	}
 
 	/**
 	 * @param detValidacion
 	 * @param row
 	 */
-	private void createRowValidacionErroneos(DetValidacion detValidacion, Row row) // creating cells for each row
-	{
+	private void createRowValidacion(DetValidacion detValidacion, Row row) {
 		Cell cell = row.createCell(0);
-		cell.setCellValue(detValidacion.getTipoDato());
+		String numValidacion = (!Objects.isNull(detValidacion.getNumeroValidacion()))
+				? detValidacion.getNumeroValidacion().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(numValidacion);
 
 		cell = row.createCell(1);
-		cell.setCellValue(detValidacion.getNombreElemento());
+		String numElemValid = (!Objects.isNull(detValidacion.getNumeroElementoValid()))
+				? detValidacion.getNumeroElementoValid().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(numElemValid);
 
 		cell = row.createCell(2);
-		cell.setCellValue(detValidacion.getTxtDescripcionValid());
+		String desElemento = (StringUtils.isNotBlank(detValidacion.getDescripcionElemento()))
+				? detValidacion.getDescripcionElemento()
+				: StringUtils.EMPTY;
+		cell.setCellValue(desElemento);
+
+		cell = row.createCell(3);
+		String nomElemento = (StringUtils.isNotBlank(detValidacion.getNombreElemento()))
+				? detValidacion.getNombreElemento()
+				: StringUtils.EMPTY;
+		cell.setCellValue(nomElemento);
+
+		cell = row.createCell(4);
+		String tipDato = (StringUtils.isNotBlank(detValidacion.getTipoDato())) ? detValidacion.getTipoDato()
+				: StringUtils.EMPTY;
+		cell.setCellValue(tipDato);
+
+		cell = row.createCell(5);
+		String numLongitud = (!Objects.isNull(detValidacion.getNumeroLongitud()))
+				? detValidacion.getNumeroLongitud().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(numLongitud);
+
+		cell = row.createCell(6);
+		String numDecimales = (!Objects.isNull(detValidacion.getNumeroDecimal()))
+				? detValidacion.getNumeroDecimal().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(numDecimales);
+
+		cell = row.createCell(7);
+		String descripcionValidacion = (StringUtils.isNotBlank(detValidacion.getTxtDescripcionValid()))
+				? detValidacion.getTxtDescripcionValid()
+				: StringUtils.EMPTY;
+		cell.setCellValue(descripcionValidacion);
+
+		cell = row.createCell(8);
+		String codEstValid = (!Objects.isNull(detValidacion.getCodigoEstadoValid()))
+				? detValidacion.getCodigoEstadoValid().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(codEstValid);
+
+		cell = row.createCell(9);
+		String nomTabla = (StringUtils.isNotBlank(detValidacion.getNombreTabla())) ? detValidacion.getNombreTabla()
+				: StringUtils.EMPTY;
+		cell.setCellValue(nomTabla);
 	}
 
 	@SneakyThrows
-	private void setupCabeceraValidacionErroneos(Sheet sheet) {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-
-		Row titleRow = sheet.getRow(1);
-		Cell titleCell = titleRow.getCell(1);
-		titleCell.setCellValue(literales.getLiteral("validacionErroneos.titulo"));
-
-		Row headerRow = sheet.getRow(3);
-		Cell tipoElementoCell = headerRow.getCell(0);
-		tipoElementoCell.setCellValue(literales.getLiteral("validacionErroneos.tipoElemento"));
-		Cell nombreCell = headerRow.getCell(1);
-		nombreCell.setCellValue(literales.getLiteral("validacionErroneos.nombre"));
-		Cell resultadoCell = headerRow.getCell(2);
-		resultadoCell.setCellValue(literales.getLiteral("validacionErroneos.resultado"));
-	}
-
-	@SneakyThrows
-	private void generateReporteValidacionGlosario(List<CampoGlosario> listaDefinicionGlosario, String nombreReporteValidacionGlosario, String nombreHojaValidacionGlosario, String path) {
+	private void generateReporteValidacionGlosario(List<CampoGlosario> listaDefinicionGlosario,
+			String nombreReporteValidacionGlosario, String nombreHojaValidacionGlosario, String path, BigDecimal numeroValidacion, String rf, String sd) {
 		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION);
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionGlosario);
 
+		setupCabeceraValidacionGlosario(sheet);
+		
 		int rownum = 7; // row to start writting
 		for (CampoGlosario campoGlosario : listaDefinicionGlosario) {
 			Row row = sheet.createRow(rownum++);
 			createRowValidacionGlosario(campoGlosario, row);
 		}
 
-		setupCabeceraValidacionGlosario(sheet);
-
-		String format = "%s.xls";
-		String fileName = String.format(format, nombreReporteValidacionGlosario);
+		String format = "%s RF%s-SD%s %s.xls";
+		String fileName = String.format(format, numeroValidacion.toString(), rf, sd, nombreReporteValidacionGlosario);
 		LogWrapper.debug(log, "Archivo: %s", fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
@@ -241,23 +321,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		outputStream.flush();
 		outputStream.close();
 	}
-
-	private void createRowValidacionGlosario(CampoGlosario campoGlosario, Row row) {
-		Cell cell = row.createCell(0);
-		cell.setCellValue(campoGlosario.getNombreColumna());
-
-		cell = row.createCell(1);
-		cell.setCellValue(campoGlosario.getTipoDato());
-
-		cell = row.createCell(2);
-		String longitud = (!Objects.isNull(campoGlosario.getNumeroLongitud())) ? campoGlosario.getNumeroLongitud().toString() : StringUtils.EMPTY;
-		cell.setCellValue(longitud);
-
-		cell = row.createCell(3);
-		String decimales = (!Objects.isNull(campoGlosario.getNumeroDecimal())) ? campoGlosario.getNumeroDecimal().toString() : StringUtils.EMPTY;
-		cell.setCellValue(decimales);
-	}
-
+	
 	@SneakyThrows
 	private void setupCabeceraValidacionGlosario(Sheet sheet) {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
@@ -286,56 +350,23 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		decimalCell.setCellValue(literales.getLiteral("validacionGlosario.decimal"));
 	}
 
-	@SneakyThrows
-	private void generateReporteValidacionOtraDefinicion(List<DetValidacion> listaOtraDefinicion, String nombreReporteValidacionOtraDefinicion, String nombreHojaValidacionOtraDefinicion, String path) {
-		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_ERRORES_TEMPLATE_LOCATION);
-		Workbook workbook = new HSSFWorkbook(inputStream);
-		Sheet sheet = workbook.getSheet(nombreHojaValidacionOtraDefinicion);
-
-		int rownum = 4; // row to start writting
-		for (DetValidacion detValidacion : listaOtraDefinicion) {
-			Row row = sheet.createRow(rownum++);
-			createRowValidacionOtraDefinicion(detValidacion, row);
-		}
-
-		setupCabeceraValidacionOtraDefinicion(sheet);
-
-		String format = "%s.xls";
-		String fileName = String.format(format, nombreReporteValidacionOtraDefinicion);
-		LogWrapper.debug(log, "Archivo: %s", fileName);
-		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
-		workbook.write(outputStream);
-		workbook.close();
-		outputStream.flush();
-		outputStream.close();
-	}
-
-	private void createRowValidacionOtraDefinicion(DetValidacion detValidacion, Row row) {
+	private void createRowValidacionGlosario(CampoGlosario campoGlosario, Row row) {
 		Cell cell = row.createCell(0);
-		cell.setCellValue(detValidacion.getTipoDato());
+		cell.setCellValue(campoGlosario.getNombreColumna());
 
 		cell = row.createCell(1);
-		cell.setCellValue(detValidacion.getNombreElemento());
+		cell.setCellValue(campoGlosario.getTipoDato());
 
 		cell = row.createCell(2);
-		cell.setCellValue(detValidacion.getTxtDescripcionValid());
+		String longitud = (!Objects.isNull(campoGlosario.getNumeroLongitud()))
+				? campoGlosario.getNumeroLongitud().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(longitud);
+
+		cell = row.createCell(3);
+		String decimales = (!Objects.isNull(campoGlosario.getNumeroDecimal()))
+				? campoGlosario.getNumeroDecimal().toString()
+				: StringUtils.EMPTY;
+		cell.setCellValue(decimales);
 	}
-
-	@SneakyThrows
-	private void setupCabeceraValidacionOtraDefinicion(Sheet sheet) {
-		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-
-		Row titleRow = sheet.getRow(1);
-		Cell titleCell = titleRow.getCell(1);
-		titleCell.setCellValue(literales.getLiteral("validacionOtraDefinicion.titulo"));
-
-		Row headerRow = sheet.getRow(3);
-		Cell tipoElementoCell = headerRow.getCell(0);
-		tipoElementoCell.setCellValue(literales.getLiteral("validacionOtraDefinicion.tipoElemento"));
-		Cell nombreCell = headerRow.getCell(1);
-		nombreCell.setCellValue(literales.getLiteral("validacionOtraDefinicion.nombre"));
-		Cell resultadoCell = headerRow.getCell(2);
-		resultadoCell.setCellValue(literales.getLiteral("validacionOtraDefinicion.resultado"));
-	}
-
 }
