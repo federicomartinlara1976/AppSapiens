@@ -94,18 +94,14 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	}
 
 	private void eventBtnLimpiarValidacion() {
-		panelPrincipal.setResponse(null);
-		panelPrincipal.getJTabbedPane1().setSelectedIndex(0);
+		limpiarPaneles();
+		
 		panelPrincipal.getTxtArchivoScript().setText(StringUtils.EMPTY);
 		panelPrincipal.getTxtScript().setText(StringUtils.EMPTY);
 		
-		panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.BLACK);
-		panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.BLACK);
-		
-		limpiarPaneles();
-		
 		ValidaScriptRequest request = new ValidaScriptRequest();
 		panelPrincipal.setRequest(request);
+		panelPrincipal.setResponse(null);
 	}
 	
 	private void limpiarPaneles() {
@@ -123,6 +119,11 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		
 		panelResultados = panelPrincipal.getPanelElementosCorrectos();
 		panelResultados.reset();
+		
+		panelPrincipal.getJTabbedPane1().setSelectedIndex(0);
+		
+		panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.BLACK);
+		panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.BLACK);
 	}
 
 	/**
@@ -139,7 +140,6 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				panelPrincipal.getRequest().setLines(lines);
 			}
 			
-			panelPrincipal.setResponse(null);
 			limpiarPaneles();
 		} catch (IOException e) {
 			Map<String, Object> params = buildError(e);
