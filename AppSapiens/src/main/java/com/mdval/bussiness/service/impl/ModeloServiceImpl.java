@@ -118,7 +118,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setString(1, codigoProyecto);
 			callableStatement.setString(2, codigoUsuario);
 			callableStatement.registerOutParameter(3, Types.INTEGER);
-			callableStatement.registerOutParameter(4, Types.VARCHAR, typeError);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
