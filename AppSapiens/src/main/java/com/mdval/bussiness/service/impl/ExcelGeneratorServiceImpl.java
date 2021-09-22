@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import com.mdval.bussiness.entities.CampoGlosario;
@@ -165,7 +164,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	private void generateReporteValidacionErroneos(List<DetValidacion> listaErroneos, String nombreReporteValidacionErroneos, String nombreHojaValidacionErroneos, String path) {
 		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION);
-		Workbook workbook = new XSSFWorkbook(inputStream);
+		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionErroneos);
 
 		int rownum = 4; // row to start writting
@@ -222,7 +221,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	private void generateReporteValidacionGlosario(List<CampoGlosario> listaDefinicionGlosario, String nombreReporteValidacionGlosario, String nombreHojaValidacionGlosario, String path) {
 		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION);
-		Workbook workbook = new XSSFWorkbook(inputStream);
+		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionGlosario);
 
 		int rownum = 7; // row to start writting
@@ -290,7 +289,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	private void generateReporteValidacionOtraDefinicion(List<DetValidacion> listaOtraDefinicion, String nombreReporteValidacionOtraDefinicion, String nombreHojaValidacionOtraDefinicion, String path) {
 		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_ERRORES_TEMPLATE_LOCATION);
-		Workbook workbook = new XSSFWorkbook(inputStream);
+		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionOtraDefinicion);
 
 		int rownum = 4; // row to start writting
