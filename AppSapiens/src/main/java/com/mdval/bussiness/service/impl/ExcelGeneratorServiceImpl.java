@@ -23,6 +23,7 @@ import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.InformeValidacion;
 import com.mdval.bussiness.service.ExcelGeneratorService;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LiteralesSingleton;
@@ -111,16 +112,16 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	private void createRowCampoGlosario(CampoGlosario campoGlosario, Row row) // creating cells for each row
 	{
 		Cell cell = row.createCell(0);
-		cell.setCellValue(campoGlosario.getNombreColumna());
+		cell.setCellValue(AppHelper.toValidString(campoGlosario.getNombreColumna()));
 
 		cell = row.createCell(1);
-		cell.setCellValue(campoGlosario.getTipoDato());
+		cell.setCellValue(AppHelper.toValidString(campoGlosario.getTipoDato()));
 
 		cell = row.createCell(2);
-		cell.setCellValue(campoGlosario.getNumeroLongitud().toString());
+		cell.setCellValue(AppHelper.toString(campoGlosario.getNumeroLongitud()));
 
 		cell = row.createCell(3);
-		cell.setCellValue(campoGlosario.getNumeroDecimal().toString());
+		cell.setCellValue(AppHelper.toString(campoGlosario.getNumeroDecimal()));
 
 		cell = row.createCell(4);
 		String correcto = campoGlosario.getMcaExcepcion();
@@ -239,61 +240,43 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	 */
 	private void createRowValidacion(DetValidacion detValidacion, Row row) {
 		Cell cell = row.createCell(0);
-		String numValidacion = (!Objects.isNull(detValidacion.getNumeroValidacion()))
-				? detValidacion.getNumeroValidacion().toString()
-				: StringUtils.EMPTY;
+		String numValidacion = AppHelper.toString(detValidacion.getNumeroValidacion());
 		cell.setCellValue(numValidacion);
 
 		cell = row.createCell(1);
-		String numElemValid = (!Objects.isNull(detValidacion.getNumeroElementoValid()))
-				? detValidacion.getNumeroElementoValid().toString()
-				: StringUtils.EMPTY;
+		String numElemValid = AppHelper.toString(detValidacion.getNumeroElementoValid());
 		cell.setCellValue(numElemValid);
 
 		cell = row.createCell(2);
-		String desElemento = (StringUtils.isNotBlank(detValidacion.getDescripcionElemento()))
-				? detValidacion.getDescripcionElemento()
-				: StringUtils.EMPTY;
+		String desElemento = AppHelper.toValidString(detValidacion.getDescripcionElemento());
 		cell.setCellValue(desElemento);
 
 		cell = row.createCell(3);
-		String nomElemento = (StringUtils.isNotBlank(detValidacion.getNombreElemento()))
-				? detValidacion.getNombreElemento()
-				: StringUtils.EMPTY;
+		String nomElemento = AppHelper.toValidString(detValidacion.getNombreElemento());
 		cell.setCellValue(nomElemento);
 
 		cell = row.createCell(4);
-		String tipDato = (StringUtils.isNotBlank(detValidacion.getTipoDato())) ? detValidacion.getTipoDato()
-				: StringUtils.EMPTY;
+		String tipDato = AppHelper.toValidString(detValidacion.getTipoDato());
 		cell.setCellValue(tipDato);
 
 		cell = row.createCell(5);
-		String numLongitud = (!Objects.isNull(detValidacion.getNumeroLongitud()))
-				? detValidacion.getNumeroLongitud().toString()
-				: StringUtils.EMPTY;
+		String numLongitud = AppHelper.toString(detValidacion.getNumeroLongitud());
 		cell.setCellValue(numLongitud);
 
 		cell = row.createCell(6);
-		String numDecimales = (!Objects.isNull(detValidacion.getNumeroDecimal()))
-				? detValidacion.getNumeroDecimal().toString()
-				: StringUtils.EMPTY;
+		String numDecimales = AppHelper.toString(detValidacion.getNumeroDecimal());
 		cell.setCellValue(numDecimales);
 
 		cell = row.createCell(7);
-		String descripcionValidacion = (StringUtils.isNotBlank(detValidacion.getTxtDescripcionValid()))
-				? detValidacion.getTxtDescripcionValid()
-				: StringUtils.EMPTY;
+		String descripcionValidacion = AppHelper.toValidString(detValidacion.getTxtDescripcionValid());
 		cell.setCellValue(descripcionValidacion);
 
 		cell = row.createCell(8);
-		String codEstValid = (!Objects.isNull(detValidacion.getCodigoEstadoValid()))
-				? detValidacion.getCodigoEstadoValid().toString()
-				: StringUtils.EMPTY;
+		String codEstValid = AppHelper.toString(detValidacion.getCodigoEstadoValid());
 		cell.setCellValue(codEstValid);
 
 		cell = row.createCell(9);
-		String nomTabla = (StringUtils.isNotBlank(detValidacion.getNombreTabla())) ? detValidacion.getNombreTabla()
-				: StringUtils.EMPTY;
+		String nomTabla = AppHelper.toValidString(detValidacion.getNombreTabla());
 		cell.setCellValue(nomTabla);
 	}
 

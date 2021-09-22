@@ -1,6 +1,7 @@
 package com.mdval.utils;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
@@ -86,5 +87,21 @@ public class AppHelper {
 		} catch (NumberFormatException e) {
 			throw new Exception(errMessage);
 		}
+	}
+	
+	/**
+	 * @param num
+	 * @return
+	 */
+	public static String toString(BigDecimal num) {
+		return (!Objects.isNull(num)) ? num.toString() : StringUtils.EMPTY;
+	}
+	
+	/**
+	 * @param s
+	 * @return
+	 */
+	public static String toValidString(String s) {
+		return (StringUtils.isNotBlank(s)) ? s : StringUtils.EMPTY;
 	}
 }
