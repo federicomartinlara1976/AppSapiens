@@ -104,4 +104,20 @@ public class AppHelper {
 	public static String toValidString(String s) {
 		return (StringUtils.isNotBlank(s)) ? s : StringUtils.EMPTY;
 	}
+	
+	/**
+	 * @param s
+	 * @return
+	 */
+	public static String secureFullTrim(String s) {
+		if (!Objects.isNull(s)) {
+			StringBuilder sb = new StringBuilder(s);
+			String dup = sb.toString();
+			dup = dup.trim();
+			dup = dup.replaceAll("\\n", "");
+			dup = dup.replaceAll("\\r", "");
+			return dup;
+		}
+		return StringUtils.EMPTY;
+	}
 }

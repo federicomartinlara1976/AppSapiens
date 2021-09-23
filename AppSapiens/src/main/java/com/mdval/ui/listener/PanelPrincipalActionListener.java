@@ -38,6 +38,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
 import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -258,13 +259,21 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			List<String> lines = new ArrayList<>();
 			
 			String line = reader.readLine();
-			lines.add(line);
+			
+			String lineToAdd = AppHelper.secureFullTrim(line);
+			if (StringUtils.isNotBlank(lineToAdd)) {
+				lines.add(lineToAdd);
+			}
 			
 			while (line != null) {
 				txtScript.append(line);
 				txtScript.append("\n");
 				line = reader.readLine();
-				lines.add(line);
+				
+				lineToAdd = AppHelper.secureFullTrim(line);
+				if (StringUtils.isNotBlank(lineToAdd)) {
+					lines.add(line);
+				}
 			}
 			
 			return lines;
