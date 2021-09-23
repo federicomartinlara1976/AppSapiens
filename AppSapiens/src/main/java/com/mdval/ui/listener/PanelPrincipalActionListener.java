@@ -87,9 +87,8 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 		panelPrincipal.getTxtCodNorma().setText(StringUtils.EMPTY);
 		panelPrincipal.getTxtDescNorma().setText(StringUtils.EMPTY);
 		
-		SubProyectoComboBoxModel model = (SubProyectoComboBoxModel) panelPrincipal.getCmbSubmodelo().getModel();
-		model.clear();
-		panelPrincipal.getCmbSubmodelo().setSelectedItem(null);
+		SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(new ArrayList<>());
+		panelPrincipal.getCmbSubmodelo().setModel(modelSubProyectos);
 		
 		eventBtnLimpiarValidacion();
 	}
