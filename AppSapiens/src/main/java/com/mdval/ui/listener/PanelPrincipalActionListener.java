@@ -272,7 +272,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				
 				lineToAdd = AppHelper.secureFullTrim(line);
 				if (StringUtils.isNotBlank(lineToAdd)) {
-					lines.add(line);
+					lines.add(lineToAdd);
 				}
 			}
 			
