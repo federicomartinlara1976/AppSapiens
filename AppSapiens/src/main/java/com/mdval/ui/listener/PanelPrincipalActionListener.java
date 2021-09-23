@@ -205,7 +205,10 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				}
 				
 				// Se carga la información en Elementos a Validar
-				DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelPrincipal.getPanelElementosValidar().getTblResultados().getModel();
+				PanelResultados panelResultados = panelPrincipal.getPanelElementosValidar();
+				panelResultados.reset();
+				
+				DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 				model.setData(response.getListaElementosValid());
 				panelPrincipal.getPanelElementosValidar().getBtnGenerarLog().setEnabled(Boolean.TRUE);
 			}

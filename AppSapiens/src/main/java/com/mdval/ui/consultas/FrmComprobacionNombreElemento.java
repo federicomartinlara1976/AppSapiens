@@ -136,7 +136,8 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		btnComprobar = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+		setMinimumSize(new Dimension(1366, 768));
+		
 		panelLogo.setPreferredSize(new Dimension(286, 63));
 
 		GroupLayout panelLogoLayout = new GroupLayout(panelLogo);

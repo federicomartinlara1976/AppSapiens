@@ -52,6 +52,8 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 	 */
 	private void cargarExcepciones() {
 		PanelResultados panelResultados = panelPrincipal.getPanelExcepciones();
+		panelResultados.reset();
+		
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelPrincipal.getResponse();
@@ -70,6 +72,8 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 	 */
 	private void cargarElementosErrores() {
 		PanelResultados panelResultados = panelPrincipal.getPanelConErrores();
+		panelResultados.reset();
+		
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelPrincipal.getResponse();
@@ -88,6 +92,8 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 	 */
 	private void cargarElementosNoGlosario() {
 		PanelResultados panelResultados = panelPrincipal.getPanelNoEstanEnGlosario();
+		panelResultados.reset();
+		
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelPrincipal.getResponse();
@@ -107,6 +113,8 @@ public class PanelPrincipalChangeListener extends PanelPrincipalListener impleme
 	 */
 	private void cargarElementosCorrectos() {
 		PanelResultados panelResultados = panelPrincipal.getPanelElementosCorrectos();
+		panelResultados.reset();
+		
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelPrincipal.getResponse();

@@ -34,15 +34,15 @@ public class DetalleValidacionCabecera extends Cabecera {
 		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(100);
-		columnSizes.add(300);
-		columnSizes.add(100);
-		columnSizes.add(100);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(500);
+		columnSizes.add(120);
+		columnSizes.add(120);
 	}
 }
