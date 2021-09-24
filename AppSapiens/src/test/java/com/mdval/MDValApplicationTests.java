@@ -27,7 +27,7 @@ class MDValApplicationTests {
 	void contextLoads() {
 		try {
 			LiteralesSingleton literales = LiteralesSingleton.getInstance();
-			assertNotEquals(literales.getLiteral("menu.configuracion"), StringUtils.EMPTY);
+			assertNotEquals(StringUtils.EMPTY, literales.getLiteral("menu.configuracion"));
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
