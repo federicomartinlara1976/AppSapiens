@@ -11,7 +11,6 @@ import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.DetValidacion;
@@ -222,12 +221,9 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosNoGlosarioValidacion(response.getNumeroValidacion());
-			if (CollectionUtils.isNotEmpty(detalles)) {
-				model.setData(detalles);
-				panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.TRUE);
-				
-				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
-			}
+			model.setData(detalles);
+			panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.FALSE);
+			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
 		}
 	}
 	
@@ -240,11 +236,8 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosConErroresValidacion(response.getNumeroValidacion());
-			if (CollectionUtils.isNotEmpty(detalles)) {
-				model.setData(detalles);
-				
-				panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
-			}
+			model.setData(detalles);
+			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
 		}
 	}
 }
