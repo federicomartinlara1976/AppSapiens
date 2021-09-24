@@ -221,7 +221,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
 							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
 							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
 							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
@@ -277,7 +277,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
 							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
 							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
 							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
@@ -333,7 +333,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
 							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
 							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
 							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
@@ -389,7 +389,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
 							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
 							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
 							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 					detValidaciones.add(detValidacion);
