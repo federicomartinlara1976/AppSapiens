@@ -354,10 +354,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	}
 
 	@Override
-	protected void initialState() {
-		// TODO Auto-generated method stub
-
-	}
+	protected void initialState() {}
 
 	@SuppressWarnings("unchecked")
 	@Override

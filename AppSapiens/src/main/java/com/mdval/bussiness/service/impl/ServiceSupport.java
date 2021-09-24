@@ -1,5 +1,6 @@
 package com.mdval.bussiness.service.impl;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,15 @@ public class ServiceSupport {
 	
 	public ServiceSupport() {
 		dateFormatter = new DateFormatter();
+	}
+	
+	/**
+	 * @param array
+	 * @return
+	 * @throws SQLException
+	 */
+	protected ServiceException buildException(Array array) throws SQLException {
+		return buildException((Object[]) array.getArray());
 	}
 	
 	/**

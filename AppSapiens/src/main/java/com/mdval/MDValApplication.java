@@ -48,7 +48,7 @@ public class MDValApplication implements CommandLineRunner {
 	}
 
 	/**
-	 * Inicializa el contexto de Spring y lo pone a disposición de todo el
+	 * Inicializa el contexto de Spring y lo pone a disposición del
 	 * aplicativo visual en el almacenamiento global.
 	 */
 	private void setupSpringContext() {

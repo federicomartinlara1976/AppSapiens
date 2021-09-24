@@ -70,9 +70,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(4);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(5);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(5));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.insertarGlosario] Error: %s", e.getMessage());
@@ -110,9 +108,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(5);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(6);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(6));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.insertarExcepcion] Error: %s", e.getMessage());
@@ -154,9 +150,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(7);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(8);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(8));
 			}
 
 			Array arrayValidaParticula = callableStatement.getArray(6);
@@ -207,9 +201,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
@@ -250,9 +242,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
@@ -293,9 +283,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
@@ -336,9 +324,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
@@ -409,9 +395,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(12);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(13);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(13));
 			}
 			
 			Array arrayDetValidacion = callableStatement.getArray(9);
@@ -457,9 +441,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			Integer result = callableStatement.getInt(5);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(6);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(6));
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
