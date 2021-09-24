@@ -182,7 +182,6 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosCorrectosValidacion(BigDecimal numeroValidacion) {
-		List<DetValidacion> detValidaciones = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
@@ -214,20 +213,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
-			if (arrayDetValidacion != null) {
-				Object[] rows = (Object[]) arrayDetValidacion.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
-					detValidaciones.add(detValidacion);
-				}
-			}
-			return detValidaciones;
+			
+			return toListDetalles(arrayDetValidacion);
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.consultaElementosCorrectosValidacion] Error:  %s",
 					e.getMessage());
@@ -238,7 +225,6 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosConErroresValidacion(BigDecimal numeroValidacion) {
-		List<DetValidacion> detValidaciones = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
@@ -270,20 +256,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
-			if (arrayDetValidacion != null) {
-				Object[] rows = (Object[]) arrayDetValidacion.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
-					detValidaciones.add(detValidacion);
-				}
-			}
-			return detValidaciones;
+			
+			return toListDetalles(arrayDetValidacion);
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.consultaElementosConErroresValidacion] Error:  %s",
 					e.getMessage());
@@ -294,8 +268,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosExcepcionesValidacion(BigDecimal numeroValidacion) {
-		List<DetValidacion> detValidaciones = new ArrayList<>();
-
+		
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_con_elem_excepciones_valid");
@@ -326,20 +299,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
-			if (arrayDetValidacion != null) {
-				Object[] rows = (Object[]) arrayDetValidacion.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
-					detValidaciones.add(detValidacion);
-				}
-			}
-			return detValidaciones;
+			
+			return toListDetalles(arrayDetValidacion);
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s",
 					e.getMessage());
@@ -350,8 +311,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosNoGlosarioValidacion(BigDecimal numeroValidacion) {
-		List<DetValidacion> detValidaciones = new ArrayList<>();
-
+		
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig("paquete");
 		String procedure = configuration.getConfig("p_con_elem_no_glosario_valid");
@@ -382,20 +342,8 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			}
 
 			Array arrayDetValidacion = callableStatement.getArray(2);
-			if (arrayDetValidacion != null) {
-				Object[] rows = (Object[]) arrayDetValidacion.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
-					detValidaciones.add(detValidacion);
-				}
-			}
-			return detValidaciones;
+			
+			return toListDetalles(arrayDetValidacion);
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.consultaElementosExcepcionesValidacion] Error:  %s",
 					e.getMessage());
@@ -465,21 +413,9 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				ServiceException exception = buildException((Object[]) listaErrores.getArray());
 				throw exception;
 			}
-			List<DetValidacion> detValidaciones = new ArrayList<>();
+			
 			Array arrayDetValidacion = callableStatement.getArray(9);
-			if (arrayDetValidacion != null) {
-				Object[] rows = (Object[]) arrayDetValidacion.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
-							.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-							.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
-							.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
-							.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
-					detValidaciones.add(detValidacion);
-				}
-			}
+			List<DetValidacion> detValidaciones = toListDetalles(arrayDetValidacion);
 			validaScriptResponse = ValidaScriptResponse.builder().numeroValidacion(numeroValidacion)
 					.listaElementosValid(detValidaciones).elementosNoGlosario(elementosNoGlosario)
 					.elementosErrores(elementosErrores).build();
@@ -573,6 +509,11 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		return camposGlosario;
 	}
 
+	/**
+	 * @param arrayDetValidacion
+	 * @return
+	 * @throws SQLException
+	 */
 	private List<DetValidacion> toListDetalles(Array arrayDetValidacion) throws SQLException {
 		List<DetValidacion> detValidaciones = new ArrayList<>();
 
@@ -583,7 +524,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 				DetValidacion detValidacion = DetValidacion.builder().numeroValidacion((BigDecimal) cols[0])
 						.numeroElementoValid((BigDecimal) cols[1]).descripcionElemento((String) cols[2])
-						.nombreElemento((String) cols[3]).nombreTabla((String) cols[4]).tipoDato((String) cols[5])
+						.nombreTabla((String) cols[3]).nombreElemento((String) cols[4]).tipoDato((String) cols[5])
 						.numeroLongitud((BigDecimal) cols[6]).numeroDecimal((BigDecimal) cols[7])
 						.codigoEstadoValid((BigDecimal) cols[8]).txtDescripcionValid((String) cols[9]).build();
 				detValidaciones.add(detValidacion);
