@@ -69,9 +69,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
             Integer result = callableStatement.getInt(5);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(6);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(6));
             }
 
             return norma.toBuilder().codigoNorma(codigoNorma).descripcionNorma(descripcionNorma)
@@ -112,9 +110,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
             Integer result = callableStatement.getInt(3);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(4));
             }
 
             Array arrayNormas = callableStatement.getArray(2);

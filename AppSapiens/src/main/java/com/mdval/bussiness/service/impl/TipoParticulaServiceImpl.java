@@ -56,9 +56,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 			Integer result = callableStatement.getInt(5);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(6);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(6));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
@@ -96,9 +94,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 			Integer result = callableStatement.getInt(6);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(7);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(7));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ParticulaService.consultarDefinicionTiposParticula] Error: %s", e.getMessage());
@@ -136,9 +132,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayTipoParticula = callableStatement.getArray(2);
@@ -193,9 +187,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 			Integer result = callableStatement.getInt(6);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(7);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(7));
 			}
 
 			Array arrayTipoParticula = callableStatement.getArray(5);

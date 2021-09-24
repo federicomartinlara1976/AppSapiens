@@ -60,9 +60,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 			Integer result = callableStatement.getInt(6);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(7);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(7));
 			}
 
 			Array arrayCamposGlosario = callableStatement.getArray(5);
@@ -125,9 +123,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 			Integer result = callableStatement.getInt(10);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(11);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(11));
 			}
 
 		} catch (SQLException e) {
@@ -173,9 +169,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 			Integer result = callableStatement.getInt(10);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(11);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(11));
 			}
 
 		} catch (SQLException e) {
@@ -229,9 +223,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 			Integer result = callableStatement.getInt(14);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(15);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(15));
 			}
 
 		} catch (SQLException e) {
@@ -270,9 +262,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayModelosGlosario = callableStatement.getArray(2);

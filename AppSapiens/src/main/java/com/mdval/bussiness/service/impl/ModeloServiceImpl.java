@@ -91,9 +91,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(18);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(19);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(19));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.altaModelo] Error: %s", e.getMessage());
@@ -125,9 +123,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.bajaLogicaModelo] Error: %s", e.getMessage());
@@ -172,9 +168,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(9);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(10);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(10));
 			}
 
 			Array arrayModelos = callableStatement.getArray(8);
@@ -262,9 +256,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(20);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(21);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(21));
 			}
 
 			Array arraySubProyectos = callableStatement.getArray(19);
@@ -360,9 +352,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(3);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array arrayModelos = callableStatement.getArray(2);
@@ -462,9 +452,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			Integer result = callableStatement.getInt(18);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(19);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(19));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.altaModelo] Error: %s", e.getMessage());

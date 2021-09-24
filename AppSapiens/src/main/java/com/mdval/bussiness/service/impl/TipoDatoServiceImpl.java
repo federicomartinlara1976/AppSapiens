@@ -61,9 +61,7 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 			Integer result = callableStatement.getInt(2);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(3);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(3));
 			}
 
 			Array arrayTiposDatos = callableStatement.getArray(1);

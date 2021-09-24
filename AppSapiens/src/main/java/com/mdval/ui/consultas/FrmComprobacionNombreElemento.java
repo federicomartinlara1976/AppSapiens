@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.entities.TipoElemento;
 import com.mdval.ui.listener.FrmComprobacionNombreElementoListener;
@@ -354,7 +356,9 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	}
 
 	@Override
-	protected void initialState() {}
+	protected void initialState() {
+		txtNombreComprobar.setText(StringUtils.EMPTY);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

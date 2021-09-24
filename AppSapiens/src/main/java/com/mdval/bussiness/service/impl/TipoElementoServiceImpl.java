@@ -62,9 +62,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
             Integer result = callableStatement.getInt(5);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(6);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(6));
             }
 
             tipoElemento.toBuilder().codigoElemento(codigoElemento).descripcionElemento(descripcion).codigoUsuario(usuario)
@@ -107,9 +105,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
             Integer result = callableStatement.getInt(3);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(4));
             }
 
             Array arrayTipoElemento = callableStatement.getArray(2);
@@ -159,9 +155,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
             Integer result = callableStatement.getInt(3);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(4));
             }
         } catch (SQLException e) {
             LogWrapper.error(log, "[TipoElementoService.altaTipoElemento] Error: %s", e.getMessage());
@@ -196,9 +190,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
             Integer result = callableStatement.getInt(4);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(5);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(5));
             }
         } catch (SQLException e) {
             LogWrapper.error(log, "[TipoElementoService.modificarTipoElemento] Error: %s", e.getMessage());

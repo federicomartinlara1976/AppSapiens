@@ -57,9 +57,7 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 			Integer result = callableStatement.getInt(4);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(5);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(5));
 			}
 
 			Array arrayParticulasNormas = callableStatement.getArray(3);
@@ -115,9 +113,7 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 			Integer result = callableStatement.getInt(4);
 
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(5);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(5));
 			}
 
 			Array arrayParticulasNormas = callableStatement.getArray(3);

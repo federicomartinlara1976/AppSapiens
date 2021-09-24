@@ -59,9 +59,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             Integer result = callableStatement.getInt(8);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(9);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(9));
             }
 
         } catch (SQLException e) {
@@ -101,9 +99,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             Integer result = callableStatement.getInt(8);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(9);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(9));
             }
 
         } catch (SQLException e) {
@@ -139,9 +135,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             Integer result = callableStatement.getInt(3);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(4));
             }
 
             Array arrayValorParticulas = callableStatement.getArray(2);
@@ -209,9 +203,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
             Integer result = callableStatement.getInt(11);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(12);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(12));
             }
 
         } catch (SQLException e) {

@@ -59,9 +59,7 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
             Integer result = callableStatement.getInt(4);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(5);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(5));
             }
 
             Array listaElementoNorma = callableStatement.getArray(3);
@@ -121,9 +119,7 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
             Integer result = callableStatement.getInt(3);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(4);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(4));
             }
 
             Array listaElementoNorma = callableStatement.getArray(2);

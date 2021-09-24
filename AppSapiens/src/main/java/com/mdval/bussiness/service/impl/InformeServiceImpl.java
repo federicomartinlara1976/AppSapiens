@@ -65,9 +65,7 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             Integer result = callableStatement.getInt(5);
 
             if (result == 0) {
-                Array listaErrores = callableStatement.getArray(6);
-                ServiceException exception = buildException((Object[]) listaErrores.getArray());
-                throw exception;
+                throw buildException(callableStatement.getArray(6));
             }
 
             Array arrayErroneos = callableStatement.getArray(2);

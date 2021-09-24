@@ -64,9 +64,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 			Integer result = callableStatement.getInt(3);
 			
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 
 			Array listaGlosarios = callableStatement.getArray(2);
@@ -125,9 +123,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 			Integer result = callableStatement.getInt(6);
 			
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(7);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(7));
 			}
 
 			glosario = Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
@@ -166,9 +162,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 			Integer result = callableStatement.getInt(3);
 			
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(4);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(4));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.altaGlosario] Error: %s", e.getMessage());
@@ -203,9 +197,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 			Integer result = callableStatement.getInt(4);
 			
 			if (result == 0) {
-				Array listaErrores = callableStatement.getArray(5);
-				ServiceException exception = buildException((Object[]) listaErrores.getArray());
-				throw exception;
+				throw buildException(callableStatement.getArray(5));
 			}
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.modificaGlosario] Error: %s", e.getMessage());
