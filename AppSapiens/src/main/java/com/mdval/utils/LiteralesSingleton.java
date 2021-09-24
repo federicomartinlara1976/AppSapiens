@@ -24,8 +24,9 @@ public class LiteralesSingleton {
 		//the base folder is ./, the root of the main.properties file  
 		String literalesPath = "./literales.properties";
 		
-		FileInputStream fistream = new FileInputStream(literalesPath);
-		properties.load(new InputStreamReader(fistream, StandardCharsets.ISO_8859_1));
+		try (FileInputStream fistream = new FileInputStream(literalesPath)) {
+			properties.load(new InputStreamReader(fistream, StandardCharsets.ISO_8859_1));
+		}
 	}
 	
 	public static LiteralesSingleton getInstance() throws IOException {

@@ -21,9 +21,9 @@ public class ConfigurationSingleton {
 		
 		//the base folder is ./, the root of the main.properties file  
 		String propertiesPath = "./configuration.properties";
-		
-		FileInputStream fistream = new FileInputStream(propertiesPath);
-		properties.load(fistream);
+		try (FileInputStream fistream = new FileInputStream(propertiesPath)) {
+			properties.load(fistream);
+		}
 	}
 	
 	public static ConfigurationSingleton getInstance() throws IOException {

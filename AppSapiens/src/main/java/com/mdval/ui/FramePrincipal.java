@@ -23,7 +23,6 @@ public class FramePrincipal extends FrameSupport {
 	 */
 	private static final long serialVersionUID = -6813614532398369392L;
 	
-	private JMenuBar barraMenu;
 	private JPanel panelPrincipal;
 
 	/**
@@ -35,7 +34,7 @@ public class FramePrincipal extends FrameSupport {
 
 	protected void setupComponents() {
 		panelPrincipal = new PanelPrincipal(this);
-		barraMenu = new MainMenuBar();
+		JMenuBar barraMenu = new MainMenuBar();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
