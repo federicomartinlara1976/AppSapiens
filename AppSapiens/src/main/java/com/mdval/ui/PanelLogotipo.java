@@ -23,7 +23,7 @@ public class PanelLogotipo extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3034469653390494133L;
-	private BufferedImage image;
+	private transient BufferedImage image;
 
 	public PanelLogotipo(String logotipo) {
 		try {
