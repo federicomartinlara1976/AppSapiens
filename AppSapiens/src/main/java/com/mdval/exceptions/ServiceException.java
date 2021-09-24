@@ -18,7 +18,7 @@ public class ServiceException extends Exception {
 	
 	@Getter
 	@Setter
-	private List<Object[]> errors;
+	private transient List<Object[]> errors;
 
 	/**
 	 * 
