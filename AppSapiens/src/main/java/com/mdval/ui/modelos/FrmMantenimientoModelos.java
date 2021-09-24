@@ -605,7 +605,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		FrmDefinicionModelos frmDefinicionModelos = (FrmDefinicionModelos) this.getParent();
+		FrmDefinicionModelos frmDefinicionModelos = (FrmDefinicionModelos) this.getFrameParent();
 		FrmDefinicionModelosListener frmDefinicionModelosListener = frmDefinicionModelos.getFrmDefinicionModelosListener();
 		
 		frmMantenimientoModelosListener = new FrmMantenimientoModelosListener(this);

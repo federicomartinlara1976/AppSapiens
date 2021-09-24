@@ -23,7 +23,7 @@ public class FramePrincipal extends FrameSupport {
 	 */
 	private static final long serialVersionUID = -6813614532398369392L;
 	
-	private JMenuBar menuBar;
+	private JMenuBar barraMenu;
 	private JPanel panelPrincipal;
 
 	/**
@@ -35,7 +35,7 @@ public class FramePrincipal extends FrameSupport {
 
 	protected void setupComponents() {
 		panelPrincipal = new PanelPrincipal(this);
-		menuBar = new MainMenuBar();
+		barraMenu = new MainMenuBar();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH );
@@ -44,7 +44,7 @@ public class FramePrincipal extends FrameSupport {
         setPreferredSize(new Dimension(1366, 768));
         
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
-		setJMenuBar(menuBar);
+		setJMenuBar(barraMenu);
 	}
 	
 	protected void setupLiterals() {

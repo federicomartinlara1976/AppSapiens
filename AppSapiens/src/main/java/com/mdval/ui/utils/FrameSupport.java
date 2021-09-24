@@ -39,7 +39,7 @@ public abstract class FrameSupport extends JFrame {
 	private List<OnLoadListener> onLoadListeners;
 	
 	@Getter
-	private FrameSupport parent;
+	private FrameSupport frameParent;
 
 	/**
 	 * 
@@ -52,7 +52,7 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport(FrameSupport parent) {
-		this.parent = parent;
+		this.frameParent = parent;
 		initialize();
 	}
 	
@@ -60,7 +60,7 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport(FrameSupport parent, Map<String, Object> params) {
-		this.parent = parent;
+		this.frameParent = parent;
 		this.params = params;
 		initialize();
 	}

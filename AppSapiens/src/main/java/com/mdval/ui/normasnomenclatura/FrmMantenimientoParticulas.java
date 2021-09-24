@@ -298,7 +298,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		FrmValoresParticulas parent = (FrmValoresParticulas) this.getParent();
+		FrmValoresParticulas parent = (FrmValoresParticulas) this.getFrameParent();
 		FrmValoresParticulasListener frmValoresParticulasListener = parent.getFrmValoresParticulasListener();
 		
 		frmMantenimientoParticulasListener = new FrmMantenimientoParticulasListener(this);
