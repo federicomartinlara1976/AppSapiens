@@ -26,11 +26,14 @@ public class ServiceSupport {
 	
 	protected DateFormatter dateFormatter;
 	
+	protected DateFormatter oracleDateFormatter;
+	
 	private ConfigurationSingleton configuration;
 	
 	@SneakyThrows
 	public ServiceSupport() {
 		dateFormatter = new DateFormatter();
+		oracleDateFormatter = new DateFormatter(Constants.ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES);
 		configuration = ConfigurationSingleton.getInstance();
 	}
 	

@@ -25,6 +25,10 @@ public class DateFormatter {
 			LogWrapper.error(log, "ERROR:", e);
 		}
 	}
+	
+	public DateFormatter(String format) {
+		dateFormat = new SimpleDateFormat(format);
+	}
 
 	/**
 	 * Utility to parse Date to String

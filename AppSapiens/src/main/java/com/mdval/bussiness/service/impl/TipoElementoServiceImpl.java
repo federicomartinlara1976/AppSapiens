@@ -1,22 +1,28 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.TipoElemento;
-import com.mdval.bussiness.service.TipoElementoService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.TipoElemento;
+import com.mdval.bussiness.service.TipoElementoService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -31,17 +37,12 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
     @Override
     @SneakyThrows
     public TipoElemento consultarTipoElemento(BigDecimal codigoElemento) {
-        TipoElemento tipoElemento = new TipoElemento();
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_con_tipo_elemento");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_06_ARGS, llamada);
+        String runSP = createCall("p_con_tipo_elemento", Constants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoElemento);
 
@@ -65,10 +66,9 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
                 throw buildException(callableStatement.getArray(6));
             }
 
-            tipoElemento.toBuilder().codigoElemento(codigoElemento).descripcionElemento(descripcion).codigoUsuario(usuario)
+            return TipoElemento.builder().codigoElemento(codigoElemento).descripcionElemento(descripcion).codigoUsuario(usuario)
                     .fechaActualizacion(fechaActualizacion).build();
-
-            return tipoElemento;
+            
         } catch (SQLException e) {
             LogWrapper.error(log, "[TipoElementoService.consultarTipoElemento] Error: %s", e.getMessage());
             throw new ServiceException(e);
@@ -78,19 +78,13 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
     @Override
     @SneakyThrows
     public List<TipoElemento> consultarTiposElementos(String descripcionElemento) {
-        List<TipoElemento> tipoElementos = new ArrayList<>();
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_con_tipos_elementos");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+        String runSP = createCall("p_con_tipos_elementos", Constants.CALL_04_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeTipoElemento = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO).toUpperCase();
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeTipoElemento = createCallType(Constants.T_T_ELEMENTO);
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, descripcionElemento);
 
@@ -108,7 +102,9 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
                 throw buildException(callableStatement.getArray(4));
             }
 
+            List<TipoElemento> tipoElementos = new ArrayList<>();
             Array arrayTipoElemento = callableStatement.getArray(2);
+            
             if (arrayTipoElemento != null) {
                 Object[] rows = (Object[]) arrayTipoElemento.getArray();
                 for (Object row : rows) {
@@ -132,16 +128,12 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
     @Override
     @SneakyThrows
     public void altaTipoElemento(String descripcionElemento, String codigoUsuario) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_alta_tipo_elemento");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+        String runSP = createCall("p_alta_tipo_elemento", Constants.CALL_04_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, descripcionElemento, codigoUsuario);
 
@@ -166,16 +158,12 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
     @Override
     @SneakyThrows
     public void modificarTipoElemento(BigDecimal codigoElemento, String descripcionElemento, String codigoUsuario) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_modificar_tipo_elemento");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_05_ARGS, llamada);
+        String runSP = createCall("p_modificar_tipo_elemento", Constants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoElemento, descripcionElemento, codigoUsuario);
 

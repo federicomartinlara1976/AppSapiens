@@ -7,14 +7,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +61,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			for (SubProyecto data : modelo.getSubProyectos()) {
 				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
 						new Object[]{ data.getCodigoProyecto(), data.getCodigoSubProyecto(), data.getDescripcionSubProyecto(),
-								data.getCodigoUsuario(), formatDate(data.getFechaActualizacion()) });
+								data.getCodigoUsuario(), oracleDateFormatter.dateToString(data.getFechaActualizacion()) });
 			}
 
 			Array subProyectoTable = ((OracleConnection) conn).createOracleArray(tableSubProyecto, struct);
@@ -318,7 +316,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
-		String runSP = String.format("p_con_modelos_glosario", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_modelos_glosario", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -405,7 +403,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			for (SubProyecto data : modelo.getSubProyectos()) {
 				struct[arrayIndex++] = conn.createStruct(recordSubProyecto,
 						new Object[]{ data.getCodigoProyecto(), data.getCodigoSubProyecto(), data.getDescripcionSubProyecto(),
-								data.getCodigoUsuario(), formatDate(data.getFechaActualizacion()) });
+								data.getCodigoUsuario(), oracleDateFormatter.dateToString(data.getFechaActualizacion()) });
 			}
 
 			Array subProyectoTable = ((OracleConnection) conn).createOracleArray(tableSubProyecto, struct);
@@ -442,11 +440,5 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			LogWrapper.error(log, "[GlosarioService.altaModelo] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
-	}
-
-	private String formatDate(Date date){
-		if (date == null ) return StringUtils.EMPTY;
-		SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES);
-		return dateFormat.format(date);
 	}
 }

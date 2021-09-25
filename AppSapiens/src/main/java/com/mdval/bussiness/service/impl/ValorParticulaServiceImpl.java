@@ -1,22 +1,28 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.ValorParticula;
-import com.mdval.bussiness.service.ValorParticulaService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.ValorParticula;
+import com.mdval.bussiness.service.ValorParticulaService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -31,16 +37,13 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public void altaValorParticula(ValorParticula valorParticula) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_alta_valor_particula");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_09_ARGS, llamada);
+        String runSP = createCall("p_alta_valor_particula", Constants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
+            
             logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValor(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
@@ -71,16 +74,13 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public void modificarTipoParticula(ValorParticula valorParticula) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_alta_valor_particula");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_09_ARGS, llamada);
+        String runSP = createCall("p_alta_valor_particula", Constants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
+            
             logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValor(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
@@ -111,18 +111,14 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public List<ValorParticula> consultarValoresParticula(BigDecimal codigoParticula) {
-        List<ValorParticula> valorParticulas = new ArrayList<>();
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_con_valores_particula");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+        String runSP = createCall("p_con_valores_particula", Constants.CALL_04_ARGS);
+        
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
-
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-            String typeValorParticula = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_VAL_PARTICULA).toUpperCase();
-
+        	
+            String typeValorParticula = createCallType(Constants.T_T_VAL_PARTICULA);
+            String typeError = createCallTypeError();
+            
             logProcedure(runSP, codigoParticula);
 
             callableStatement.setBigDecimal(1, codigoParticula);
@@ -138,7 +134,9 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
                 throw buildException(callableStatement.getArray(4));
             }
 
+            List<ValorParticula> valorParticulas = new ArrayList<>();
             Array arrayValorParticulas = callableStatement.getArray(2);
+            
             if (arrayValorParticulas != null) {
                 Object[] rows = (Object[]) arrayValorParticulas.getArray();
                 for (Object row : rows) {
@@ -158,27 +156,23 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
                 }
             }
 
+            return valorParticulas;
         } catch (SQLException e) {
             LogWrapper.error(log, "[ValorParticulaService.consultarValoresParticula] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return valorParticulas;
     }
 
     @Override
     @SneakyThrows
     public void modificarValorParticula(ValorParticula oldValorParticula, ValorParticula newValorParticula) {
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_modificar_valor_particula");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_12_ARGS, llamada);
+    	String runSP = createCall("p_modificar_valor_particula", Constants.CALL_12_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
+            
             logProcedure(runSP, oldValorParticula.getCodigoParticula(), oldValorParticula.getValor(), oldValorParticula.getCodigoProyecto(),
                     oldValorParticula.getCodigoSubProyecto(), newValorParticula.getValor(), newValorParticula.getDescripcionValorParticula(),
                     newValorParticula.getCodigoProyecto(), newValorParticula.getCodigoSubProyecto(), newValorParticula.getValorParticulaPadre(), newValorParticula.getCodigoUsuario());

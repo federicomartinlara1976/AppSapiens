@@ -1,21 +1,27 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.TipoParticula;
-import com.mdval.bussiness.service.TipoParticulaService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.mdval.bussiness.entities.TipoParticula;
+import com.mdval.bussiness.service.TipoParticulaService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -30,16 +36,12 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public void altaTipoParticula(TipoParticula particula) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_alta_tipo_particula");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_06_ARGS, llamada);
+		String runSP = createCall("p_alta_tipo_particula", Constants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, particula.getDescripcionParticula(), particula.getCodigoUsuario(),
 					particula.getMcaProyecto(), particula.getMcaSubProyecto());
@@ -67,16 +69,12 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public void modificarTipoParticula(TipoParticula particula) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_modifcar_tipo_particula");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_07_ARGS, llamada);
+		String runSP = String.format("p_modifcar_tipo_particula", Constants.CALL_07_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, particula.getCodigoParticula(), particula.getDescripcionParticula(),
 					particula.getCodigoUsuario(), particula.getMcaProyecto(), particula.getMcaSubProyecto());
@@ -105,19 +103,13 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public List<TipoParticula> consultarDefinicionTiposParticula(String descripcionParticula) {
-		List<TipoParticula> tipoParticulas = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_def_tipos_particulas");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		String runSP = createCall("p_con_def_tipos_particulas", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, descripcionParticula);
 
@@ -135,7 +127,9 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 				throw buildException(callableStatement.getArray(4));
 			}
 
+			List<TipoParticula> tipoParticulas = new ArrayList<>();
 			Array arrayTipoParticula = callableStatement.getArray(2);
+			
 			if (arrayTipoParticula != null) {
 				Object[] rows = (Object[]) arrayTipoParticula.getArray();
 				for (Object row : rows) {
@@ -158,19 +152,13 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@SneakyThrows
 	public List<TipoParticula> consultarTiposParticula(BigDecimal codigo, String sDescripcion, String mcaProyecto,
 			String mcaSubproyecto) {
-		List<TipoParticula> tipoParticulas = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_particulas");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_07_ARGS, llamada);
+		String runSP = createCall("p_con_particulas", Constants.CALL_07_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigo, sDescripcion, mcaProyecto, mcaSubproyecto);
 
@@ -190,7 +178,9 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 				throw buildException(callableStatement.getArray(7));
 			}
 
+			List<TipoParticula> tipoParticulas = new ArrayList<>();
 			Array arrayTipoParticula = callableStatement.getArray(5);
+			
 			if (arrayTipoParticula != null) {
 				Object[] rows = (Object[]) arrayTipoParticula.getArray();
 				for (Object row : rows) {

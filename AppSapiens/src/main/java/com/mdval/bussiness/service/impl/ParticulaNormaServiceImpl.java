@@ -1,21 +1,27 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.ParticulaNorma;
-import com.mdval.bussiness.service.ParticulaNormaService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.mdval.bussiness.entities.ParticulaNorma;
+import com.mdval.bussiness.service.ParticulaNormaService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -30,19 +36,13 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 	@Override
 	@SneakyThrows
 	public List<ParticulaNorma> consultarDefinicionParticulaNormaElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		List<ParticulaNorma> particulaNormas = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_def_part_norma_elemento");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_05_ARGS, llamada);
+		String runSP = String.format("p_con_def_part_norma_elemento", Constants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA_NORMA).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA_NORMA);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoNorma, codigoElemento);
 
@@ -60,7 +60,9 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 				throw buildException(callableStatement.getArray(5));
 			}
 
+			List<ParticulaNorma> particulaNormas = new ArrayList<>();
 			Array arrayParticulasNormas = callableStatement.getArray(3);
+			
 			if (arrayParticulasNormas != null) {
 				Object[] rows = (Object[]) arrayParticulasNormas.getArray();
 				for (Object row : rows) {
@@ -86,19 +88,13 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 	@Override
 	@SneakyThrows
 	public List<ParticulaNorma> consultarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		List<ParticulaNorma> particulaNormas = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_particulas_elemento");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_05_ARGS, llamada);
+		String runSP = createCall("p_con_particulas_elemento", Constants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA_NORMA).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA_NORMA);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoNorma, codigoElemento);
 
@@ -116,7 +112,9 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 				throw buildException(callableStatement.getArray(5));
 			}
 
+			List<ParticulaNorma> particulaNormas = new ArrayList<>();
 			Array arrayParticulasNormas = callableStatement.getArray(3);
+			
 			if (arrayParticulasNormas != null) {
 				Object[] rows = (Object[]) arrayParticulasNormas.getArray();
 				for (Object row : rows) {

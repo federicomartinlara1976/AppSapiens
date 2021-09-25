@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -38,17 +37,12 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
     @Override
     @SneakyThrows
     public Norma consultaNorma(BigDecimal codigoNorma) {
-        Norma norma = new Norma();
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_consulta_norma");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_06_ARGS, llamada);
+        String runSP = createCall("p_consulta_norma", Constants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoNorma);
 
@@ -72,7 +66,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
                 throw buildException(callableStatement.getArray(6));
             }
 
-            return norma.toBuilder().codigoNorma(codigoNorma).descripcionNorma(descripcionNorma)
+            return Norma.builder().codigoNorma(codigoNorma).descripcionNorma(descripcionNorma)
                     .codigoUsuario(codigoUsuario).fechaActualizacion(fechaActualizacion).build();
 
         } catch (SQLException e) {
@@ -84,19 +78,13 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
     @Override
     @SneakyThrows
     public List<Norma> consultaNormas(String descripcionNorma) {
-        List<Norma> normas = new ArrayList<>();
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_consulta_normas");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+    	String runSP = createCall("p_consulta_normas", Constants.CALL_04_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeNorma = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_NORMA).toUpperCase();
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeNorma = createCallType(Constants.T_T_NORMA);
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, descripcionNorma);
 
@@ -113,7 +101,9 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
                 throw buildException(callableStatement.getArray(4));
             }
 
+            List<Norma> normas = new ArrayList<>();
             Array arrayNormas = callableStatement.getArray(2);
+            
             if (arrayNormas != null) {
                 Object[] rows = (Object[]) arrayNormas.getArray();
                 for (Object row : rows) {

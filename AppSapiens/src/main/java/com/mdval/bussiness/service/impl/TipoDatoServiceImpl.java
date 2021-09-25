@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.TipoDato;
 import com.mdval.bussiness.service.TipoDatoService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -36,19 +35,13 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 	@Override
 	@SneakyThrows
 	public List<TipoDato> consultaTipoDatos() {
-		List<TipoDato> tipoDatos = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_consulta_tipos_datos");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_03_ARGS, llamada);
+		String runSP = createCall("p_consulta_tipos_datos", Constants.CALL_03_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoDato = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_TIPO_DATO).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoDato = createCallType(Constants.T_T_TIPO_DATO);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP);
 
@@ -64,7 +57,9 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 				throw buildException(callableStatement.getArray(3));
 			}
 
+			List<TipoDato> tipoDatos = new ArrayList<>();
 			Array arrayTiposDatos = callableStatement.getArray(1);
+			
 			if (arrayTiposDatos != null) {
 				Object[] rows = (Object[]) arrayTiposDatos.getArray();
 				for (Object row : rows) {
