@@ -1,23 +1,29 @@
 package com.mdval.bussiness.service.impl;
 
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.service.CamposGlosarioService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author hcarreno
@@ -34,16 +40,14 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	public List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
 			String mostrarExcepciones) {
 		List<CampoGlosario> campoGlosarios = new ArrayList<>();
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_campos_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_07_ARGS, llamada);
+		
+		String runSP = createCall("p_con_campos_glosario", Constants.CALL_07_ARGS);
+		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-			String typeCampoGlosario = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
+			String typeError = createCallTypeError();
+			String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
 
 			logProcedure(runSP, codigoGlosario, tipoDato, nombreColumna, mostrarExcepciones);
 
@@ -89,16 +93,12 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD, String comentario, String codUsuario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_baja_campo_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_11_ARGS, llamada);
+		String runSP = createCall("p_baja_campo_glosario", Constants.CALL_11_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, campoGlosario.getCodigoGlosario(), campoGlosario.getNombreColumna(),
 					campoGlosario.getTipoDato(), campoGlosario.getNumeroLongitud(),
@@ -136,15 +136,12 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void altaCampoGlosario(CampoGlosario campoGlosario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_alta_campo_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_11_ARGS, llamada);
+		String runSP = createCall("p_alta_campo_glosario", Constants.CALL_11_ARGS);
+		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, campoGlosario.getCodigoGlosario(), campoGlosario.getNombreColumna(),
 					campoGlosario.getTipoDato(), campoGlosario.getNumeroLongitud(), campoGlosario.getNumeroDecimal(),
@@ -181,16 +178,12 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_modificar_campo_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_15_ARGS, llamada);
+		String runSP = createCall("p_modificar_campo_glosario", Constants.CALL_15_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, oldCampoGlosario.getCodigoGlosario(), oldCampoGlosario.getNombreColumna(),
 					oldCampoGlosario.getTipoDato(), oldCampoGlosario.getNumeroLongitud(),
@@ -239,16 +232,13 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
 		List<Modelo> modelos = new ArrayList<>();
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_modelos_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		
+		String runSP = createCall("p_con_modelos_glosario", Constants.CALL_04_ARGS);
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-			String typeModeloGlosario = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_MODELO).toUpperCase();
+			String typeError = createCallTypeError();
+			String typeModeloGlosario = createCallType(Constants.T_T_MODELO);
 
 			logProcedure(runSP, codigoGlosario);
 

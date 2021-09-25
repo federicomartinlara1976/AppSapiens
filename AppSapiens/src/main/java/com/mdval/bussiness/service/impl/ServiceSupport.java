@@ -9,9 +9,12 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.ConfigurationSingleton;
+import com.mdval.utils.Constants;
 import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LogWrapper;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -69,5 +72,42 @@ public class ServiceSupport {
 			}
 			LogWrapper.debug(log, "%s", sbArgumentos.toString().trim());
 		}
+	}
+	
+	/**
+	 * @param procedure
+	 * @param callFormat
+	 * @return
+	 */
+	@SneakyThrows
+	protected String createCall(String procedure, String callFormat) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		
+		String proc = configuration.getConfig(procedure);
+		String paquete = configuration.getConfig(Constants.PAQUETE);
+		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, proc).toUpperCase();
+		return String.format(callFormat, llamada);
+	}
+	
+	/**
+	 * @return
+	 */
+	@SneakyThrows
+	protected String createCallTypeError() {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		
+		String paquete = configuration.getConfig(Constants.PAQUETE);
+		return String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+	}
+	
+	/**
+	 * @return
+	 */
+	@SneakyThrows
+	protected String createCallType(String type) {
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		
+		String paquete = configuration.getConfig(Constants.PAQUETE);
+		return String.format(Constants.FORMATO_LLAMADA, paquete, type).toUpperCase();
 	}
 }
