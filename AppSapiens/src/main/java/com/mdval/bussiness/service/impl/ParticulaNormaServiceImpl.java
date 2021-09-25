@@ -36,7 +36,7 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 	@Override
 	@SneakyThrows
 	public List<ParticulaNorma> consultarDefinicionParticulaNormaElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		String runSP = String.format("p_con_def_part_norma_elemento", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_def_part_norma_elemento", Constants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {

@@ -69,7 +69,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public void modificarTipoParticula(TipoParticula particula) {
-		String runSP = String.format("p_modifcar_tipo_particula", Constants.CALL_07_ARGS);
+		String runSP = createCall("p_modifcar_tipo_particula", Constants.CALL_07_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			CallableStatement callableStatement = conn.prepareCall(runSP)) {
