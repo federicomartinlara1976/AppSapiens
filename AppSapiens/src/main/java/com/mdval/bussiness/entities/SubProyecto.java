@@ -1,6 +1,8 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class SubProyecto {
+public class SubProyecto implements Serializable {
 
-    private String codigoProyecto;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3697494311301739263L;
+	
+	private String codigoProyecto;
     private String codigoSubProyecto;
     private String descripcionSubProyecto;
     private String codigoUsuario;

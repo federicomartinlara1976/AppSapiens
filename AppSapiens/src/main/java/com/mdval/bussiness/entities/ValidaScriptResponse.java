@@ -1,12 +1,13 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author hcarreno
@@ -15,9 +16,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ValidaScriptResponse {
+public class ValidaScriptResponse implements Serializable {
 
-    private BigDecimal numeroValidacion;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3746196642964184264L;
+	
+	private BigDecimal numeroValidacion;
     private List<DetValidacion> listaElementosValid;
     private String elementosNoGlosario;
     private String elementosErrores;

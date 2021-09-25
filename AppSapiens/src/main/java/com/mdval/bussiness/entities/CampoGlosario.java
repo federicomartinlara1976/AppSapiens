@@ -1,7 +1,9 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class CampoGlosario {
+public class CampoGlosario implements Serializable {
 
-    private String nombreColumna;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2152172064828723155L;
+	
+	private String nombreColumna;
     private String tipoDato;
     private BigDecimal numeroLongitud;
     private BigDecimal numeroDecimal;

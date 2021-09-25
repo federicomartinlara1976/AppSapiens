@@ -1,7 +1,9 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class TipoParticula {
+public class TipoParticula implements Serializable {
 
-    private BigDecimal codigoParticula;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4453719302834200539L;
+	
+	private BigDecimal codigoParticula;
     private String descripcionParticula;
     private String codigoUsuario;
     private Date fechaActualizacion;

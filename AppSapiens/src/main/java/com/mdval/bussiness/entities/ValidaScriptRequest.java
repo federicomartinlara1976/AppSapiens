@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ValidaScriptRequest {
+public class ValidaScriptRequest implements Serializable {
 
-    private String pScript;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3019536137089400102L;
+	
+	private String pScript;
     private String codigoRF;
     private String codigoSD;
     private String codigoProyecto;

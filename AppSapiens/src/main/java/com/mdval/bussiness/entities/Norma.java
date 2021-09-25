@@ -1,7 +1,9 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Norma {
+public class Norma implements Serializable {
 
-    private BigDecimal codigoNorma;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 216667570502982976L;
+	
+	private BigDecimal codigoNorma;
     private String descripcionNorma;
     private String codigoUsuario;
     private Date fechaActualizacion;

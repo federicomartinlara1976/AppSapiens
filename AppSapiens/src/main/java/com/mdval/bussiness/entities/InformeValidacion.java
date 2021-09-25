@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,7 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class InformeValidacion {
+public class InformeValidacion implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5935042541104594281L;
 	
 	private BigDecimal numValidacion;
 	private String rf;

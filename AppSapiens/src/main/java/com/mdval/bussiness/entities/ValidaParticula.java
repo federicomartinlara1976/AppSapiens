@@ -1,5 +1,6 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
@@ -11,9 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ValidaParticula {
+public class ValidaParticula implements Serializable {
 
-    private BigDecimal numeroParticula;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6805910678611807945L;
+	
+	private BigDecimal numeroParticula;
     private String txtValidacion;
     private String txtValor;
     private String descripcionEstadoValidacion;

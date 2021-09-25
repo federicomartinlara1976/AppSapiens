@@ -1,5 +1,7 @@
 package com.mdval.bussiness.entities;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class TipoDato {
+public class TipoDato implements Serializable {
 
-    private String valor;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3830188509430991350L;
+	
+	private String valor;
 }
