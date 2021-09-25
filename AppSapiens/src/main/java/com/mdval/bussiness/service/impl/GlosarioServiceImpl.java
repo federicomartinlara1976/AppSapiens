@@ -44,7 +44,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_buscar_glosarios");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -95,7 +95,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_glosario");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_07_ARGS, llamada);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -143,7 +143,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_alta_glosario");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -177,7 +177,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_modifica_glosario");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_05_ARGS, llamada);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {

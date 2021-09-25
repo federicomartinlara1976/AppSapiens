@@ -35,7 +35,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_valor_particula");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_09_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -75,7 +75,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_valor_particula");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_09_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -116,7 +116,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_valores_particula");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -173,7 +173,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_modificar_valor_particula");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_12_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

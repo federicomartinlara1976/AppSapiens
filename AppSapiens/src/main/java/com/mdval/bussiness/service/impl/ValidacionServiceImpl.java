@@ -39,7 +39,7 @@ import oracle.jdbc.internal.OracleConnection;
 @Service(Constants.VALIDACION_SERVICE)
 @Log4j
 public class ValidacionServiceImpl extends ServiceSupport implements ValidacionService {
-
+	
 	@Autowired
 	private DataSource dataSource;
 
@@ -50,7 +50,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_insertar_en_glosario");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_05_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -87,7 +87,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_insertar_excepcion");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -126,7 +126,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_validar_elemento");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_08_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -181,7 +181,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_correctos_valid");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -222,7 +222,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_errores_validacion");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -263,7 +263,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_excepciones_valid");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -304,7 +304,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_no_glosario_valid");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -345,7 +345,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_valida_script");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_13_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
@@ -418,7 +418,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_generar_informe_val");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {

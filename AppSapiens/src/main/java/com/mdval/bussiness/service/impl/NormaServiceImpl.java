@@ -43,7 +43,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_consulta_norma");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -90,7 +90,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_consulta_normas");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

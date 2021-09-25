@@ -39,6 +39,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGeneratorService {
 
+	private static final String FORMATO_MENSAJE_ARCHIVO = "Archivo: %s";
+
 	@Override
 	@SneakyThrows
 	public void generarExcelGlosarioCampoModelo(List<CampoGlosario> camposGlosario, String path, String codigoGlosario,
@@ -66,7 +68,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		String format = "%s_%s_%s_%s.xls";
 		String fileName = String.format(format, fecha, nombreReporteGlosario, codigoGlosario, nombreGlosario);
-		LogWrapper.debug(log, "Archivo: %s", fileName);
+		LogWrapper.debug(log, FORMATO_MENSAJE_ARCHIVO, fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
@@ -195,7 +197,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		String format = "%s RF%s-SD%s %s.xls";
 		String fileName = String.format(format, numeroValidacion.toString(), rf, sd, nombreReporteValidacionErroneos);
-		LogWrapper.debug(log, "Archivo: %s", fileName);
+		LogWrapper.debug(log, FORMATO_MENSAJE_ARCHIVO, fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();
@@ -297,7 +299,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		String format = "%s RF%s-SD%s %s.xls";
 		String fileName = String.format(format, numeroValidacion.toString(), rf, sd, nombreReporteValidacionGlosario);
-		LogWrapper.debug(log, "Archivo: %s", fileName);
+		LogWrapper.debug(log, FORMATO_MENSAJE_ARCHIVO, fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
 		workbook.write(outputStream);
 		workbook.close();

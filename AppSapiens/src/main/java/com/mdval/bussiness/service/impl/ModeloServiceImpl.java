@@ -40,7 +40,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_alta_modelo");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_19_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection(); OracleConnection oConn = (OracleConnection) conn;
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -106,7 +106,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_baja_logica_modelo");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -142,7 +142,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_modelos");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_10_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -220,7 +220,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_modelo");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_21_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -332,7 +332,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_modelos_glosario");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -401,7 +401,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_modifica_modelo");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_19_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {

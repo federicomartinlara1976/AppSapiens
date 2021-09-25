@@ -36,7 +36,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_tipo_elemento");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -84,7 +84,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_tipos_elementos");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -136,7 +136,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_tipo_elemento");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -170,7 +170,7 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_modificar_tipo_elemento");
         String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
+        String runSP = String.format(Constants.CALL_05_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

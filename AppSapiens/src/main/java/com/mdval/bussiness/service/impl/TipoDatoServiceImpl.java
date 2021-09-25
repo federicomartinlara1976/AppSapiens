@@ -42,7 +42,7 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_tipos_datos");
 		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format("{call %s(?,?,?)}", llamada);
+		String runSP = String.format(Constants.CALL_03_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
