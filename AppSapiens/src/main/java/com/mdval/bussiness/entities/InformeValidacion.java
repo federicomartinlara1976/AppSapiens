@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 public class InformeValidacion {
 	
 	private BigDecimal numValidacion;
-	private String RF;
-	private String SD;
+	private String rf;
+	private String sd;
 
     private List<DetValidacion> listaErroneos;
     private List<DetValidacion> listaOtraDefinicion;

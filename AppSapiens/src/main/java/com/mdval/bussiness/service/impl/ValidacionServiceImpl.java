@@ -47,15 +47,15 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@SneakyThrows
 	public void insertarGlosario(BigDecimal numeroValidacion, BigDecimal numeroElemento, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_insertar_en_glosario");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion, numeroElemento, codigoUsuario);
 
@@ -84,15 +84,15 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 			String codigoUsuario) {
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_insertar_excepcion");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion, numeroElemento, codigoUsuario);
 
@@ -123,16 +123,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 		List<ValidaParticula> validaParticulas = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_validar_elemento");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeValidaParticula = String.format("%s.%s", paquete, Constants.T_T_VALIDA_PARTICULA).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeValidaParticula = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_VALIDA_PARTICULA).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, codigoNorma, codigoProyecto, codigoSubProyecto, codigoElemento, nombreElemento);
 
@@ -178,16 +178,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	public List<DetValidacion> consultaElementosCorrectosValidacion(BigDecimal numeroValidacion) {
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_correctos_valid");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion);
 
@@ -219,16 +219,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	public List<DetValidacion> consultaElementosConErroresValidacion(BigDecimal numeroValidacion) {
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_errores_validacion");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion);
 
@@ -260,16 +260,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	public List<DetValidacion> consultaElementosExcepcionesValidacion(BigDecimal numeroValidacion) {
 		
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_excepciones_valid");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion);
 
@@ -301,16 +301,16 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	public List<DetValidacion> consultaElementosNoGlosarioValidacion(BigDecimal numeroValidacion) {
 		
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_elem_no_glosario_valid");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion);
 
@@ -342,18 +342,18 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	public ValidaScriptResponse validaScript(ValidaScriptRequest validaScriptRequest) {
 		ValidaScriptResponse validaScriptResponse = new ValidaScriptResponse();
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_valida_script");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String trLinea = String.format("%s.%s", paquete, Constants.T_R_LINEA).toUpperCase();
-			String tableLinea = String.format("%s.%s", paquete, Constants.T_T_LINEA).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String trLinea = String.format(FORMATO_LLAMADA, paquete, Constants.T_R_LINEA).toUpperCase();
+			String tableLinea = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_LINEA).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			// El script se manda manda línea a línea
 			Struct[] struct = new Struct[validaScriptRequest.getLines().size()];
@@ -415,17 +415,17 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@SneakyThrows
 	public InformeValidacion generarInformeValidacion(BigDecimal numeroValidacion) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_generar_informe_val");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-			String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-			String typeCampoGlosario = String.format("%s.%s", paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+			String typeCampoGlosario = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
 
 			logProcedure(runSP, numeroValidacion);
 

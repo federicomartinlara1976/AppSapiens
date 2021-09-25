@@ -134,8 +134,8 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 				String sd = panelResultados.getPanelPrincipal().getRequest().getCodigoSD();
 				
 				InformeValidacion informeValidacion = validacionService.generarInformeValidacion(numeroValidacion);
-				informeValidacion.setRF(rf);
-				informeValidacion.setSD(sd);
+				informeValidacion.setRf(rf);
+				informeValidacion.setSd(sd);
 				
 				excelGeneratorService.generarExcelValidacionNomenclatura(informeValidacion, path);
 			}

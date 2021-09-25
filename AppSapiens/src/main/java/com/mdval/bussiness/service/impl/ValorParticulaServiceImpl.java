@@ -25,22 +25,22 @@ import java.util.List;
 @Log4j
 public class ValorParticulaServiceImpl extends ServiceSupport implements ValorParticulaService {
 
-    @Autowired
+	@Autowired
     private DataSource dataSource;
 
     @Override
     @SneakyThrows
     public void altaValorParticula(ValorParticula valorParticula) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_valor_particula");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValorParticula(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
@@ -72,15 +72,15 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @SneakyThrows
     public void modificarTipoParticula(ValorParticula valorParticula) {
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_valor_particula");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValorParticula(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
@@ -113,15 +113,15 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     public List<ValorParticula> consultarValoresParticula(BigDecimal codigoParticula) {
         List<ValorParticula> valorParticulas = new ArrayList<>();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_valores_particula");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-            String typeValorParticula = String.format("%s.%s", paquete, Constants.T_T_VAL_PARTICULA).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeValorParticula = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_VAL_PARTICULA).toUpperCase();
 
             logProcedure(runSP, codigoParticula);
 
@@ -170,15 +170,15 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     public void modificarValorParticula(ValorParticula oldValorParticula, ValorParticula newValorParticula) {
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_modificar_valor_particula");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, oldValorParticula.getCodigoParticula(), oldValorParticula.getValorParticula(), oldValorParticula.getCodigoProyecto(),
                     oldValorParticula.getCodigoSubProyecto(), newValorParticula.getValorParticula(), newValorParticula.getDescripcionValorParticula(),
                     newValorParticula.getCodigoProyecto(), newValorParticula.getCodigoSubProyecto(), newValorParticula.getValorParticulaPadre(), newValorParticula.getCodigoUsuario());

@@ -44,7 +44,7 @@ public class TipoDatoComboBoxModel extends AbstractListModel<String> implements 
 		tipos.add(StringUtils.EMPTY);
 		
 		for (TipoDato tipoDato : tiposDatos) {
-			tipos.add(tipoDato.getTipoDato());
+			tipos.add(tipoDato.getValor());
 		}
 	}
 

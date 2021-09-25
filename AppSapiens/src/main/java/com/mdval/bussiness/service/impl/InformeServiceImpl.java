@@ -39,17 +39,17 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
         InformeValidacion informeValidacion = new InformeValidacion();
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_generar_informe_val");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeDetValidacion = String.format("%s.%s", paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-            String typeCampoGlosario = String.format("%s.%s", paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+            String typeCampoGlosario = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, codigoValidacion);
 

@@ -37,15 +37,15 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
         List<ElementoNorma> elementoNormas = new ArrayList<>();
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_def_elem_norma");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = String.format("%s.%s", paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeElementoNorma = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, codigoNorma, codigoElemento);
 
             callableStatement.setBigDecimal(1, codigoNorma);
@@ -98,15 +98,15 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
         List<ElementoNorma> elementoNormas = new ArrayList<>();
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_elem_norma");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?)}", llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = String.format("%s.%s", paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeElementoNorma = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, codigoNorma);
 
             callableStatement.setBigDecimal(1, codigoNorma);

@@ -44,8 +44,10 @@ public class Constants {
 	public static final String INFORME_SERVICE = "informeService";
 
 	/**
-	 * DataBase Types
+	 * DataBase Types and constants
 	 */
+	public static final String PAQUETE = "paquete";
+	
 	public static final String T_R_LINEA = "T_R_LINEA";
 	public static final String T_T_LINEA = "T_T_LINEA";
 	public static final String T_T_VALIDA_PARTICULA = "T_T_VALIDA_PARTICULA";

@@ -39,16 +39,16 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 		List<TipoDato> tipoDatos = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_tipos_datos");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoDato = String.format("%s.%s", paquete, Constants.T_T_TIPO_DATO).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoDato = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_TIPO_DATO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP);
 
@@ -69,7 +69,7 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 				Object[] rows = (Object[]) arrayTiposDatos.getArray();
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-					TipoDato tipoDato = TipoDato.builder().tipoDato((String) cols[0]).build();
+					TipoDato tipoDato = TipoDato.builder().valor((String) cols[0]).build();
 					tipoDatos.add(tipoDato);
 				}
 			}

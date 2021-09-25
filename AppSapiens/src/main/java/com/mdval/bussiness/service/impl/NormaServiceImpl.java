@@ -40,15 +40,15 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
     public Norma consultaNorma(BigDecimal codigoNorma) {
         Norma norma = new Norma();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_consulta_norma");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, codigoNorma);
 
@@ -87,16 +87,16 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
         List<Norma> normas = new ArrayList<>();
 
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig("paquete");
+        String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_consulta_normas");
-        String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeNorma = String.format("%s.%s", paquete, Constants.T_T_NORMA).toUpperCase();
-            String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeNorma = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_NORMA).toUpperCase();
+            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, descripcionNorma);
 

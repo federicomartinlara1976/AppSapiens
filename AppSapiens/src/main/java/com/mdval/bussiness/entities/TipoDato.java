@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class TipoDato {
 
-    private String tipoDato;
+    private String valor;
 }

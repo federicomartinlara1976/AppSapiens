@@ -41,16 +41,16 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 		List<Glosario> glosarios = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_buscar_glosarios");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeGlosario = String.format("%s.%s", paquete, Constants.T_T_GLOSARIO).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeGlosario = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_GLOSARIO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 			
 			logProcedure(runSP, descripcionGlosario);
 
@@ -92,15 +92,15 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	public Glosario consultarGlosario(BigDecimal codigoGlosario) {
 		Glosario glosario = new Glosario();
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_glosario");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 			
 			logProcedure(runSP, codigoGlosario);
 			
@@ -140,15 +140,15 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@SneakyThrows
 	public void altaGlosario(String descripcionGlosario, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_alta_glosario");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, descripcionGlosario, codigoUsuario);
 			
@@ -174,15 +174,15 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@SneakyThrows
 	public void modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_modifica_glosario");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?)}", llamada);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 			
 			logProcedure(runSP, codigoGlosario, descripcionGlosario, codigoUsuario);
 			

@@ -37,17 +37,17 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@SneakyThrows
 	public void altaModelo(Modelo modelo) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_alta_modelo");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection(); OracleConnection oConn = (OracleConnection) conn;
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-			String tableSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String recordSubProyecto = String.format("%s.%s", paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String tableSubProyecto = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String recordSubProyecto = String.format(FORMATO_LLAMADA, paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
 
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
@@ -103,14 +103,14 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@SneakyThrows
 	public void bajaLogicaModelo(String codigoProyecto, String codigoUsuario) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_baja_logica_modelo");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 			logProcedure(runSP, codigoProyecto, codigoUsuario);
 
 			callableStatement.setString(1, codigoProyecto);
@@ -139,16 +139,16 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		List<Modelo> modelos = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_modelos");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = String.format("%s.%s", paquete, Constants.T_T_MODELO).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeModelo = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_MODELO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, codigoProyecto, nombreModelo, codigoNorma, codigoGlosario, nombreEsquema, nombreBbdd, mostrarInh);
 
@@ -217,16 +217,16 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		Modelo modelo = new Modelo();
 		List<SubProyecto> subProyectos = new ArrayList<>();
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_modelo");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeSubProyecto = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 			logProcedure(runSP, codigoProyecto);
 
 			callableStatement.setString(1, codigoProyecto);
@@ -329,16 +329,16 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		List<Modelo> modelos = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_modelos_glosario");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = String.format("%s.%s", paquete, Constants.T_T_MODELO).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeModelo = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_MODELO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, codigoGlosario);
 
@@ -398,17 +398,17 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@SneakyThrows
 	public void modificaModelo(Modelo modelo) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_modifica_modelo");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
-			String tableSubProyecto = String.format("%s.%s", paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String recordSubProyecto = String.format("%s.%s", paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String tableSubProyecto = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
+			String recordSubProyecto = String.format(FORMATO_LLAMADA, paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
 
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),

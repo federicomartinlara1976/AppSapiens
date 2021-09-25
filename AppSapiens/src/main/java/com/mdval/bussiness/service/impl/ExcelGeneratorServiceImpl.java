@@ -159,8 +159,8 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String nombreHojaValidacionGlosario = configuration.getConfig("nombreHojaValidacionGlosario");
 		
 		BigDecimal numeroValidacion = informeValidacion.getNumValidacion();
-		String rf = informeValidacion.getRF();
-		String sd = informeValidacion.getSD();
+		String rf = informeValidacion.getRf();
+		String sd = informeValidacion.getSd();
 
 		if (CollectionUtils.isNotEmpty(listaError)) {
 			generateReporteValidacion(listaError, nombreReporteValidacionErroneos, nombreHojaValidacionErroneos,

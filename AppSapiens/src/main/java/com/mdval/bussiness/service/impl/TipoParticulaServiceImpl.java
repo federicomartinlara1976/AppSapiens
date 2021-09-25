@@ -31,15 +31,15 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@SneakyThrows
 	public void altaTipoParticula(TipoParticula particula) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_alta_tipo_particula");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, particula.getDescripcionParticula(), particula.getCodigoUsuario(),
 					particula.getMcaProyecto(), particula.getMcaSubProyecto());
@@ -68,15 +68,15 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@SneakyThrows
 	public void modificarTipoParticula(TipoParticula particula) {
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_modifcar_tipo_particula");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, particula.getCodigoParticula(), particula.getDescripcionParticula(),
 					particula.getCodigoUsuario(), particula.getMcaProyecto(), particula.getMcaSubProyecto());
@@ -108,16 +108,16 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 		List<TipoParticula> tipoParticulas = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_def_tipos_particulas");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, descripcionParticula);
 
@@ -161,16 +161,16 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 		List<TipoParticula> tipoParticulas = new ArrayList<>();
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig("paquete");
+		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_con_particulas");
-		String llamada = String.format("%s.%s", paquete, procedure).toUpperCase();
+		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format("{call %s(?,?,?,?,?,?,?)}", llamada);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = String.format("%s.%s", paquete, Constants.T_T_PARTICULA).toUpperCase();
-			String typeError = String.format("%s.%s", paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoParticula = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_PARTICULA).toUpperCase();
+			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP, codigo, sDescripcion, mcaProyecto, mcaSubproyecto);
 
