@@ -57,6 +57,9 @@ public class PanelResultados extends PanelSupport {
 	
 	@Getter
 	private PanelPrincipal panelPrincipal;
+	
+	@Getter
+	private PanelResultadosListener panelResultadosListener;
 
 	/**
 	 * Creates new form PanelResultados
@@ -144,17 +147,17 @@ public class PanelResultados extends PanelSupport {
 	 */
 	@Override
 	protected void initEvents() {
-		PanelResultadosListener listener = new PanelResultadosListener(this);
+		panelResultadosListener = new PanelResultadosListener(this);
 		
 		btnMarcarExcepcion.setActionCommand(Constants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION);
 		btnAddGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO);
 		btnAddTodosGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO);
 		btnGenerarLog.setActionCommand(Constants.PANEL_RESULTADOS_BTN_GENERAR_LOG);
 
-		btnMarcarExcepcion.addActionListener(listener);
-		btnAddGlosario.addActionListener(listener);
-		btnAddTodosGlosario.addActionListener(listener);
-		btnGenerarLog.addActionListener(listener);
+		btnMarcarExcepcion.addActionListener(panelResultadosListener);
+		btnAddGlosario.addActionListener(panelResultadosListener);
+		btnAddTodosGlosario.addActionListener(panelResultadosListener);
+		btnGenerarLog.addActionListener(panelResultadosListener);
 	}
 
 	/**

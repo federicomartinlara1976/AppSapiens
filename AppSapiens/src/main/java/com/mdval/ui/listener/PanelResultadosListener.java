@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.bussiness.entities.DetValidacion;
@@ -72,7 +73,6 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			String excepcion = dlg.getTxtComentario().getText();
 			if (StringUtils.isNotBlank(excepcion)) {
 				insertarExcepcion(seleccionado, excepcion);
-				cargarElementosErrores();
 			}
 
 		} catch (Exception e) {
@@ -199,11 +199,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 				JOptionPane.showMessageDialog(panelResultados.getParent(), msg);
 
-				/**
-				 * En este punto invocar un método que informe a los observadores del patrón
-				 * observer para que invoquen a su método de actualización
-				 */
-				updateObservers(Constants.DLG_ALTA_MODIFICACION_GLOSARIOS_BTN_ACEPTAR);
+				cargarElementosErrores();
 
 			}
 		} catch (Exception e) {
@@ -215,27 +211,59 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 	/**
 	 * 
 	 */
-	private void cargarElementosNoGlosario() {
+	public void cargarElementosNoGlosario() {
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosNoGlosarioValidacion(response.getNumeroValidacion());
 			model.setData(detalles);
-			panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.FALSE);
 			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			
+			if (CollectionUtils.isNotEmpty(detalles)) {
+				panelResultados.getBtnAddTodosGlosario().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 	
 	/**
 	 * 
 	 */
-	private void cargarElementosErrores() {
+	public void cargarElementosErrores() {
 		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
 	
 		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
 		if (!Objects.isNull(response)) {
 			List<DetValidacion> detalles = validacionService.consultaElementosConErroresValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+			panelResultados.getBtnMarcarExcepcion().setEnabled(Boolean.FALSE);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void cargarExcepciones() {
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosExcepcionesValidacion(response.getNumeroValidacion());
+			model.setData(detalles);
+			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void cargarElementosCorrectos() {
+		DetalleValidacionTableModel model = (DetalleValidacionTableModel) panelResultados.getTblResultados().getModel();
+	
+		ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
+		if (!Objects.isNull(response)) {
+			List<DetValidacion> detalles = validacionService.consultaElementosCorrectosValidacion(response.getNumeroValidacion());
 			model.setData(detalles);
 			panelResultados.getBtnGenerarLog().setEnabled(Boolean.TRUE);
 		}
