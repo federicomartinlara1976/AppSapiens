@@ -1,26 +1,33 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.Modelo;
-import com.mdval.bussiness.entities.SubProyecto;
-import com.mdval.bussiness.service.ModeloService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
-import oracle.jdbc.internal.OracleConnection;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Struct;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.Modelo;
+import com.mdval.bussiness.entities.SubProyecto;
+import com.mdval.bussiness.service.ModeloService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
+import oracle.jdbc.internal.OracleConnection;
 
 
 /**
@@ -36,19 +43,15 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void altaModelo(Modelo modelo) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_alta_modelo");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_19_ARGS, llamada);
+		String runSP = createCall("p_alta_modelo", Constants.CALL_19_ARGS);
 
 		try (Connection conn = dataSource.getConnection(); OracleConnection oConn = (OracleConnection) conn;
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-			String tableSubProyecto = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String recordSubProyecto = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
-
+			String tableSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
+			String recordSubProyecto = createCallType(Constants.T_R_SUBPROYECTO);
+			String typeError = createCallTypeError();
+			
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
 					modelo.getCodigoUsuario(), modelo.getNomApnCmdb(), modelo.getMcaGrantAll(), modelo.getMcaGrantPublic(), modelo.getMcaVariables(),
@@ -102,15 +105,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void bajaLogicaModelo(String codigoProyecto, String codigoUsuario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_baja_logica_modelo");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		String runSP = createCall("p_baja_logica_modelo", Constants.CALL_04_ARGS);
+		
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
+			
 			logProcedure(runSP, codigoProyecto, codigoUsuario);
 
 			callableStatement.setString(1, codigoProyecto);
@@ -136,19 +137,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	public List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo,
 										BigDecimal codigoNorma, BigDecimal codigoGlosario,
 										String nombreEsquema, String nombreBbdd, String mostrarInh) {
-		List<Modelo> modelos = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_consulta_modelos");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_10_ARGS, llamada);
+		String runSP = createCall("p_consulta_modelos", Constants.CALL_10_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_MODELO).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoProyecto, nombreModelo, codigoNorma, codigoGlosario, nombreEsquema, nombreBbdd, mostrarInh);
 
@@ -171,7 +166,9 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 				throw buildException(callableStatement.getArray(10));
 			}
 
+			List<Modelo> modelos = new ArrayList<>();
 			Array arrayModelos = callableStatement.getArray(8);
+			
 			if (arrayModelos != null) {
 				Object[] rows = (Object[]) arrayModelos.getArray();
 				for (Object row : rows) {
@@ -214,19 +211,14 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public Modelo consultaModelo(String codigoProyecto) {
-		Modelo modelo = new Modelo();
-		List<SubProyecto> subProyectos = new ArrayList<>();
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_modelo");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_21_ARGS, llamada);
+		String runSP = createCall("p_con_modelo", Constants.CALL_21_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeSubProyecto = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
+			String typeError = createCallTypeError();
+			
 			logProcedure(runSP, codigoProyecto);
 
 			callableStatement.setString(1, codigoProyecto);
@@ -259,6 +251,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 				throw buildException(callableStatement.getArray(21));
 			}
 
+			List<SubProyecto> subProyectos = new ArrayList<>();
 			Array arraySubProyectos = callableStatement.getArray(19);
 			if (arraySubProyectos != null) {
 				Object[] rows = (Object[]) arraySubProyectos.getArray();
@@ -294,7 +287,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			String mcaVariables = callableStatement.getString(17);
 			String obsModelo = callableStatement.getString(18);
 
-			modelo = Modelo.builder()
+			return Modelo.builder()
 					.codigoProyecto(codigoProyecto)
 					.nombreModelo(nombreModelo)
 					.nombreEsquema(nombreEsquema)
@@ -316,7 +309,6 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 					.subProyectos(subProyectos)
 					.build();
 
-			return modelo;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.consultaModelo] Error: %s", e.getMessage());
 			throw new ServiceException(e);
@@ -326,19 +318,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
-		List<Modelo> modelos = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_con_modelos_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		String runSP = String.format("p_con_modelos_glosario", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_MODELO).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoGlosario);
 
@@ -355,7 +341,9 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 				throw buildException(callableStatement.getArray(4));
 			}
 
+			List<Modelo> modelos = new ArrayList<>();
 			Array arrayModelos = callableStatement.getArray(2);
+			
 			if (arrayModelos != null) {
 				Object[] rows = (Object[]) arrayModelos.getArray();
 				for (Object row : rows) {
@@ -397,19 +385,15 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void modificaModelo(Modelo modelo) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_modifica_modelo");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_19_ARGS, llamada);
+		String runSP = createCall("p_modifica_modelo", Constants.CALL_19_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
-
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-			String tableSubProyecto = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_SUBPROYECTO).toUpperCase();
-			String recordSubProyecto = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_R_SUBPROYECTO).toUpperCase();
-
+			
+			String tableSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
+			String recordSubProyecto = createCallType(Constants.T_R_SUBPROYECTO);
+			String typeError = createCallTypeError();
+			
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
 					modelo.getNombreBbdd(), modelo.getNombreCarpetaAdj(), modelo.getCodigoGrupoBds(), modelo.getCodigoHerramienta(), modelo.getObservacionesModelo(),
 					modelo.getCodigoUsuario(), modelo.getNomApnCmdb(), modelo.getMcaGrantAll(), modelo.getMcaGrantPublic(), modelo.getMcaVariables(),

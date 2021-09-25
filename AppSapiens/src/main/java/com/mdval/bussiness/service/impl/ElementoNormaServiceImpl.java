@@ -96,7 +96,7 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
     @Override
     @SneakyThrows
     public List<ElementoNorma> consultarElementosNorma(BigDecimal codigoNorma) {
-        String runSP = String.format("p_con_elem_norma", Constants.CALL_04_ARGS);
+        String runSP = createCall("p_con_elem_norma", Constants.CALL_04_ARGS);
         
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

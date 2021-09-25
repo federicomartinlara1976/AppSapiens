@@ -37,7 +37,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public List<Glosario> buscarGlosarios(String descripcionGlosario) {
-		String runSP = String.format("p_buscar_glosarios", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_buscar_glosarios", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -116,10 +116,8 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 				throw buildException(callableStatement.getArray(7));
 			}
 
-			Glosario glosario = Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
+			return Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
 					.fechaAlta(fechaAlta).fechaActualizacion(fechaActualizacion).build();
-
-			return glosario;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[GlosarioService.consultarGlosario] Error: %s", e.getMessage());
 			throw new ServiceException(e);

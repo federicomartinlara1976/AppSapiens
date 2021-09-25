@@ -1,13 +1,5 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.CampoGlosario;
-import com.mdval.bussiness.entities.DetValidacion;
-import com.mdval.bussiness.entities.InformeValidacion;
-import com.mdval.bussiness.service.InformeService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -17,11 +9,22 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.sql.DataSource;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.CampoGlosario;
+import com.mdval.bussiness.entities.DetValidacion;
+import com.mdval.bussiness.entities.InformeValidacion;
+import com.mdval.bussiness.service.InformeService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -36,20 +39,14 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     @Override
     @SneakyThrows
     public InformeValidacion generarInformeValidacion(BigDecimal codigoValidacion) {
-        InformeValidacion informeValidacion = new InformeValidacion();
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_generar_informe_val");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_06_ARGS, llamada);
+        String runSP = createCall("p_generar_informe_val", Constants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeDetValidacion = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-            String typeCampoGlosario = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
+            String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
+            String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoValidacion);
 
@@ -76,7 +73,7 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             List<DetValidacion> listaOtraDefinicion = getListaOtraDefinicion(arrayOtraDefinicion);
             List<CampoGlosario> listaDefinicionGlosario = getListaDefinicionGlosario(arrayDefinicionGlosarios);
 
-            informeValidacion.toBuilder()
+            return InformeValidacion.builder()
                     .listaErroneos(listaErroneos)
                     .listaOtraDefinicion(listaOtraDefinicion)
                     .listaDefinicionGlosario(listaDefinicionGlosario)
@@ -86,7 +83,6 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             LogWrapper.error(log, "[InformeService.generarInformeValidacion] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return informeValidacion;
     }
 
     @SneakyThrows
