@@ -53,13 +53,13 @@ public class PanelResultados extends PanelSupport {
 	
 	@Getter
 	@Setter
-	private DetValidacion seleccionado;
+	private transient DetValidacion seleccionado;
 	
 	@Getter
-	private PanelPrincipal panelPrincipal;
+	private transient PanelPrincipal panelPrincipal;
 	
 	@Getter
-	private PanelResultadosListener panelResultadosListener;
+	private transient PanelResultadosListener panelResultadosListener;
 
 	/**
 	 * Creates new form PanelResultados

@@ -70,7 +70,7 @@ public class DlgAltaModificacionValoresParticulaListener extends ListenerSupport
 			
 			ValorParticula newValorParticula = new ValorParticula();
 			newValorParticula.setCodigoParticula(tipoParticula.getCodigoParticula());
-			newValorParticula.setValorParticula(sValorParticula);
+			newValorParticula.setValor(sValorParticula);
 			newValorParticula.setDescripcionValorParticula(sDescripcionValor);
 			newValorParticula.setCodigoProyecto(sProyecto);
 			newValorParticula.setCodigoSubProyecto(sSubproyecto);

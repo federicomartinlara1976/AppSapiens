@@ -41,11 +41,11 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-            logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValorParticula(), valorParticula.getDescripcionValorParticula(),
+            logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValor(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
             callableStatement.setBigDecimal(1, valorParticula.getCodigoParticula());
-            callableStatement.setString(2, valorParticula.getValorParticula());
+            callableStatement.setString(2, valorParticula.getValor());
             callableStatement.setString(3, valorParticula.getDescripcionValorParticula());
             callableStatement.setString(4, valorParticula.getCodigoProyecto());
             callableStatement.setString(5, valorParticula.getCodigoSubProyecto());
@@ -81,11 +81,11 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-            logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValorParticula(), valorParticula.getDescripcionValorParticula(),
+            logProcedure(runSP, valorParticula.getCodigoParticula(), valorParticula.getValor(), valorParticula.getDescripcionValorParticula(),
                     valorParticula.getCodigoProyecto(), valorParticula.getCodigoSubProyecto(), valorParticula.getValorParticulaPadre(), valorParticula.getCodigoUsuario());
 
             callableStatement.setBigDecimal(1, valorParticula.getCodigoParticula());
-            callableStatement.setString(2, valorParticula.getValorParticula());
+            callableStatement.setString(2, valorParticula.getValor());
             callableStatement.setString(3, valorParticula.getDescripcionValorParticula());
             callableStatement.setString(4, valorParticula.getCodigoProyecto());
             callableStatement.setString(5, valorParticula.getCodigoSubProyecto());
@@ -146,7 +146,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
 
                     ValorParticula valorParticula = ValorParticula.builder()
                             .codigoParticula((BigDecimal) cols[0])
-                            .valorParticula((String) cols[1])
+                            .valor((String) cols[1])
                             .descripcionValorParticula((String) cols[2])
                             .codigoProyecto((String) cols[3])
                             .codigoSubProyecto((String) cols[4])
@@ -179,16 +179,16 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
-            logProcedure(runSP, oldValorParticula.getCodigoParticula(), oldValorParticula.getValorParticula(), oldValorParticula.getCodigoProyecto(),
-                    oldValorParticula.getCodigoSubProyecto(), newValorParticula.getValorParticula(), newValorParticula.getDescripcionValorParticula(),
+            logProcedure(runSP, oldValorParticula.getCodigoParticula(), oldValorParticula.getValor(), oldValorParticula.getCodigoProyecto(),
+                    oldValorParticula.getCodigoSubProyecto(), newValorParticula.getValor(), newValorParticula.getDescripcionValorParticula(),
                     newValorParticula.getCodigoProyecto(), newValorParticula.getCodigoSubProyecto(), newValorParticula.getValorParticulaPadre(), newValorParticula.getCodigoUsuario());
 
             callableStatement.setBigDecimal(1, oldValorParticula.getCodigoParticula());
-            callableStatement.setString(2, oldValorParticula.getValorParticula());
+            callableStatement.setString(2, oldValorParticula.getValor());
             callableStatement.setString(3, oldValorParticula.getCodigoProyecto());
             callableStatement.setString(4, oldValorParticula.getCodigoSubProyecto());
 
-            callableStatement.setString(5, newValorParticula.getValorParticula());
+            callableStatement.setString(5, newValorParticula.getValor());
             callableStatement.setString(6, newValorParticula.getDescripcionValorParticula());
             callableStatement.setString(7, newValorParticula.getCodigoProyecto());
             callableStatement.setString(8, newValorParticula.getCodigoSubProyecto());

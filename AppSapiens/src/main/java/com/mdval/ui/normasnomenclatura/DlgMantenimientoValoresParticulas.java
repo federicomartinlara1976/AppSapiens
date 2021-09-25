@@ -353,7 +353,7 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 			
 			// Se trata de la edición de un registro
 			if (!Objects.isNull(valorParticula)) {
-				txtValor.setText(valorParticula.getValorParticula());
+				txtValor.setText(valorParticula.getValor());
 				txtDescripcionValor.setText(valorParticula.getDescripcionValorParticula());
 				txtProyecto.setText(valorParticula.getCodigoProyecto());
 				txtSubproyecto.setText(valorParticula.getCodigoSubProyecto());

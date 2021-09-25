@@ -38,7 +38,7 @@ public class ValoresParticulaTableModel extends DefaultTableModel<ValorParticula
 		if (0 == columnIndex) {
 			return row.getCodigoParticula();
 		} else if (1 == columnIndex) {
-			return row.getValorParticula();
+			return row.getValor();
 		} else if (2 == columnIndex) {
 			return row.getDescripcionValorParticula();
 		} else if (3 == columnIndex) {

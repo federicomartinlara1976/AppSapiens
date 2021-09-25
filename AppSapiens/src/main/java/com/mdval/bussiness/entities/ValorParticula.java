@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ValorParticula {
 
     private BigDecimal codigoParticula;
-    private String valorParticula;
+    private String valor;
     private String descripcionValorParticula;
     private String codigoProyecto;
     private String codigoSubProyecto;
