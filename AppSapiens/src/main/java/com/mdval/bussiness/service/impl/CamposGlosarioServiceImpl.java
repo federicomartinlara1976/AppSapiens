@@ -39,8 +39,6 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@SneakyThrows
 	public List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
 			String mostrarExcepciones) {
-		List<CampoGlosario> campoGlosarios = new ArrayList<>();
-		
 		String runSP = createCall("p_con_campos_glosario", Constants.CALL_07_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
@@ -67,6 +65,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 				throw buildException(callableStatement.getArray(7));
 			}
 
+			List<CampoGlosario> campoGlosarios = new ArrayList<>();
 			Array arrayCamposGlosario = callableStatement.getArray(5);
 			if (arrayCamposGlosario != null) {
 				Object[] rows = (Object[]) arrayCamposGlosario.getArray();
@@ -231,9 +230,8 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
-		List<Modelo> modelos = new ArrayList<>();
-		
 		String runSP = createCall("p_con_modelos_glosario", Constants.CALL_04_ARGS);
+		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
@@ -255,7 +253,9 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 				throw buildException(callableStatement.getArray(4));
 			}
 
+			List<Modelo> modelos = new ArrayList<>();
 			Array arrayModelosGlosario = callableStatement.getArray(2);
+			
 			if (arrayModelosGlosario != null) {
 				Object[] rows = (Object[]) arrayModelosGlosario.getArray();
 				for (Object row : rows) {

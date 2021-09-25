@@ -26,8 +26,12 @@ public class ServiceSupport {
 	
 	protected DateFormatter dateFormatter;
 	
+	private ConfigurationSingleton configuration;
+	
+	@SneakyThrows
 	public ServiceSupport() {
 		dateFormatter = new DateFormatter();
+		configuration = ConfigurationSingleton.getInstance();
 	}
 	
 	/**
@@ -81,8 +85,6 @@ public class ServiceSupport {
 	 */
 	@SneakyThrows
 	protected String createCall(String procedure, String callFormat) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		
 		String proc = configuration.getConfig(procedure);
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, proc).toUpperCase();
@@ -94,8 +96,6 @@ public class ServiceSupport {
 	 */
 	@SneakyThrows
 	protected String createCallTypeError() {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		return String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 	}
@@ -105,8 +105,6 @@ public class ServiceSupport {
 	 */
 	@SneakyThrows
 	protected String createCallType(String type) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		return String.format(Constants.FORMATO_LLAMADA, paquete, type).toUpperCase();
 	}

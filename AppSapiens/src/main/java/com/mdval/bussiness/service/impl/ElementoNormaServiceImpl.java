@@ -1,11 +1,5 @@
 package com.mdval.bussiness.service.impl;
 
-import com.mdval.bussiness.entities.ElementoNorma;
-import com.mdval.bussiness.service.ElementoNormaService;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
-import com.mdval.utils.LogWrapper;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -15,11 +9,20 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.sql.DataSource;
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mdval.bussiness.entities.ElementoNorma;
+import com.mdval.bussiness.service.ElementoNormaService;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author hcarreno
@@ -34,18 +37,14 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
     @Override
     @SneakyThrows
     public List<ElementoNorma> consultarDefinicionElementoNorma(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-        List<ElementoNorma> elementoNormas = new ArrayList<>();
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_con_def_elem_norma");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_05_ARGS, llamada);
+        String runSP = createCall("p_con_def_elem_norma", Constants.CALL_05_ARGS);
+        
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
-
-            String typeElementoNorma = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+        	
+            String typeError = createCallTypeError();
+            String typeElementoNorma = createCallType(Constants.T_T_ELEMENTO_NORMA);
+            
             logProcedure(runSP, codigoNorma, codigoElemento);
 
             callableStatement.setBigDecimal(1, codigoNorma);
@@ -62,7 +61,9 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
                 throw buildException(callableStatement.getArray(5));
             }
 
+            List<ElementoNorma> elementoNormas = new ArrayList<>();
             Array listaElementoNorma = callableStatement.getArray(3);
+            
             if (listaElementoNorma != null) {
                 Object[] rows = (Object[]) listaElementoNorma.getArray();
                 for (Object row : rows) {
@@ -85,28 +86,24 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
                 }
             }
 
+            return elementoNormas;
         } catch (SQLException e) {
             LogWrapper.error(log, "[ElementoNormaService.consultarDefinicionElementoNorma] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return elementoNormas;
     }
 
     @Override
     @SneakyThrows
     public List<ElementoNorma> consultarElementosNorma(BigDecimal codigoNorma) {
-        List<ElementoNorma> elementoNormas = new ArrayList<>();
-
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String paquete = configuration.getConfig(Constants.PAQUETE);
-        String procedure = configuration.getConfig("p_con_elem_norma");
-        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-        String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+        String runSP = String.format("p_con_elem_norma", Constants.CALL_04_ARGS);
+        
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeElementoNorma = createCallType(Constants.T_T_ELEMENTO_NORMA);
+            String typeError = createCallTypeError();
+            
             logProcedure(runSP, codigoNorma);
 
             callableStatement.setBigDecimal(1, codigoNorma);
@@ -122,7 +119,9 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
                 throw buildException(callableStatement.getArray(4));
             }
 
+            List<ElementoNorma> elementoNormas = new ArrayList<>();
             Array listaElementoNorma = callableStatement.getArray(2);
+            
             if (listaElementoNorma != null) {
                 Object[] rows = (Object[]) listaElementoNorma.getArray();
                 for (Object row : rows) {
@@ -145,10 +144,10 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
                 }
             }
 
+            return elementoNormas;
         } catch (SQLException e) {
             LogWrapper.error(log, "[ElementoNormaService.consultarElementoNorma] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
-        return elementoNormas;
     }
 }

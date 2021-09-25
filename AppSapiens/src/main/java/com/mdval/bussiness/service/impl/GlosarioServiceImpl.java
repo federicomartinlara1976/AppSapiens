@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
@@ -38,19 +37,13 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public List<Glosario> buscarGlosarios(String descripcionGlosario) {
-		List<Glosario> glosarios = new ArrayList<>();
-
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_buscar_glosarios");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		String runSP = String.format("p_buscar_glosarios", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeGlosario = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_GLOSARIO).toUpperCase();
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeGlosario = createCallType(Constants.T_T_GLOSARIO);
+			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, descripcionGlosario);
 
@@ -67,7 +60,9 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 				throw buildException(callableStatement.getArray(4));
 			}
 
+			List<Glosario> glosarios = new ArrayList<>();
 			Array listaGlosarios = callableStatement.getArray(2);
+			
 			if (listaGlosarios != null) {
 				Object[] rows = (Object[]) listaGlosarios.getArray();
 				for (Object row : rows) {
@@ -90,17 +85,12 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public Glosario consultarGlosario(BigDecimal codigoGlosario) {
-		Glosario glosario = new Glosario();
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_consulta_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_07_ARGS, llamada);
+		String runSP = createCall("p_consulta_glosario", Constants.CALL_07_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, codigoGlosario);
 			
@@ -126,7 +116,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 				throw buildException(callableStatement.getArray(7));
 			}
 
-			glosario = Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
+			Glosario glosario = Glosario.builder().codigoGlosario(codigoGlosario).descripcionGlosario(descripcion).codigoUsuario(usuario)
 					.fechaAlta(fechaAlta).fechaActualizacion(fechaActualizacion).build();
 
 			return glosario;
@@ -139,16 +129,12 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public void altaGlosario(String descripcionGlosario, String codigoUsuario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_alta_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_04_ARGS, llamada);
+		String runSP = createCall("p_alta_glosario", Constants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 
 			logProcedure(runSP, descripcionGlosario, codigoUsuario);
 			
@@ -173,16 +159,12 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public void modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
-		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String procedure = configuration.getConfig("p_modifica_glosario");
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
-		String runSP = String.format(Constants.CALL_05_ARGS, llamada);
+		String runSP = createCall("p_modifica_glosario", Constants.CALL_05_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, codigoGlosario, descripcionGlosario, codigoUsuario);
 			
