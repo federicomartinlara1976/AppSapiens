@@ -41,14 +41,14 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String paquete = configuration.getConfig(Constants.PAQUETE);
 		String procedure = configuration.getConfig("p_consulta_tipos_datos");
-		String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
 		String runSP = String.format(Constants.CALL_03_ARGS, llamada);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoDato = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_TIPO_DATO).toUpperCase();
-			String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+			String typeTipoDato = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_TIPO_DATO).toUpperCase();
+			String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
 			logProcedure(runSP);
 

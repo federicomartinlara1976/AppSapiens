@@ -21,8 +21,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ServiceSupport {
 	
-	protected static final String FORMATO_LLAMADA = "%s.%s";
-	
 	protected DateFormatter dateFormatter;
 	
 	public ServiceSupport() {

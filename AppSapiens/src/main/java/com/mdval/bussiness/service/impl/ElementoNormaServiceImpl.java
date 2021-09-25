@@ -39,13 +39,13 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_def_elem_norma");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_05_ARGS, llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeElementoNorma = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, codigoNorma, codigoElemento);
 
             callableStatement.setBigDecimal(1, codigoNorma);
@@ -100,13 +100,13 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_elem_norma");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_04_ARGS, llamada);
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeElementoNorma = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO_NORMA).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
             logProcedure(runSP, codigoNorma);
 
             callableStatement.setBigDecimal(1, codigoNorma);

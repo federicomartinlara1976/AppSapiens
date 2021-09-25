@@ -41,15 +41,15 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_generar_informe_val");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeDetValidacion = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
-            String typeCampoGlosario = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeDetValidacion = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_DET_VALIDACION).toUpperCase();
+            String typeCampoGlosario = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_CAMPO_GLOSARIO).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, codigoValidacion);
 

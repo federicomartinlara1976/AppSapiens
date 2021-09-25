@@ -48,6 +48,8 @@ public class Constants {
 	 */
 	public static final String PAQUETE = "paquete";
 	
+	public static final String FORMATO_LLAMADA = "%s.%s";
+	
 	public static final String CALL_03_ARGS = "{call %s(?,?,?)}";
 	public static final String CALL_04_ARGS = "{call %s(?,?,?,?)}";
 	public static final String CALL_05_ARGS = "{call %s(?,?,?,?,?)}";

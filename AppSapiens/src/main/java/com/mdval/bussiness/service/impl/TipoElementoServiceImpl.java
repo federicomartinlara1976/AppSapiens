@@ -35,13 +35,13 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_tipo_elemento");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_06_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, codigoElemento);
 
@@ -83,14 +83,14 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_con_tipos_elementos");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeTipoElemento = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO).toUpperCase();
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeTipoElemento = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ELEMENTO).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, descripcionElemento);
 
@@ -135,13 +135,13 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_alta_tipo_elemento");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_04_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, descripcionElemento, codigoUsuario);
 
@@ -169,13 +169,13 @@ public class TipoElementoServiceImpl extends ServiceSupport implements TipoEleme
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String paquete = configuration.getConfig(Constants.PAQUETE);
         String procedure = configuration.getConfig("p_modificar_tipo_elemento");
-        String llamada = String.format(FORMATO_LLAMADA, paquete, procedure).toUpperCase();
+        String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, procedure).toUpperCase();
         String runSP = String.format(Constants.CALL_05_ARGS, llamada);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeError = String.format(FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+            String typeError = String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
 
             logProcedure(runSP, codigoElemento, descripcionElemento, codigoUsuario);
 
