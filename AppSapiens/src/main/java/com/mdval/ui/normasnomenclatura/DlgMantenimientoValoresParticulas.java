@@ -328,8 +328,8 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 		FrmMantenimientoParticulasListener frmMantenimientoParticulasListener = parent
 				.getFrmMantenimientoParticulasListener();
 		
-		FrmValoresParticulas parent2 = (FrmValoresParticulas) parent.getParent();
-		FrmValoresParticulasListener frmValoresParticulasListener = parent2.getFrmValoresParticulasListener(); 
+		FrmValoresParticulas frmValoresParticulas = (FrmValoresParticulas) parent.getFrameParent();
+		FrmValoresParticulasListener frmValoresParticulasListener = frmValoresParticulas.getFrmValoresParticulasListener(); 
 
 		DlgAltaModificacionValoresParticulaListener listener = new DlgAltaModificacionValoresParticulaListener(this);
 		listener.addObservador(frmMantenimientoParticulasListener);
