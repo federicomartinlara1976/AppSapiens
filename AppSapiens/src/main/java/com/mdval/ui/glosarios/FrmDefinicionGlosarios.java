@@ -90,8 +90,6 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		panelLogo.setPreferredSize(new Dimension(286, 63));
-
 		GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
 		panelLogo.setLayout(panelLogoLayout);
 		panelLogoLayout.setHorizontalGroup(
