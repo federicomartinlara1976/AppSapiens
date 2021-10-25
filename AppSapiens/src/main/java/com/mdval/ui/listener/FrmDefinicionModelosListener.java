@@ -11,7 +11,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -132,7 +131,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) frmDefinicionModelos.getParent(), Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionModelos.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 
 	}

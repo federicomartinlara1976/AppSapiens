@@ -10,7 +10,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -28,6 +27,7 @@ import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.MaestrasSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
@@ -98,11 +98,11 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	@Getter
 	private CampoGlosario campoGlosarioSeleccionado;
 
-	public DlgAltaModificacionCampos(JFrame parent, boolean modal) {
+	public DlgAltaModificacionCampos(FrameSupport parent, boolean modal) {
 		super(parent, modal);
 	}
 
-	public DlgAltaModificacionCampos(JFrame parent, boolean modal, Map<String, Object> params) {
+	public DlgAltaModificacionCampos(FrameSupport parent, boolean modal, Map<String, Object> params) {
 		super(parent, modal, params);
 	}
 

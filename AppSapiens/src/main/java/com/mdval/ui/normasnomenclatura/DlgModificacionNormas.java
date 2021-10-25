@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -30,6 +29,7 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
@@ -100,7 +100,7 @@ public class DlgModificacionNormas extends DialogSupport {
      * @param parent
      * @param modal
      */
-    public DlgModificacionNormas(JFrame parent, boolean modal) {
+    public DlgModificacionNormas(FrameSupport parent, boolean modal) {
         super(parent, modal);
     }
     
@@ -109,7 +109,7 @@ public class DlgModificacionNormas extends DialogSupport {
      * @param modal
      * @param params
      */
-    public DlgModificacionNormas(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgModificacionNormas(FrameSupport parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 

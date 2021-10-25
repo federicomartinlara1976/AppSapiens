@@ -16,7 +16,6 @@ import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 /**
@@ -52,14 +52,14 @@ public class DlgErrores extends DialogSupport {
     /**
      * Creates new form DlgErrores
      */
-    public DlgErrores(JFrame parent, boolean modal) {
+    public DlgErrores(FrameSupport parent, boolean modal) {
         super(parent, modal);
     }
     
     /**
      * Creates new form DlgErrores
      */
-    public DlgErrores(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgErrores(FrameSupport parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 

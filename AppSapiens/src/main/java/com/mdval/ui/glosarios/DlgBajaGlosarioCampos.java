@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -18,6 +17,7 @@ import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.ui.listener.DlgBajaGlosarioCamposListener;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -57,11 +57,11 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
     /**
      * Creates new form DlgBajaGlosarioCampos
      */
-    public DlgBajaGlosarioCampos(JFrame parent, boolean modal) {
+    public DlgBajaGlosarioCampos(FrameSupport parent, boolean modal) {
         super(parent, modal);
     }
     
-    public DlgBajaGlosarioCampos(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgBajaGlosarioCampos(FrameSupport parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 

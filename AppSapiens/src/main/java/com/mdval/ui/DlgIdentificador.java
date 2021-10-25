@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,6 +16,7 @@ import javax.swing.WindowConstants;
 import com.mdval.ui.listener.DlgIdentificadorListener;
 import com.mdval.ui.listener.DlgIdentificadorWindowListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -57,7 +57,7 @@ public class DlgIdentificador extends DialogSupport {
      * @param parent
      * @param modal
      */
-    public DlgIdentificador(JFrame parent, boolean modal) {
+    public DlgIdentificador(FrameSupport parent, boolean modal) {
     	super(parent, modal);
         this.isTerminate = Boolean.TRUE;
     }

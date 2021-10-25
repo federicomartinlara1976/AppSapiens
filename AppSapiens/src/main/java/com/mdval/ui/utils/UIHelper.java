@@ -62,7 +62,7 @@ public class UIHelper {
 	 * @param item
 	 * @return
 	 */
-	public static JDialog createDialog(JFrame frameParent, String item) {
+	public static JDialog createDialog(FrameSupport frameParent, String item) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
 		return (JDialog) dialogCreator.factoryMethod(null);
 	}
@@ -73,7 +73,7 @@ public class UIHelper {
 	 * @param params
 	 * @return
 	 */
-	public static JDialog createDialog(JFrame frameParent, String item, Map<String, Object> params) {
+	public static JDialog createDialog(FrameSupport frameParent, String item, Map<String, Object> params) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
 		return (JDialog) dialogCreator.factoryMethod(params);
 	}

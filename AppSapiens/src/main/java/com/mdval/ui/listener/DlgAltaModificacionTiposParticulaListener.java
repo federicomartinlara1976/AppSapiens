@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -101,7 +100,7 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) dlgAltaModificacionTiposParticula.getParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgAltaModificacionTiposParticula.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -42,6 +41,9 @@ public abstract class DialogSupport extends JDialog {
 	
 	private List<OnLoadListener> onLoadListeners;
 	
+	@Getter
+	private FrameSupport frameParent;
+	
 	/**
 	 * 
 	 */
@@ -54,19 +56,19 @@ public abstract class DialogSupport extends JDialog {
 	/**
 	 * 
 	 */
-	public DialogSupport(JFrame parent, boolean modal) {
+	public DialogSupport(FrameSupport parent, boolean modal) {
 		super(parent, modal);
-		
+		this.frameParent = parent;
 		initialize();
 	}
 	
 	/**
 	 * 
 	 */
-	public DialogSupport(JFrame parent, boolean modal, Map<String, Object> params) {
+	public DialogSupport(FrameSupport parent, boolean modal, Map<String, Object> params) {
 		super(parent, modal);
 		this.params = params;
-		
+		this.frameParent = parent;
 		initialize();
 	}
 	

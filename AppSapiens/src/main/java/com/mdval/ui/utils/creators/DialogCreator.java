@@ -2,8 +2,6 @@ package com.mdval.ui.utils.creators;
 
 import java.util.Map;
 
-import javax.swing.JFrame;
-
 import com.mdval.ui.DlgErrores;
 import com.mdval.ui.DlgIdentificador;
 import com.mdval.ui.glosarios.DlgAltaModificacionCampos;
@@ -14,6 +12,7 @@ import com.mdval.ui.normasnomenclatura.DlgAltaModificacionTiposParticula;
 import com.mdval.ui.normasnomenclatura.DlgMantenimientoValoresParticulas;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 /**
@@ -28,11 +27,11 @@ public class DialogCreator extends Creator {
 	
 	private String option;
 	
-	private JFrame frameParent;
+	private FrameSupport frameParent;
 	
 	private Boolean modal;
 	
-	public DialogCreator(JFrame frameParent, String option) {
+	public DialogCreator(FrameSupport frameParent, String option) {
 		this.modal = Boolean.TRUE;
 		this.option = option;
 		this.frameParent = frameParent;

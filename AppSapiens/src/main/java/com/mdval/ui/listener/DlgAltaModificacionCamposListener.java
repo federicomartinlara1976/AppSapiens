@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -107,7 +106,7 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) dlgAltaModificacionCampos.getParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgAltaModificacionCampos.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 

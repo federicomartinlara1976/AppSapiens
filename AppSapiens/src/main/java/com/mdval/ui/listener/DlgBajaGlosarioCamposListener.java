@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
@@ -82,7 +81,7 @@ public class DlgBajaGlosarioCamposListener extends ListenerSupport implements Ac
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) dlgBajaGlosario.getParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgBajaGlosario.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 

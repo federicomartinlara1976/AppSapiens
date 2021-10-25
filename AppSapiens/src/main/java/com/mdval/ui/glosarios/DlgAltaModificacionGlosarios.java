@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -19,6 +18,7 @@ import com.mdval.bussiness.entities.Glosario;
 import com.mdval.ui.listener.DlgAltaModificacionGlosariosListener;
 import com.mdval.ui.listener.FrmDefinicionGlosariosListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 
@@ -68,7 +68,7 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
      * @param parent
      * @param modal
      */
-    public DlgAltaModificacionGlosarios(JFrame parent, boolean modal) {
+    public DlgAltaModificacionGlosarios(FrameSupport parent, boolean modal) {
         super(parent, modal);
     }
     
@@ -77,7 +77,7 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
      * @param modal
      * @param params
      */
-    public DlgAltaModificacionGlosarios(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgAltaModificacionGlosarios(FrameSupport parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 

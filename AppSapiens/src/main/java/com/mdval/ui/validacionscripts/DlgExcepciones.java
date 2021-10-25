@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,6 +15,7 @@ import javax.swing.WindowConstants;
 
 import com.mdval.ui.listener.DlgExcepcionesListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -44,7 +44,7 @@ public class DlgExcepciones extends DialogSupport {
 	/**
 	 * Creates new form DlgExcepciones
 	 */
-	public DlgExcepciones(JFrame frame, boolean modal) {
+	public DlgExcepciones(FrameSupport frame, boolean modal) {
 		super(frame, modal);
 	}
 

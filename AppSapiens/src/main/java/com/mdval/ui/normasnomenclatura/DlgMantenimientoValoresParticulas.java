@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -20,6 +19,7 @@ import com.mdval.ui.listener.DlgAltaModificacionValoresParticulaListener;
 import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
 import com.mdval.ui.listener.FrmValoresParticulasListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.Constants;
 
 import lombok.Getter;
@@ -84,11 +84,11 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 		super();
 	}
 
-	public DlgMantenimientoValoresParticulas(JFrame parent, Boolean modal) {
+	public DlgMantenimientoValoresParticulas(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
 	}
 
-	public DlgMantenimientoValoresParticulas(JFrame parent, Boolean modal, Map<String, Object> params) {
+	public DlgMantenimientoValoresParticulas(FrameSupport parent, Boolean modal, Map<String, Object> params) {
 		super(parent, modal, params);
 	}
 
@@ -324,11 +324,11 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		FrmMantenimientoParticulas parent = (FrmMantenimientoParticulas) this.getParent();
-		FrmMantenimientoParticulasListener frmMantenimientoParticulasListener = parent
+		FrmMantenimientoParticulas frmMantenimientoParticulas = (FrmMantenimientoParticulas) this.getFrameParent();
+		FrmMantenimientoParticulasListener frmMantenimientoParticulasListener = frmMantenimientoParticulas
 				.getFrmMantenimientoParticulasListener();
 		
-		FrmValoresParticulas frmValoresParticulas = (FrmValoresParticulas) parent.getFrameParent();
+		FrmValoresParticulas frmValoresParticulas = (FrmValoresParticulas) frmMantenimientoParticulas.getFrameParent();
 		FrmValoresParticulasListener frmValoresParticulasListener = frmValoresParticulas.getFrmValoresParticulasListener(); 
 
 		DlgAltaModificacionValoresParticulaListener listener = new DlgAltaModificacionValoresParticulaListener(this);

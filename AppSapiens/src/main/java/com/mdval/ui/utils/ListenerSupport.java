@@ -84,7 +84,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param frame
 	 * @param cmd
 	 */
-	protected void showPopup(JFrame frame, String cmd) {
+	protected void showPopup(FrameSupport frame, String cmd) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
 	}
@@ -94,7 +94,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 * @param params
 	 */
-	protected void showPopup(JFrame frame, String cmd, Map<String, Object> params) {
+	protected void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
 		JDialog dialog = UIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}

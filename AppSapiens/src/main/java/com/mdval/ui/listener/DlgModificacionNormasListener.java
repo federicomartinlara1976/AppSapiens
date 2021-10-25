@@ -10,7 +10,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.bussiness.entities.Norma;
@@ -80,7 +79,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup((JFrame) dlgModificacionNormas.getParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgModificacionNormas.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 

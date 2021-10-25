@@ -8,7 +8,6 @@ import java.util.Objects;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -19,6 +18,7 @@ import com.mdval.bussiness.entities.TipoParticula;
 import com.mdval.ui.listener.DlgAltaModificacionTiposParticulaListener;
 import com.mdval.ui.listener.FrmDefinicionTiposParticulaListener;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
@@ -69,11 +69,11 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
     private Boolean editar;
 
     
-    public DlgAltaModificacionTiposParticula(JFrame parent, boolean modal) {
+    public DlgAltaModificacionTiposParticula(FrameSupport parent, boolean modal) {
         super(parent, modal);
     }
     
-    public DlgAltaModificacionTiposParticula(JFrame parent, boolean modal, Map<String, Object> params) {
+    public DlgAltaModificacionTiposParticula(FrameSupport parent, boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 
