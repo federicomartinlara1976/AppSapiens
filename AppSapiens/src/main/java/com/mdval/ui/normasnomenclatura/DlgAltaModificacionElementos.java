@@ -224,8 +224,8 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		FrmDefinicionElementos parent = (FrmDefinicionElementos) this.getParent();
-		FrmDefinicionElementosListener frmDefinicionElementosListener = parent.getFrmDefinicionElementosListener();
+		FrmDefinicionElementos frmDefinicionElementos = (FrmDefinicionElementos) this.getFrameParent();
+		FrmDefinicionElementosListener frmDefinicionElementosListener = frmDefinicionElementos.getFrmDefinicionElementosListener();
 		
 		DlgAltaModificacionElementosListener actionListener = new DlgAltaModificacionElementosListener(this);
 		actionListener.addObservador(frmDefinicionElementosListener);

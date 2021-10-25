@@ -251,8 +251,8 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 	
 	@Override
 	protected void initEvents() {
-		FrmDefinicionTiposParticula parent = (FrmDefinicionTiposParticula) this.getParent();
-		FrmDefinicionTiposParticulaListener frmDefinicionTiposParticulaListener = parent.getFrmDefinicionTiposParticulaListener();
+		FrmDefinicionTiposParticula frmDefinicionTiposParticula = (FrmDefinicionTiposParticula) this.getFrameParent();
+		FrmDefinicionTiposParticulaListener frmDefinicionTiposParticulaListener = frmDefinicionTiposParticula.getFrmDefinicionTiposParticulaListener();
 		
 		DlgAltaModificacionTiposParticulaListener actionListener = new DlgAltaModificacionTiposParticulaListener(this);
 		actionListener.addObservador(frmDefinicionTiposParticulaListener);

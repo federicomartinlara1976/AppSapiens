@@ -157,8 +157,8 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		FrmGlosarioCampos parent = (FrmGlosarioCampos) this.getParent();
-		FrmGlosarioCamposListener frmGlosarioCamposListener = parent.getFrmGlosarioCamposListener();
+		FrmGlosarioCampos frmGlosarioCampos = (FrmGlosarioCampos) this.getFrameParent();
+		FrmGlosarioCamposListener frmGlosarioCamposListener = frmGlosarioCampos.getFrmGlosarioCamposListener();
 		
 		DlgBajaGlosarioCamposListener actionListener = new DlgBajaGlosarioCamposListener(this);
 		actionListener.addObservador(frmGlosarioCamposListener);

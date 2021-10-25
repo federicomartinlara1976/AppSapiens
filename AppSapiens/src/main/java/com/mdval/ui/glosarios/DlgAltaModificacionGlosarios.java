@@ -252,8 +252,8 @@ public class DlgAltaModificacionGlosarios extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		FrmDefinicionGlosarios parent = (FrmDefinicionGlosarios) this.getParent();
-		FrmDefinicionGlosariosListener frmDefinicionGlosariosListener = parent.getFrmDefinicionGlosariosListener();
+		FrmDefinicionGlosarios frmDefinicionGlosarios = (FrmDefinicionGlosarios) this.getFrameParent();
+		FrmDefinicionGlosariosListener frmDefinicionGlosariosListener = frmDefinicionGlosarios.getFrmDefinicionGlosariosListener();
 		
 		DlgAltaModificacionGlosariosListener actionListener = new DlgAltaModificacionGlosariosListener(this);
 		actionListener.addObservador(frmDefinicionGlosariosListener);

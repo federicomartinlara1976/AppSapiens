@@ -308,8 +308,8 @@ public class DlgModificacionNormas extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		FrmDefinicionNormas parent = (FrmDefinicionNormas) this.getParent();
-		FrmDefinicionNormasListener frmDefinicionNormasListener = parent.getFrmDefinicionNormasListener();
+		FrmDefinicionNormas frmDefinicionNormas = (FrmDefinicionNormas) this.getFrameParent();
+		FrmDefinicionNormasListener frmDefinicionNormasListener = frmDefinicionNormas.getFrmDefinicionNormasListener();
 		
 		DlgModificacionNormasListener dlgModificacionNormasListener = new DlgModificacionNormasListener(this);
 		dlgModificacionNormasListener.addObservador(frmDefinicionNormasListener);

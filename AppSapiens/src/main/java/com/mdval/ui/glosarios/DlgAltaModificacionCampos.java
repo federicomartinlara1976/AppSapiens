@@ -319,8 +319,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 	 * 
 	 */
 	protected void initEvents() {
-		FrmGlosarioCampos parent = (FrmGlosarioCampos) this.getParent();
-		FrmGlosarioCamposListener frmGlosarioCamposListener = parent.getFrmGlosarioCamposListener();
+		FrmGlosarioCampos frmGlosarioCampos = (FrmGlosarioCampos) this.getFrameParent();
+		FrmGlosarioCamposListener frmGlosarioCamposListener = frmGlosarioCampos.getFrmGlosarioCamposListener();
 
 		DlgAltaModificacionCamposListener actionListener = new DlgAltaModificacionCamposListener(this);
 		actionListener.addObservador(frmGlosarioCamposListener);
