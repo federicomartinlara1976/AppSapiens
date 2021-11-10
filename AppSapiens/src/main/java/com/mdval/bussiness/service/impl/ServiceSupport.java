@@ -15,13 +15,13 @@ import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public class ServiceSupport {
 	
 	protected DateFormatter dateFormatter;

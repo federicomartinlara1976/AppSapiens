@@ -1,5 +1,6 @@
 package com.mdval.ui.renderer;
 
+
 import java.awt.Color;
 import java.io.IOException;
 
@@ -10,9 +11,9 @@ import javax.swing.border.Border;
 import com.mdval.utils.LiteralesSingleton;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public abstract class LabelRenderer extends JLabel {
 
 	/**

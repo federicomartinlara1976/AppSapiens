@@ -23,13 +23,13 @@ import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author hcarreno
  */
 @Service(Constants.CAMPOS_GLOSARIO_SERVICE)
-@Log4j
+@Slf4j
 public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposGlosarioService {
 
 	@Autowired

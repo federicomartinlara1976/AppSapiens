@@ -1,5 +1,6 @@
 package com.mdval.bussiness.service.impl;
 
+
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -22,13 +23,13 @@ import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author hcarreno
  */
 @Service(Constants.ELEMENTO_NORMA_SERVICE)
-@Log4j
+@Slf4j
 public class ElementoNormaServiceImpl extends ServiceSupport implements ElementoNormaService {
 
     @Autowired

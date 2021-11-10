@@ -10,13 +10,13 @@ import javax.swing.ComboBoxModel;
 import com.mdval.utils.LiteralesSingleton;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public class SiNoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
 	/**

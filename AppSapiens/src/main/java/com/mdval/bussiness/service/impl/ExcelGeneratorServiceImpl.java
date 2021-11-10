@@ -30,13 +30,13 @@ import com.mdval.utils.LiteralesSingleton;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author hcarreno
  */
 @Service(Constants.EXCEL_GENERATOR_SERVICE)
-@Log4j
+@Slf4j
 public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGeneratorService {
 
 	private static final String FORMATO_MENSAJE_ARCHIVO = "Archivo: %s";

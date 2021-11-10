@@ -6,9 +6,9 @@ import java.awt.event.WindowListener;
 import com.mdval.ui.DlgIdentificador;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public class DlgIdentificadorWindowListener implements WindowListener {
 
 	private DlgIdentificador dlgIdentificador;

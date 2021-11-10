@@ -12,9 +12,9 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public class PanelResultadosTableListener extends ListenerSupport implements ListSelectionListener {
 
 	private PanelResultados panelResultados;

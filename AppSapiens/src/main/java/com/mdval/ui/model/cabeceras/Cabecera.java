@@ -8,13 +8,13 @@ import com.mdval.utils.LiteralesSingleton;
 import com.mdval.utils.LogWrapper;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public abstract class Cabecera {
 	
 	protected LiteralesSingleton literales;

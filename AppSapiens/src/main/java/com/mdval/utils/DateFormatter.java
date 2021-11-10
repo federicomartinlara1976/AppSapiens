@@ -5,13 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author hcarreno
  */
-@Log4j
+@Slf4j
 public class DateFormatter {
 
 	private SimpleDateFormat dateFormat;

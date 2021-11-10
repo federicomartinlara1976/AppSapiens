@@ -13,9 +13,9 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public class FrmDefinicionModelosTableListener extends ListenerSupport implements ListSelectionListener {
 
 	private FrmDefinicionModelos frmDefinicionModelos;

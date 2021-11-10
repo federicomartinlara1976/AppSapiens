@@ -1,20 +1,24 @@
 package com.mdval.config;
 
-import com.mdval.utils.ConfigurationSingleton;
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.sql.DataSource;
-import lombok.extern.log4j.Log4j;
-import oracle.ucp.jdbc.PoolDataSource;
-import oracle.ucp.jdbc.PoolDataSourceFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.mdval.utils.ConfigurationSingleton;
+
+import lombok.extern.slf4j.Slf4j;
+import oracle.ucp.jdbc.PoolDataSource;
+import oracle.ucp.jdbc.PoolDataSourceFactory;
 
 /**
  * @author hcarreno
  */
 @Configuration
-@Log4j
+@Slf4j
 public class OracleDataSourceConfig {
 
     /**

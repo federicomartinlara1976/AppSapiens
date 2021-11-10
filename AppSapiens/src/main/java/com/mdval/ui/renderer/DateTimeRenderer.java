@@ -1,5 +1,6 @@
 package com.mdval.ui.renderer;
 
+
 import java.awt.Component;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,9 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdval.utils.ConfigurationSingleton;
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public class DateTimeRenderer extends LabelRenderer implements TableCellRenderer {
 
 	/**

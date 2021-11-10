@@ -1,6 +1,6 @@
 package com.mdval.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import lombok.experimental.UtilityClass;
 
@@ -17,7 +17,7 @@ public class LogWrapper {
 	 * @param args
 	 */
 	public void debug(Logger log, String msg, Object... args) {
-		log.debug(String.format(msg, args));
+		log.info(String.format(msg, args));
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class LogWrapper {
 	 * @param msg
 	 */
 	public void debug(Logger log, String msg) {
-		log.debug(msg);
+		log.info(msg);
 	}
 	
 	/**

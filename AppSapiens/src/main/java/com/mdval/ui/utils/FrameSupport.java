@@ -1,5 +1,6 @@
 package com.mdval.ui.utils;
 
+
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,13 +15,13 @@ import com.mdval.ui.PanelLogotipo;
 import com.mdval.utils.LiteralesSingleton;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public abstract class FrameSupport extends JFrame {
 
 	/**

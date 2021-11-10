@@ -24,7 +24,7 @@ import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.internal.OracleConnection;
 
 
@@ -32,7 +32,7 @@ import oracle.jdbc.internal.OracleConnection;
  * @author hcarreno
  */
 @Service(Constants.MODELO_SERVICE)
-@Log4j
+@Slf4j
 public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 	@Autowired

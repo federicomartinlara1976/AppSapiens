@@ -1,5 +1,6 @@
 package com.mdval.ui;
 
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,13 +11,13 @@ import javax.swing.JPanel;
 
 import com.mdval.utils.LogWrapper;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author federico
  */
-@Log4j
+@Slf4j
 public class PanelLogotipo extends JPanel {
 
 	/**

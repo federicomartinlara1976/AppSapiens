@@ -24,13 +24,13 @@ import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author hcarreno
  */
 @Service(Constants.INFORME_SERVICE)
-@Log4j
+@Slf4j
 public class InformeServiceImpl extends ServiceSupport implements InformeService {
 
     @Autowired

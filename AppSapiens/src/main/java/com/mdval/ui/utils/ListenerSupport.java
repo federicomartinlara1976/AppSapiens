@@ -14,13 +14,13 @@ import com.mdval.utils.Constants;
 import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LiteralesSingleton;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public abstract class ListenerSupport extends Observable {
 	
 	protected LiteralesSingleton literales;

@@ -1,8 +1,9 @@
 package com.mdval.bussiness.service;
 
-import com.mdval.bussiness.entities.ElementoNorma;
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.mdval.bussiness.entities.ElementoNorma;
 
 /**
  * @author hcarreno

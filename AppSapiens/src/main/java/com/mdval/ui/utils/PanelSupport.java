@@ -1,5 +1,6 @@
 package com.mdval.ui.utils;
 
+
 import java.io.IOException;
 
 import javax.swing.JPanel;
@@ -7,13 +8,13 @@ import javax.swing.JPanel;
 import com.mdval.utils.LiteralesSingleton;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Log4j
+@Slf4j
 public abstract class PanelSupport extends JPanel {
 
 	/**
