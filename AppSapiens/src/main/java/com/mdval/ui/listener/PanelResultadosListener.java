@@ -91,7 +91,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			List<DetValidacion> detalles = new ArrayList<>();
 			detalles.add(seleccionado);
 
-			insertarEnGlosario(detalles);
+			insertarEnGlosario(detalles, Boolean.FALSE);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
@@ -104,7 +104,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 					.getModel();
 			List<DetValidacion> detalles = model.getData();
 
-			insertarEnGlosario(detalles);
+			insertarEnGlosario(detalles, Boolean.TRUE);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
@@ -147,10 +147,10 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 	}
 
 	/**
-	 * @param detValidacion
-	 * @param codUsr
+	 * @param detalles
+	 * @param todos
 	 */
-	private void insertarEnGlosario(List<DetValidacion> detalles) {
+	private void insertarEnGlosario(List<DetValidacion> detalles, Boolean todos) {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
@@ -160,8 +160,16 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 			if (response == JOptionPane.YES_OPTION) {
 				// Se van a guardar las modificaciones de un registro existente
-				for (DetValidacion det : detalles) {
-					validacionService.insertarGlosario(det.getNumeroValidacion(), det.getNumeroElementoValid(),
+				if (!todos) {
+					for (DetValidacion det : detalles) {
+						validacionService.insertarGlosario(det.getNumeroValidacion(), det.getNumeroElementoValid(),
+								usuario);
+					}
+				}
+				else {
+					// Esto debe ser una única llamada al procedimiento, para añadir todos,
+					// numeroElemento deberá ser 0
+					validacionService.insertarGlosario(detalles.get(0).getNumeroValidacion(), BigDecimal.ZERO,
 							usuario);
 				}
 

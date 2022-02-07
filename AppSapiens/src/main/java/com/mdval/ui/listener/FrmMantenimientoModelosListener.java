@@ -300,7 +300,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 		String selectedVariables = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaVariables());
 		frmMantenimientoModelos.getCmbGeneraVariables().setSelectedItem(selectedVariables);
 		
-		String selectedVariablesConCapa = AppHelper.normalizeSiNoValueToCmb(seleccionado.getMcaVariablesConCapa());
+		String selectedVariablesConCapa = AppHelper.normalizeSiNoValueToCmb(seleccionado.getCodigoCapaUsrown());
 		frmMantenimientoModelos.getCmbVariablesConCapa().setSelectedItem(selectedVariablesConCapa);
 	}
 	

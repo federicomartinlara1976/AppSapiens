@@ -359,6 +359,11 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 				throw buildException(callableStatement.getArray(13));
 			}
 			
+			// TODO - Cuando el resultado es 2, devolver la lista de avisos
+			if (result == 0) {
+				
+			}
+			
 			Array arrayDetValidacion = callableStatement.getArray(9);
 			List<DetValidacion> detValidaciones = toListDetalles(arrayDetValidacion);
 			
