@@ -43,7 +43,7 @@ public class ServiceSupport {
 	 * @throws SQLException
 	 */
 	protected ServiceException buildException(Array array) throws SQLException {
-		return buildException((Object[]) array.getArray());
+		return buildException((Object[]) array.getArray(), Constants.ERROR);
 	}
 	
 	/**
@@ -51,8 +51,17 @@ public class ServiceSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	protected ServiceException buildException(Object[] array) throws SQLException {
-		ServiceException exception = new ServiceException();
+	protected ServiceException buildWarning(Array array) throws SQLException {
+		return buildException((Object[]) array.getArray(), Constants.WARN);
+	}
+	
+	/**
+	 * @param array
+	 * @return
+	 * @throws SQLException
+	 */
+	protected ServiceException buildException(Object[] array, String type) throws SQLException {
+		ServiceException exception = new ServiceException(type);
 		
 		List<Object[]> errors = new ArrayList<>();
 		for (Object row : array) {

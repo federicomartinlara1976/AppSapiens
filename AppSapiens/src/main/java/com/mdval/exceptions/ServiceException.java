@@ -19,12 +19,24 @@ public class ServiceException extends Exception {
 	@Getter
 	@Setter
 	private transient List<Object[]> errors;
+	
+	@Getter
+	@Setter
+	private String type;
 
 	/**
 	 * 
 	 */
 	public ServiceException() {
 		super();
+	}
+	
+	/**
+	 * 
+	 */
+	public ServiceException(String type) {
+		super();
+		this.type = type;
 	}
 
 	/**
@@ -43,13 +55,6 @@ public class ServiceException extends Exception {
 	 */
 	public ServiceException(String message, Throwable cause) {
 		super(message, cause);
-	}
-
-	/**
-	 * @param message
-	 */
-	public ServiceException(String message) {
-		super(message);
 	}
 
 	/**
