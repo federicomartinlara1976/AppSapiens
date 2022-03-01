@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
@@ -80,7 +81,21 @@ public class DlgErrores extends DialogSupport {
 
         jLabel1.setFont(new Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(SwingConstants.LEFT);
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
+        
+        // Por defecto error
+        String type = (String) params.get(Constants.TYPE);
+        if (StringUtils.isNotBlank(type)) {
+        	if (Constants.ERROR.equals(type)) {
+        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
+        	}
+        	if (Constants.WARN.equals(type)) {
+        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/warning.png"))); // NOI18N
+        	}
+        }
+        else {
+        	jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
+        }
+        
         jLabel1.setIconTextGap(10);
         jPanel1.add(jLabel1);
 
