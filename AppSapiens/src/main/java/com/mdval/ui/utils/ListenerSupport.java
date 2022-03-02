@@ -115,6 +115,19 @@ public abstract class ListenerSupport extends Observable {
 	}
 	
 	/**
+	 * @param e
+	 * @return
+	 */
+	protected Map<String, Object> buildWarning(ServiceException e) {
+		Map<String, Object> params = new HashMap<>();
+
+		params.put(Constants.SERVICE_ERROR, e);
+		params.put(Constants.TYPE, Constants.WARN);
+		
+		return params;
+	}
+	
+	/**
 	 * @param cmd
 	 */
 	protected void updateObservers(String cmd) {

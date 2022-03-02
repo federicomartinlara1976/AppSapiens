@@ -108,7 +108,7 @@ public class DialogCreator extends Creator {
 			dialog = new DlgMantenimientoValoresParticulas(frameParent, modal, params);
 		}
 		
-		if (Constants.CMD_ERROR.equals(option)) {
+		if (Constants.CMD_ERROR.equals(option) || Constants.CMD_WARN.equals(option)) {
 			dialog = new DlgErrores(frameParent, modal, params);
 		}
 		

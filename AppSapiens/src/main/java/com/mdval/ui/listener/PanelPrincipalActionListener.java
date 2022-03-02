@@ -31,6 +31,7 @@ import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.bussiness.service.ModeloService;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.bussiness.service.ValidacionService;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
@@ -193,6 +194,13 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				ValidaScriptResponse response = validarScript(validaScriptRequest);
 				
 				panelPrincipal.setResponse(response);
+				
+				// Mostrar el warning
+				ServiceException serviceException = response.getServiceException();
+				if (!Objects.isNull(serviceException)) {
+					Map<String, Object> params = buildWarning(serviceException);
+					showPopup(panelPrincipal.getFrameParent(), Constants.CMD_WARN, params);
+				}
 				
 				// Poner en rojo el título de la pestaña si hay elementos que no están en el glosario
 				if (Constants.S.equals(response.getElementosNoGlosario())) {

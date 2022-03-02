@@ -129,6 +129,7 @@ public class Constants {
 	public static final String CMD_ALTA_MODELOS = "CMD_ALTA_MODELOS";
 	public static final String CMD_MODIFICACION_MODELOS = "CMD_MODIFICACION_MODELOS";
 	public static final String CMD_ERROR = "CMD_ERROR";
+	public static final String CMD_WARN = "CMD_WARN";
 	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
 	
 	/**
