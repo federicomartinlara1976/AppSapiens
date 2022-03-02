@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.mdval.exceptions.ServiceException;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +29,8 @@ public class ValidaScriptResponse implements Serializable {
     private List<DetValidacion> listaElementosValid;
     private String elementosNoGlosario;
     private String elementosErrores;
+    
+    // Para los warnings
+    private ServiceException serviceException;
 
 }

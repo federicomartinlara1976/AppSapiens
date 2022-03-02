@@ -355,22 +355,29 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 
 			Integer result = callableStatement.getInt(12);
 
+			// Si devuelve error, lanza la excepción
 			if (result == 0) {
 				throw buildException(callableStatement.getArray(13));
 			}
-			
-			// TODO - Cuando el resultado es 2, devolver la lista de avisos
-			if (result == 0) {
+			else {
+				ValidaScriptResponse validaScriptResponse = new ValidaScriptResponse();
 				
+				// Warning, no lanza error
+				if (result == 2) {
+					ServiceException serviceException = buildWarning(callableStatement.getArray(13));
+					validaScriptResponse.setServiceException(serviceException);
+				}
+				
+				Array arrayDetValidacion = callableStatement.getArray(9);
+				List<DetValidacion> detValidaciones = toListDetalles(arrayDetValidacion);
+				
+				validaScriptResponse.setNumeroValidacion(numeroValidacion);
+				validaScriptResponse.setListaElementosValid(detValidaciones);
+				validaScriptResponse.setElementosNoGlosario(elementosNoGlosario);
+				validaScriptResponse.setElementosErrores(elementosErrores);
+				
+				return validaScriptResponse;
 			}
-			
-			Array arrayDetValidacion = callableStatement.getArray(9);
-			List<DetValidacion> detValidaciones = toListDetalles(arrayDetValidacion);
-			
-			return ValidaScriptResponse.builder().numeroValidacion(numeroValidacion)
-					.listaElementosValid(detValidaciones).elementosNoGlosario(elementosNoGlosario)
-					.elementosErrores(elementosErrores).build();
-			
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ValidacionService.validaScript] Error: %s", e.getMessage());
 			throw new ServiceException(e);
