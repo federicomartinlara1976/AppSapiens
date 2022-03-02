@@ -132,8 +132,21 @@ public class DlgErrores extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle(literales.getLiteral("error.titulo"));
-		jLabel1.setText(literales.getLiteral("error.label"));
+		String type = (String) params.get(Constants.TYPE);
+        if (StringUtils.isNotBlank(type)) {
+        	if (Constants.ERROR.equals(type)) {
+        		setTitle(literales.getLiteral("error.titulo"));
+        		jLabel1.setText(literales.getLiteral("error.label"));
+        	}
+        	if (Constants.WARN.equals(type)) {
+        		setTitle(literales.getLiteral("aviso.titulo"));
+        		jLabel1.setText(literales.getLiteral("aviso.label"));
+        	}
+        }
+        else {
+        	setTitle(literales.getLiteral("error.titulo"));
+    		jLabel1.setText(literales.getLiteral("error.label"));
+        }
 		
 		btnCerrar.setText(literales.getLiteral("error.aceptar"));
 	}
