@@ -158,6 +158,10 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			String pathScript = panelPrincipal.getTxtArchivoScript().getText();
 			
 			if (StringUtils.isNotBlank(pathScript)) {
+				// Resets the panels
+				panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.BLACK);
+				panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.BLACK);
+				
 				String codProyecto = panelPrincipal.getTxtModeloProyecto().getText();
 				if (StringUtils.isBlank(codProyecto)) {
 					JOptionPane.showMessageDialog(panelPrincipal.getFrameParent(), literales.getLiteral("principal.validador.modelo"));
