@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 
@@ -23,6 +21,8 @@ import com.mdval.ui.model.AltaModificacionNormasParticulaNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.Constants;
 
 import lombok.SneakyThrows;

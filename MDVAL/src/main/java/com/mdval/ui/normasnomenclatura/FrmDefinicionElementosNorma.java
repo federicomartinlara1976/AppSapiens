@@ -169,7 +169,6 @@ public class FrmDefinicionElementosNorma extends FrameSupport {
 	@Override
 	protected void initialState() {}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		tblElementos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

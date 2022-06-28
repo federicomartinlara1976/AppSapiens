@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -15,6 +14,7 @@ import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.Constants;
 

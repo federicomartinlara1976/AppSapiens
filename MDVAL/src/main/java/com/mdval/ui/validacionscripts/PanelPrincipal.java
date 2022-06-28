@@ -411,7 +411,6 @@ public class PanelPrincipal extends PanelSupport {
 	/**
 	 *
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(new ArrayList<>());

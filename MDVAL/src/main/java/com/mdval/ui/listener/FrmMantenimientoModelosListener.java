@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -35,6 +33,8 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.collections.CheckSubProyectoUpdateClosure;
 import com.mdval.ui.utils.collections.SubProyectoPredicate;
 import com.mdval.ui.utils.collections.SubProyectoUpdateClosure;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;

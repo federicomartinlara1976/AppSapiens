@@ -657,7 +657,6 @@ public class FrmMantenimientoModelos extends FrameSupport {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		tblSubproyectos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

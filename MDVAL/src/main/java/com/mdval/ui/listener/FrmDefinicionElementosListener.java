@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 
@@ -18,6 +16,8 @@ import com.mdval.ui.model.DefinicionTipoElementoTableModel;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionElementos;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.Constants;
 
 public class FrmDefinicionElementosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {

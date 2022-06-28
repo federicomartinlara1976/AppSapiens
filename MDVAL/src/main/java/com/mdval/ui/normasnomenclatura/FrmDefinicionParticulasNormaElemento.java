@@ -168,7 +168,6 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 	@Override
 	protected void initialState() {}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		tblParticulas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

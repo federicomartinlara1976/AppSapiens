@@ -1,7 +1,6 @@
 package com.mdval.ui.listener.tables;
 
 import java.util.Objects;
-import java.util.Observer;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -11,6 +10,7 @@ import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 

@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 
@@ -15,6 +13,8 @@ import com.mdval.bussiness.service.TipoParticulaService;
 import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.normasnomenclatura.FrmDefinicionTiposParticula;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.Constants;
 
 public class FrmDefinicionTiposParticulaListener extends ListenerSupport implements ActionListener, Observer {

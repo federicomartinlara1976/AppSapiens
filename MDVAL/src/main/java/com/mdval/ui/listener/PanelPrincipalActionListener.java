@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -36,6 +34,8 @@ import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.ui.validacionscripts.PanelPrincipal;
 import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.AppGlobalSingleton;

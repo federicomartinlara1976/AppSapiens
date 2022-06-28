@@ -339,7 +339,6 @@ public class FrmDefinicionModelos extends FrameSupport {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);

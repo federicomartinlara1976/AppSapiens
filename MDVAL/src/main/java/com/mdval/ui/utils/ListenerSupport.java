@@ -3,12 +3,12 @@ package com.mdval.ui.utils;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.observer.Observable;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.Constants;
 import com.mdval.utils.DateFormatter;
