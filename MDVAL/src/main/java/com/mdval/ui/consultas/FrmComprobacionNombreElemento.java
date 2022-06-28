@@ -360,7 +360,6 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		txtNombreComprobar.setText(StringUtils.EMPTY);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
