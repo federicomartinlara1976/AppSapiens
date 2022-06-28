@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.ParticulaNorma;
 import com.mdval.bussiness.service.ParticulaNormaService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.PARTICULA_NORMA_SERVICE)
+@Service(MDValConstants.PARTICULA_NORMA_SERVICE)
 @Slf4j
 public class ParticulaNormaServiceImpl extends ServiceSupport implements ParticulaNormaService {
 
@@ -36,12 +36,12 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 	@Override
 	@SneakyThrows
 	public List<ParticulaNorma> consultarDefinicionParticulaNormaElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		String runSP = createCall("p_con_def_part_norma_elemento", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_def_part_norma_elemento", MDValConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA_NORMA);
+			String typeTipoParticula = createCallType(MDValConstants.T_T_PARTICULA_NORMA);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoNorma, codigoElemento);
@@ -88,12 +88,12 @@ public class ParticulaNormaServiceImpl extends ServiceSupport implements Particu
 	@Override
 	@SneakyThrows
 	public List<ParticulaNorma> consultarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		String runSP = createCall("p_con_particulas_elemento", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_particulas_elemento", MDValConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA_NORMA);
+			String typeTipoParticula = createCallType(MDValConstants.T_T_PARTICULA_NORMA);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoNorma, codigoElemento);

@@ -28,6 +28,7 @@ import com.mdval.ui.model.NormaComboBoxModel;
 import com.mdval.ui.model.SubProyectoTableModel;
 import com.mdval.ui.modelos.FrmMantenimientoModelos;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.collections.CheckSubProyectoUpdateClosure;
@@ -37,7 +38,7 @@ import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class FrmMantenimientoModelosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
@@ -58,29 +59,29 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnBuscarGlosario();
 		}
 		
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO.equals(jButton.getActionCommand())) {
 			eventBtnAddSubmodelo();
 		}
 		
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO.equals(jButton.getActionCommand())) {
 			eventBtnRemoveSubmodelo();
 		}
 
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			frmMantenimientoModelos.dispose();
 		}
 	}
 
 	private void eventBtnBuscarGlosario() {
-		frmDefinicionGlosarios = (FrmDefinicionGlosarios) UIHelper.createFrame(Constants.MNU_DEF_GLOSARIOS);
+		frmDefinicionGlosarios = (FrmDefinicionGlosarios) MDValUIHelper.createFrame(MDValConstants.MNU_DEF_GLOSARIOS);
 		UIHelper.show(frmDefinicionGlosarios);
 
 		frmDefinicionGlosarios.getFrmDefinicionGlosariosListener().addObservador(this);
@@ -89,7 +90,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 	@SuppressWarnings("unchecked")
 	private void eventBtnAddSubmodelo() {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-		String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+		String usuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 		
 		// Recoger los datos de los cuadros y crear un objeto SubProyecto
 		String codigoProyecto = frmMantenimientoModelos.getTxtCodModelo().getText();
@@ -140,9 +141,9 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 	private void eventBtnAlta() {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+			ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
 
-			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String usuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			String msg = StringUtils.EMPTY;
 			
 			String codigoProyecto = frmMantenimientoModelos.getTxtCodModelo().getText();
@@ -193,7 +194,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			modelo.setMcaGrantPublic(mcaGrantPublic);
 			modelo.setMcaVariables(mcaGeneraVariables);
 			modelo.setCodigoCapaUsrown(mcaVariablesConCapa);
-			modelo.setMcaInh(Constants.S);
+			modelo.setMcaInh(MDValConstants.S);
 			modelo.setCodigoUsuario(usuario);
 			
 			// Subproyectos
@@ -220,19 +221,19 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
+				updateObservers(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
 				frmMantenimientoModelos.dispose();
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmMantenimientoModelos, Constants.CMD_ERROR, params);
+			showPopup(frmMantenimientoModelos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
 	@Override
 	public void onLoad() {
 		try {
-			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+			NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 			List<Norma> normas = normaService.consultaNormas(StringUtils.EMPTY);
 			
 			NormaComboBoxModel modelNormas = new NormaComboBoxModel(normas);
@@ -241,8 +242,8 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			Map<String, Object> params = frmMantenimientoModelos.getParams();
 			
 			if (!Objects.isNull(params)) {
-				ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
-				Modelo seleccionado = (Modelo) params.get(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO);
+				ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
+				Modelo seleccionado = (Modelo) params.get(MDValConstants.FRM_DEFINICION_MODELOS_SELECCIONADO);
 				seleccionado = modeloService.consultaModelo(seleccionado.getCodigoProyecto());
 				
 				// rellenar los campos
@@ -257,12 +258,12 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmMantenimientoModelos, Constants.CMD_ERROR, params);
+			showPopup(frmMantenimientoModelos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
 	private void dumpData(Modelo seleccionado, NormaService normaService) {
-		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
+		GlosarioService glosarioService = (GlosarioService) getService(MDValConstants.GLOSARIO_SERVICE);
 		
 		frmMantenimientoModelos.getTxtCodModelo().setText(seleccionado.getCodigoProyecto());
 		frmMantenimientoModelos.getTxtNombreModelo().setText(seleccionado.getNombreModelo());
@@ -317,7 +318,7 @@ public class FrmMantenimientoModelosListener extends ListenerSupport implements 
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
 			if (!Objects.isNull(frmDefinicionGlosarios.getSeleccionado())) {
 				frmMantenimientoModelos.setGlosarioSeleccionado(frmDefinicionGlosarios.getSeleccionado());
 				frmMantenimientoModelos.getTxtCodGlosario().setText(

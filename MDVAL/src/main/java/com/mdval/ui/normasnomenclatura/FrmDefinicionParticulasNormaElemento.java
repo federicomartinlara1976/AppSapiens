@@ -25,9 +25,9 @@ import com.mdval.ui.renderer.NormaRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -158,7 +158,7 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 	protected void initEvents() {
 		FrmDefinicionParticulasNormaElementoListener listener = new FrmDefinicionParticulasNormaElementoListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR);
 		
 		btnBuscar.addActionListener(listener);
 		
@@ -175,7 +175,7 @@ public class FrmDefinicionParticulasNormaElemento extends FrameSupport {
 		tblParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabeceraElementos = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA);
+		Cabecera cabeceraElementos = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA);
 		tblParticulas.setModel(new DefinicionParticulasNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
 	
 		cmbElemento.setRenderer(new TipoElementoRenderer());

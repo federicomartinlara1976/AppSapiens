@@ -37,10 +37,10 @@ import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.NormaRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -613,11 +613,11 @@ public class FrmMantenimientoModelos extends FrameSupport {
 		
 		frmMantenimientoModelosListener.addObservador(frmDefinicionModelosListener);
 		
-		btnBuscarGlosario.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
-		btnAddSubmodelo.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO);
-		btnRemoveSubmodelo.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO);
-		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR);
+		btnBuscarGlosario.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO);
+		btnAddSubmodelo.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO);
+		btnRemoveSubmodelo.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO);
+		btnAceptar.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR);
 		
 		btnBuscarGlosario.addActionListener(frmMantenimientoModelosListener);
 		btnAddSubmodelo.addActionListener(frmMantenimientoModelosListener);
@@ -645,12 +645,12 @@ public class FrmMantenimientoModelos extends FrameSupport {
 			editar = Boolean.TRUE;
 		}
 		else {
-			cmbGrantAll.setSelectedItem(Constants.NO);
-	        cmbGrantPublic.setSelectedItem(Constants.NO);
-	        cmbGeneraVariables.setSelectedItem(Constants.SI);
-	        cmbVariablesConCapa.setSelectedItem(Constants.SI);
+			cmbGrantAll.setSelectedItem(MDValConstants.NO);
+	        cmbGrantPublic.setSelectedItem(MDValConstants.NO);
+	        cmbGeneraVariables.setSelectedItem(MDValConstants.SI);
+	        cmbVariablesConCapa.setSelectedItem(MDValConstants.SI);
 	        
-	        String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+	        String cod_usr = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			txtUsuario.setText(cod_usr);
 	        
 	        editar = Boolean.FALSE;
@@ -670,7 +670,7 @@ public class FrmMantenimientoModelos extends FrameSupport {
         
         cmbNorma.setRenderer(new NormaRenderer());
         
-        Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA);
+        Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA);
         tblSubproyectos.setModel(new SubProyectoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
         tblSubproyectos.setColumnWidths(cabecera);
 	}

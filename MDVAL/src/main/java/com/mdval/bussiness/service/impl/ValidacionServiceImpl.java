@@ -24,7 +24,7 @@ import com.mdval.bussiness.entities.ValidaScriptRequest;
 import com.mdval.bussiness.entities.ValidaScriptResponse;
 import com.mdval.bussiness.service.ValidacionService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -35,7 +35,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.VALIDACION_SERVICE)
+@Service(MDValConstants.VALIDACION_SERVICE)
 @Slf4j
 public class ValidacionServiceImpl extends ServiceSupport implements ValidacionService {
 	
@@ -45,7 +45,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public void insertarGlosario(BigDecimal numeroValidacion, BigDecimal numeroElemento, String codigoUsuario) {
-		String runSP = createCall("p_insertar_en_glosario", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_insertar_en_glosario", MDValConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -77,7 +77,7 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@SneakyThrows
 	public void insertarExcepcion(BigDecimal numeroValidacion, BigDecimal numeroElemento, String txtExcepcion,
 			String codigoUsuario) {
-		String runSP = createCall("p_insertar_excepcion", Constants.CALL_06_ARGS);
+		String runSP = createCall("p_insertar_excepcion", MDValConstants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -110,12 +110,12 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@SneakyThrows
 	public List<ValidaParticula> validarElemento(BigDecimal codigoNorma, String codigoProyecto,
 			String codigoSubProyecto, BigDecimal codigoElemento, String nombreElemento) {
-		String runSP = createCall("p_validar_elemento", Constants.CALL_08_ARGS);
+		String runSP = createCall("p_validar_elemento", MDValConstants.CALL_08_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeValidaParticula = createCallType(Constants.T_T_VALIDA_PARTICULA);
+			String typeValidaParticula = createCallType(MDValConstants.T_T_VALIDA_PARTICULA);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoNorma, codigoProyecto, codigoSubProyecto, codigoElemento, nombreElemento);
@@ -162,12 +162,12 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosCorrectosValidacion(BigDecimal numeroValidacion) {
-		String runSP = createCall("p_con_elem_correctos_valid", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_elem_correctos_valid", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, numeroValidacion);
@@ -198,12 +198,12 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosConErroresValidacion(BigDecimal numeroValidacion) {
-		String runSP = createCall("p_con_elem_errores_validacion", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_elem_errores_validacion", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, numeroValidacion);
@@ -234,12 +234,12 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosExcepcionesValidacion(BigDecimal numeroValidacion) {
-		String runSP = createCall("p_con_elem_excepciones_valid", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_elem_excepciones_valid", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, numeroValidacion);
@@ -270,12 +270,12 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public List<DetValidacion> consultaElementosNoGlosarioValidacion(BigDecimal numeroValidacion) {
-		String runSP = createCall("p_con_elem_no_glosario_valid", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_elem_no_glosario_valid", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, numeroValidacion);
@@ -306,14 +306,14 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public ValidaScriptResponse validaScript(ValidaScriptRequest validaScriptRequest) {
-		String runSP = createCall("p_valida_script", Constants.CALL_13_ARGS);
+		String runSP = createCall("p_valida_script", MDValConstants.CALL_13_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				OracleCallableStatement callableStatement = (OracleCallableStatement) conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
-			String trLinea = createCallType(Constants.T_R_LINEA);
-			String tableLinea = createCallType(Constants.T_T_LINEA);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
+			String trLinea = createCallType(MDValConstants.T_R_LINEA);
+			String tableLinea = createCallType(MDValConstants.T_T_LINEA);
 			String typeError = createCallTypeError();
 
 			// El script se manda manda línea a línea
@@ -387,13 +387,13 @@ public class ValidacionServiceImpl extends ServiceSupport implements ValidacionS
 	@Override
 	@SneakyThrows
 	public InformeValidacion generarInformeValidacion(BigDecimal numeroValidacion) {
-		String runSP = createCall("p_generar_informe_val", Constants.CALL_06_ARGS);
+		String runSP = createCall("p_generar_informe_val", MDValConstants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
-			String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
+			String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
+			String typeCampoGlosario = createCallType(MDValConstants.T_T_CAMPO_GLOSARIO);
 			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, numeroValidacion);

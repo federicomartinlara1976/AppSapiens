@@ -28,10 +28,10 @@ import com.mdval.ui.model.SiNoComboBoxModel;
 import com.mdval.ui.model.TipoDatoComboBoxModel;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.MaestrasSupport;
+import com.mdval.ui.utils.MDValMaestrasSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -325,8 +325,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		DlgAltaModificacionCamposListener actionListener = new DlgAltaModificacionCamposListener(this);
 		actionListener.addObservador(frmGlosarioCamposListener);
 
-		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR);
 
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -347,8 +347,8 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 		 * Para la modificación en este caso no debe haber un glosario seleccionado ya
 		 * que el código de glosario se encuentra en el campo a editar
 		 */
-		glosarioSeleccionado = (Glosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO);
-		campoGlosarioSeleccionado = (CampoGlosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
+		glosarioSeleccionado = (Glosario) params.get(MDValConstants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO);
+		campoGlosarioSeleccionado = (CampoGlosario) params.get(MDValConstants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
 
 		if (!Objects.isNull(campoGlosarioSeleccionado)) {
 			txtNombre.setText(campoGlosarioSeleccionado.getNombreColumna());
@@ -376,10 +376,10 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 			editar = Boolean.TRUE;
 		} else {
 			cmbTipoDato.setSelectedIndex(0);
-			cmbExcepcion.setSelectedItem(Constants.NO);
+			cmbExcepcion.setSelectedItem(MDValConstants.NO);
 			txtNombre.setEditable(Boolean.TRUE);
 
-			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String cod_usr = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			txtUsuario.setText(cod_usr);
 
 			editar = Boolean.FALSE;
@@ -388,7 +388,7 @@ public class DlgAltaModificacionCampos extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		TipoDatoComboBoxModel cmbTipoDatoModel = MaestrasSupport.getTipoDatoCmbModel();
+		TipoDatoComboBoxModel cmbTipoDatoModel = MDValMaestrasSupport.getTipoDatoCmbModel();
 		cmbTipoDato.setModel(cmbTipoDatoModel);
 
 		cmbExcepcion.setModel(new SiNoComboBoxModel());

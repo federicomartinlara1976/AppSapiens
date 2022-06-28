@@ -11,7 +11,7 @@ import com.mdval.ui.model.AltaModificacionNormasElementoNormaTableModel;
 import com.mdval.ui.normasnomenclatura.DlgModificacionNormas;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class DlgModificacionNormasElementoNormaTableListener extends ListenerSup
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			dlgModificacionNormas.setElementoSeleccionado(seleccionado);
-			updateObservers(Constants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO);
+			updateObservers(MDValConstants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO);
 		}
 	}
 }

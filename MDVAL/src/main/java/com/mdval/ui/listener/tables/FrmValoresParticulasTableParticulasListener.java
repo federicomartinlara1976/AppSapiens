@@ -16,7 +16,7 @@ import com.mdval.ui.model.DefinicionTiposParticulaTableModel;
 import com.mdval.ui.model.ValoresParticulaTableModel;
 import com.mdval.ui.normasnomenclatura.FrmValoresParticulas;
 import com.mdval.ui.utils.ListenerSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class FrmValoresParticulasTableParticulasListener extends ListenerSupport
 			populateModel(valores);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmValoresParticulas, Constants.CMD_ERROR, params);
+			showPopup(frmValoresParticulas, MDValConstants.CMD_ERROR, params);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class FrmValoresParticulasTableParticulasListener extends ListenerSupport
 	 * @return
 	 */
 	private List<ValorParticula> cargarValoresParticulas(BigDecimal codigoParticula) {
-		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(Constants.VALOR_PARTICULA_SERVICE);
+		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(MDValConstants.VALOR_PARTICULA_SERVICE);
 		List<ValorParticula> valores = valorParticulaService.consultarValoresParticula(codigoParticula);
 		return valores;
 	}

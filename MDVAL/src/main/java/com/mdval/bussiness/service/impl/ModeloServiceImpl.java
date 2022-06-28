@@ -20,7 +20,7 @@ import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.entities.SubProyecto;
 import com.mdval.bussiness.service.ModeloService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -31,7 +31,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.MODELO_SERVICE)
+@Service(MDValConstants.MODELO_SERVICE)
 @Slf4j
 public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
@@ -41,13 +41,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void altaModelo(Modelo modelo) {
-		String runSP = createCall("p_alta_modelo", Constants.CALL_19_ARGS);
+		String runSP = createCall("p_alta_modelo", MDValConstants.CALL_19_ARGS);
 
 		try (Connection conn = dataSource.getConnection(); OracleConnection oConn = (OracleConnection) conn;
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String tableSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
-			String recordSubProyecto = createCallType(Constants.T_R_SUBPROYECTO);
+			String tableSubProyecto = createCallType(MDValConstants.T_T_SUBPROYECTO);
+			String recordSubProyecto = createCallType(MDValConstants.T_R_SUBPROYECTO);
 			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),
@@ -103,7 +103,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void bajaLogicaModelo(String codigoProyecto, String codigoUsuario) {
-		String runSP = createCall("p_baja_logica_modelo", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_baja_logica_modelo", MDValConstants.CALL_04_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -135,12 +135,12 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	public List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo,
 										BigDecimal codigoNorma, BigDecimal codigoGlosario,
 										String nombreEsquema, String nombreBbdd, String mostrarInh) {
-		String runSP = createCall("p_consulta_modelos", Constants.CALL_10_ARGS);
+		String runSP = createCall("p_consulta_modelos", MDValConstants.CALL_10_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeModelo = createCallType(MDValConstants.T_T_MODELO);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoProyecto, nombreModelo, codigoNorma, codigoGlosario, nombreEsquema, nombreBbdd, mostrarInh);
@@ -209,12 +209,12 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public Modelo consultaModelo(String codigoProyecto) {
-		String runSP = createCall("p_con_modelo", Constants.CALL_21_ARGS);
+		String runSP = createCall("p_con_modelo", MDValConstants.CALL_21_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
+			String typeSubProyecto = createCallType(MDValConstants.T_T_SUBPROYECTO);
 			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, codigoProyecto);
@@ -316,12 +316,12 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
-		String runSP = createCall("p_con_modelos_glosario", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_modelos_glosario", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeModelo = createCallType(MDValConstants.T_T_MODELO);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoGlosario);
@@ -383,13 +383,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	@SneakyThrows
 	public void modificaModelo(Modelo modelo) {
-		String runSP = createCall("p_modifica_modelo", Constants.CALL_19_ARGS);
+		String runSP = createCall("p_modifica_modelo", MDValConstants.CALL_19_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 			
-			String tableSubProyecto = createCallType(Constants.T_T_SUBPROYECTO);
-			String recordSubProyecto = createCallType(Constants.T_R_SUBPROYECTO);
+			String tableSubProyecto = createCallType(MDValConstants.T_T_SUBPROYECTO);
+			String recordSubProyecto = createCallType(MDValConstants.T_R_SUBPROYECTO);
 			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, modelo.getCodigoProyecto(), modelo.getNombreModelo(), modelo.getCodigoNorma(), modelo.getCodigoGlosario(), modelo.getNombreEsquema(),

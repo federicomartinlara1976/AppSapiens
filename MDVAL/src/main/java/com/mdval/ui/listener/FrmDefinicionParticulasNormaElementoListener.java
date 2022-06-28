@@ -24,7 +24,7 @@ import com.mdval.ui.normasnomenclatura.FrmDefinicionParticulasNormaElemento;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * @author federico
@@ -47,7 +47,7 @@ public class FrmDefinicionParticulasNormaElementoListener extends ListenerSuppor
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 	}
@@ -63,7 +63,7 @@ public class FrmDefinicionParticulasNormaElementoListener extends ListenerSuppor
 			populateModel(particulas);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionParticulasNormaElemento, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionParticulasNormaElemento, MDValConstants.CMD_ERROR, params);
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class FrmDefinicionParticulasNormaElementoListener extends ListenerSuppor
 	 * @return
 	 */
 	private List<ParticulaNorma> buscar(TipoElemento elemento, Norma norma) {
-		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(Constants.PARTICULA_NORMA_SERVICE);
+		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(MDValConstants.PARTICULA_NORMA_SERVICE);
 		
 		BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
 		BigDecimal codigoElemento = !Objects.isNull(elemento) ? elemento.getCodigoElemento() : null;
@@ -99,8 +99,8 @@ public class FrmDefinicionParticulasNormaElementoListener extends ListenerSuppor
 	 */
 	@Override
 	public void onLoad() {
-		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
-		TipoElementoService tipoElementoService = (TipoElementoService) getService(Constants.TIPO_ELEMENTO_SERVICE);
+		NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
+		TipoElementoService tipoElementoService = (TipoElementoService) getService(MDValConstants.TIPO_ELEMENTO_SERVICE);
 		
 		List<Norma> normas = normaService.consultaNormas(StringUtils.EMPTY);
 		List<TipoElemento> elementos = tipoElementoService.consultarTiposElementos(StringUtils.EMPTY);

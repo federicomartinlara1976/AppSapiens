@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.UIHelper;
 
 /**
@@ -28,7 +29,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JFrame frame = UIHelper.createFrame(item.getActionCommand());
+		JFrame frame = MDValUIHelper.createFrame(item.getActionCommand());
 		UIHelper.show(frame);
 	}
 }

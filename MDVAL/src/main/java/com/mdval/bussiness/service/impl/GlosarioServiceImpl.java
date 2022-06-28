@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.Glosario;
 import com.mdval.bussiness.service.GlosarioService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.GLOSARIO_SERVICE)
+@Service(MDValConstants.GLOSARIO_SERVICE)
 @Slf4j
 public class GlosarioServiceImpl extends ServiceSupport implements GlosarioService {
 
@@ -37,12 +37,12 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public List<Glosario> buscarGlosarios(String descripcionGlosario) {
-		String runSP = createCall("p_buscar_glosarios", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_buscar_glosarios", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeGlosario = createCallType(Constants.T_T_GLOSARIO);
+			String typeGlosario = createCallType(MDValConstants.T_T_GLOSARIO);
 			String typeError = createCallTypeError();
 			
 			logProcedure(runSP, descripcionGlosario);
@@ -85,7 +85,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public Glosario consultarGlosario(BigDecimal codigoGlosario) {
-		String runSP = createCall("p_consulta_glosario", Constants.CALL_07_ARGS);
+		String runSP = createCall("p_consulta_glosario", MDValConstants.CALL_07_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -127,7 +127,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public void altaGlosario(String descripcionGlosario, String codigoUsuario) {
-		String runSP = createCall("p_alta_glosario", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_alta_glosario", MDValConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -157,7 +157,7 @@ public class GlosarioServiceImpl extends ServiceSupport implements GlosarioServi
 	@Override
 	@SneakyThrows
 	public void modificaGlosario(BigDecimal codigoGlosario, String descripcionGlosario, String codigoUsuario) {
-		String runSP = createCall("p_modifica_glosario", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_modifica_glosario", MDValConstants.CALL_05_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {

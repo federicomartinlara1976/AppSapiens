@@ -18,7 +18,7 @@ import com.mdval.ui.listener.DlgBajaGlosarioCamposListener;
 import com.mdval.ui.listener.FrmGlosarioCamposListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -163,8 +163,8 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 		DlgBajaGlosarioCamposListener actionListener = new DlgBajaGlosarioCamposListener(this);
 		actionListener.addObservador(frmGlosarioCamposListener);
 		
-		btnAceptar.setActionCommand(Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -175,6 +175,6 @@ public class DlgBajaGlosarioCampos extends DialogSupport {
 
 	@Override
 	protected void initialState() {
-		campoSeleccionado = (CampoGlosario) params.get(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
+		campoSeleccionado = (CampoGlosario) params.get(MDValConstants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO);
 	}
 }

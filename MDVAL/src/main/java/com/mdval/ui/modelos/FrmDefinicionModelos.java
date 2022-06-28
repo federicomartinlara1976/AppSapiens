@@ -27,9 +27,9 @@ import com.mdval.ui.model.DefinicionModelosTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.NormaRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -294,11 +294,11 @@ public class FrmDefinicionModelos extends FrameSupport {
 		frmDefinicionModelosListener = new FrmDefinicionModelosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionModelosTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_ALTA);
-		btnBaja.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_BAJA);
-		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION);
-		btnSeleccionar.setActionCommand(Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_MODELOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_DEFINICION_MODELOS_BTN_ALTA);
+		btnBaja.setActionCommand(MDValConstants.FRM_DEFINICION_MODELOS_BTN_BAJA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION);
+		btnSeleccionar.setActionCommand(MDValConstants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
 		
 		btnBuscar.addActionListener(frmDefinicionModelosListener);
 		btnAlta.addActionListener(frmDefinicionModelosListener);
@@ -341,7 +341,7 @@ public class FrmDefinicionModelos extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
 		tblModelos.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		cmbNorma.setRenderer(new NormaRenderer());

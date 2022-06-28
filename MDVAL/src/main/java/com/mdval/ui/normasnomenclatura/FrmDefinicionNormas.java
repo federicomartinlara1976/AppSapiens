@@ -25,8 +25,8 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.ui.utils.MDValUIHelper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -176,9 +176,9 @@ public class FrmDefinicionNormas extends FrameSupport {
 		frmDefinicionNormasListener = new FrmDefinicionNormasListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionNormasTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_NORMAS_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_DEFINICION_NORMAS_BTN_ALTA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION);
 		
 		btnBuscar.addActionListener(frmDefinicionNormasListener);
 		btnAlta.addActionListener(frmDefinicionNormasListener);
@@ -200,7 +200,7 @@ public class FrmDefinicionNormas extends FrameSupport {
 		tblNormas.setDefaultRenderer(String.class, new StringRenderer());
 		tblNormas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
 		tblNormas.setModel(new DefinicionNormasTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

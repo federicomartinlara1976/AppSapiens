@@ -15,7 +15,7 @@ import com.mdval.ui.normasnomenclatura.FrmDefinicionTiposParticula;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class FrmDefinicionTiposParticulaListener extends ListenerSupport implements ActionListener, Observer {
 
@@ -30,15 +30,15 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}
@@ -53,7 +53,7 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 			populateModel(tiposParticula);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionTiposParticula, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionTiposParticula, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmDefinicionTiposParticula, Constants.CMD_ALTA_TIPOS_PARTICULA);
+		showPopup(frmDefinicionTiposParticula, MDValConstants.CMD_ALTA_TIPOS_PARTICULA);
 	}
 
 	/**
@@ -69,10 +69,10 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO,
+		params.put(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO,
 				frmDefinicionTiposParticula.getSeleccionado());
 
-		showPopup(frmDefinicionTiposParticula, Constants.CMD_MODIFICACION_TIPOS_PARTICULA, params);
+		showPopup(frmDefinicionTiposParticula, MDValConstants.CMD_MODIFICACION_TIPOS_PARTICULA, params);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class FrmDefinicionTiposParticulaListener extends ListenerSupport impleme
 	 * @return lista de tipos que cumple con el termino buscado
 	 */
 	private List<TipoParticula> buscar(String termino) {
-		TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(Constants.TIPO_PARTICULA_SERVICE);
+		TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(MDValConstants.TIPO_PARTICULA_SERVICE);
 		List<TipoParticula> tipos = tipoParticulaService.consultarDefinicionTiposParticula(termino);
 		return tipos;
 	}

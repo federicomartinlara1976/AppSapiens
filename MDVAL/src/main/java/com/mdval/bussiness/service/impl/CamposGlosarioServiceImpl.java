@@ -19,7 +19,7 @@ import com.mdval.bussiness.entities.CampoGlosario;
 import com.mdval.bussiness.entities.Modelo;
 import com.mdval.bussiness.service.CamposGlosarioService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.CAMPOS_GLOSARIO_SERVICE)
+@Service(MDValConstants.CAMPOS_GLOSARIO_SERVICE)
 @Slf4j
 public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposGlosarioService {
 
@@ -39,13 +39,13 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@SneakyThrows
 	public List<CampoGlosario> consultarCamposGlosario(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
 			String mostrarExcepciones) {
-		String runSP = createCall("p_con_campos_glosario", Constants.CALL_07_ARGS);
+		String runSP = createCall("p_con_campos_glosario", MDValConstants.CALL_07_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = createCallTypeError();
-			String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
+			String typeCampoGlosario = createCallType(MDValConstants.T_T_CAMPO_GLOSARIO);
 
 			logProcedure(runSP, codigoGlosario, tipoDato, nombreColumna, mostrarExcepciones);
 
@@ -92,7 +92,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void bajaCampoGlosario(CampoGlosario campoGlosario, String codigoRF, String codigoSD, String comentario, String codUsuario) {
-		String runSP = createCall("p_baja_campo_glosario", Constants.CALL_11_ARGS);
+		String runSP = createCall("p_baja_campo_glosario", MDValConstants.CALL_11_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -135,7 +135,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void altaCampoGlosario(CampoGlosario campoGlosario) {
-		String runSP = createCall("p_alta_campo_glosario", Constants.CALL_11_ARGS);
+		String runSP = createCall("p_alta_campo_glosario", MDValConstants.CALL_11_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -177,7 +177,7 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public void modificarCampoGlosario(CampoGlosario oldCampoGlosario, CampoGlosario newCampoGlosario) {
-		String runSP = createCall("p_modificar_campo_glosario", Constants.CALL_15_ARGS);
+		String runSP = createCall("p_modificar_campo_glosario", MDValConstants.CALL_15_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -230,13 +230,13 @@ public class CamposGlosarioServiceImpl extends ServiceSupport implements CamposG
 	@Override
 	@SneakyThrows
 	public List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario) {
-		String runSP = createCall("p_con_modelos_glosario", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_modelos_glosario", MDValConstants.CALL_04_ARGS);
 		
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = createCallTypeError();
-			String typeModeloGlosario = createCallType(Constants.T_T_MODELO);
+			String typeModeloGlosario = createCallType(MDValConstants.T_T_MODELO);
 
 			logProcedure(runSP, codigoGlosario);
 

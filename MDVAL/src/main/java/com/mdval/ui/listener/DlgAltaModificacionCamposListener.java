@@ -19,7 +19,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class DlgAltaModificacionCamposListener extends ListenerSupport implements ActionListener {
 
@@ -38,11 +38,11 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgAltaModificacionCampos.dispose();
 		}
 	}
@@ -51,9 +51,9 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 			CamposGlosarioService camposGlosarioService = (CamposGlosarioService) getService(
-					Constants.CAMPOS_GLOSARIO_SERVICE);
+					MDValConstants.CAMPOS_GLOSARIO_SERVICE);
 			Glosario glosarioSeleccionado = dlgAltaModificacionCampos.getGlosarioSeleccionado();
-			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String codUsuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 
 			CampoGlosario oldCampoGlosario = dlgAltaModificacionCampos.getCampoGlosarioSeleccionado();
 			CampoGlosario newCampoGlosario = new CampoGlosario();
@@ -101,12 +101,12 @@ public class DlgAltaModificacionCamposListener extends ListenerSupport implement
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers(Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
+				updateObservers(MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR);
 				dlgAltaModificacionCampos.dispose();
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(dlgAltaModificacionCampos.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgAltaModificacionCampos.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 

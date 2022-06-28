@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.ConfigurationSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LogWrapper;
 
@@ -33,7 +33,7 @@ public class ServiceSupport {
 	@SneakyThrows
 	public ServiceSupport() {
 		dateFormatter = new DateFormatter();
-		oracleDateFormatter = new DateFormatter(Constants.ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES);
+		oracleDateFormatter = new DateFormatter(MDValConstants.ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES);
 		configuration = ConfigurationSingleton.getInstance();
 	}
 	
@@ -43,7 +43,7 @@ public class ServiceSupport {
 	 * @throws SQLException
 	 */
 	protected ServiceException buildException(Array array) throws SQLException {
-		return buildException((Object[]) array.getArray(), Constants.ERROR);
+		return buildException((Object[]) array.getArray(), MDValConstants.ERROR);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class ServiceSupport {
 	 * @throws SQLException
 	 */
 	protected ServiceException buildWarning(Array array) throws SQLException {
-		return buildException((Object[]) array.getArray(), Constants.WARN);
+		return buildException((Object[]) array.getArray(), MDValConstants.WARN);
 	}
 	
 	/**
@@ -98,8 +98,8 @@ public class ServiceSupport {
 	@SneakyThrows
 	protected String createCall(String procedure, String callFormat) {
 		String proc = configuration.getConfig(procedure);
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		String llamada = String.format(Constants.FORMATO_LLAMADA, paquete, proc).toUpperCase();
+		String paquete = configuration.getConfig(MDValConstants.PAQUETE);
+		String llamada = String.format(MDValConstants.FORMATO_LLAMADA, paquete, proc).toUpperCase();
 		return String.format(callFormat, llamada);
 	}
 	
@@ -108,8 +108,8 @@ public class ServiceSupport {
 	 */
 	@SneakyThrows
 	protected String createCallTypeError() {
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		return String.format(Constants.FORMATO_LLAMADA, paquete, Constants.T_T_ERROR).toUpperCase();
+		String paquete = configuration.getConfig(MDValConstants.PAQUETE);
+		return String.format(MDValConstants.FORMATO_LLAMADA, paquete, MDValConstants.T_T_ERROR).toUpperCase();
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class ServiceSupport {
 	 */
 	@SneakyThrows
 	protected String createCallType(String type) {
-		String paquete = configuration.getConfig(Constants.PAQUETE);
-		return String.format(Constants.FORMATO_LLAMADA, paquete, type).toUpperCase();
+		String paquete = configuration.getConfig(MDValConstants.PAQUETE);
+		return String.format(MDValConstants.FORMATO_LLAMADA, paquete, type).toUpperCase();
 	}
 }

@@ -15,7 +15,7 @@ import com.mdval.ui.normasnomenclatura.FrmDefinicionNormas;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class FrmDefinicionNormasListener extends ListenerSupport implements ActionListener, Observer {
 
@@ -30,15 +30,15 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.FRM_DEFINICION_NORMAS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_NORMAS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_DEFINICION_NORMAS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_NORMAS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_NORMAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}
@@ -56,7 +56,7 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmDefinicionNormas, Constants.CMD_ALTA_NORMAS);
+		showPopup(frmDefinicionNormas, MDValConstants.CMD_ALTA_NORMAS);
 	}
 
 	/**
@@ -64,9 +64,9 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA, frmDefinicionNormas.getSeleccionada());
+		params.put(MDValConstants.FRM_DEFINICION_NORMAS_SELECCIONADA, frmDefinicionNormas.getSeleccionada());
 		
-		showPopup(frmDefinicionNormas, Constants.CMD_MODIFICACION_NORMAS, params);
+		showPopup(frmDefinicionNormas, MDValConstants.CMD_MODIFICACION_NORMAS, params);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class FrmDefinicionNormasListener extends ListenerSupport implements Acti
 	 * @return lista de glosarios que cumple con el termino buscado
 	 */
 	private List<Norma> buscar(String termino) {
-		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+		NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 		List<Norma> normas = normaService.consultaNormas(termino);
 		return normas;
 	}

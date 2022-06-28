@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.TipoDato;
 import com.mdval.bussiness.service.TipoDatoService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.TIPO_DATO_SERVICE)
+@Service(MDValConstants.TIPO_DATO_SERVICE)
 @Slf4j
 public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoService {
 
@@ -35,12 +35,12 @@ public class TipoDatoServiceImpl extends ServiceSupport implements TipoDatoServi
 	@Override
 	@SneakyThrows
 	public List<TipoDato> consultaTipoDatos() {
-		String runSP = createCall("p_consulta_tipos_datos", Constants.CALL_03_ARGS);
+		String runSP = createCall("p_consulta_tipos_datos", MDValConstants.CALL_03_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoDato = createCallType(Constants.T_T_TIPO_DATO);
+			String typeTipoDato = createCallType(MDValConstants.T_T_TIPO_DATO);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP);

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.ElementoNorma;
 import com.mdval.bussiness.service.ElementoNormaService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.ELEMENTO_NORMA_SERVICE)
+@Service(MDValConstants.ELEMENTO_NORMA_SERVICE)
 @Slf4j
 public class ElementoNormaServiceImpl extends ServiceSupport implements ElementoNormaService {
 
@@ -38,13 +38,13 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
     @Override
     @SneakyThrows
     public List<ElementoNorma> consultarDefinicionElementoNorma(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-        String runSP = createCall("p_con_def_elem_norma", Constants.CALL_05_ARGS);
+        String runSP = createCall("p_con_def_elem_norma", MDValConstants.CALL_05_ARGS);
         
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
         	
             String typeError = createCallTypeError();
-            String typeElementoNorma = createCallType(Constants.T_T_ELEMENTO_NORMA);
+            String typeElementoNorma = createCallType(MDValConstants.T_T_ELEMENTO_NORMA);
             
             logProcedure(runSP, codigoNorma, codigoElemento);
 
@@ -97,12 +97,12 @@ public class ElementoNormaServiceImpl extends ServiceSupport implements Elemento
     @Override
     @SneakyThrows
     public List<ElementoNorma> consultarElementosNorma(BigDecimal codigoNorma) {
-        String runSP = createCall("p_con_elem_norma", Constants.CALL_04_ARGS);
+        String runSP = createCall("p_con_elem_norma", MDValConstants.CALL_04_ARGS);
         
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeElementoNorma = createCallType(Constants.T_T_ELEMENTO_NORMA);
+            String typeElementoNorma = createCallType(MDValConstants.T_T_ELEMENTO_NORMA);
             String typeError = createCallTypeError();
             
             logProcedure(runSP, codigoNorma);

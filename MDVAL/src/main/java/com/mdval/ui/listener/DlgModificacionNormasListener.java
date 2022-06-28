@@ -23,7 +23,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.SneakyThrows;
 
@@ -49,11 +49,11 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			dlgModificacionNormas.dispose();
 		}
 
-		if (Constants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgModificacionNormas.dispose();
 		}
 	}
@@ -64,7 +64,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 			Map<String, Object> params = dlgModificacionNormas.getParams();
 			
 			if (!Objects.isNull(params)) {
-				Norma normaSeleccionada = (Norma) params.get(Constants.FRM_DEFINICION_NORMAS_SELECCIONADA);
+				Norma normaSeleccionada = (Norma) params.get(MDValConstants.FRM_DEFINICION_NORMAS_SELECCIONADA);
 				dlgModificacionNormas.setNormaSeleccionada(normaSeleccionada);
 
 				Norma norma = cargarNorma(normaSeleccionada.getCodigoNorma());
@@ -79,7 +79,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(dlgModificacionNormas.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgModificacionNormas.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	 * @return
 	 */
 	private Norma cargarNorma(BigDecimal codigoNorma) throws ServiceException {
-		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+		NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 		return normaService.consultaNorma(codigoNorma);
 	}
 
@@ -97,7 +97,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	 * @return
 	 */
 	private List<ElementoNorma> cargarElementosNorma(BigDecimal codigoNorma) {
-		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(Constants.ELEMENTO_NORMA_SERVICE);
+		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(MDValConstants.ELEMENTO_NORMA_SERVICE);
 		return elementoNormaService.consultarElementosNorma(codigoNorma);
 	}
 
@@ -107,7 +107,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	 */
 	private List<ParticulaNorma> cargarParticulasElemento(BigDecimal codigoNorma, BigDecimal codigoElemento) {
 		ParticulaNormaService particulaNormaService = (ParticulaNormaService) getService(
-				Constants.PARTICULA_NORMA_SERVICE);
+				MDValConstants.PARTICULA_NORMA_SERVICE);
 		return particulaNormaService.consultarParticulasElemento(codigoNorma, codigoElemento);
 	}
 
@@ -142,7 +142,7 @@ public class DlgModificacionNormasListener extends ListenerSupport implements Ac
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 
-		if (Constants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO.equals(cmd)) {
+		if (MDValConstants.DLG_MODIFICACION_NORMAS_ELEMENTO_SELECCIONADO.equals(cmd)) {
 			// Cargar la tabla de partículas
 			Norma normaSeleccionada = dlgModificacionNormas.getNormaSeleccionada();
 			ElementoNorma elementoSeleccionado = dlgModificacionNormas.getElementoSeleccionado();

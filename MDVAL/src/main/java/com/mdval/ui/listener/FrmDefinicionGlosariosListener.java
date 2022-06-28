@@ -15,7 +15,7 @@ import com.mdval.ui.model.DefinicionGlosariosTableModel;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class FrmDefinicionGlosariosListener extends ListenerSupport implements ActionListener, Observer {
 
@@ -34,19 +34,19 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
 			eventBtnSeleccionar();
 		}
 	}
@@ -61,26 +61,26 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 			populateModel(glosarios);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionGlosarios, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionGlosarios, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
 	private void eventBtnAlta() {
-		showPopup(frmDefinicionGlosarios, Constants.CMD_ALTA_GLOSARIOS);
+		showPopup(frmDefinicionGlosarios, MDValConstants.CMD_ALTA_GLOSARIOS);
 	}
 
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO, frmDefinicionGlosarios.getSeleccionado());
+		params.put(MDValConstants.FRM_DEFINICION_GLOSARIOS_SELECCIONADO, frmDefinicionGlosarios.getSeleccionado());
 
-		showPopup(frmDefinicionGlosarios, Constants.CMD_MODIFICACION_GLOSARIOS, params);
+		showPopup(frmDefinicionGlosarios, MDValConstants.CMD_MODIFICACION_GLOSARIOS, params);
 	}
 
 	/**
 	 * 
 	 */
 	private void eventBtnSeleccionar() {
-		updateObservers(Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
+		updateObservers(MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 		frmDefinicionGlosarios.dispose();
 	}
 	
@@ -91,7 +91,7 @@ public class FrmDefinicionGlosariosListener extends ListenerSupport implements A
 	 * @return lista de glosarios que cumple con el termino buscado
 	 */
 	private List<Glosario> buscar(String termino) {
-		GlosarioService glosarioService = (GlosarioService) getService(Constants.GLOSARIO_SERVICE);
+		GlosarioService glosarioService = (GlosarioService) getService(MDValConstants.GLOSARIO_SERVICE);
 		List<Glosario> glosarios = glosarioService.buscarGlosarios(termino);
 		return glosarios;
 	}

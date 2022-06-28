@@ -25,7 +25,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.validacionscripts.DlgExcepciones;
 import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class PanelResultadosListener extends ListenerSupport implements ActionListener {
 
@@ -35,26 +35,26 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 	public PanelResultadosListener(PanelResultados panelResultados) {
 		this.panelResultados = panelResultados;
-		validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
+		validacionService = (ValidacionService) getService(MDValConstants.VALIDACION_SERVICE);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION.equals(jButton.getActionCommand())) {
 			eventBtnMarcarExcepcion();
 		}
 
-		if (Constants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnAddGlosario();
 		}
 
-		if (Constants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnAddTodos();
 		}
 
-		if (Constants.PANEL_RESULTADOS_BTN_GENERAR_LOG.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_RESULTADOS_BTN_GENERAR_LOG.equals(jButton.getActionCommand())) {
 			eventBtnGenerarLog();
 		}
 	}
@@ -77,7 +77,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			insertarEnGlosario(detalles, Boolean.FALSE);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			insertarEnGlosario(detalles, Boolean.TRUE);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -122,9 +122,9 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 			if (StringUtils.isNotBlank(path)) {
 				ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
-						Constants.EXCEL_GENERATOR_SERVICE);
+						MDValConstants.EXCEL_GENERATOR_SERVICE);
 
-				ValidacionService validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
+				ValidacionService validacionService = (ValidacionService) getService(MDValConstants.VALIDACION_SERVICE);
 
 				// Coge el número de validación del response y RF y SD del panel principal
 				ValidaScriptResponse response = panelResultados.getPanelPrincipal().getResponse();
@@ -142,7 +142,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 	private void insertarEnGlosario(List<DetValidacion> detalles, Boolean todos) {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String usuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
 					literales.getLiteral("confirmacion.titulo"));
@@ -182,7 +182,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -193,7 +193,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 	private void insertarExcepcion(DetValidacion detValidacion, String excepcion) {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String usuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
 					literales.getLiteral("confirmacion.titulo"));
@@ -212,7 +212,7 @@ public class PanelResultadosListener extends ListenerSupport implements ActionLi
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelResultados.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelResultados.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 	

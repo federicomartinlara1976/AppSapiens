@@ -21,7 +21,7 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -257,8 +257,8 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 		DlgAltaModificacionTiposParticulaListener actionListener = new DlgAltaModificacionTiposParticulaListener(this);
 		actionListener.addObservador(frmDefinicionTiposParticulaListener);
 		
-		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -270,7 +270,7 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
-			TipoParticula tipoParticula = (TipoParticula) params.get(Constants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO);
+			TipoParticula tipoParticula = (TipoParticula) params.get(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO);
 			
 			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
 			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
@@ -287,7 +287,7 @@ public class DlgAltaModificacionTiposParticula extends DialogSupport {
 			editar = Boolean.TRUE;
 		}
 		else {
-			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String cod_usr = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			txtUsuario.setText(cod_usr);
 			
 			editar = Boolean.FALSE;

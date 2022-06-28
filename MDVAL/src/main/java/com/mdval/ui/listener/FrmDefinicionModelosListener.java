@@ -27,7 +27,7 @@ import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * @author federico
@@ -50,23 +50,23 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_BAJA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_BAJA.equals(jButton.getActionCommand())) {
 			eventBtnBaja();
 		}
 
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 		
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
 			evntBtnSeleccionar();
 		}
 	}
@@ -93,7 +93,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 			frmDefinicionModelos.getBtnBaja().setEnabled(Boolean.FALSE);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionModelos, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionModelos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showFrame(frmDefinicionModelos, Constants.CMD_ALTA_MODELOS);
+		showFrame(frmDefinicionModelos, MDValConstants.CMD_ALTA_MODELOS);
 	}
 
 	/**
@@ -110,9 +110,9 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	private void eventBtnBaja() {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+			ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
 			
-			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String codUsuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 			
 			String msg = StringUtils.EMPTY;
@@ -131,7 +131,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionModelos.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionModelos.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 
 	}
@@ -141,15 +141,15 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_MODELOS_SELECCIONADO, frmDefinicionModelos.getSeleccionado());
-		showFrame(frmDefinicionModelos, Constants.CMD_MODIFICACION_MODELOS, params);
+		params.put(MDValConstants.FRM_DEFINICION_MODELOS_SELECCIONADO, frmDefinicionModelos.getSeleccionado());
+		showFrame(frmDefinicionModelos, MDValConstants.CMD_MODIFICACION_MODELOS, params);
 	}
 
 	/**
 	 * 
 	 */
 	private void evntBtnSeleccionar() {
-		updateObservers(Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
+		updateObservers(MDValConstants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR);
 		frmDefinicionModelos.dispose();
 	}
 	
@@ -158,7 +158,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	 */
 	@Override
 	public void onLoad() {
-		NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+		NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 
 		List<Norma> normas = normaService.consultaNormas(StringUtils.EMPTY);
 		NormaComboBoxModel modelNormas = new NormaComboBoxModel(normas);
@@ -181,7 +181,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 		Boolean fromMenu = Boolean.TRUE;
 		BigDecimal codigoNorma = !Objects.isNull(norma) ? norma.getCodigoNorma() : null;
 
-		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+		ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
 		
 		Map<String, Object> params = frmDefinicionModelos.getParams();
 		
@@ -189,7 +189,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 			fromMenu = (Boolean) params.get("fromMenu");
 		}
 		
-		String mcaInh = (fromMenu) ? Constants.S : Constants.N;
+		String mcaInh = (fromMenu) ? MDValConstants.S : MDValConstants.N;
 		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codigoNorma, codigoGlosario, esquema, baseDatos,
 				mcaInh);
@@ -212,7 +212,7 @@ public class FrmDefinicionModelosListener extends ListenerSupport implements Act
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 		
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR.equals(cmd)) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 		

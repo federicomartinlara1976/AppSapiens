@@ -15,10 +15,10 @@ import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.StringRenderer;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.PanelSupport;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -149,10 +149,10 @@ public class PanelResultados extends PanelSupport {
 	protected void initEvents() {
 		panelResultadosListener = new PanelResultadosListener(this);
 		
-		btnMarcarExcepcion.setActionCommand(Constants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION);
-		btnAddGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO);
-		btnAddTodosGlosario.setActionCommand(Constants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO);
-		btnGenerarLog.setActionCommand(Constants.PANEL_RESULTADOS_BTN_GENERAR_LOG);
+		btnMarcarExcepcion.setActionCommand(MDValConstants.PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION);
+		btnAddGlosario.setActionCommand(MDValConstants.PANEL_RESULTADOS_BTN_ADD_GLOSARIO);
+		btnAddTodosGlosario.setActionCommand(MDValConstants.PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO);
+		btnGenerarLog.setActionCommand(MDValConstants.PANEL_RESULTADOS_BTN_GENERAR_LOG);
 
 		btnMarcarExcepcion.addActionListener(panelResultadosListener);
 		btnAddGlosario.addActionListener(panelResultadosListener);
@@ -173,7 +173,7 @@ public class PanelResultados extends PanelSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.DETALLE_VALIDACION_TABLA_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.DETALLE_VALIDACION_TABLA_CABECERA);
 		tblResultados.setModel(new DetalleValidacionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		tblResultados.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());

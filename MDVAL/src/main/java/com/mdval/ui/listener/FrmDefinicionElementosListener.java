@@ -18,7 +18,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class FrmDefinicionElementosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
@@ -33,15 +33,15 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_DEFINICION_ELEMENTOS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			evntBtnModificacion();
 		}
 	}
@@ -56,7 +56,7 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 			populateModel(elementos);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionElementos, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionElementos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showPopup(frmDefinicionElementos, Constants.CMD_ALTA_ELEMENTOS);
+		showPopup(frmDefinicionElementos, MDValConstants.CMD_ALTA_ELEMENTOS);
 	}
 
 	/**
@@ -72,9 +72,9 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	 */
 	private void evntBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO, frmDefinicionElementos.getSeleccionado());
+		params.put(MDValConstants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO, frmDefinicionElementos.getSeleccionado());
 		
-		showPopup(frmDefinicionElementos, Constants.CMD_MODIFICACION_ELEMENTOS, params);
+		showPopup(frmDefinicionElementos, MDValConstants.CMD_MODIFICACION_ELEMENTOS, params);
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 	 * @return lista de glosarios que cumple con el termino buscado
 	 */
 	private List<TipoElemento> buscar(String termino) {
-		TipoElementoService tipoElementoService = (TipoElementoService) getService(Constants.TIPO_ELEMENTO_SERVICE);
+		TipoElementoService tipoElementoService = (TipoElementoService) getService(MDValConstants.TIPO_ELEMENTO_SERVICE);
 		List<TipoElemento> elementos = tipoElementoService.consultarTiposElementos(termino);
 		return elementos;
 	}
@@ -120,7 +120,7 @@ public class FrmDefinicionElementosListener extends ListenerSupport implements A
 			populateModel(elementos);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmDefinicionElementos, Constants.CMD_ERROR, params);
+			showPopup(frmDefinicionElementos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 }

@@ -25,9 +25,9 @@ import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -181,10 +181,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		frmDefinicionGlosariosListener = new FrmDefinicionGlosariosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
-		btnSeleccionar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION);
+		btnSeleccionar.setActionCommand(MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR);
 
 		btnBuscar.addActionListener(frmDefinicionGlosariosListener);
 		btnAlta.addActionListener(frmDefinicionGlosariosListener);
@@ -214,7 +214,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		tblGlosarios.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
 		tblGlosarios.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

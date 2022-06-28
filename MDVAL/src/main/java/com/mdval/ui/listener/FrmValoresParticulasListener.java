@@ -20,7 +20,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * @author federico
@@ -42,15 +42,15 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_VALORES_PARTICULAS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_VALORES_PARTICULAS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_VALORES_PARTICULAS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_VALORES_PARTICULAS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			eventBtnModificacion();
 		}
 	}
@@ -76,7 +76,7 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 			populateModel(tiposParticula);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmValoresParticulas, Constants.CMD_ERROR, params);
+			showPopup(frmValoresParticulas, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void eventBtnAlta() {
-		showFrame(frmValoresParticulas, Constants.CMD_ALTA_VALORES_PARTICULAS);
+		showFrame(frmValoresParticulas, MDValConstants.CMD_ALTA_VALORES_PARTICULAS);
 	}
 
 	/**
@@ -92,9 +92,9 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	 */
 	private void eventBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_VALORES_PARTICULAS_SELECCIONADA, frmValoresParticulas.getSeleccionada());
+		params.put(MDValConstants.FRM_VALORES_PARTICULAS_SELECCIONADA, frmValoresParticulas.getSeleccionada());
 
-		showFrame(frmValoresParticulas, Constants.CMD_MODIFICACION_VALORES_PARTICULAS, params);
+		showFrame(frmValoresParticulas, MDValConstants.CMD_MODIFICACION_VALORES_PARTICULAS, params);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	 * @return lista de tipos que cumple con el termino buscado
 	 */
 	private List<TipoParticula> buscar(BigDecimal codigo, String sDescripcion, String mcaProyecto, String mcaSubproyecto) {
-		TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(Constants.TIPO_PARTICULA_SERVICE);
+		TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(MDValConstants.TIPO_PARTICULA_SERVICE);
 
 		List<TipoParticula> tipos = tipoParticulaService.consultarTiposParticula(codigo, sDescripcion, mcaProyecto,
 				mcaSubproyecto);
@@ -136,11 +136,11 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 		
-		if (Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 		
-		if (Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR.equals(cmd)) {
 			TipoParticula tipoParticula = frmValoresParticulas.getSeleccionada();
 			cargarValores(tipoParticula.getCodigoParticula());
 		}
@@ -155,7 +155,7 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 			populateModelValores(valores);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmValoresParticulas, Constants.CMD_ERROR, params);
+			showPopup(frmValoresParticulas, MDValConstants.CMD_ERROR, params);
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class FrmValoresParticulasListener extends ListenerSupport implements Act
 	 * @return
 	 */
 	private List<ValorParticula> cargarValoresParticulas(BigDecimal codigoParticula) {
-		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(Constants.VALOR_PARTICULA_SERVICE);
+		ValorParticulaService valorParticulaService = (ValorParticulaService) getService(MDValConstants.VALOR_PARTICULA_SERVICE);
 		List<ValorParticula> valores = valorParticulaService.consultarValoresParticula(codigoParticula);
 		return valores;
 	}

@@ -33,10 +33,10 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -306,11 +306,11 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		
 		ListSelectionListener listSelectionListener = new FrmMantenimientoParticulasTableValoresListener(this);
 		
-		btnAltaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
-		btnBajaElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
-		btnModificacionElemento.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION);
-		btnAceptar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR);
+		btnAltaElemento.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA);
+		btnBajaElemento.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_BTN_BAJA);
+		btnModificacionElemento.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION);
+		btnAceptar.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR);
 		
 		btnAltaElemento.addActionListener(frmMantenimientoParticulasListener);
 		btnBajaElemento.addActionListener(frmMantenimientoParticulasListener);
@@ -332,7 +332,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
-			TipoParticula tipoParticula = (TipoParticula) params.get(Constants.FRM_VALORES_PARTICULAS_SELECCIONADA);
+			TipoParticula tipoParticula = (TipoParticula) params.get(MDValConstants.FRM_VALORES_PARTICULAS_SELECCIONADA);
 			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
 			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
 			cmbProyecto.setSelectedItem(AppHelper.normalizeSiNoValueToCmb(tipoParticula.getMcaProyecto()));
@@ -346,8 +346,8 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 			editar = Boolean.TRUE;
 		}
 		else {
-			cmbProyecto.setSelectedItem(Constants.NO);
-			cmbSubproyecto.setSelectedItem(Constants.NO);
+			cmbProyecto.setSelectedItem(MDValConstants.NO);
+			cmbSubproyecto.setSelectedItem(MDValConstants.NO);
 			
 			btnAltaElemento.setEnabled(Boolean.FALSE);
 			btnModificacionElemento.setEnabled(Boolean.FALSE);
@@ -363,7 +363,7 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		tblValoresParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblValoresParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
+		Cabecera cabeceraValoresParticula = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_VALORES_PARTICULAS_CABECERA);
 		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
 		tblValoresParticulas.setColumnWidths(cabeceraValoresParticula);
 		

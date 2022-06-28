@@ -27,9 +27,9 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -268,9 +268,9 @@ public class FrmValoresParticulas extends FrameSupport {
 		frmValoresParticulasListener = new FrmValoresParticulasListener(this);
 		ListSelectionListener listSelectionListenerTiposParticula = new FrmValoresParticulasTableParticulasListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_BUSCAR);
-		btnAltaElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_ALTA);
-		btnModificacionElemento.setActionCommand(Constants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(MDValConstants.FRM_VALORES_PARTICULAS_BTN_BUSCAR);
+		btnAltaElemento.setActionCommand(MDValConstants.FRM_VALORES_PARTICULAS_BTN_ALTA);
+		btnModificacionElemento.setActionCommand(MDValConstants.FRM_VALORES_PARTICULAS_BTN_MODIFICACION);
 		
 		btnBuscar.addActionListener(frmValoresParticulasListener);
 		btnAltaElemento.addActionListener(frmValoresParticulasListener);
@@ -282,8 +282,8 @@ public class FrmValoresParticulas extends FrameSupport {
 
 	@Override
 	protected void initialState() {
-		cmbProyecto.setSelectedItem(Constants.NO);
-		cmbSubproyecto.setSelectedItem(Constants.NO);	
+		cmbProyecto.setSelectedItem(MDValConstants.NO);
+		cmbSubproyecto.setSelectedItem(MDValConstants.NO);	
 		btnBajaElemento.setEnabled(Boolean.FALSE);
 		btnModificacionElemento.setEnabled(Boolean.FALSE);
 	}
@@ -300,11 +300,11 @@ public class FrmValoresParticulas extends FrameSupport {
 		tblValoresParticulas.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblValoresParticulas.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabeceraTiposParticulas = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
+		Cabecera cabeceraTiposParticulas = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
 		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabeceraTiposParticulas.getColumnIdentifiers(), cabeceraTiposParticulas.getColumnClasses()));
 		tblTiposParticula.setColumnWidths(cabeceraTiposParticulas);
 	
-		Cabecera cabeceraValoresParticula = UIHelper.createCabeceraTabla(Constants.FRM_VALORES_PARTICULAS_CABECERA);
+		Cabecera cabeceraValoresParticula = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_VALORES_PARTICULAS_CABECERA);
 		tblValoresParticulas.setModel(new ValoresParticulaTableModel(cabeceraValoresParticula.getColumnIdentifiers(), cabeceraValoresParticula.getColumnClasses()));
 		tblValoresParticulas.setColumnWidths(cabeceraValoresParticula);
 		

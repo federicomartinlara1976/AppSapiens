@@ -30,12 +30,13 @@ import com.mdval.ui.model.TipoElementoComboBoxModel;
 import com.mdval.ui.model.ValidaParticulaTableModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * @author federico
@@ -60,11 +61,11 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscarModelo();
 		}
 		
-		if (Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR.equals(jButton.getActionCommand())) {
 			eventBtnComprobar();
 		}
 	}
@@ -81,7 +82,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 			params.put("nombreModelo", nombreModelo);
 		}
 		
-		frmDefinicionModelos = (FrmDefinicionModelos) UIHelper.createFrame(Constants.CMD_BUSCAR_MODELOS, params);
+		frmDefinicionModelos = (FrmDefinicionModelos) MDValUIHelper.createFrame(MDValConstants.CMD_BUSCAR_MODELOS, params);
 		UIHelper.show(frmDefinicionModelos);
 
 		frmDefinicionModelos.getFrmDefinicionModelosListener().addObservador(this);
@@ -117,7 +118,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 			rellenarCamposElementoNorma(elementosNorma);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmComprobacionNombreElemento, Constants.CMD_ERROR, params);
+			showPopup(frmComprobacionNombreElemento, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -127,7 +128,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	 * @return
 	 */
 	private List<ElementoNorma> obtenerElementosNorma(BigDecimal codigoNorma, BigDecimal codigoElemento) {
-		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(Constants.ELEMENTO_NORMA_SERVICE);
+		ElementoNormaService elementoNormaService = (ElementoNormaService) getService(MDValConstants.ELEMENTO_NORMA_SERVICE);
 		return elementoNormaService.consultarDefinicionElementoNorma(codigoNorma, codigoElemento);
 	}
 	
@@ -154,7 +155,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	 * @return
 	 */
 	private List<ValidaParticula> comprobar(BigDecimal codigoNorma, String codigoProyecto, String codigoSubProyecto, BigDecimal codigoElemento, String nombreElemento) {
-		ValidacionService validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
+		ValidacionService validacionService = (ValidacionService) getService(MDValConstants.VALIDACION_SERVICE);
 		List<ValidaParticula> validaciones = validacionService.validarElemento(codigoNorma, codigoProyecto, codigoSubProyecto, codigoElemento, nombreElemento);
 		return validaciones;
 	}
@@ -176,7 +177,7 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	 */
 	@Override
 	public void onLoad() {
-		TipoElementoService tipoElementoService = (TipoElementoService) getService(Constants.TIPO_ELEMENTO_SERVICE);
+		TipoElementoService tipoElementoService = (TipoElementoService) getService(MDValConstants.TIPO_ELEMENTO_SERVICE);
 		
 		List<TipoElemento> elementos = tipoElementoService.consultarTiposElementos(StringUtils.EMPTY);
 		
@@ -188,9 +189,9 @@ public class FrmComprobacionNombreElementoListener extends ListenerSupport imple
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 		
-		if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
-			ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
-			NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+		if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+			ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
+			NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 			Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 			
 			if (!Objects.isNull(seleccionado)) {

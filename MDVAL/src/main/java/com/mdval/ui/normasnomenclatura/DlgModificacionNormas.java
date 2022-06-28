@@ -30,10 +30,10 @@ import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -317,11 +317,11 @@ public class DlgModificacionNormas extends DialogSupport {
 		DlgModificacionNormasElementoNormaTableListener listSelectionListener = new DlgModificacionNormasElementoNormaTableListener(this);
 		listSelectionListener.addObservador(dlgModificacionNormasListener);
 		
-		btnAltaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
-        btnBajaElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
-        btnModificacionElemento.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO);
-        btnAceptar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR);
-        btnCancelar.setActionCommand(Constants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR);
+		btnAltaElemento.setActionCommand(MDValConstants.DLG_MODIFICACION_NORMAS_BTN_ALTA_ELEMENTO);
+        btnBajaElemento.setActionCommand(MDValConstants.DLG_MODIFICACION_NORMAS_BTN_BAJA_ELEMENTO);
+        btnModificacionElemento.setActionCommand(MDValConstants.DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO);
+        btnAceptar.setActionCommand(MDValConstants.DLG_MODIFICACION_NORMAS_BTN_ACEPTAR);
+        btnCancelar.setActionCommand(MDValConstants.DLG_MODIFICACION_NORMAS_BTN_CANCELAR);
 		
 		btnAltaElemento.addActionListener(dlgModificacionNormasListener);
         btnBajaElemento.addActionListener(dlgModificacionNormasListener);
@@ -349,7 +349,7 @@ public class DlgModificacionNormas extends DialogSupport {
 			editar = Boolean.TRUE;
 		}
 		else {
-			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String cod_usr = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			txtUsuario.setText(cod_usr);
 			
 			editar = Boolean.FALSE;
@@ -363,10 +363,10 @@ public class DlgModificacionNormas extends DialogSupport {
 		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabeceraElementos = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA);
+		Cabecera cabeceraElementos = MDValUIHelper.createCabeceraTabla(MDValConstants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA);
 		tblElementos.setModel(new AltaModificacionNormasElementoNormaTableModel(cabeceraElementos.getColumnIdentifiers(), cabeceraElementos.getColumnClasses()));
 		
-		Cabecera cabeceraParticulas = UIHelper.createCabeceraTabla(Constants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA);
+		Cabecera cabeceraParticulas = MDValUIHelper.createCabeceraTabla(MDValConstants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA);
 		tblParticulas.setModel(new AltaModificacionNormasParticulaNormaTableModel(cabeceraParticulas.getColumnIdentifiers(), cabeceraParticulas.getColumnClasses()));
 	}
 }

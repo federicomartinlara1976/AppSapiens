@@ -17,7 +17,7 @@ import com.mdval.ui.listener.DlgIdentificadorListener;
 import com.mdval.ui.listener.DlgIdentificadorWindowListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -74,7 +74,7 @@ public class DlgIdentificador extends DialogSupport {
         txtIdentificador = new JTextField();
         panelBotones = new JPanel();
         btnAceptar = new JButton();
-        btnAceptar.setActionCommand(Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR);
+        btnAceptar.setActionCommand(MDValConstants.DLG_IDENTIFICADOR_BTN_ACEPTAR);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new FlowLayout());

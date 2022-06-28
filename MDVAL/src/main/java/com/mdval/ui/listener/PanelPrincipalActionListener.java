@@ -33,6 +33,7 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.DetalleValidacionTableModel;
 import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.modelos.FrmDefinicionModelos;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
@@ -40,8 +41,8 @@ import com.mdval.ui.validacionscripts.PanelPrincipal;
 import com.mdval.ui.validacionscripts.PanelResultados;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,23 +59,23 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO.equals(jButton.getActionCommand())) {
 			eventBtnLimpiarTodo();
 		}
 
-		if (Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION.equals(jButton.getActionCommand())) {
 			eventBtnLimpiarValidacion();
 		}
 
-		if (Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
 			eventBtnLoadScript();
 		}
 
-		if (Constants.PANEL_PRINCIPAL_BTN_VALIDAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_PRINCIPAL_BTN_VALIDAR.equals(jButton.getActionCommand())) {
 			eventBtnValidar();
 		}
 
-		if (Constants.PANEL_PRINCIPAL_BTN_SEARCH.equals(jButton.getActionCommand())) {
+		if (MDValConstants.PANEL_PRINCIPAL_BTN_SEARCH.equals(jButton.getActionCommand())) {
 			eventBtnSearch();
 		}
 	}
@@ -144,7 +145,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			limpiarPaneles();
 		} catch (IOException e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelPrincipal.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -154,7 +155,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	private void eventBtnValidar() {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String codUsuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			String pathScript = panelPrincipal.getTxtArchivoScript().getText();
 			
 			if (StringUtils.isNotBlank(pathScript)) {
@@ -203,16 +204,16 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 				ServiceException serviceException = response.getServiceException();
 				if (!Objects.isNull(serviceException)) {
 					Map<String, Object> params = buildWarning(serviceException);
-					showPopup(panelPrincipal.getFrameParent(), Constants.CMD_WARN, params);
+					showPopup(panelPrincipal.getFrameParent(), MDValConstants.CMD_WARN, params);
 				}
 				
 				// Poner en rojo el título de la pestaña si hay elementos que no están en el glosario
-				if (Constants.S.equals(response.getElementosNoGlosario())) {
+				if (MDValConstants.S.equals(response.getElementosNoGlosario())) {
 					panelPrincipal.getJTabbedPane1().setForegroundAt(2, Color.RED);
 				}
 				
 				// Poner en rojo título de la pestaña si hay elementos con errores
-				if (Constants.S.equals(response.getElementosErrores())) {
+				if (MDValConstants.S.equals(response.getElementosErrores())) {
 					panelPrincipal.getJTabbedPane1().setForegroundAt(4, Color.RED);
 				}
 				
@@ -226,7 +227,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelPrincipal.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -239,7 +240,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			params.put("nombreModelo", nombreModelo);
 		}
 
-		frmDefinicionModelos = (FrmDefinicionModelos) UIHelper.createFrame(Constants.CMD_BUSCAR_MODELOS, params);
+		frmDefinicionModelos = (FrmDefinicionModelos) MDValUIHelper.createFrame(MDValConstants.CMD_BUSCAR_MODELOS, params);
 		UIHelper.show(frmDefinicionModelos);
 
 		frmDefinicionModelos.getFrmDefinicionModelosListener().addObservador(this);
@@ -301,7 +302,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	 * @throws Exception
 	 */
 	private ValidaScriptResponse validarScript(ValidaScriptRequest validaScriptRequest) throws Exception {
-		ValidacionService validacionService = (ValidacionService) getService(Constants.VALIDACION_SERVICE);
+		ValidacionService validacionService = (ValidacionService) getService(MDValConstants.VALIDACION_SERVICE);
 		return validacionService.validaScript(validaScriptRequest);
 	}
 
@@ -309,9 +310,9 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 		try {
-			if (Constants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
-				ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
-				NormaService normaService = (NormaService) getService(Constants.NORMA_SERVICE);
+			if (MDValConstants.FRM_DEFINICION_MODELOS_BTN_SELECCIONAR.equals(cmd)) {
+				ModeloService modeloService = (ModeloService) getService(MDValConstants.MODELO_SERVICE);
+				NormaService normaService = (NormaService) getService(MDValConstants.NORMA_SERVICE);
 				Modelo seleccionado = frmDefinicionModelos.getSeleccionado();
 				
 				if (!Objects.isNull(seleccionado)) {
@@ -337,7 +338,7 @@ public class PanelPrincipalActionListener extends PanelPrincipalListener impleme
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(panelPrincipal.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(panelPrincipal.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 }

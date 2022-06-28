@@ -48,7 +48,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showFrame(String cmd) {
-		JFrame frame = UIHelper.createFrame(cmd);
+		JFrame frame = MDValUIHelper.createFrame(cmd);
 		UIHelper.show(frame);
 	}
 	
@@ -57,7 +57,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showFrame(FrameSupport parent, String cmd) {
-		JFrame frame = UIHelper.createFrame(parent, cmd);
+		JFrame frame = MDValUIHelper.createFrame(parent, cmd);
 		UIHelper.show(frame);
 	}
 	
@@ -66,7 +66,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showFrame(String cmd, Map<String, Object> params) {
-		JFrame frame = UIHelper.createFrame(cmd, params);
+		JFrame frame = MDValUIHelper.createFrame(cmd, params);
 		UIHelper.show(frame);
 	}
 	
@@ -76,7 +76,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showFrame(FrameSupport parent, String cmd, Map<String, Object> params) {
-		JFrame frame = UIHelper.createFrame(parent, cmd, params);
+		JFrame frame = MDValUIHelper.createFrame(parent, cmd, params);
 		UIHelper.show(frame);
 	}
 	
@@ -85,7 +85,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showPopup(FrameSupport frame, String cmd) {
-		JDialog dialog = UIHelper.createDialog(frame, cmd);
+		JDialog dialog = MDValUIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
 	}
 	
@@ -95,7 +95,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
-		JDialog dialog = UIHelper.createDialog(frame, cmd, params);
+		JDialog dialog = MDValUIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
 	

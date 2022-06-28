@@ -15,7 +15,7 @@ import com.mdval.ui.normasnomenclatura.FrmDefinicionTiposParticula;
 import com.mdval.ui.normasnomenclatura.FrmMantenimientoParticulas;
 import com.mdval.ui.normasnomenclatura.FrmValoresParticulas;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * Factory method para gestionar la creación centralizada de cuadros emergentes
@@ -55,67 +55,67 @@ public class FrameCreator extends Creator {
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
 		
-		if (Constants.MNU_DEF_GLOSARIOS.equals(option)) {
+		if (MDValConstants.MNU_DEF_GLOSARIOS.equals(option)) {
 			frame = new FrmDefinicionGlosarios();
 		}
 		
-		if (Constants.MNU_DATOS_GLOSARIO_CAMPOS.equals(option)) {
+		if (MDValConstants.MNU_DATOS_GLOSARIO_CAMPOS.equals(option)) {
 			frame = new FrmGlosarioCampos();
 		}
 		
-		if (Constants.MNU_DEF_NORMAS.equals(option)) {
+		if (MDValConstants.MNU_DEF_NORMAS.equals(option)) {
 			frame = new FrmDefinicionNormas();
 		}
 		
-		if (Constants.MNU_DEF_ELEMENTOS.equals(option)) {
+		if (MDValConstants.MNU_DEF_ELEMENTOS.equals(option)) {
 			frame = new FrmDefinicionElementos();
 		}
 		
-		if (Constants.MNU_DEF_ELEMENTOS_NORMA.equals(option)) {
+		if (MDValConstants.MNU_DEF_ELEMENTOS_NORMA.equals(option)) {
 			frame = new FrmDefinicionElementosNorma();
 		}
 		
-		if (Constants.MNU_DEF_TIPOS_PARTICULAS.equals(option)) {
+		if (MDValConstants.MNU_DEF_TIPOS_PARTICULAS.equals(option)) {
 			frame = new FrmDefinicionTiposParticula();
 		}
 		
-		if (Constants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO.equals(option)) {
+		if (MDValConstants.MNU_DEF_PARTICULAS_NORMA_ELEMENTO.equals(option)) {
 			frame = new FrmDefinicionParticulasNormaElemento();
 		}
 		
-		if (Constants.MNU_VALORES_PARTICULAS.equals(option)) {
+		if (MDValConstants.MNU_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmValoresParticulas();
 		}
 		
-		if (Constants.MNU_COMPROBAR_NOMBRE_ELEMENTO.equals(option)) {
+		if (MDValConstants.MNU_COMPROBAR_NOMBRE_ELEMENTO.equals(option)) {
 			frame = new FrmComprobacionNombreElemento();
 		}
 		
-		if (Constants.MNU_MODELOS.equals(option)) {
+		if (MDValConstants.MNU_MODELOS.equals(option)) {
 			frame = new FrmDefinicionModelos();
 		}
 		
-		if (Constants.CMD_ALTA_VALORES_PARTICULAS.equals(option)) {
+		if (MDValConstants.CMD_ALTA_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas(parent);
 		}
 		
-		if (Constants.CMD_BAJA_VALORES_PARTICULAS.equals(option)) {
+		if (MDValConstants.CMD_BAJA_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas();
 		}
 		
-		if (Constants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(option)) {
+		if (MDValConstants.CMD_MODIFICACION_VALORES_PARTICULAS.equals(option)) {
 			frame = new FrmMantenimientoParticulas(parent, params);
 		}
 		
-		if (Constants.CMD_ALTA_MODELOS.equals(option)) {
+		if (MDValConstants.CMD_ALTA_MODELOS.equals(option)) {
 			frame = new FrmMantenimientoModelos(parent);
 		}
 		
-		if (Constants.CMD_MODIFICACION_MODELOS.equals(option)) {
+		if (MDValConstants.CMD_MODIFICACION_MODELOS.equals(option)) {
 			frame = new FrmMantenimientoModelos(parent, params);
 		}
 		
-		if (Constants.CMD_BUSCAR_MODELOS.equals(option)) {
+		if (MDValConstants.CMD_BUSCAR_MODELOS.equals(option)) {
 			frame = new FrmDefinicionModelos(parent, params);
 		}
 		

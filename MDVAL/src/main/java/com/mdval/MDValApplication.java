@@ -14,10 +14,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.mdval.ui.FramePrincipal;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,7 +56,7 @@ public class MDValApplication implements CommandLineRunner {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 
 		LogWrapper.debug(log, "%s", applicationContext.getDisplayName());
-		appGlobalSingleton.setProperty(Constants.SPRING_CONTEXT, applicationContext);
+		appGlobalSingleton.setProperty(MDValConstants.SPRING_CONTEXT, applicationContext);
 
 		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
@@ -77,7 +78,7 @@ public class MDValApplication implements CommandLineRunner {
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
 
-			JDialog dialog = UIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
+			JDialog dialog = MDValUIHelper.createDialog(framePrincipal, MDValConstants.CMD_INICIAR_APP);
 			UIHelper.show(dialog);
 		});
 	}

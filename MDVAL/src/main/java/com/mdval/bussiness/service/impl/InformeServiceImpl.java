@@ -20,7 +20,7 @@ import com.mdval.bussiness.entities.DetValidacion;
 import com.mdval.bussiness.entities.InformeValidacion;
 import com.mdval.bussiness.service.InformeService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.INFORME_SERVICE)
+@Service(MDValConstants.INFORME_SERVICE)
 @Slf4j
 public class InformeServiceImpl extends ServiceSupport implements InformeService {
 
@@ -39,13 +39,13 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     @Override
     @SneakyThrows
     public InformeValidacion generarInformeValidacion(BigDecimal codigoValidacion) {
-        String runSP = createCall("p_generar_informe_val", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_generar_informe_val", MDValConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
-            String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
+            String typeDetValidacion = createCallType(MDValConstants.T_T_DET_VALIDACION);
+            String typeCampoGlosario = createCallType(MDValConstants.T_T_CAMPO_GLOSARIO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoValidacion);

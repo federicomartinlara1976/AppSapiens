@@ -28,9 +28,9 @@ import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.renderer.TipoElementoRenderer;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -346,8 +346,8 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 	protected void initEvents() {
 		FrmComprobacionNombreElementoListener listener = new FrmComprobacionNombreElementoListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR);
-		btnComprobar.setActionCommand(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR);
+		btnBuscar.setActionCommand(MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR);
+		btnComprobar.setActionCommand(MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR);
 
 		btnBuscar.addActionListener(listener);
 		btnComprobar.addActionListener(listener);
@@ -365,7 +365,7 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 		cmbElemento.setRenderer(new TipoElementoRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA);
 		tblValidaParticula.setModel(new ValidaParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		tblValidaParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblValidaParticula.setDefaultRenderer(String.class, new StringRenderer());

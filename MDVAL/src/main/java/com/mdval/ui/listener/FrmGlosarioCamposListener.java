@@ -21,11 +21,12 @@ import com.mdval.ui.glosarios.FrmGlosarioCampos;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableCamposModel;
 import com.mdval.ui.model.DefinicionCamposGlosarioTableModelosModel;
 import com.mdval.ui.utils.ListenerSupport;
+import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * @author federico
@@ -49,27 +50,27 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO.equals(jButton.getActionCommand())) {
 			eventBtnBuscarGlosario();
 		}
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_ALTA.equals(jButton.getActionCommand())) {
 			eventBtnAlta();
 		}
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BAJA.equals(jButton.getActionCommand())) {
 			eventBtnBaja();
 		}
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION.equals(jButton.getActionCommand())) {
 			eventBtnModificacion();
 		}
 
-		if (Constants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR.equals(jButton.getActionCommand())) {
 			eventBtnImprimir();
 		}
 	}
@@ -78,7 +79,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 * 
 	 */
 	private void eventBtnBuscarGlosario() {
-		frmDefinicionGlosarios = (FrmDefinicionGlosarios) UIHelper.createFrame(Constants.MNU_DEF_GLOSARIOS);
+		frmDefinicionGlosarios = (FrmDefinicionGlosarios) MDValUIHelper.createFrame(MDValConstants.MNU_DEF_GLOSARIOS);
 		UIHelper.show(frmDefinicionGlosarios);
 
 		frmDefinicionGlosarios.getFrmDefinicionGlosariosListener().addObservador(this);
@@ -105,7 +106,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			populateModelModelos(modelos);
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(frmGlosarioCampos, Constants.CMD_ERROR, params);
+			showPopup(frmGlosarioCampos, MDValConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -114,9 +115,9 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 */
 	private void eventBtnAlta() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
+		params.put(MDValConstants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
 
-		showPopup(frmGlosarioCampos, Constants.CMD_ALTA_GLOSARIO_CAMPOS, params);
+		showPopup(frmGlosarioCampos, MDValConstants.CMD_ALTA_GLOSARIO_CAMPOS, params);
 	}
 
 	/**
@@ -124,9 +125,9 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 */
 	private void eventBtnBaja() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
+		params.put(MDValConstants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
 
-		showPopup(frmGlosarioCampos, Constants.CMD_BAJA_GLOSARIO_CAMPOS, params);
+		showPopup(frmGlosarioCampos, MDValConstants.CMD_BAJA_GLOSARIO_CAMPOS, params);
 	}
 
 	/**
@@ -134,10 +135,10 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 */
 	private void eventBtnModificacion() {
 		Map<String, Object> params = new HashMap<>();
-		params.put(Constants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
-		params.put(Constants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
+		params.put(MDValConstants.FRM_GLOSARIO_CAMPOS_CAMPO_SELECCIONADO, frmGlosarioCampos.getCampoSeleccionado());
+		params.put(MDValConstants.FRM_GLOSARIO_CAMPOS_GLOSARIO_SELECCIONADO, frmGlosarioCampos.getGlosarioSeleccionado());
 
-		showPopup(frmGlosarioCampos, Constants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
+		showPopup(frmGlosarioCampos, MDValConstants.CMD_MODIFICACION_GLOSARIO_CAMPOS, params);
 	}
 
 	/**
@@ -150,7 +151,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 
 		if (StringUtils.isNotBlank(path)) {
 			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(
-					Constants.EXCEL_GENERATOR_SERVICE);
+					MDValConstants.EXCEL_GENERATOR_SERVICE);
 
 			String codigoGlosario = frmGlosarioCampos.getTxtCodigoGlosario().getText();
 			String nombreGlosario = frmGlosarioCampos.getTxtGlosario().getText();
@@ -174,7 +175,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	private List<CampoGlosario> buscarCampos(BigDecimal codigoGlosario, String tipoDato, String nombreColumna,
 			String mostrarExcepciones) {
 		CamposGlosarioService camposGlosarioService = (CamposGlosarioService) getService(
-				Constants.CAMPOS_GLOSARIO_SERVICE);
+				MDValConstants.CAMPOS_GLOSARIO_SERVICE);
 		List<CampoGlosario> campos = camposGlosarioService.consultarCamposGlosario(codigoGlosario, tipoDato,
 				nombreColumna, mostrarExcepciones);
 		return campos;
@@ -188,7 +189,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	 */
 	private List<Modelo> buscarModelos(BigDecimal codigoGlosario) {
 		CamposGlosarioService camposGlosarioService = (CamposGlosarioService) getService(
-				Constants.CAMPOS_GLOSARIO_SERVICE);
+				MDValConstants.CAMPOS_GLOSARIO_SERVICE);
 		List<Modelo> modelos = camposGlosarioService.consultarModelosGlosario(codigoGlosario);
 		return modelos;
 	}
@@ -227,7 +228,7 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 	public void update(Observable o, Object arg) {
 		String cmd = (String) arg;
 
-		if (Constants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR.equals(cmd)) {
 			if (!Objects.isNull(frmDefinicionGlosarios.getSeleccionado())) {
 				frmGlosarioCampos.setGlosarioSeleccionado(frmDefinicionGlosarios.getSeleccionado());
 				frmGlosarioCampos.getTxtCodigoGlosario().setText(
@@ -252,11 +253,11 @@ public class FrmGlosarioCamposListener extends ListenerSupport implements Action
 			}
 		}
 
-		if (Constants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(cmd)) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 
-		if (Constants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(cmd)) {
+		if (MDValConstants.DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR.equals(cmd)) {
 			eventBtnBuscar();
 		}
 	}

@@ -34,9 +34,9 @@ import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.IntegerRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.MaestrasSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.ui.utils.MDValMaestrasSupport;
+import com.mdval.ui.utils.MDValUIHelper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -316,12 +316,12 @@ public class FrmGlosarioCampos extends FrameSupport {
 		frmGlosarioCamposListener = new FrmGlosarioCamposListener(this);
 		ListSelectionListener listSelectionListener = new FrmGlosarioCamposTableListener(this);
 		
-		btnBuscarGlosario.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
-		btnBuscar.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_ALTA);
-		btnBaja.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_BAJA);
-		btnModificacion.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION);
-		btnImprimir.setActionCommand(Constants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
+		btnBuscarGlosario.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR_GLOSARIO);
+		btnBuscar.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_ALTA);
+		btnBaja.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_BAJA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION);
+		btnImprimir.setActionCommand(MDValConstants.FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR);
 		
 		btnBuscarGlosario.addActionListener(frmGlosarioCamposListener);
 		btnBuscar.addActionListener(frmGlosarioCamposListener);
@@ -341,7 +341,7 @@ public class FrmGlosarioCampos extends FrameSupport {
 		txtCodigoGlosario.setEnabled(Boolean.FALSE);
 		txtGlosario.setEnabled(Boolean.FALSE);
 		cmbTipoDato.setSelectedIndex(0);
-		cmbMostrarExcepciones.setSelectedItem(Constants.SI);
+		cmbMostrarExcepciones.setSelectedItem(MDValConstants.SI);
 		btnBuscar.setEnabled(Boolean.FALSE);
 		btnAlta.setEnabled(Boolean.FALSE);
 		btnBaja.setEnabled(Boolean.FALSE);
@@ -351,17 +351,17 @@ public class FrmGlosarioCampos extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		TipoDatoComboBoxModel cmbTipoDatoModel = MaestrasSupport.getTipoDatoCmbModel(); 
+		TipoDatoComboBoxModel cmbTipoDatoModel = MDValMaestrasSupport.getTipoDatoCmbModel(); 
 		cmbTipoDato.setModel(cmbTipoDatoModel);
 
-		Cabecera cabeceraCampos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
+		Cabecera cabeceraCampos = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA);
 		tblCampos.setModel(new DefinicionCamposGlosarioTableCamposModel(cabeceraCampos.getColumnIdentifiers(), cabeceraCampos.getColumnClasses()));
 		tblCampos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblCampos.setDefaultRenderer(String.class, new StringRenderer());
 		tblCampos.setDefaultRenderer(Integer.class, new IntegerRenderer());
 		tblCampos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		
-		Cabecera cabeceraModelos = UIHelper.createCabeceraTabla(Constants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA);
+		Cabecera cabeceraModelos = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA);
 		tblModelos.setModel(new DefinicionCamposGlosarioTableModelosModel(cabeceraModelos.getColumnIdentifiers(), cabeceraModelos.getColumnClasses()));
 		tblModelos.setDefaultRenderer(Date.class, new DateTimeRenderer());
 		tblModelos.setDefaultRenderer(String.class, new StringRenderer());

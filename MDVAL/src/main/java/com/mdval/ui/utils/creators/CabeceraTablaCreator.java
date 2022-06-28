@@ -18,7 +18,7 @@ import com.mdval.ui.model.cabeceras.SubProyectoCabecera;
 import com.mdval.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdval.ui.model.cabeceras.TablaValidaParticulaCabecera;
 import com.mdval.ui.model.cabeceras.TablaValoresParticulasCabecera;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 /**
  * Factory method para gestionar la creación centralizada de la cabecera de 
@@ -39,63 +39,63 @@ public class CabeceraTablaCreator extends Creator {
 	public Object factoryMethod() {
 		Cabecera cabecera = null;
 	
-		if (Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionGlosariosTablaGlosariosCabecera();
 		}
 		
-		if (Constants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_TABLA_CAMPO_CABECERA.equals(item)) {
 			cabecera = new GlosarioCamposTablaCamposCabecera();
 		}
 		
-		if (Constants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_GLOSARIO_CAMPOS_TABLA_MODELO_CABECERA.equals(item)) {
 			cabecera = new GlosarioCamposTablaModelosCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA.equals(item)) {
 			cabecera = new DefinicionNormasTablaNormasCabecera();
 		}
 		
-		if (Constants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA.equals(item)) {
+		if (MDValConstants.DLG_MODIFICACION_NORMAS_TABLA_ELEMENTOS_CABECERA.equals(item)) {
 			cabecera = new AltaModificacionNormasElementoNormaCabecera();
 		}
 		
-		if (Constants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA.equals(item)) {
+		if (MDValConstants.DLG_MODIFICACION_NORMAS_TABLA_PARTICULAS_CABECERA.equals(item)) {
 			cabecera = new AltaModificacionNormasElementoParticulaCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA.equals(item)) {
 			cabecera = new DefinicionElementosTablaTipoElementoCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_ELEMENTOS_NORMA_TABLA_ELEMENTOS_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_ELEMENTOS_NORMA_TABLA_ELEMENTOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionElementosNormaCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA.equals(item)) {
 			cabecera = new DefinicionTiposParticulaTablaTiposCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_PARTICULAS_NORMA_CABECERA.equals(item)) {
 			cabecera = new DefinicionParticulasNormaElementoCabecera();
 		}
 		
-		if (Constants.FRM_VALORES_PARTICULAS_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_VALORES_PARTICULAS_CABECERA.equals(item)) {
 			cabecera = new TablaValoresParticulasCabecera();
 		}
 		
-		if (Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_DEFINICION_MODELOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaModelosCabecera();
 		}
 		
-		if (Constants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaValidaParticulaCabecera();
 		}
 		
-		if (Constants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA.equals(item)) {
+		if (MDValConstants.FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA.equals(item)) {
 			cabecera = new SubProyectoCabecera();
 		}
 		
-		if (Constants.DETALLE_VALIDACION_TABLA_CABECERA.equals(item)) {
+		if (MDValConstants.DETALLE_VALIDACION_TABLA_CABECERA.equals(item)) {
 			cabecera = new DetalleValidacionCabecera();
 		}
 		

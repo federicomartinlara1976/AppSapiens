@@ -25,8 +25,8 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.ui.utils.MDValUIHelper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -176,9 +176,9 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 		frmDefinicionTiposParticulaListener = new FrmDefinicionTiposParticulaListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionTiposParticulaTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION);
 		
 		btnBuscar.addActionListener(frmDefinicionTiposParticulaListener);
 		btnAlta.addActionListener(frmDefinicionTiposParticulaListener);
@@ -200,7 +200,7 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 		tblTiposParticula.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblTiposParticula.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
 		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

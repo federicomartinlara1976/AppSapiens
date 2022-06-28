@@ -16,7 +16,7 @@ import javax.swing.WindowConstants;
 import com.mdval.ui.listener.DlgExcepcionesListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -70,11 +70,11 @@ public class DlgExcepciones extends DialogSupport {
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		btnAceptar.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-		btnAceptar.setActionCommand(Constants.DLG_EXCEPCIONES_BTN_ACEPTAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_EXCEPCIONES_BTN_ACEPTAR);
 		panelBotones.add(btnAceptar);
 
 		btnCancelar.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-		btnCancelar.setActionCommand(Constants.DLG_EXCEPCIONES_BTN_CANCELAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_EXCEPCIONES_BTN_CANCELAR);
 		panelBotones.add(btnCancelar);
 
 		getContentPane().add(panelBotones, BorderLayout.PAGE_END);

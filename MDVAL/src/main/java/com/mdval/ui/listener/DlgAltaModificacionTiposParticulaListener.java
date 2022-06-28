@@ -18,7 +18,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.SneakyThrows;
 
@@ -44,11 +44,11 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAltaModificacion();
 		}
 
-		if (Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgAltaModificacionTiposParticula.dispose();
 		}
 	}
@@ -57,11 +57,11 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 	private void eventBtnAltaModificacion() {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(Constants.TIPO_PARTICULA_SERVICE);
+			TipoParticulaService tipoParticulaService = (TipoParticulaService) getService(MDValConstants.TIPO_PARTICULA_SERVICE);
 
 			TipoParticula tipoParticula = new TipoParticula();
 			String descripcion = dlgAltaModificacionTiposParticula.getTxtDescripcion().getText();
-			String codUsuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String codUsuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			String mcaProyecto = AppHelper.normalizeValueToCheck(dlgAltaModificacionTiposParticula.getChkDistingueProyecto().isSelected());
 			String mcaSubproyecto = AppHelper.normalizeValueToCheck(dlgAltaModificacionTiposParticula.getChkDistingueSubproyecto().isSelected());
 			
@@ -95,12 +95,12 @@ public class DlgAltaModificacionTiposParticulaListener extends ListenerSupport i
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers(Constants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
+				updateObservers(MDValConstants.DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR);
 				dlgAltaModificacionTiposParticula.dispose();
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(dlgAltaModificacionTiposParticula.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgAltaModificacionTiposParticula.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 }

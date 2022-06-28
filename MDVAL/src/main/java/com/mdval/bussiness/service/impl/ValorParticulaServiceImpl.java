@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.ValorParticula;
 import com.mdval.bussiness.service.ValorParticulaService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.VALOR_PARTICULA_SERVICE)
+@Service(MDValConstants.VALOR_PARTICULA_SERVICE)
 @Slf4j
 public class ValorParticulaServiceImpl extends ServiceSupport implements ValorParticulaService {
 
@@ -37,7 +37,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public void altaValorParticula(ValorParticula valorParticula) {
-        String runSP = createCall("p_alta_valor_particula", Constants.CALL_09_ARGS);
+        String runSP = createCall("p_alta_valor_particula", MDValConstants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -74,7 +74,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public void modificarTipoParticula(ValorParticula valorParticula) {
-        String runSP = createCall("p_alta_valor_particula", Constants.CALL_09_ARGS);
+        String runSP = createCall("p_alta_valor_particula", MDValConstants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -111,12 +111,12 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public List<ValorParticula> consultarValoresParticula(BigDecimal codigoParticula) {
-        String runSP = createCall("p_con_valores_particula", Constants.CALL_04_ARGS);
+        String runSP = createCall("p_con_valores_particula", MDValConstants.CALL_04_ARGS);
         
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
         	
-            String typeValorParticula = createCallType(Constants.T_T_VAL_PARTICULA);
+            String typeValorParticula = createCallType(MDValConstants.T_T_VAL_PARTICULA);
             String typeError = createCallTypeError();
             
             logProcedure(runSP, codigoParticula);
@@ -166,7 +166,7 @@ public class ValorParticulaServiceImpl extends ServiceSupport implements ValorPa
     @Override
     @SneakyThrows
     public void modificarValorParticula(ValorParticula oldValorParticula, ValorParticula newValorParticula) {
-    	String runSP = createCall("p_modificar_valor_particula", Constants.CALL_12_ARGS);
+    	String runSP = createCall("p_modificar_valor_particula", MDValConstants.CALL_12_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

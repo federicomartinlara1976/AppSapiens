@@ -25,8 +25,8 @@ import com.mdval.ui.renderer.BigDecimalRenderer;
 import com.mdval.ui.renderer.DateTimeRenderer;
 import com.mdval.ui.renderer.StringRenderer;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.UIHelper;
-import com.mdval.utils.Constants;
+import com.mdval.ui.utils.MDValUIHelper;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -175,9 +175,9 @@ public class FrmDefinicionElementos extends FrameSupport {
 		frmDefinicionElementosListener = new FrmDefinicionElementosListener(this);
 		ListSelectionListener listSelectionListener = new FrmDefinicionElementosTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR);
-		btnAlta.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_ALTA);
-		btnModificacion.setActionCommand(Constants.FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
+		btnBuscar.setActionCommand(MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR);
+		btnAlta.setActionCommand(MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_ALTA);
+		btnModificacion.setActionCommand(MDValConstants.FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION);
 		
 		btnBuscar.addActionListener(frmDefinicionElementosListener);
 		btnAlta.addActionListener(frmDefinicionElementosListener);
@@ -201,7 +201,7 @@ public class FrmDefinicionElementos extends FrameSupport {
 		tblElementos.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblElementos.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA);
+		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA);
 		tblElementos.setModel(new DefinicionTipoElementoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

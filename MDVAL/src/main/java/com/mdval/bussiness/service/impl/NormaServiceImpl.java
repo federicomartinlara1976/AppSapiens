@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.mdval.bussiness.entities.Norma;
 import com.mdval.bussiness.service.NormaService;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.NORMA_SERVICE)
+@Service(MDValConstants.NORMA_SERVICE)
 @Slf4j
 public class NormaServiceImpl extends ServiceSupport implements NormaService {
 
@@ -37,7 +37,7 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
     @Override
     @SneakyThrows
     public Norma consultaNorma(BigDecimal codigoNorma) {
-        String runSP = createCall("p_consulta_norma", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_consulta_norma", MDValConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -78,12 +78,12 @@ public class NormaServiceImpl extends ServiceSupport implements NormaService {
     @Override
     @SneakyThrows
     public List<Norma> consultaNormas(String descripcionNorma) {
-    	String runSP = createCall("p_consulta_normas", Constants.CALL_04_ARGS);
+    	String runSP = createCall("p_consulta_normas", MDValConstants.CALL_04_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeNorma = createCallType(Constants.T_T_NORMA);
+            String typeNorma = createCallType(MDValConstants.T_T_NORMA);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, descripcionNorma);

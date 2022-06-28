@@ -13,7 +13,7 @@ import com.mdval.ui.DlgIdentificador;
 import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 public class DlgIdentificadorListener extends ListenerSupport implements ActionListener {
 
@@ -28,7 +28,7 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_IDENTIFICADOR_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 	}
@@ -37,7 +37,7 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 		String txtCodUsr = dlgIdentificador.getTxtIdentificador().getText();
 
 		if (StringUtils.isNotBlank(txtCodUsr)) {
-			AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, txtCodUsr);
+			AppGlobalSingleton.getInstance().setProperty(MDValConstants.COD_USR, txtCodUsr);
 
 			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			dlgIdentificador.dispose();

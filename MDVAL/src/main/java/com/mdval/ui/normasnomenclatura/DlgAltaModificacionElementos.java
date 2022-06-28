@@ -19,7 +19,7 @@ import com.mdval.ui.listener.FrmDefinicionElementosListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -230,8 +230,8 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 		DlgAltaModificacionElementosListener actionListener = new DlgAltaModificacionElementosListener(this);
 		actionListener.addObservador(frmDefinicionElementosListener);
 		
-		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -247,7 +247,7 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 		
 		// Se trata de la edición de un registro
 		if (!Objects.isNull(params)) {
-			TipoElemento tipoElemento = (TipoElemento) params.get(Constants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO);
+			TipoElemento tipoElemento = (TipoElemento) params.get(MDValConstants.FRM_DEFINICION_ELEMENTOS_SELECCIONADO);
 			
 			txtCodigo.setText(tipoElemento.getCodigoElemento().toString());
 			txtDescripcion.setText(tipoElemento.getDescripcionElemento());
@@ -257,7 +257,7 @@ public class DlgAltaModificacionElementos extends DialogSupport {
 			editar = Boolean.TRUE;
 		}
 		else {
-			String cod_usr = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String cod_usr = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			txtUsuario.setText(cod_usr);
 			
 			editar = Boolean.FALSE;

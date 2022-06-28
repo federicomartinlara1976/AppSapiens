@@ -20,7 +20,7 @@ import com.mdval.ui.listener.FrmMantenimientoParticulasListener;
 import com.mdval.ui.listener.FrmValoresParticulasListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 
@@ -335,8 +335,8 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 		listener.addObservador(frmMantenimientoParticulasListener);
 		listener.addObservador(frmValoresParticulasListener);
 
-		btnAceptar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDValConstants.DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR);
 
 		btnAceptar.addActionListener(listener);
 		btnCancelar.addActionListener(listener);
@@ -345,11 +345,11 @@ public class DlgMantenimientoValoresParticulas extends DialogSupport {
 	@Override
 	protected void initialState() {
 		if (!Objects.isNull(params)) {
-			tipoParticula = (TipoParticula) params.get(Constants.FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO);
+			tipoParticula = (TipoParticula) params.get(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO);
 			txtCodigo.setText(tipoParticula.getCodigoParticula().toString());
 			txtDescripcion.setText(tipoParticula.getDescripcionParticula());
 			
-			valorParticula = (ValorParticula) params.get(Constants.FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO);
+			valorParticula = (ValorParticula) params.get(MDValConstants.FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO);
 			
 			// Se trata de la edición de un registro
 			if (!Objects.isNull(valorParticula)) {

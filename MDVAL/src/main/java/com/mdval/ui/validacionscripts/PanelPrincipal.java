@@ -31,7 +31,7 @@ import com.mdval.ui.model.SubProyectoComboBoxModel;
 import com.mdval.ui.renderer.SubProyectoRenderer;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.PanelSupport;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -393,11 +393,11 @@ public class PanelPrincipal extends PanelSupport {
 		ActionListener actionListener = new PanelPrincipalActionListener(this);
 		ChangeListener changeListener = new PanelPrincipalChangeListener(this);
 		
-		btnValidar.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_VALIDAR);
-		btnBuscarGlosario.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_SEARCH);
-		btnLoadScript.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
-		btnLimpiarTodo.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
-		btnLimpiarValidacion.setActionCommand(Constants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
+		btnValidar.setActionCommand(MDValConstants.PANEL_PRINCIPAL_BTN_VALIDAR);
+		btnBuscarGlosario.setActionCommand(MDValConstants.PANEL_PRINCIPAL_BTN_SEARCH);
+		btnLoadScript.setActionCommand(MDValConstants.PANEL_PRINCIPAL_BTN_LOAD_SCRIPT);
+		btnLimpiarTodo.setActionCommand(MDValConstants.PANEL_PRINCIPAL_BTN_LIMPIAR_TODO);
+		btnLimpiarValidacion.setActionCommand(MDValConstants.PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION);
 
 		btnValidar.addActionListener(actionListener);
 		btnBuscarGlosario.addActionListener(actionListener);

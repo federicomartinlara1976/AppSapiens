@@ -16,7 +16,7 @@ import com.mdval.ui.utils.ListenerSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.Constants;
+import com.mdval.utils.MDValConstants;
 
 import lombok.SneakyThrows;
 
@@ -42,11 +42,11 @@ public class DlgAltaModificacionElementosListener extends ListenerSupport implem
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAltaModificacion();
 		}
 
-		if (Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDValConstants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgAltaModificacionElementos.dispose();
 		}
 	}
@@ -55,11 +55,11 @@ public class DlgAltaModificacionElementosListener extends ListenerSupport implem
 	private void eventBtnAltaModificacion() {
 		try {
 			AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
-			TipoElementoService tipoElementoService = (TipoElementoService) getService(Constants.TIPO_ELEMENTO_SERVICE);
+			TipoElementoService tipoElementoService = (TipoElementoService) getService(MDValConstants.TIPO_ELEMENTO_SERVICE);
 
 			String descripcion = dlgAltaModificacionElementos.getTxtDescripcion().getText();
 			String sCodigo = dlgAltaModificacionElementos.getTxtCodigo().getText();
-			String usuario = (String) appGlobalSingleton.getProperty(Constants.COD_USR);
+			String usuario = (String) appGlobalSingleton.getProperty(MDValConstants.COD_USR);
 			String msg = StringUtils.EMPTY;
 
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
@@ -84,12 +84,12 @@ public class DlgAltaModificacionElementosListener extends ListenerSupport implem
 				 * En este punto invocar un método que informe a los observadores del patrón
 				 * observer para que invoquen a su método de actualización
 				 */
-				updateObservers(Constants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR);
+				updateObservers(MDValConstants.DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR);
 				dlgAltaModificacionElementos.dispose();
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = buildError(e);
-			showPopup(dlgAltaModificacionElementos.getFrameParent(), Constants.CMD_ERROR, params);
+			showPopup(dlgAltaModificacionElementos.getFrameParent(), MDValConstants.CMD_ERROR, params);
 		}
 	}
 }
